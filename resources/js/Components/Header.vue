@@ -108,8 +108,8 @@
                                     <img src="assets/images/avatars/thumb-3.jpg" alt="">
                                 </div>
                                 <div class="m-l-10">
-                                    <p class="m-b-0 text-dark font-weight-semibold">Marshall Nichols</p>
-                                    <p class="m-b-0 opacity-07">UI/UX Desinger</p>
+                                    <p class="m-b-0 text-dark font-weight-semibold">{{this.$page.props.auth.user.name}}</p>
+                                    <p class="m-b-0 opacity-07">{{this.$page.props.auth.user.email}}</p>
                                 </div>
                             </div>
                         </div>
