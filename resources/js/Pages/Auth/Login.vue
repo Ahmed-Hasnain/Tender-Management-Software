@@ -19,7 +19,7 @@
                                             <i class="prefix-icon anticon anticon-user"></i>
                                             <Input id="email" type="email" v-model="form.email" autofocus
                                             autocomplete="username" placeholder="Enter Email"
-                                            :class="{'is-invalid border border-danger' : form.errors.email}"
+                                            :class="{'is-invalid' : form.errors.email}"
                                             class="form-control"/>
                                         </div>
                                         <error :message="form.errors.email"></error>
@@ -32,7 +32,7 @@
                                             <i class="prefix-icon anticon anticon-lock"></i>
                                             <Input id="password" type="password" v-model="form.password" autocomplete="off" 
                                             placeholder="Enter Password" class="form-control"
-                                            :class="{'is-invalid border border-danger' : form.errors.password}"/>
+                                            :class="{'is-invalid' : form.errors.password}"/>
                                         </div>
                                         <error :message="form.errors.password"></error>
                                     </div>

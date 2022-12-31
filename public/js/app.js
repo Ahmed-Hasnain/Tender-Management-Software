@@ -20627,7 +20627,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "text-sm text-red-600"
+  "class": "text-danger"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.message), 1 /* TEXT */)], 512 /* NEED_PATCH */)), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $props.message]]);
@@ -21072,7 +21072,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     autocomplete: "username",
     placeholder: "Enter Email",
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
-      'is-invalid border border-danger': $data.form.errors.email
+      'is-invalid': $data.form.errors.email
     }, "form-control"])
   }, null, 8 /* PROPS */, ["modelValue", "class"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
     message: $data.form.errors.email
@@ -21086,7 +21086,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     autocomplete: "off",
     placeholder: "Enter Password",
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", {
-      'is-invalid border border-danger': $data.form.errors.password
+      'is-invalid': $data.form.errors.password
     }])
   }, null, 8 /* PROPS */, ["modelValue", "class"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
     message: $data.form.errors.password
