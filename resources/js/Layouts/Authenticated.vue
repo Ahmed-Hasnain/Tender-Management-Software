@@ -1,110 +1,216 @@
-<script setup>
-import { ref } from 'vue';
-import BreezeApplicationLogo from '@/Components/ApplicationLogo.vue';
-import BreezeDropdown from '@/Components/Dropdown.vue';
-import BreezeDropdownLink from '@/Components/DropdownLink.vue';
-import BreezeNavLink from '@/Components/NavLink.vue';
-import BreezeResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/inertia-vue3';
-
-const showingNavigationDropdown = ref(false);
-</script>
-
 <template>
-    <div>
-        <div class="min-h-screen bg-gray-100">
-            <nav class="bg-white border-b border-gray-100">
-                <!-- Primary Navigation Menu -->
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex justify-between h-16">
-                        <div class="flex">
-                            <!-- Logo -->
-                            <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
-                                    <BreezeApplicationLogo class="block h-9 w-auto" />
-                                </Link>
-                            </div>
 
-                            <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
-                                </BreezeNavLink>
-                            </div>
-                        </div>
+    <Head title="Welcome" />
 
-                        <div class="hidden sm:flex sm:items-center sm:ml-6">
-                            <!-- Settings Dropdown -->
-                            <div class="ml-3 relative">
-                                <BreezeDropdown align="right" width="48">
-                                    <template #trigger>
-                                        <span class="inline-flex rounded-md">
-                                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                                {{ $page.props.auth.user.name }}
+    <div class="app">
+        <div class="layout">
+            <!-- Header START -->
+            <my-header></my-header>
+            <!-- Header END -->
+            <!-- Side Nav START -->
+            <my-sidebar></my-sidebar>
+            <!-- Side Nav END -->
+            <!-- Page Container START -->
+            <div class="page-container">
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <slot />
+                </div>
+                <!-- Content Wrapper END -->
+                <!-- Footer START -->
+                <my-footer></my-footer>
+                <!-- Footer END -->
+            </div>
+            <!-- Page Container END -->
 
-                                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                                </svg>
-                                            </button>
-                                        </span>
-                                    </template>
-
-                                    <template #content>
-                                        <BreezeDropdownLink :href="route('logout')" method="post" as="button">
-                                            Log Out
-                                        </BreezeDropdownLink>
-                                    </template>
-                                </BreezeDropdown>
-                            </div>
-                        </div>
-
-                        <!-- Hamburger -->
-                        <div class="-mr-2 flex items-center sm:hidden">
-                            <button @click="showingNavigationDropdown = ! showingNavigationDropdown" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                                <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                    <path :class="{'hidden': showingNavigationDropdown, 'inline-flex': ! showingNavigationDropdown }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                                    <path :class="{'hidden': ! showingNavigationDropdown, 'inline-flex': showingNavigationDropdown }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
+            <!-- Search Start-->
+            <!-- <div class="modal modal-left fade search" id="search-drawer">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header justify-content-between align-items-center">
+                            <h5 class="modal-title">Search</h5>
+                            <button type="button" class="close" data-dismiss="modal">
+                                <i class="anticon anticon-close"></i>
                             </button>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Responsive Navigation Menu -->
-                <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
-                    <div class="pt-2 pb-3 space-y-1">
-                        <BreezeResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
-                        </BreezeResponsiveNavLink>
-                    </div>
-
-                    <!-- Responsive Settings Options -->
-                    <div class="pt-4 pb-1 border-t border-gray-200">
-                        <div class="px-4">
-                            <div class="font-medium text-base text-gray-800">{{ $page.props.auth.user.name }}</div>
-                            <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user.email }}</div>
+                        <div class="modal-body scrollable">
+                            <div class="input-affix">
+                                <i class="prefix-icon anticon anticon-search"></i>
+                                <input type="text" class="form-control" placeholder="Search">
+                            </div>
+                            <div class="m-t-30">
+                                <h5 class="m-b-20">Files</h5>
+                                <div class="d-flex m-b-30">
+                                    <div class="avatar avatar-cyan avatar-icon">
+                                        <i class="anticon anticon-file-excel"></i>
+                                    </div>
+                                    <div class="m-l-15">
+                                        <a href="javascript:void(0);"
+                                            class="text-dark m-b-0 font-weight-semibold">Quater Report.exl</a>
+                                        <p class="m-b-0 text-muted font-size-13">by Finance</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex m-b-30">
+                                    <div class="avatar avatar-blue avatar-icon">
+                                        <i class="anticon anticon-file-word"></i>
+                                    </div>
+                                    <div class="m-l-15">
+                                        <a href="javascript:void(0);"
+                                            class="text-dark m-b-0 font-weight-semibold">Documentaion.docx</a>
+                                        <p class="m-b-0 text-muted font-size-13">by Developers</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex m-b-30">
+                                    <div class="avatar avatar-purple avatar-icon">
+                                        <i class="anticon anticon-file-text"></i>
+                                    </div>
+                                    <div class="m-l-15">
+                                        <a href="javascript:void(0);"
+                                            class="text-dark m-b-0 font-weight-semibold">Recipe.txt</a>
+                                        <p class="m-b-0 text-muted font-size-13">by The Chef</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex m-b-30">
+                                    <div class="avatar avatar-red avatar-icon">
+                                        <i class="anticon anticon-file-pdf"></i>
+                                    </div>
+                                    <div class="m-l-15">
+                                        <a href="javascript:void(0);"
+                                            class="text-dark m-b-0 font-weight-semibold">Project Requirement.pdf</a>
+                                        <p class="m-b-0 text-muted font-size-13">by Project Manager</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-t-30">
+                                <h5 class="m-b-20">Members</h5>
+                                <div class="d-flex m-b-30">
+                                    <div class="avatar avatar-image">
+                                        <img src="assets/images/avatars/thumb-1.jpg" alt="">
+                                    </div>
+                                    <div class="m-l-15">
+                                        <a href="javascript:void(0);" class="text-dark m-b-0 font-weight-semibold">Erin
+                                            Gonzales</a>
+                                        <p class="m-b-0 text-muted font-size-13">UI/UX Designer</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex m-b-30">
+                                    <div class="avatar avatar-image">
+                                        <img src="assets/images/avatars/thumb-2.jpg" alt="">
+                                    </div>
+                                    <div class="m-l-15">
+                                        <a href="javascript:void(0);"
+                                            class="text-dark m-b-0 font-weight-semibold">Darryl Day</a>
+                                        <p class="m-b-0 text-muted font-size-13">Software Engineer</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex m-b-30">
+                                    <div class="avatar avatar-image">
+                                        <img src="assets/images/avatars/thumb-3.jpg" alt="">
+                                    </div>
+                                    <div class="m-l-15">
+                                        <a href="javascript:void(0);"
+                                            class="text-dark m-b-0 font-weight-semibold">Marshall Nichols</a>
+                                        <p class="m-b-0 text-muted font-size-13">Data Analyst</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-t-30">
+                                <h5 class="m-b-20">News</h5>
+                                <div class="d-flex m-b-30">
+                                    <div class="avatar avatar-image">
+                                        <img src="assets/images/others/img-1.jpg" alt="">
+                                    </div>
+                                    <div class="m-l-15">
+                                        <a href="javascript:void(0);" class="text-dark m-b-0 font-weight-semibold">5
+                                            Best Handwriting Fonts</a>
+                                        <p class="m-b-0 text-muted font-size-13">
+                                            <i class="anticon anticon-clock-circle"></i>
+                                            <span class="m-l-5">25 Nov 2018</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                </div>
+            </div> -->
+            <!-- Search End-->
 
-                        <div class="mt-3 space-y-1">
-                            <BreezeResponsiveNavLink :href="route('logout')" method="post" as="button">
-                                Log Out
-                            </BreezeResponsiveNavLink>
+            <!-- Quick View START -->
+            <!-- <div class="modal modal-right fade quick-view" id="quick-view">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header justify-content-between align-items-center">
+                            <h5 class="modal-title">Theme Config</h5>
+                        </div>
+                        <div class="modal-body scrollable">
+                            <div class="m-b-30">
+                                <h5 class="m-b-0">Header Color</h5>
+                                <p>Config header background color</p>
+                                <div class="theme-configurator d-flex m-t-10">
+                                    <div class="radio">
+                                        <input id="header-default" name="header-theme" type="radio" checked
+                                            value="default">
+                                        <label for="header-default"></label>
+                                    </div>
+                                    <div class="radio">
+                                        <input id="header-primary" name="header-theme" type="radio" value="primary">
+                                        <label for="header-primary"></label>
+                                    </div>
+                                    <div class="radio">
+                                        <input id="header-success" name="header-theme" type="radio" value="success">
+                                        <label for="header-success"></label>
+                                    </div>
+                                    <div class="radio">
+                                        <input id="header-secondary" name="header-theme" type="radio" value="secondary">
+                                        <label for="header-secondary"></label>
+                                    </div>
+                                    <div class="radio">
+                                        <input id="header-danger" name="header-theme" type="radio" value="danger">
+                                        <label for="header-danger"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div>
+                                <h5 class="m-b-0">Side Nav Dark</h5>
+                                <p>Change Side Nav to dark</p>
+                                <div class="switch d-inline">
+                                    <input type="checkbox" name="side-nav-theme-toogle" id="side-nav-theme-toogle">
+                                    <label for="side-nav-theme-toogle"></label>
+                                </div>
+                            </div>
+                            <hr>
+                            <div>
+                                <h5 class="m-b-0">Folded Menu</h5>
+                                <p>Toggle Folded Menu</p>
+                                <div class="switch d-inline">
+                                    <input type="checkbox" name="side-nav-fold-toogle" id="side-nav-fold-toogle">
+                                    <label for="side-nav-fold-toogle"></label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </nav>
-
-            <!-- Page Heading -->
-            <header class="bg-white shadow" v-if="$slots.header">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <slot name="header" />
-                </div>
-            </header>
-
-            <!-- Page Content -->
-            <main>
-                <slot />
-            </main>
+            </div> -->
+            <!-- Quick View END -->
         </div>
     </div>
 </template>
+
+<script>
+    import myFooter from '../Components/Footer.vue'
+    import myHeader from '../Components/Header.vue'
+    import mySidebar from '../Components/Sidebar.vue'
+export default {
+    components: {
+        myFooter,
+        myHeader,
+        mySidebar,
+    }
+}
+</script>
+
+<style>
+
+</style>
