@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <link href="{{asset('assets/css/app.min.css')}}" rel="stylesheet">
+        <link href="{{asset('assets/vendors/datatables/dataTables.bootstrap.min.css')}}" rel="stylesheet">
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
@@ -25,10 +26,12 @@
         <!-- Core Vendors JS -->
         <script src="{{asset('assets/js/vendors.min.js')}}"></script>
         <!-- page js -->
-        <script src="assets/vendors/chartjs/Chart.min.js"></script>
-        <script src="assets/js/pages/dashboard-default.js"></script>
+        <script src="{{asset('assets/vendors/chartjs/Chart.min.js')}}"></script>
+        <script src="{{asset('assets/js/pages/dashboard-default.js')}}"></script>
         <!-- Core JS -->
         <script src="{{asset('assets/js/app.min.js')}}"></script>
+        <script src="{{asset('assets/vendors/datatables/jquery.dataTables.min.js')}}"></script>
+        <script src="{{asset('assets/vendors/datatables/dataTables.bootstrap.min.js')}}"></script>
 
         @env ('local')
             <script src="http://localhost:8080/js/bundle.js"></script>

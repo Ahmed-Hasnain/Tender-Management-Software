@@ -1,5 +1,5 @@
 require('./bootstrap');
-import 'bootstrap/dist/css/bootstrap.css'
+// import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import { createApp, h } from 'vue';
@@ -19,4 +19,4 @@ createInertiaApp({
     },
 });
 
-InertiaProgress.init({ color: '#4B5563' });
+InertiaProgress.init({ color: '#13E1FE' });

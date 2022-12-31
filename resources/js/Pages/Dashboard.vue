@@ -72,6 +72,7 @@ import { Head } from '@inertiajs/inertia-vue3';
 export default {
     components: {
         AuthenticatedLayout,
+        Head
     }
 }
 </script>
