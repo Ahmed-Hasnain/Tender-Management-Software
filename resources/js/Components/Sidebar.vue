@@ -13,10 +13,10 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="active">
+                        <li :class="{ 'active': $page.component === 'Dashboard' }">
                             <Link :href="route('dashboard')">Default</Link>
                         </li>
-                        <li>
+                        <li :class="{ 'active': $page.component === 'Dashboard2' }">
                             <Link :href="route('dashboard2')">CRM</Link>
                         </li>
                     </ul>
