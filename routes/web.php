@@ -16,16 +16,19 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return redirect()->route('dashboard');
 });
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/dashboard2', function () {
+    return Inertia::render('Dashboard2');
+})->middleware(['auth', 'verified'])->name('dashboard2');
+
+Route::get('/users', function () {
+    return Inertia::render('Users/Index');
+})->middleware(['auth', 'verified'])->name('user_index');
 
 require __DIR__.'/auth.php';

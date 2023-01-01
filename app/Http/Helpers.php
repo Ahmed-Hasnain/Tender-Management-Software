@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * Set flash messages
+ */
+function flash($message, $style = 'info')
+{
+    session()->flash('flash.banner', $message);
+    session()->flash('flash.bannerStyle', $style);
+}
+
+/**
+ * Get logged in user role
+ * @return object
+ */
+function getRole($user)
+{
+    return $user && $user->roles ? $user->roles[0] : NULL;
+}
+
+/**
+ * Get role permissions
+ * @return object
+ */
+function getPermissionsName($role)
+{
+    return $role->permissions()->pluck('name');
+}
