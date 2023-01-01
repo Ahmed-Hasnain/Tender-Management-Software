@@ -14,6 +14,7 @@
             <div class="page-container">
                 <!-- Content Wrapper START -->
                 <div class="main-content">
+                    <my-banner></my-banner>
                     <slot />
                 </div>
                 <!-- Content Wrapper END -->
@@ -202,11 +203,13 @@
     import myFooter from '../Components/Footer.vue'
     import myHeader from '../Components/Header.vue'
     import mySidebar from '../Components/Sidebar.vue'
+    import myBanner from '../Components/banner.vue'
 export default {
     components: {
         myFooter,
         myHeader,
         mySidebar,
+        myBanner
     }
 }
 </script>
