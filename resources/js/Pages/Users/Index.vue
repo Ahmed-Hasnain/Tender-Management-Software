@@ -14,6 +14,9 @@
             </div>
         </div> -->
         <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">All Users</h4>
+            </div>
             <div class="card-body">
                 <!-- <div class="row m-b-30">
                     <div class="col-lg-8">
