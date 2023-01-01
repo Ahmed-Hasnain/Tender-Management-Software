@@ -19918,6 +19918,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_Header_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Components/Header.vue */ "./resources/js/Components/Header.vue");
 /* harmony import */ var _Components_Sidebar_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Components/Sidebar.vue */ "./resources/js/Components/Sidebar.vue");
 /* harmony import */ var _Components_banner_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Components/banner.vue */ "./resources/js/Components/banner.vue");
+/* harmony import */ var _Mixins_Helpers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Mixins/Helpers */ "./resources/js/Mixins/Helpers.js");
+
 
 
 
@@ -19928,7 +19930,11 @@ __webpack_require__.r(__webpack_exports__);
     myHeader: _Components_Header_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     mySidebar: _Components_Sidebar_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     myBanner: _Components_banner_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
-  }
+  },
+  mounted: function mounted() {
+    // console.log(this.checkUserPermissions('view_administrator'));
+  },
+  mixins: [_Mixins_Helpers__WEBPACK_IMPORTED_MODULE_4__["default"]]
 });
 
 /***/ }),
@@ -21962,6 +21968,46 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1 /* STABLE */
   })], 64 /* STABLE_FRAGMENT */);
 }
+
+/***/ }),
+
+/***/ "./resources/js/Mixins/Helpers.js":
+/*!****************************************!*\
+  !*** ./resources/js/Mixins/Helpers.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  methods: {
+    // check user permissions
+    checkUserPermissions: function checkUserPermissions(value) {
+      var permissionsArray = this.$page.props.auth.user.permissions;
+
+      // for single record
+      if (typeof value == 'string') {
+        return permissionsArray.includes(value);
+      }
+
+      // for array of permissions
+      if (_typeof(value) == 'object') {
+        var result = false;
+        value.forEach(function (element) {
+          var response = permissionsArray.includes(element);
+          if (response) {
+            return result = response;
+          }
+        });
+        return result;
+      }
+    }
+  }
+});
 
 /***/ }),
 

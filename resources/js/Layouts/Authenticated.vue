@@ -204,13 +204,18 @@
     import myHeader from '../Components/Header.vue'
     import mySidebar from '../Components/Sidebar.vue'
     import myBanner from '../Components/banner.vue'
+    import Helpers from '../Mixins/Helpers'
 export default {
     components: {
         myFooter,
         myHeader,
         mySidebar,
         myBanner
-    }
+    },
+    mounted(){
+        // console.log(this.checkUserPermissions('view_administrator'));
+    },
+    mixins: [Helpers]
 }
 </script>
 
