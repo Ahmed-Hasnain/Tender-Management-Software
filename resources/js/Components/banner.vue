@@ -1,6 +1,6 @@
 <template>
     <div class="alert" :class="`alert-${style}`" v-if="message">
-        This is a success alert—check it out!
+        {{ message }}
     </div>
 </template>
 

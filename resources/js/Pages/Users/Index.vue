@@ -2,17 +2,6 @@
 
     <Head title="Users" />
     <AuthenticatedLayout>
-        <!-- <div class="page-header">
-            <h2 class="header-title">Orders List</h2>
-            <div class="header-sub-title">
-                <nav class="breadcrumb breadcrumb-dash">
-                    <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
-                    <a class="breadcrumb-item" href="#">Apps</a>
-                    <a class="breadcrumb-item" href="#">E-commerce</a>
-                    <span class="breadcrumb-item active">Orders List</span>
-                </nav>
-            </div>
-        </div> -->
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">All Users</h4>
@@ -65,68 +54,39 @@
                                     <thead>
                                         <tr role="row">
                                             <th style="width: 70px;">ID</th>
-                                            <th style="width: 225.188px;">Customer</th>
-                                            <th style="width: 128.688px;">Date</th>
-                                            <th style="width: 107.8px;">Amount</th>
+                                            <th style="width: 225.188px;">Name</th>
+                                            <th style="width: 128.688px;">Email</th>
+                                            <th style="width: 107.8px;">Phone#</th>
                                             <th style="width: 128.738px;">Status</th>
                                             <th class="text-right" style="width: 96.0125px;">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr role="row" class="odd">
+                                        <tr role="row" class="odd" v-for="(user,index) in allUsers.data" :key="index">
                                             <td>
-                                                #5331
+                                                {{ user.id }}
                                             </td>
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="avatar avatar-image avatar-sm m-r-10">
                                                         <img src="assets/images/avatars/thumb-1.jpg" alt="">
                                                     </div>
-                                                    <h6 class="m-b-0">Erin Gonzales</h6>
+                                                    <h6 class="m-b-0">{{user.name}}</h6>
                                                 </div>
                                             </td>
-                                            <td>8 May 2019</td>
-                                            <td>$137.00</td>
+                                            <td>{{ user.email }}</td>
+                                            <td>{{ user.phone }}</td>
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="badge badge-success badge-dot m-r-10"></div>
-                                                    <div>Approved</div>
+                                                    <div class="text-capitalize">{{user.status}}</div>
                                                 </div>
                                             </td>
                                             <td class="text-right">
                                                 <button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
                                                     <i class="anticon anticon-edit"></i>
                                                 </button>
-                                                <button class="btn btn-icon btn-hover btn-sm btn-rounded">
-                                                    <i class="anticon anticon-delete"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr role="row" class="even">
-                                            <td>
-                                                #5375
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="avatar avatar-image avatar-sm m-r-10">
-                                                        <img src="assets/images/avatars/thumb-2.jpg" alt="">
-                                                    </div>
-                                                    <h6 class="m-b-0">Darryl Day</h6>
-                                                </div>
-                                            </td>
-                                            <td>6 May 2019</td>
-                                            <td>$322.00</td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="badge badge-success badge-dot m-r-10"></div>
-                                                    <div>Approved</div>
-                                                </div>
-                                            </td>
-                                            <td class="text-right">
-                                                <button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
-                                                    <i class="anticon anticon-edit"></i>
-                                                </button>
-                                                <button class="btn btn-icon btn-hover btn-sm btn-rounded">
+                                                <button @click="onDelete(user.id)" class="btn btn-icon btn-hover btn-sm btn-rounded">
                                                     <i class="anticon anticon-delete"></i>
                                                 </button>
                                             </td>
@@ -171,6 +131,45 @@ export default {
     components: {
         AuthenticatedLayout,
         Head
+    },
+    props: ['users'],
+    data() {
+        return{
+            allUsers: this.users
+        }
+    },
+    methods: {
+        onDelete($id) {
+            this.swal.fire({
+                title: "",
+                html: "<h1 class='text-lg text-gray-800 mb-1'>Delete Record</h1><p class='text-base'>Are you sure want to delete this record?</p>",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: "Delete Record",
+                customClass: {
+                confirmButton: 'danger'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.$inertia.delete(route('dashboard.user.destroy', $id), {
+                        preserveScroll: false,
+                        onSuccess: () => {},
+                        onError: errors => {console.log(errors);}
+                    })
+                }
+            })
+        }
+    },
+    watch: {
+        users:{
+            handler(users) {
+                this.allUsers = users
+            },
+            deep: true,
+        },
+    },
+    mounted(){
+        console.log(this.users.data) 
     }
 }
 </script>

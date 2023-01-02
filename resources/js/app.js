@@ -8,15 +8,27 @@ import { InertiaProgress } from '@inertiajs/progress';
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
+// Sweet Alert
+window.swal = require('sweetalert2');
+window.toast = swal.mixin({
+    toast: true,
+    position: 'bottom-end',
+    showConfirmButton: false,
+    timer: 3000,
+    customClass: {
+        title: 'text-xl'
+    }
+});
+
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => require(`./Pages/${name}.vue`),
     setup({ el, app, props, plugin }) {
-        return createApp({ render: () => h(app, props) })
+        const appVue = createApp({ render: () => h(app, props) })
             .use(plugin)
-            .mixin({ methods: { route } })
-            .mount(el);
+            .mixin({ methods: { route } });
+            appVue.config.globalProperties.swal = window.swal;
+            appVue.mount(el);
     },
 });
-
 InertiaProgress.init({ color: '#13E1FE' });
