@@ -7,44 +7,19 @@
                 <h4 class="card-title">All Users</h4>
             </div>
             <div class="card-body">
-                <!-- <div class="row m-b-30">
-                    <div class="col-lg-8">
-                        <div class="d-md-flex">
-                            <div class="m-b-10">
-                                <select class="custom-select" style="min-width: 180px;">
-                                    <option selected="">Status</option>
-                                    <option value="all">All</option>
-                                    <option value="approved">Approved</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="rejected">Rejected</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 text-right">
-                        <button class="btn btn-primary">
-                            <i class="anticon anticon-file-excel m-r-5"></i>
-                            <span>Export</span>
-                        </button>
-                    </div>
-                </div> -->
                 <div class="table-responsive">
                     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
-                                <div class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select
-                                            name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"
-                                            class="custom-select custom-select-sm form-control form-control-sm">
-                                            <option value="10">10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                        </select> entries</label></div>
+                                <button class="btn btn-primary btn-sm" @click="addUser()">
+                                    <i class="anticon anticon-user-add"></i>
+                                    <span>Add User</span>
+                                </button>
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <div id="DataTables_Table_0_filter" class="dataTables_filter"><label>Search:<input
-                                            type="search" class="form-control form-control-sm" placeholder=""
-                                            aria-controls="DataTables_Table_0"></label></div>
+                                type="search" class="form-control form-control-sm" placeholder=""
+                                aria-controls="DataTables_Table_0"></label></div>
                             </div>
                         </div>
                         <div class="row">
@@ -83,7 +58,7 @@
                                                 </div>
                                             </td>
                                             <td class="text-right">
-                                                <button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
+                                                <button @click="editUser(user.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
                                                     <i class="anticon anticon-edit"></i>
                                                 </button>
                                                 <button @click="onDelete(user.id)" class="btn btn-icon btn-hover btn-sm btn-rounded">
@@ -139,6 +114,18 @@ export default {
         }
     },
     methods: {
+        addUser(){
+            this.$inertia.get(route('dashboard.user.create'), {
+                onSuccess: () => {},
+                onError: errors => {console.log(errors);}
+            })
+        },
+        editUser($id){
+            this.$inertia.get(route('dashboard.user.edit', $id), {
+                onSuccess: () => {},
+                onError: errors => {console.log(errors);}
+            })
+        },
         onDelete($id) {
             this.swal.fire({
                 title: "",
