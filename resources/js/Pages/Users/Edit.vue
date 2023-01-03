@@ -85,8 +85,8 @@
                             <div class="form-group col-md-11">
                                 <label class="font-weight-semibold" for="newPassword">New Password:</label>
                                 <input type="password" class="form-control" id="newPassword" placeholder="New Password" v-model="form.password" :class="{'is-invalid' : form.errors.password}">
+                                <error :message="form.errors.password"></error>
                             </div>
-                            <error :message="form.errors.password"></error>
                             <div class="form-group col-md-1 ">
                                 <button class="btn btn-primary m-t-30 " :disabled="form.processing" :classes="form.processing ? 'btn btn-primary is-loading m-r-5' : 'btn btn-primary m-t-30'">Submit</button>
                             </div>
