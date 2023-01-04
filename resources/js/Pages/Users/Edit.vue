@@ -1,8 +1,7 @@
 <template>
-
     <Head title="Add User" />
     <AuthenticatedLayout>
-        <form v-if="form" @submit.prevent="submit" >
+        <form v-if="form" @submit.prevent="submit" enctype="multipart/form-data">
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Basic Infomation</h4>
@@ -10,18 +9,22 @@
                 <div class="card-body">
                     <div class="media align-items-center">
                         <div class="avatar avatar-image  m-h-10 m-r-15" style="height: 80px; width: 80px">
-                            <img src="assets/images/avatars/thumb-3.jpg" alt="">
+                            <img :src="form.avatar" alt="">
                         </div>
                         <div class="m-l-20 m-r-20">
-                            <h5 class="m-b-5 font-size-18">Change Avatar</h5>
+                            <!-- <h5 class="m-b-5 font-size-18">Change Avatar</h5>
                             <p class="opacity-07 font-size-13 m-b-0">
                                 Recommended Dimensions: <br>
                                 120x120 Max fil size: 5MB
-                            </p>
+                            </p> -->
                         </div>
-                        <div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" @input="uploadImage($event)">
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
+                        <!-- <div>
                             <button class="btn btn-tone btn-primary">Upload</button>
-                        </div>
+                        </div> -->
                     </div>
                     <hr class="m-v-25">
                     <div>
@@ -50,7 +53,7 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label class="font-weight-semibold" for="language">Type</label>
-                                <select id="language" class="form-control" v-model="form.user_type" :class="{'is-invalid' : form.errors.user_type}" :disabled="form.id == $page.props.user.id">
+                                <select id="language" class="form-control" v-model="form.user_type" :class="{'is-invalid' : form.errors.user_type}" :disabled="form.id && form.id == $page.props.user.id">
                                     <option value="admin">Admin</option>
                                     <option value="manager">Manager</option>
                                 </select>
@@ -134,6 +137,9 @@ export default {
                 })
             }
         },  
+        uploadImage(event){
+            this.form.avatar = event.target.files[0]
+        }
     },
     mounted() {
         this.form = useForm({
@@ -146,6 +152,7 @@ export default {
             user_type: this.singleUser ? this.singleUser.user_type : 'admin',
             status: this.singleUser ? this.singleUser.status : 'active',
             password: this.singleUser ? this.singleUser.password : null,
+            avatar: this.singleUser ? this.singleUser.avatar : null,
         })
     }
 }

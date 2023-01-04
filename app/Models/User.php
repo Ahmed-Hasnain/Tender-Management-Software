@@ -29,6 +29,7 @@ class User extends Authenticatable
         'about',
         'dob',
         'status',
+        'avatar'
     ];
 
     /**
@@ -55,5 +56,20 @@ class User extends Authenticatable
         return new Attribute(
             set: fn ($value) => Hash::make($value),
         );
+    }
+
+    protected function avatar(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => $this->setImage($value),
+        );
+    }
+
+    private function setImage($image){
+        if ($image) {
+            return asset('storage/'.$image);
+        } else {
+            return asset('storage/images/thumbnail.jpg');
+        }
     }
 }

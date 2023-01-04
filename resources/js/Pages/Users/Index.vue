@@ -44,7 +44,7 @@
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="avatar avatar-image avatar-sm m-r-10">
-                                                        <img src="assets/images/avatars/thumb-1.jpg" alt="">
+                                                        <img :src="user.avatar" alt="">
                                                     </div>
                                                     <h6 class="m-b-0">{{user.name}}</h6>
                                                 </div>

@@ -61,7 +61,12 @@ class UserController extends Controller
     {
         try{
             DB::beginTransaction();
-            $user = User::create($request->all());
+            if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+                $image = $request->file('avatar')->store('images', 'public');
+            }
+            $user = User::create($request->except('avatar'));
+            $user->avatar = $image;
+            $user->save();
             DB::commit();
             flash('User Added Sucessfully!', 'success');
             return \redirect(route('dashboard.user.index'));          
