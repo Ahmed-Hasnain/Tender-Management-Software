@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 class UserObserver
 {
@@ -24,8 +25,13 @@ class UserObserver
      * @return void
      */
     public function updated(User $user)
-    {
-        //
+    {   
+        if ($user->hasAnyRole(Role::all())) {
+            $user->getRoleNames()->each(function ($role, $key) use ($user){
+                $user->removeRole($role);
+            });
+        }
+        $user->assignRole($user->user_type);
     }
 
     /**

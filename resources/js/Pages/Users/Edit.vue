@@ -50,7 +50,7 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label class="font-weight-semibold" for="language">Type</label>
-                                <select id="language" class="form-control" v-model="form.user_type" :class="{'is-invalid' : form.errors.user_type}">
+                                <select id="language" class="form-control" v-model="form.user_type" :class="{'is-invalid' : form.errors.user_type}" :disabled="form.id == $page.props.user.id">
                                     <option value="admin">Admin</option>
                                     <option value="manager">Manager</option>
                                 </select>

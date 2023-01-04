@@ -212,9 +212,6 @@ export default {
         mySidebar,
         myBanner
     },
-    mounted(){
-        // console.log(this.checkUserPermissions('view_administrator'));
-    },
     mixins: [Helpers]
 }
 </script>

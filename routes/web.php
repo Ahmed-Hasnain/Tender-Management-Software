@@ -31,7 +31,11 @@ Route::get('/dashboard2', function () {
 Route::middleware(['auth', 'verified'])
     ->as('dashboard.')
     ->group(function () {
-        Route::resource('/user', Admin\UserController::class);
+        //user management
+        Route::group(['middleware' => ['can:view_user']], function () {
+            Route::resource('/user', Admin\UserController::class);
+        });
+        
 });
 
 require __DIR__.'/auth.php';

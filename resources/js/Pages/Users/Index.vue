@@ -11,7 +11,7 @@
                     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
-                                <button class="btn btn-primary btn-sm" @click="addUser()">
+                                <button class="btn btn-primary btn-sm" @click="addUser()" v-if="checkUserPermissions('add_user')">
                                     <i class="anticon anticon-user-add"></i>
                                     <span>Add User</span>
                                 </button>
@@ -58,10 +58,10 @@
                                                 </div>
                                             </td>
                                             <td class="text-right">
-                                                <button @click="editUser(user.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
+                                                <button @click="editUser(user.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('edit_user')">
                                                     <i class="anticon anticon-edit"></i>
                                                 </button>
-                                                <button @click="onDelete(user.id)" class="btn btn-icon btn-hover btn-sm btn-rounded">
+                                                <button @click="onDelete(user.id)" class="btn btn-icon btn-hover btn-sm btn-rounded" v-if="checkUserPermissions('delete_user')">
                                                     <i class="anticon anticon-delete"></i>
                                                 </button>
                                             </td>
@@ -102,6 +102,7 @@
 <script>
 import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { Head } from '@inertiajs/inertia-vue3';
+import Helpers from '@/Mixins/Helpers'
 export default {
     components: {
         AuthenticatedLayout,
@@ -157,7 +158,8 @@ export default {
     },
     mounted(){
         console.log(this.users.data) 
-    }
+    },
+    mixins: [Helpers]
 }
 </script>
 

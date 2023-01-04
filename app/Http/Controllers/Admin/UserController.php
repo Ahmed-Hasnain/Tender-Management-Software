@@ -12,6 +12,13 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:edit_user')->only('edit','update');
+        $this->middleware('can:add_user')->only('create', 'store');
+        $this->middleware('can:delete_user')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      *
