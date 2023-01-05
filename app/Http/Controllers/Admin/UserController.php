@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserController extends Controller
@@ -61,12 +62,8 @@ class UserController extends Controller
     {
         try{
             DB::beginTransaction();
-            if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
-                $image = $request->file('avatar')->store('images', 'public');
-            }
             $user = User::create($request->except('avatar'));
-            $user->avatar = $image;
-            $user->save();
+            $this->addAvatar($request, $user);
             DB::commit();
             flash('User Added Sucessfully!', 'success');
             return \redirect(route('dashboard.user.index'));          
@@ -112,7 +109,8 @@ class UserController extends Controller
     {
         try{
             DB::beginTransaction();
-            $user->update($request->all());
+            $user->update($request->except('avatar'));
+            $this->addAvatar($request, $user);
             DB::commit();
             flash('User Updated Sucessfully!', 'success');
             return \redirect(route('dashboard.user.index'));          
@@ -142,5 +140,21 @@ class UserController extends Controller
             flash($e->getMessage(), 'danger');
             return \redirect()->back();
         }
+    }
+
+    public function addAvatar($request, $user){
+        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+            if ($user->getRawOriginal('avatar')) {
+                $image = $user->getRawOriginal('avatar');
+                if(Storage::disk('public')->exists($image)){
+                    $imagePath = public_path('storage/'.$image);
+                    unlink($imagePath);
+                }
+            }
+            $image = $request->file('avatar')->store('images', 'public');
+            $user->avatar = $image;
+            $user->save();
+        }
+        return;
     }
 }

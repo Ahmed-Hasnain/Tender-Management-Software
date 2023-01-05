@@ -33,11 +33,11 @@ class UserRequest extends FormRequest
                     'status' => 'required',
                     'about' => 'required',
                     'dob' => 'required',
-                    'password' => 'required'
+                    'password' => 'required',
+                    'avatar' => 'required|mimes:png,jpg,jpeg,csv,txt,xlx,xls,pdf|max:2048'
                 ];
                 break;
             case 'PUT':
-            case 'PATCH':
                 return [
                     'name' => 'required',
                     'phone' => ['required'],
@@ -46,7 +46,8 @@ class UserRequest extends FormRequest
                     'status' => 'required',
                     'about' => 'required',
                     'dob' => 'required',
-                    'password' => 'required'
+                    'password' => 'required',
+                    'avatar' => 'required|mimes:png,jpg,jpeg,csv,txt,xlx,xls,pdf|max:2048'
                 ];
                 break;   
         }

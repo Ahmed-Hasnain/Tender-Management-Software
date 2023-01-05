@@ -67,9 +67,7 @@ class User extends Authenticatable
 
     private function setImage($image){
         if ($image) {
-            return asset('storage/'.$image);
-        } else {
-            return asset('storage/images/thumbnail.jpg');
+            return asset('storage/'. $image);
         }
     }
 }

@@ -20447,6 +20447,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_Authenticated_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/Authenticated.vue */ "./resources/js/Layouts/Authenticated.vue");
 /* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
 /* harmony import */ var _Components_InputError_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/InputError.vue */ "./resources/js/Components/InputError.vue");
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+
 
 
 
@@ -20475,9 +20477,20 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       } else {
-        this.form.put(route('dashboard.user.update', this.form.id), {
+        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__.Inertia.post(route('dashboard.user.update', this.form.id), {
+          _method: 'put',
+          id: this.form.id,
+          name: this.form.name,
+          email: this.form.email,
+          phone: this.form.phone,
+          about: this.form.about,
+          dob: this.form.dob,
+          user_type: this.form.user_type,
+          status: this.form.status,
+          password: this.form.password,
+          avatar: this.form.avatar
+        }, {
           errorBag: 'user',
-          preserveScroll: true,
           onSuccess: function onSuccess() {},
           onError: function onError(errors) {
             console.log(errors);
@@ -20704,53 +20717,50 @@ var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVN
 var _hoisted_8 = {
   "class": "dropdown dropdown-animated scale-left"
 };
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_9 = {
   "class": "pointer",
   "data-toggle": "dropdown"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "avatar avatar-image m-h-10 m-r-15"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "assets/images/avatars/thumb-3.jpg",
-  alt: ""
-})])], -1 /* HOISTED */);
+};
 var _hoisted_10 = {
+  "class": "avatar avatar-image m-h-10 m-r-15"
+};
+var _hoisted_11 = ["src"];
+var _hoisted_12 = {
   "class": "p-b-15 p-t-20 dropdown-menu pop-profile"
 };
-var _hoisted_11 = {
+var _hoisted_13 = {
   "class": "p-h-20 p-b-15 m-b-10 border-bottom"
 };
-var _hoisted_12 = {
+var _hoisted_14 = {
   "class": "d-flex m-r-50"
 };
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_15 = {
   "class": "avatar avatar-lg avatar-image"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "assets/images/avatars/thumb-3.jpg",
-  alt: ""
-})], -1 /* HOISTED */);
-var _hoisted_14 = {
+};
+var _hoisted_16 = ["src"];
+var _hoisted_17 = {
   "class": "m-l-10"
 };
-var _hoisted_15 = {
+var _hoisted_18 = {
   "class": "m-b-0 text-dark font-weight-semibold"
 };
-var _hoisted_16 = {
+var _hoisted_19 = {
   "class": "m-b-0 opacity-07"
 };
-var _hoisted_17 = {
+var _hoisted_20 = {
   href: "javascript:void(0);",
   "class": "dropdown-item d-block p-h-15 p-v-10"
 };
-var _hoisted_18 = {
+var _hoisted_21 = {
   "class": "d-flex align-items-center justify-content-between"
 };
-var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "anticon opacity-04 font-size-16 anticon-logout"
 }, null, -1 /* HOISTED */);
-var _hoisted_20 = {
+var _hoisted_23 = {
   "class": "m-l-10"
 };
-var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
   href: "javascript:void(0);",
   "data-toggle": "modal",
   "data-target": "#quick-view"
@@ -20760,14 +20770,20 @@ var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Link");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.$page.props.auth.user.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.$page.props.auth.user.email), 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: this.$page.props.auth.user.avatar,
+    alt: ""
+  }, null, 8 /* PROPS */, _hoisted_11)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: this.$page.props.auth.user.avatar,
+    alt: ""
+  }, null, 8 /* PROPS */, _hoisted_16)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.$page.props.auth.user.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.$page.props.auth.user.email), 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
     href: _ctx.route('logout')
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Sign Out")];
     }),
     _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["href"])])])])])])]), _hoisted_21])])]);
+  }, 8 /* PROPS */, ["href"])])])])])])]), _hoisted_24])])]);
 }
 
 /***/ }),
@@ -21942,7 +21958,7 @@ var _hoisted_5 = {
 var _hoisted_6 = ["src"];
 var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "m-l-20 m-r-20"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <h5 class=\"m-b-5 font-size-18\">Change Avatar</h5>\r\n                            <p class=\"opacity-07 font-size-13 m-b-0\">\r\n                                Recommended Dimensions: <br>\r\n                                120x120 Max fil size: 5MB\r\n                            </p> ")], -1 /* HOISTED */);
+}, null, -1 /* HOISTED */);
 var _hoisted_8 = {
   "class": "custom-file"
 };
@@ -22052,6 +22068,7 @@ var _hoisted_41 = {
 };
 var _hoisted_42 = ["disabled", "classes"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _this = this;
   var _component_Head = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Head");
   var _component_error = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("error");
   var _component_AuthenticatedLayout = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AuthenticatedLayout");
@@ -22059,6 +22076,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     title: "Add User"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_AuthenticatedLayout, null, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      var _$data$form$errors, _$data$form$errors2, _this$$page$props, _this$$page$props$err, _this$$page$props$err2, _$data$form$errors3, _$data$form$errors4, _this$$page$props2, _this$$page$props2$er, _this$$page$props2$er2, _$data$form$errors5, _$data$form$errors6, _this$$page$props3, _this$$page$props3$er, _this$$page$props3$er2, _$data$form$errors7, _$data$form$errors8, _this$$page$props4, _this$$page$props4$er, _this$$page$props4$er2, _$data$form$errors9, _$data$form$errors10, _this$$page$props5, _this$$page$props5$er, _this$$page$props5$er2, _$data$form$errors11, _$data$form$errors12, _this$$page$props6, _this$$page$props6$er, _this$$page$props6$er2, _$data$form$errors13, _$data$form$errors14, _this$$page$props$err3, _this$$page$props$err4, _$data$form$errors15, _$data$form$errors16, _this$$page$props$err5, _this$$page$props$err6, _$data$form$errors17, _$data$form$errors18, _this$$page$props7, _this$$page$props7$er, _this$$page$props7$er2, _$data$form$errors19, _$data$form$errors20, _this$$page$props8, _this$$page$props8$er, _this$$page$props8$er2, _$data$form$errors21, _$data$form$errors22, _this$$page$props9, _this$$page$props9$er, _this$$page$props9$er2, _$data$form$errors23, _$data$form$errors24, _this$$page$props10, _this$$page$props10$e, _this$$page$props10$e2, _$data$form$errors25, _$data$form$errors26, _this$$page$props11, _this$$page$props11$e, _this$$page$props11$e2, _$data$form$errors27, _$data$form$errors28, _this$$page$props12, _this$$page$props12$e, _this$$page$props12$e2, _$data$form$errors29, _$data$form$errors30, _this$$page$props13, _this$$page$props13$e, _this$$page$props13$e2, _$data$form$errors31, _$data$form$errors32, _this$$page$props14, _this$$page$props14$e, _this$$page$props14$e2, _$data$form$errors33, _$data$form$errors34, _this$$page$props15, _this$$page$props15$e, _this$$page$props15$e2, _$data$form$errors35, _$data$form$errors36, _this$$page$props16, _this$$page$props16$e, _this$$page$props16$e2;
       return [$data.form ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", {
         key: 0,
         onSubmit: _cache[9] || (_cache[9] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
@@ -22070,14 +22088,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         alt: ""
       }, null, 8 /* PROPS */, _hoisted_6)]), _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
         type: "file",
-        "class": "custom-file-input",
+        "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["custom-file-input", {
+          'is-invalid': (_$data$form$errors = $data.form.errors) !== null && _$data$form$errors !== void 0 && _$data$form$errors.avatar ? (_$data$form$errors2 = $data.form.errors) === null || _$data$form$errors2 === void 0 ? void 0 : _$data$form$errors2.avatar : (_this$$page$props = _this.$page.props) === null || _this$$page$props === void 0 ? void 0 : (_this$$page$props$err = _this$$page$props.errors) === null || _this$$page$props$err === void 0 ? void 0 : (_this$$page$props$err2 = _this$$page$props$err.user) === null || _this$$page$props$err2 === void 0 ? void 0 : _this$$page$props$err2.avatar
+        }]),
         onInput: _cache[0] || (_cache[0] = function ($event) {
           return $options.uploadImage($event);
         })
-      }, null, 32 /* HYDRATE_EVENTS */), _hoisted_9]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div>\r\n                            <button class=\"btn btn-tone btn-primary\">Upload</button>\r\n                        </div> ")]), _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+      }, null, 34 /* CLASS, HYDRATE_EVENTS */), _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
+        message: (_$data$form$errors3 = $data.form.errors) !== null && _$data$form$errors3 !== void 0 && _$data$form$errors3.avatar ? (_$data$form$errors4 = $data.form.errors) === null || _$data$form$errors4 === void 0 ? void 0 : _$data$form$errors4.avatar : (_this$$page$props2 = _this.$page.props) === null || _this$$page$props2 === void 0 ? void 0 : (_this$$page$props2$er = _this$$page$props2.errors) === null || _this$$page$props2$er === void 0 ? void 0 : (_this$$page$props2$er2 = _this$$page$props2$er.user) === null || _this$$page$props2$er2 === void 0 ? void 0 : _this$$page$props2$er2.avatar
+      }, null, 8 /* PROPS */, ["message"])])]), _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
         type: "text",
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", {
-          'is-invalid': $data.form.errors.name
+          'is-invalid': (_$data$form$errors5 = $data.form.errors) !== null && _$data$form$errors5 !== void 0 && _$data$form$errors5.name ? (_$data$form$errors6 = $data.form.errors) === null || _$data$form$errors6 === void 0 ? void 0 : _$data$form$errors6.name : (_this$$page$props3 = _this.$page.props) === null || _this$$page$props3 === void 0 ? void 0 : (_this$$page$props3$er = _this$$page$props3.errors) === null || _this$$page$props3$er === void 0 ? void 0 : (_this$$page$props3$er2 = _this$$page$props3$er.user) === null || _this$$page$props3$er2 === void 0 ? void 0 : _this$$page$props3$er2.name
         }]),
         id: "userName",
         placeholder: "User Name",
@@ -22085,11 +22107,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           return $data.form.name = $event;
         })
       }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.name]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
-        message: $data.form.errors.name
+        message: (_$data$form$errors7 = $data.form.errors) !== null && _$data$form$errors7 !== void 0 && _$data$form$errors7.name ? (_$data$form$errors8 = $data.form.errors) === null || _$data$form$errors8 === void 0 ? void 0 : _$data$form$errors8.name : (_this$$page$props4 = _this.$page.props) === null || _this$$page$props4 === void 0 ? void 0 : (_this$$page$props4$er = _this$$page$props4.errors) === null || _this$$page$props4$er === void 0 ? void 0 : (_this$$page$props4$er2 = _this$$page$props4$er.user) === null || _this$$page$props4$er2 === void 0 ? void 0 : _this$$page$props4$er2.name
       }, null, 8 /* PROPS */, ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
         type: "email",
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", {
-          'is-invalid': $data.form.errors.email
+          'is-invalid': (_$data$form$errors9 = $data.form.errors) !== null && _$data$form$errors9 !== void 0 && _$data$form$errors9.email ? (_$data$form$errors10 = $data.form.errors) === null || _$data$form$errors10 === void 0 ? void 0 : _$data$form$errors10.email : (_this$$page$props5 = _this.$page.props) === null || _this$$page$props5 === void 0 ? void 0 : (_this$$page$props5$er = _this$$page$props5.errors) === null || _this$$page$props5$er === void 0 ? void 0 : (_this$$page$props5$er2 = _this$$page$props5$er.user) === null || _this$$page$props5$er2 === void 0 ? void 0 : _this$$page$props5$er2.email
         }]),
         id: "email",
         placeholder: "email",
@@ -22097,11 +22119,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           return $data.form.email = $event;
         })
       }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.email]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
-        message: $data.form.errors.email
+        message: (_$data$form$errors11 = $data.form.errors) !== null && _$data$form$errors11 !== void 0 && _$data$form$errors11.email ? (_$data$form$errors12 = $data.form.errors) === null || _$data$form$errors12 === void 0 ? void 0 : _$data$form$errors12.email : (_this$$page$props6 = _this.$page.props) === null || _this$$page$props6 === void 0 ? void 0 : (_this$$page$props6$er = _this$$page$props6.errors) === null || _this$$page$props6$er === void 0 ? void 0 : (_this$$page$props6$er2 = _this$$page$props6$er.user) === null || _this$$page$props6$er2 === void 0 ? void 0 : _this$$page$props6$er2.email
       }, null, 8 /* PROPS */, ["message"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
         type: "number",
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", {
-          'is-invalid': $data.form.errors.phone
+          'is-invalid': (_$data$form$errors13 = $data.form.errors) !== null && _$data$form$errors13 !== void 0 && _$data$form$errors13.phone ? (_$data$form$errors14 = $data.form.errors) === null || _$data$form$errors14 === void 0 ? void 0 : _$data$form$errors14.phone : (_this$$page$props$err3 = _this.$page.props.errors) === null || _this$$page$props$err3 === void 0 ? void 0 : (_this$$page$props$err4 = _this$$page$props$err3.user) === null || _this$$page$props$err4 === void 0 ? void 0 : _this$$page$props$err4.phone
         }]),
         id: "phoneNumber",
         placeholder: "Phone Number",
@@ -22109,11 +22131,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           return $data.form.phone = $event;
         })
       }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.phone]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
-        message: $data.form.errors.phone
+        message: (_$data$form$errors15 = $data.form.errors) !== null && _$data$form$errors15 !== void 0 && _$data$form$errors15.phone ? (_$data$form$errors16 = $data.form.errors) === null || _$data$form$errors16 === void 0 ? void 0 : _$data$form$errors16.phone : (_this$$page$props$err5 = _this.$page.props.errors) === null || _this$$page$props$err5 === void 0 ? void 0 : (_this$$page$props$err6 = _this$$page$props$err5.user) === null || _this$$page$props$err6 === void 0 ? void 0 : _this$$page$props$err6.phone
       }, null, 8 /* PROPS */, ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [_hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
         type: "text",
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", {
-          'is-invalid': $data.form.errors.dob
+          'is-invalid': (_$data$form$errors17 = $data.form.errors) !== null && _$data$form$errors17 !== void 0 && _$data$form$errors17.dob ? (_$data$form$errors18 = $data.form.errors) === null || _$data$form$errors18 === void 0 ? void 0 : _$data$form$errors18.dob : (_this$$page$props7 = _this.$page.props) === null || _this$$page$props7 === void 0 ? void 0 : (_this$$page$props7$er = _this$$page$props7.errors) === null || _this$$page$props7$er === void 0 ? void 0 : (_this$$page$props7$er2 = _this$$page$props7$er.user) === null || _this$$page$props7$er2 === void 0 ? void 0 : _this$$page$props7$er2.dob
         }]),
         id: "dob",
         placeholder: "Date of Birth",
@@ -22121,42 +22143,42 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           return $data.form.dob = $event;
         })
       }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.dob]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
-        message: $data.form.errors.dob
+        message: (_$data$form$errors19 = $data.form.errors) !== null && _$data$form$errors19 !== void 0 && _$data$form$errors19.dob ? (_$data$form$errors20 = $data.form.errors) === null || _$data$form$errors20 === void 0 ? void 0 : _$data$form$errors20.dob : (_this$$page$props8 = _this.$page.props) === null || _this$$page$props8 === void 0 ? void 0 : (_this$$page$props8$er = _this$$page$props8.errors) === null || _this$$page$props8$er === void 0 ? void 0 : (_this$$page$props8$er2 = _this$$page$props8$er.user) === null || _this$$page$props8$er2 === void 0 ? void 0 : _this$$page$props8$er2.dob
       }, null, 8 /* PROPS */, ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [_hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
         id: "language",
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", {
-          'is-invalid': $data.form.errors.user_type
+          'is-invalid': (_$data$form$errors21 = $data.form.errors) !== null && _$data$form$errors21 !== void 0 && _$data$form$errors21.user_type ? (_$data$form$errors22 = $data.form.errors) === null || _$data$form$errors22 === void 0 ? void 0 : _$data$form$errors22.user_type : (_this$$page$props9 = _this.$page.props) === null || _this$$page$props9 === void 0 ? void 0 : (_this$$page$props9$er = _this$$page$props9.errors) === null || _this$$page$props9$er === void 0 ? void 0 : (_this$$page$props9$er2 = _this$$page$props9$er.user) === null || _this$$page$props9$er2 === void 0 ? void 0 : _this$$page$props9$er2.user_type
         }]),
         "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
           return $data.form.user_type = $event;
         }),
         disabled: $data.form.id && $data.form.id == _ctx.$page.props.user.id
       }, _hoisted_26, 10 /* CLASS, PROPS */, _hoisted_23), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.user_type]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
-        message: $data.form.errors.user_type
+        message: (_$data$form$errors23 = $data.form.errors) !== null && _$data$form$errors23 !== void 0 && _$data$form$errors23.user_type ? (_$data$form$errors24 = $data.form.errors) === null || _$data$form$errors24 === void 0 ? void 0 : _$data$form$errors24.user_type : (_this$$page$props10 = _this.$page.props) === null || _this$$page$props10 === void 0 ? void 0 : (_this$$page$props10$e = _this$$page$props10.errors) === null || _this$$page$props10$e === void 0 ? void 0 : (_this$$page$props10$e2 = _this$$page$props10$e.user) === null || _this$$page$props10$e2 === void 0 ? void 0 : _this$$page$props10$e2.user_type
       }, null, 8 /* PROPS */, ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [_hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
         id: "language",
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", {
-          'is-invalid': $data.form.errors.status
+          'is-invalid': (_$data$form$errors25 = $data.form.errors) !== null && _$data$form$errors25 !== void 0 && _$data$form$errors25.status ? (_$data$form$errors26 = $data.form.errors) === null || _$data$form$errors26 === void 0 ? void 0 : _$data$form$errors26.status : (_this$$page$props11 = _this.$page.props) === null || _this$$page$props11 === void 0 ? void 0 : (_this$$page$props11$e = _this$$page$props11.errors) === null || _this$$page$props11$e === void 0 ? void 0 : (_this$$page$props11$e2 = _this$$page$props11$e.user) === null || _this$$page$props11$e2 === void 0 ? void 0 : _this$$page$props11$e2.status
         }]),
         "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
           return $data.form.status = $event;
         })
       }, _hoisted_31, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.status]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
-        message: $data.form.errors.status
+        message: (_$data$form$errors27 = $data.form.errors) !== null && _$data$form$errors27 !== void 0 && _$data$form$errors27.status ? (_$data$form$errors28 = $data.form.errors) === null || _$data$form$errors28 === void 0 ? void 0 : _$data$form$errors28.status : (_this$$page$props12 = _this.$page.props) === null || _this$$page$props12 === void 0 ? void 0 : (_this$$page$props12$e = _this$$page$props12.errors) === null || _this$$page$props12$e === void 0 ? void 0 : (_this$$page$props12$e2 = _this$$page$props12$e.user) === null || _this$$page$props12$e2 === void 0 ? void 0 : _this$$page$props12$e2.status
       }, null, 8 /* PROPS */, ["message"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [_hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", {
-          'is-invalid': $data.form.errors.about
+          'is-invalid': (_$data$form$errors29 = $data.form.errors) !== null && _$data$form$errors29 !== void 0 && _$data$form$errors29.about ? (_$data$form$errors30 = $data.form.errors) === null || _$data$form$errors30 === void 0 ? void 0 : _$data$form$errors30.about : (_this$$page$props13 = _this.$page.props) === null || _this$$page$props13 === void 0 ? void 0 : (_this$$page$props13$e = _this$$page$props13.errors) === null || _this$$page$props13$e === void 0 ? void 0 : (_this$$page$props13$e2 = _this$$page$props13$e.user) === null || _this$$page$props13$e2 === void 0 ? void 0 : _this$$page$props13$e2.about
         }]),
         rows: "4",
         "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
           return $data.form.about = $event;
         })
       }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.about]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
-        message: $data.form.errors.about
+        message: (_$data$form$errors31 = $data.form.errors) !== null && _$data$form$errors31 !== void 0 && _$data$form$errors31.about ? (_$data$form$errors32 = $data.form.errors) === null || _$data$form$errors32 === void 0 ? void 0 : _$data$form$errors32.about : (_this$$page$props14 = _this.$page.props) === null || _this$$page$props14 === void 0 ? void 0 : (_this$$page$props14$e = _this$$page$props14.errors) === null || _this$$page$props14$e === void 0 ? void 0 : (_this$$page$props14$e2 = _this$$page$props14$e.user) === null || _this$$page$props14$e2 === void 0 ? void 0 : _this$$page$props14$e2.about
       }, null, 8 /* PROPS */, ["message"])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [_hoisted_36, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_39, [_hoisted_40, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
         type: "password",
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", {
-          'is-invalid': $data.form.errors.password
+          'is-invalid': (_$data$form$errors33 = $data.form.errors) !== null && _$data$form$errors33 !== void 0 && _$data$form$errors33.password ? (_$data$form$errors34 = $data.form.errors) === null || _$data$form$errors34 === void 0 ? void 0 : _$data$form$errors34.password : (_this$$page$props15 = _this.$page.props) === null || _this$$page$props15 === void 0 ? void 0 : (_this$$page$props15$e = _this$$page$props15.errors) === null || _this$$page$props15$e === void 0 ? void 0 : (_this$$page$props15$e2 = _this$$page$props15$e.user) === null || _this$$page$props15$e2 === void 0 ? void 0 : _this$$page$props15$e2.password
         }]),
         id: "newPassword",
         placeholder: "New Password",
@@ -22164,7 +22186,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           return $data.form.password = $event;
         })
       }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.password]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
-        message: $data.form.errors.password
+        message: (_$data$form$errors35 = $data.form.errors) !== null && _$data$form$errors35 !== void 0 && _$data$form$errors35.password ? (_$data$form$errors36 = $data.form.errors) === null || _$data$form$errors36 === void 0 ? void 0 : _$data$form$errors36.password : (_this$$page$props16 = _this.$page.props) === null || _this$$page$props16 === void 0 ? void 0 : (_this$$page$props16$e = _this$$page$props16.errors) === null || _this$$page$props16$e === void 0 ? void 0 : (_this$$page$props16$e2 = _this$$page$props16$e.user) === null || _this$$page$props16$e2 === void 0 ? void 0 : _this$$page$props16$e2.password
       }, null, 8 /* PROPS */, ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
         "class": "btn btn-primary m-t-30",
         disabled: $data.form.processing,
