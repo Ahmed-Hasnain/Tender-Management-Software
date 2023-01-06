@@ -22,7 +22,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <Link :href="route('user_index')">
+                    <Link :href="route('dashboard.user.index')">
                         <span class="icon-holder">
                             <i class="anticon anticon-team"></i>
                         </span>

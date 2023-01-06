@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\Admin as Admin;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +28,14 @@ Route::get('/dashboard2', function () {
     return Inertia::render('Dashboard2');
 })->middleware(['auth', 'verified'])->name('dashboard2');
 
-Route::get('/users', function () {
-    return Inertia::render('Users/Index');
-})->middleware(['auth', 'verified'])->name('user_index');
+Route::middleware(['auth', 'verified'])
+    ->as('dashboard.')
+    ->group(function () {
+        //user management
+        Route::group(['middleware' => ['can:view_user']], function () {
+            Route::resource('/user', Admin\UserController::class);
+        });
+        
+});
 
 require __DIR__.'/auth.php';

@@ -1,20 +1,20 @@
 <template>
     <div class="header">
         <div class="logo logo-dark">
-            <a href="index.html">
-                <img src="assets/images/logo/logo.png" alt="Logo">
-                <img class="logo-fold" src="assets/images/logo/logo-fold.png" alt="Logo">
+            <a href="#">
+                <img :src="getImage(this.$page.props.settings.logo)" alt="Logo" height="70" width="150">
+                <img class="logo-fold" :src="getImage(this.$page.props.settings.logo)" alt="Logo" height="30" width="90">
             </a>
         </div>
         <div class="logo logo-white">
-            <a href="index.html">
-                <img src="assets/images/logo/logo-white.png" alt="Logo">
-                <img class="logo-fold" src="assets/images/logo/logo-fold-white.png" alt="Logo">
+            <a href="#">
+                <img :src="getImage(this.$page.props.settings.logo)" alt="Logo">
+                <!-- <img class="logo-fold" src="assets/images/logo/logo-fold-white.png" alt="Logo"> -->
             </a>
         </div>
         <div class="nav-wrap">
             <ul class="nav-left">
-                <li class="desktop-toggle">
+                <!-- <li class="desktop-toggle">
                     <a href="javascript:void(0);">
                         <i class="anticon"></i>
                     </a>
@@ -28,14 +28,14 @@
                     <a href="javascript:void(0);" data-toggle="modal" data-target="#search-drawer">
                         <i class="anticon anticon-search"></i>
                     </a>
-                </li>
+                </li> -->
             </ul>
             <ul class="nav-right">
                 <li class="dropdown dropdown-animated scale-left">
-                    <a href="javascript:void(0);" data-toggle="dropdown">
+                    <!-- <a href="javascript:void(0);" data-toggle="dropdown">
                         <i class="anticon anticon-bell notification-badge"></i>
-                    </a>
-                    <div class="dropdown-menu pop-notification">
+                    </a> -->
+                    <!-- <div class="dropdown-menu pop-notification">
                         <div class="p-v-15 p-h-25 border-bottom d-flex justify-content-between align-items-center">
                             <p class="text-dark font-weight-semibold m-b-0">
                                 <i class="anticon anticon-bell"></i>
@@ -93,19 +93,19 @@
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </li>
                 <li class="dropdown dropdown-animated scale-left">
                     <div class="pointer" data-toggle="dropdown">
-                        <div class="avatar avatar-image  m-h-10 m-r-15">
-                            <img src="assets/images/avatars/thumb-3.jpg" alt="">
+                        <div class="avatar avatar-image  m-h-10 m-r-10">
+                            <img :src="this.$page.props.auth.user.avatar" alt="">
                         </div>
                     </div>
                     <div class="p-b-15 p-t-20 dropdown-menu pop-profile">
                         <div class="p-h-20 p-b-15 m-b-10 border-bottom">
-                            <div class="d-flex m-r-50">
+                            <div class="d-flex m-r-10">
                                 <div class="avatar avatar-lg avatar-image">
-                                    <img src="assets/images/avatars/thumb-3.jpg" alt="">
+                                    <img :src="this.$page.props.auth.user.avatar" alt="">
                                 </div>
                                 <div class="m-l-10">
                                     <p class="m-b-0 text-dark font-weight-semibold">{{this.$page.props.auth.user.name}}</p>
@@ -113,7 +113,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <a href="javascript:void(0);" class="dropdown-item d-block p-h-15 p-v-10">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div>
@@ -124,11 +123,11 @@
                         </a>
                     </div>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="javascript:void(0);" data-toggle="modal" data-target="#quick-view">
                         <i class="anticon anticon-appstore"></i>
                     </a>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>
@@ -136,11 +135,13 @@
 
 <script>
 import { Head , Link} from '@inertiajs/inertia-vue3';
+import Helpers from '@/Mixins/Helpers';
 export default {
     components: {
         Head,
         Link,
-    }
+    },
+    mixins: [Helpers]
 }
 </script>
 

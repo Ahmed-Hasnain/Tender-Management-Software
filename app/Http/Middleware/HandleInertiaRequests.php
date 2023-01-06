@@ -50,6 +50,11 @@ class HandleInertiaRequests extends Middleware
             },
             'current_route' => Route::current(),
             'flash' => session()->get('flash'),
+            'settings' => [
+                'placeholder' => asset('storage/images/thumbnail.jpg'),
+                'cover_placeholder' => asset('storage/images/CoverThumbnail.jpg'),
+                'logo' => asset('storage/images/logo.png'),
+            ]
         ]);
     }
 }
