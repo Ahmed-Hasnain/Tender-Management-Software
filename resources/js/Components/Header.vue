@@ -113,7 +113,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <a href="javascript:void(0);" class="dropdown-item d-block p-h-15 p-v-10">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div>

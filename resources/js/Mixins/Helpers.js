@@ -21,5 +21,9 @@ export default {
                 return result;
             }
         },
+
+        getImage($image) {
+            return  $image ? $image : this.$page.props.settings.cover_placeholder
+        }
     }
 }

@@ -17,15 +17,17 @@
                                 </button>
                             </div>
                             <div class="col-sm-12 col-md-6">
-                                <div id="DataTables_Table_0_filter" class="dataTables_filter"><label>Search:<input
-                                type="search" class="form-control form-control-sm" placeholder=""
-                                aria-controls="DataTables_Table_0"></label></div>
+                                <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                    <label>Search:
+                                        <search :url="'dashboard.user.index'" :searchedKeyword="searchedKeyword"></search>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="table table-hover e-commerce-table dataTable no-footer"
-                                    id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                    id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" v-if="allUsers?.data.length > 0">
                                     <thead>
                                         <tr role="row">
                                             <th style="width: 70px;">ID</th>
@@ -44,7 +46,7 @@
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="avatar avatar-image avatar-sm m-r-10">
-                                                        <img :src="user.avatar" alt="">
+                                                        <img :src="getImage(user.avatar)" alt="">
                                                     </div>
                                                     <h6 class="m-b-0">{{user.name}}</h6>
                                                 </div>
@@ -68,30 +70,10 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                <div v-else class="pt-3 pl-3">No Data Found.</div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-5">
-                                <div class="dataTables_info" id="DataTables_Table_0_info" role="status"
-                                    aria-live="polite">Showing 1 to 10 of 10 entries</div>
-                            </div>
-                            <div class="col-sm-12 col-md-7">
-                                <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-                                    <ul class="pagination">
-                                        <li class="paginate_button page-item previous disabled"
-                                            id="DataTables_Table_0_previous"><a href="#"
-                                                aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0"
-                                                class="page-link">Previous</a></li>
-                                        <li class="paginate_button page-item active"><a href="#"
-                                                aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0"
-                                                class="page-link">1</a></li>
-                                        <li class="paginate_button page-item next disabled"
-                                            id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0"
-                                                data-dt-idx="2" tabindex="0" class="page-link">Next</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        <pagination :meta="allUsers" :keyword="searchedKeyword"></pagination>
                     </div>
                 </div>
             </div>
@@ -102,13 +84,18 @@
 <script>
 import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { Head } from '@inertiajs/inertia-vue3';
-import Helpers from '@/Mixins/Helpers'
+import Helpers from '@/Mixins/Helpers';
+import pagination from '@/Components/Pagination.vue';
+import search from '@/Components/Search.vue';
+
 export default {
     components: {
         AuthenticatedLayout,
-        Head
+        Head,
+        pagination,
+        search
     },
-    props: ['users'],
+    props: ['users', 'searchedKeyword'],
     data() {
         return{
             allUsers: this.users
@@ -155,9 +142,6 @@ export default {
             },
             deep: true,
         },
-    },
-    mounted(){
-        console.log(this.users.data) 
     },
     mixins: [Helpers]
 }

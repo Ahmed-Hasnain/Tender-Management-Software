@@ -29,9 +29,19 @@ class UserController extends Controller
     {
         try{
             $limit = \config()->get('settings.pagination_limit');
-            $users = User::paginate($limit);
+            $users = User::where(function ($query) {
+                $keyword = request()->input('keyword');
+                $query->when($keyword, function ($subQuery) use ($keyword){
+                    $subQuery->where('name', 'like', '%' . $keyword . '%')
+                    ->orWhere('phone', 'like', '%' . $keyword . '%')
+                    ->orWhere('email', 'like', '%' . $keyword . '%')
+                    ->orWhere('user_type', 'like', '%' . $keyword . '%')
+                    ->orWhere('status', 'like', '%' . $keyword . '%');
+                });
+            })->paginate($limit);
             return Inertia::render('Users/Index', [
                 'users' => $users,
+                'searchedKeyword' => request()->input('keyword'),
             ]);
         } catch (ModelNotFoundException $e) {
             flash('Unable to find this delivery zone', 'danger');
