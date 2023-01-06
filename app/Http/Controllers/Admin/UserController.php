@@ -38,7 +38,7 @@ class UserController extends Controller
                     ->orWhere('user_type', 'like', '%' . $keyword . '%')
                     ->orWhere('status', 'like', '%' . $keyword . '%');
                 });
-            })->paginate($limit);
+            })->orderBy('id', 'desc')->paginate($limit);
             return Inertia::render('Users/Index', [
                 'users' => $users,
                 'searchedKeyword' => request()->input('keyword'),
