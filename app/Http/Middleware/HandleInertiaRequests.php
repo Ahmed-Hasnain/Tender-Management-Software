@@ -53,6 +53,7 @@ class HandleInertiaRequests extends Middleware
             'settings' => [
                 'placeholder' => asset('storage/images/thumbnail.jpg'),
                 'cover_placeholder' => asset('storage/images/CoverThumbnail.jpg'),
+                'logo' => asset('storage/images/logo.png'),
             ]
         ]);
     }

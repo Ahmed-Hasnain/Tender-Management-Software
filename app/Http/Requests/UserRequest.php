@@ -31,10 +31,10 @@ class UserRequest extends FormRequest
                     'email' => ['required', 'email' , 'unique:users'],
                     'user_type' => 'required',
                     'status' => 'required',
-                    'about' => 'required',
-                    'dob' => 'required',
+                    'about' => 'nullable',
+                    'dob' => 'nullable',
                     'password' => 'required',
-                    'avatar' => 'required|mimes:png,jpg,jpeg,csv,txt,xlx,xls,pdf|max:2048'
+                    'avatar' => 'nullable|mimes:png,jpg,jpeg,csv,txt,xlx,xls,pdf|max:2048'
                 ];
                 break;
             case 'PUT':
@@ -44,10 +44,10 @@ class UserRequest extends FormRequest
                     'email' => ['required', 'unique:users,email,'.$this->id.',id'],
                     'user_type' => 'required',
                     'status' => 'required',
-                    'about' => 'required',
-                    'dob' => 'required',
+                    'about' => 'nullable',
+                    'dob' => 'nullable',
                     'password' => 'required',
-                    'avatar' => 'required|mimes:png,jpg,jpeg,csv,txt,xlx,xls,pdf|max:2048'
+                    'avatar' => 'nullable|mimes:png,jpg,jpeg,csv,txt,xlx,xls,pdf|max:2048'
                 ];
                 break;   
         }

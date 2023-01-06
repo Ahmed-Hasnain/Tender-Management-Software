@@ -19722,12 +19722,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
+/* harmony import */ var _Mixins_Helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Mixins/Helpers */ "./resources/js/Mixins/Helpers.js");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Head,
     Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Link
-  }
+  },
+  mixins: [_Mixins_Helpers__WEBPACK_IMPORTED_MODULE_1__["default"]]
 });
 
 /***/ }),
@@ -20766,85 +20769,109 @@ __webpack_require__.r(__webpack_exports__);
 var _hoisted_1 = {
   "class": "header"
 };
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"logo logo-dark\"><a href=\"#\"><img src=\"assets/images/logo/logo.png\" alt=\"Logo\"><img class=\"logo-fold\" src=\"assets/images/logo/logo-fold.png\" alt=\"Logo\"></a></div><div class=\"logo logo-white\"><a href=\"#\"><img src=\"assets/images/logo/logo-white.png\" alt=\"Logo\"><img class=\"logo-fold\" src=\"assets/images/logo/logo-fold-white.png\" alt=\"Logo\"></a></div>", 2);
-var _hoisted_4 = {
+var _hoisted_2 = {
+  "class": "logo logo-dark"
+};
+var _hoisted_3 = {
+  href: "#"
+};
+var _hoisted_4 = ["src"];
+var _hoisted_5 = ["src"];
+var _hoisted_6 = {
+  "class": "logo logo-white"
+};
+var _hoisted_7 = {
+  href: "#"
+};
+var _hoisted_8 = ["src"];
+var _hoisted_9 = {
   "class": "nav-wrap"
 };
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<ul class=\"nav-left\"><li class=\"desktop-toggle\"><a href=\"javascript:void(0);\"><i class=\"anticon\"></i></a></li><li class=\"mobile-toggle\"><a href=\"javascript:void(0);\"><i class=\"anticon\"></i></a></li><li><a href=\"javascript:void(0);\" data-toggle=\"modal\" data-target=\"#search-drawer\"><i class=\"anticon anticon-search\"></i></a></li></ul>", 1);
-var _hoisted_6 = {
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", {
+  "class": "nav-left"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"desktop-toggle\">\r\n                    <a href=\"javascript:void(0);\">\r\n                        <i class=\"anticon\"></i>\r\n                    </a>\r\n                </li>\r\n                <li class=\"mobile-toggle\">\r\n                    <a href=\"javascript:void(0);\">\r\n                        <i class=\"anticon\"></i>\r\n                    </a>\r\n                </li>\r\n                <li>\r\n                    <a href=\"javascript:void(0);\" data-toggle=\"modal\" data-target=\"#search-drawer\">\r\n                        <i class=\"anticon anticon-search\"></i>\r\n                    </a>\r\n                </li> ")], -1 /* HOISTED */);
+var _hoisted_11 = {
   "class": "nav-right"
 };
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<li class=\"dropdown dropdown-animated scale-left\"><a href=\"javascript:void(0);\" data-toggle=\"dropdown\"><i class=\"anticon anticon-bell notification-badge\"></i></a><div class=\"dropdown-menu pop-notification\"><div class=\"p-v-15 p-h-25 border-bottom d-flex justify-content-between align-items-center\"><p class=\"text-dark font-weight-semibold m-b-0\"><i class=\"anticon anticon-bell\"></i><span class=\"m-l-10\">Notification</span></p><a class=\"btn-sm btn-default btn\" href=\"javascript:void(0);\"><small>View All</small></a></div><div class=\"relative\"><div class=\"overflow-y-auto relative scrollable\" style=\"max-height:300px;\"><a href=\"javascript:void(0);\" class=\"dropdown-item d-block p-15 border-bottom\"><div class=\"d-flex\"><div class=\"avatar avatar-blue avatar-icon\"><i class=\"anticon anticon-mail\"></i></div><div class=\"m-l-15\"><p class=\"m-b-0 text-dark\">You received a new message</p><p class=\"m-b-0\"><small>8 min ago</small></p></div></div></a><a href=\"javascript:void(0);\" class=\"dropdown-item d-block p-15 border-bottom\"><div class=\"d-flex\"><div class=\"avatar avatar-cyan avatar-icon\"><i class=\"anticon anticon-user-add\"></i></div><div class=\"m-l-15\"><p class=\"m-b-0 text-dark\">New user registered</p><p class=\"m-b-0\"><small>7 hours ago</small></p></div></div></a><a href=\"javascript:void(0);\" class=\"dropdown-item d-block p-15 border-bottom\"><div class=\"d-flex\"><div class=\"avatar avatar-red avatar-icon\"><i class=\"anticon anticon-user-add\"></i></div><div class=\"m-l-15\"><p class=\"m-b-0 text-dark\">System Alert</p><p class=\"m-b-0\"><small>8 hours ago</small></p></div></div></a><a href=\"javascript:void(0);\" class=\"dropdown-item d-block p-15\"><div class=\"d-flex\"><div class=\"avatar avatar-gold avatar-icon\"><i class=\"anticon anticon-user-add\"></i></div><div class=\"m-l-15\"><p class=\"m-b-0 text-dark\">You have a new update</p><p class=\"m-b-0\"><small>2 days ago</small></p></div></div></a></div></div></div></li>", 1);
-var _hoisted_8 = {
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
+  "class": "dropdown dropdown-animated scale-left"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"javascript:void(0);\" data-toggle=\"dropdown\">\r\n                        <i class=\"anticon anticon-bell notification-badge\"></i>\r\n                    </a> "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"dropdown-menu pop-notification\">\r\n                        <div class=\"p-v-15 p-h-25 border-bottom d-flex justify-content-between align-items-center\">\r\n                            <p class=\"text-dark font-weight-semibold m-b-0\">\r\n                                <i class=\"anticon anticon-bell\"></i>\r\n                                <span class=\"m-l-10\">Notification</span>\r\n                            </p>\r\n                            <a class=\"btn-sm btn-default btn\" href=\"javascript:void(0);\">\r\n                                <small>View All</small>\r\n                            </a>\r\n                        </div>\r\n                        <div class=\"relative\">\r\n                            <div class=\"overflow-y-auto relative scrollable\" style=\"max-height: 300px\">\r\n                                <a href=\"javascript:void(0);\" class=\"dropdown-item d-block p-15 border-bottom\">\r\n                                    <div class=\"d-flex\">\r\n                                        <div class=\"avatar avatar-blue avatar-icon\">\r\n                                            <i class=\"anticon anticon-mail\"></i>\r\n                                        </div>\r\n                                        <div class=\"m-l-15\">\r\n                                            <p class=\"m-b-0 text-dark\">You received a new message</p>\r\n                                            <p class=\"m-b-0\"><small>8 min ago</small></p>\r\n                                        </div>\r\n                                    </div>\r\n                                </a>\r\n                                <a href=\"javascript:void(0);\" class=\"dropdown-item d-block p-15 border-bottom\">\r\n                                    <div class=\"d-flex\">\r\n                                        <div class=\"avatar avatar-cyan avatar-icon\">\r\n                                            <i class=\"anticon anticon-user-add\"></i>\r\n                                        </div>\r\n                                        <div class=\"m-l-15\">\r\n                                            <p class=\"m-b-0 text-dark\">New user registered</p>\r\n                                            <p class=\"m-b-0\"><small>7 hours ago</small></p>\r\n                                        </div>\r\n                                    </div>\r\n                                </a>\r\n                                <a href=\"javascript:void(0);\" class=\"dropdown-item d-block p-15 border-bottom\">\r\n                                    <div class=\"d-flex\">\r\n                                        <div class=\"avatar avatar-red avatar-icon\">\r\n                                            <i class=\"anticon anticon-user-add\"></i>\r\n                                        </div>\r\n                                        <div class=\"m-l-15\">\r\n                                            <p class=\"m-b-0 text-dark\">System Alert</p>\r\n                                            <p class=\"m-b-0\"><small>8 hours ago</small></p>\r\n                                        </div>\r\n                                    </div>\r\n                                </a>\r\n                                <a href=\"javascript:void(0);\" class=\"dropdown-item d-block p-15 \">\r\n                                    <div class=\"d-flex\">\r\n                                        <div class=\"avatar avatar-gold avatar-icon\">\r\n                                            <i class=\"anticon anticon-user-add\"></i>\r\n                                        </div>\r\n                                        <div class=\"m-l-15\">\r\n                                            <p class=\"m-b-0 text-dark\">You have a new update</p>\r\n                                            <p class=\"m-b-0\"><small>2 days ago</small></p>\r\n                                        </div>\r\n                                    </div>\r\n                                </a>\r\n                            </div>\r\n                        </div>\r\n                    </div> ")], -1 /* HOISTED */);
+var _hoisted_13 = {
   "class": "dropdown dropdown-animated scale-left"
 };
-var _hoisted_9 = {
+var _hoisted_14 = {
   "class": "pointer",
   "data-toggle": "dropdown"
 };
-var _hoisted_10 = {
-  "class": "avatar avatar-image m-h-10 m-r-15"
-};
-var _hoisted_11 = ["src"];
-var _hoisted_12 = {
-  "class": "p-b-15 p-t-20 dropdown-menu pop-profile"
-};
-var _hoisted_13 = {
-  "class": "p-h-20 p-b-15 m-b-10 border-bottom"
-};
-var _hoisted_14 = {
-  "class": "d-flex m-r-50"
-};
 var _hoisted_15 = {
-  "class": "avatar avatar-lg avatar-image"
+  "class": "avatar avatar-image m-h-10 m-r-10"
 };
 var _hoisted_16 = ["src"];
 var _hoisted_17 = {
-  "class": "m-l-10"
+  "class": "p-b-15 p-t-20 dropdown-menu pop-profile"
 };
 var _hoisted_18 = {
-  "class": "m-b-0 text-dark font-weight-semibold"
+  "class": "p-h-20 p-b-15 m-b-10 border-bottom"
 };
 var _hoisted_19 = {
-  "class": "m-b-0 opacity-07"
+  "class": "d-flex m-r-10"
 };
 var _hoisted_20 = {
+  "class": "avatar avatar-lg avatar-image"
+};
+var _hoisted_21 = ["src"];
+var _hoisted_22 = {
+  "class": "m-l-10"
+};
+var _hoisted_23 = {
+  "class": "m-b-0 text-dark font-weight-semibold"
+};
+var _hoisted_24 = {
+  "class": "m-b-0 opacity-07"
+};
+var _hoisted_25 = {
   href: "javascript:void(0);",
   "class": "dropdown-item d-block p-h-15 p-v-10"
 };
-var _hoisted_21 = {
+var _hoisted_26 = {
   "class": "d-flex align-items-center justify-content-between"
 };
-var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "anticon opacity-04 font-size-16 anticon-logout"
 }, null, -1 /* HOISTED */);
-var _hoisted_23 = {
+var _hoisted_28 = {
   "class": "m-l-10"
 };
-var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-  href: "javascript:void(0);",
-  "data-toggle": "modal",
-  "data-target": "#quick-view"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
-  "class": "anticon anticon-appstore"
-})])], -1 /* HOISTED */);
-
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Link");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: _ctx.getImage(this.$page.props.settings.logo),
+    alt: "Logo",
+    height: "70",
+    width: "150"
+  }, null, 8 /* PROPS */, _hoisted_4), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    "class": "logo-fold",
+    src: _ctx.getImage(this.$page.props.settings.logo),
+    alt: "Logo",
+    height: "30",
+    width: "90"
+  }, null, 8 /* PROPS */, _hoisted_5)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: _ctx.getImage(this.$page.props.settings.logo),
+    alt: "Logo"
+  }, null, 8 /* PROPS */, _hoisted_8), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <img class=\"logo-fold\" src=\"assets/images/logo/logo-fold-white.png\" alt=\"Logo\"> ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     src: this.$page.props.auth.user.avatar,
     alt: ""
-  }, null, 8 /* PROPS */, _hoisted_11)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  }, null, 8 /* PROPS */, _hoisted_16)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     src: this.$page.props.auth.user.avatar,
     alt: ""
-  }, null, 8 /* PROPS */, _hoisted_16)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.$page.props.auth.user.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.$page.props.auth.user.email), 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
+  }, null, 8 /* PROPS */, _hoisted_21)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.$page.props.auth.user.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.$page.props.auth.user.email), 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
     href: _ctx.route('logout')
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Sign Out")];
     }),
     _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["href"])])])])])])]), _hoisted_24])])]);
+  }, 8 /* PROPS */, ["href"])])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li>\r\n                    <a href=\"javascript:void(0);\" data-toggle=\"modal\" data-target=\"#quick-view\">\r\n                        <i class=\"anticon anticon-appstore\"></i>\r\n                    </a>\r\n                </li> ")])])]);
 }
 
 /***/ }),
