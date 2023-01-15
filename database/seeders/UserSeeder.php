@@ -16,6 +16,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        //creating users using seeder
         $users = [
             [
                 'name' => 'Admin',
