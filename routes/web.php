@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
+use App\Models\User;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
 use App\Http\Controllers\Admin as Admin;
 
 /*
@@ -15,6 +17,11 @@ use App\Http\Controllers\Admin as Admin;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/test', function () {
+    $pass = Hash::check('12345678', User::first()->password);
+    dd($pass, User::first()->password);
+});
 
 Route::get('/', function () {
     return redirect()->route('dashboard');

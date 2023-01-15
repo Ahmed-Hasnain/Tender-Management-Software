@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules;
 
 class UserRequest extends FormRequest
 {
@@ -33,7 +34,7 @@ class UserRequest extends FormRequest
                     'status' => 'required',
                     'about' => 'nullable',
                     'dob' => 'nullable',
-                    'password' => 'required',
+                    'password' => ['required', Rules\Password::defaults()],
                     'avatar' => 'nullable|mimes:png,jpg,jpeg,csv,txt,xlx,xls,pdf|max:2048'
                 ];
                 break;
@@ -46,7 +47,7 @@ class UserRequest extends FormRequest
                     'status' => 'required',
                     'about' => 'nullable',
                     'dob' => 'nullable',
-                    'password' => 'required',
+                    'password' => ['required', Rules\Password::defaults()],
                     'avatar' => 'nullable|mimes:png,jpg,jpeg,csv,txt,xlx,xls,pdf|max:2048'
                 ];
                 break;   
