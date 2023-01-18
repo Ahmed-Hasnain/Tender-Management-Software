@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('can:edit_user')->only('edit','update');

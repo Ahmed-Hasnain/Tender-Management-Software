@@ -42,6 +42,10 @@ Route::middleware(['auth', 'verified'])
         Route::group(['middleware' => ['can:view_user']], function () {
             Route::resource('/user', Admin\UserController::class);
         });
+        //category
+        Route::group(['middleware' => ['can:view_category']], function () {
+            Route::resource('/category', Admin\CategoryController::class);
+        });
         
 });
 
