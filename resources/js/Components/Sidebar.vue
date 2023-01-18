@@ -29,6 +29,14 @@
                         <span class="title">Users</span>
                     </Link>
                 </li>
+                <li class="nav-item dropdown">
+                    <Link :href="route('dashboard.category.index')">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-appstore"></i>
+                        </span>
+                        <span class="title">Categories</span>
+                    </Link>
+                </li>
             </ul>
         </div>
     </div>

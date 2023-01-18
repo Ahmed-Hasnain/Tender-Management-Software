@@ -45,6 +45,12 @@ class RolesAndPermissionsSeeder extends Seeder
             ['group' => 'user', 'name' => 'add_user', 'title' => 'Add User', 'guard_name' => 'web'],
             ['group' => 'user', 'name' => 'edit_user', 'title' => 'Edit User', 'guard_name' => 'web'],
             ['group' => 'user', 'name' => 'delete_user', 'title' => 'Delete User', 'guard_name' => 'web'],
+
+            // category 
+            ['group' => 'category', 'name' => 'view_category', 'title' => 'View category', 'guard_name' => 'web'],
+            ['group' => 'category', 'name' => 'add_category', 'title' => 'Add category', 'guard_name' => 'web'],
+            ['group' => 'category', 'name' => 'edit_category', 'title' => 'Edit category', 'guard_name' => 'web'],
+            ['group' => 'category', 'name' => 'delete_category', 'title' => 'Delete category', 'guard_name' => 'web'],
         ];
         Permission::insert($permissions);
 
@@ -55,7 +61,7 @@ class RolesAndPermissionsSeeder extends Seeder
 
         //Manager
         $manager = Role::updateOrCreate(['name' => 'manager'], ['title' => 'manager']);
-        $managerPermissions = Permission::whereIn('name', ['view_user'])->get();
+        $managerPermissions = Permission::whereIn('name', ['view_user', 'view_category'])->get();
         $manager->permissions()->sync($managerPermissions);
     }
 }
