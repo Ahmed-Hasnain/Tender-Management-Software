@@ -2,7 +2,7 @@
     <div class="side-nav">
         <div class="side-nav-inner">
             <ul class="side-nav-menu scrollable">
-                <li class="nav-item dropdown open">
+                <!-- <li class="nav-item dropdown open">
                     <a class="dropdown-toggle" href="javascript:void(0);">
                         <span class="icon-holder">
                             <i class="anticon anticon-dashboard"></i>
@@ -20,6 +20,14 @@
                             <Link :href="route('dashboard2')">CRM</Link>
                         </li>
                     </ul>
+                </li> -->
+                <li class="nav-item dropdown">
+                    <Link :href="route('dashboard')">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-dashboard"></i>
+                        </span>
+                        <span class="title">Dashboard</span>
+                    </Link>
                 </li>
                 <li class="nav-item dropdown">
                     <Link :href="route('dashboard.user.index')">
@@ -35,6 +43,14 @@
                             <i class="anticon anticon-appstore"></i>
                         </span>
                         <span class="title">Categories</span>
+                    </Link>
+                </li>
+                <li class="nav-item dropdown">
+                    <Link :href="route('dashboard.item.index')">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-shopping-cart"></i>
+                        </span>
+                        <span class="title">Items</span>
                     </Link>
                 </li>
             </ul>
