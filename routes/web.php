@@ -50,6 +50,10 @@ Route::middleware(['auth', 'verified'])
         Route::group(['middleware' => ['can:view_item']], function () {
             Route::resource('/item', Admin\ItemController::class);
         });
+        //mode of payment
+        Route::group(['middleware' => ['can:view_mode_of_payment']], function () {
+            Route::resource('/mode-of-payment', Admin\ModeOfPaymentController::class);
+        });
         
 });
 

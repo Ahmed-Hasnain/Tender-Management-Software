@@ -2,23 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Item;
 use Inertia\Inertia;
-use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Http\Requests\ItemRequest;
+use App\Models\ModeOfPayment;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ModeOfPaymentRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class ItemController extends Controller
+class ModeOfPaymentController extends Controller
 {
-
     public function __construct()
     {
-        $this->middleware('can:edit_item')->only('edit','update');
-        $this->middleware('can:add_item')->only('create', 'store');
-        $this->middleware('can:delete_item')->only('destroy');
+        $this->middleware('can:edit_mode_of_payment')->only('edit','update');
+        $this->middleware('can:add_mode_of_payment')->only('create', 'store');
+        $this->middleware('can:delete_mode_of_payment')->only('destroy');
     }
     /**
      * Display a listing of the resource.
@@ -29,18 +27,18 @@ class ItemController extends Controller
     {
         try{
             $limit = \config()->get('settings.pagination_limit');
-            $items = Item::with(['category', 'subCategory'])->where(function ($query) {
+            $modeOfPayments = ModeOfPayment::where(function ($query) {
                 $keyword = request()->input('keyword');
                 $query->when($keyword, function ($subQuery) use ($keyword){
                     $subQuery->where('name', 'like', '%' . $keyword . '%');
                 });
             })->orderBy('id', 'desc')->paginate($limit);
-            return Inertia::render('Item/Index', [
-                'items' => $items,
+            return Inertia::render('ModeOfPayment/Index', [
+                'mode_of_payments' => $modeOfPayments,
                 'searchedKeyword' => request()->input('keyword'),
             ]);
         } catch (ModelNotFoundException $e) {
-            flash('Unable to find this item.', 'danger');
+            flash('Unable to find this mode of payment.', 'danger');
             return \redirect()->back();
         } catch (\Exception $e) {
             flash($e->getMessage(), 'danger');
@@ -55,10 +53,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Item/Create', [
-            'categories' => Category::whereNull('parent_id')->get(),
-            'sub_categories' => Category::where('parent_id' , '!=', null)->get(),
-        ]);
+        return Inertia::render('ModeOfPayment/Create');
     }
 
     /**
@@ -67,14 +62,14 @@ class ItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ItemRequest $request)
+    public function store(ModeOfPaymentRequest $request)
     {
         try{
             DB::beginTransaction();
-            $item = Item::create($request->all());
+            $mop = ModeOfPayment::create($request->all());
             DB::commit();
-            flash('Item Added Sucessfully!', 'success');
-            return \redirect(route('dashboard.item.index'));          
+            flash('Mode of Payment Added Sucessfully!', 'success');
+            return \redirect(route('dashboard.mode-of-payment.index'));          
         }catch (\Exception $e) {
             Db::rollBack();
             flash($e->getMessage(), 'danger');
@@ -85,10 +80,10 @@ class ItemController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Item  $item
+     * @param  \App\Models\ModeOfPayment  $modeOfPayment
      * @return \Illuminate\Http\Response
      */
-    public function show(Item $item)
+    public function show(ModeOfPayment $modeOfPayment)
     {
         //
     }
@@ -96,15 +91,13 @@ class ItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Item  $item
+     * @param  \App\Models\ModeOfPayment  $modeOfPayment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Item $item)
+    public function edit(ModeOfPayment $modeOfPayment)
     {
-        return Inertia::render('Item/Edit', [
-            'categories' => Category::where('parent_id' , null)->get(),
-            'sub_categories' => Category::where('parent_id' , '!=', null)->get(),
-            'item' => $item,
+        return Inertia::render('ModeOfPayment/Edit', [
+            'mode_of_payment' => $modeOfPayment
         ]);
     }
 
@@ -112,17 +105,17 @@ class ItemController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Item  $item
+     * @param  \App\Models\ModeOfPayment  $modeOfPayment
      * @return \Illuminate\Http\Response
      */
-    public function update(ItemRequest $request, Item $item)
+    public function update(ModeOfPaymentRequest $request, ModeOfPayment $modeOfPayment)
     {
         try{
             DB::beginTransaction();
-            $item->update($request->all());
+            $modeOfPayment->update($request->all());
             DB::commit();
-            flash('Item Updated Sucessfully!', 'success');
-            return \redirect(route('dashboard.item.index'));          
+            flash('Mode of Payment Updated Sucessfully!', 'success');
+            return \redirect(route('dashboard.mode-of-payment.index'));          
         }catch (\Exception $e) {
             Db::rollBack();
             flash($e->getMessage(), 'danger');
@@ -133,17 +126,17 @@ class ItemController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Item  $item
+     * @param  \App\Models\ModeOfPayment  $modeOfPayment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Item $item)
+    public function destroy(ModeOfPayment $modeOfPayment)
     {
         try {           
-            $item->delete();
-            flash('Item deleted succesfully', 'success');
+            $modeOfPayment->delete();
+            flash('Mode of Payment deleted succesfully', 'success');
             return \redirect()->back();
         } catch (ModelNotFoundException $e) {
-            flash('Unable to find this item', 'danger');
+            flash('Unable to find this Mode Of Payment', 'danger');
             return \redirect()->back();
         } catch (\Exception $e) {
             flash($e->getMessage(), 'danger');
