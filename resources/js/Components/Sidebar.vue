@@ -53,6 +53,14 @@
                         <span class="title">Items</span>
                     </Link>
                 </li>
+                <li class="nav-item dropdown">
+                    <Link :href="route('dashboard.mode-of-payment.index')">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-dollar"></i>
+                        </span>
+                        <span class="title">Mode of Payments</span>
+                    </Link>
+                </li>
             </ul>
         </div>
     </div>
