@@ -54,7 +54,14 @@ Route::middleware(['auth', 'verified'])
         Route::group(['middleware' => ['can:view_mode_of_payment']], function () {
             Route::resource('/mode-of-payment', Admin\ModeOfPaymentController::class);
         });
-        
+        //unit
+        Route::group(['middleware' => ['can:view_unit']], function () {
+            Route::resource('/unit', Admin\UnitController::class);
+        });
+        //demand
+        Route::group(['middleware' => ['can:view_demand']], function () {
+            Route::resource('/demand', Admin\DemandController::class);
+        });
 });
 
 require __DIR__.'/auth.php';

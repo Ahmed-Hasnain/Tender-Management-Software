@@ -63,6 +63,18 @@ class RolesAndPermissionsSeeder extends Seeder
             ['group' => 'mode_of_payment', 'name' => 'add_mode_of_payment', 'title' => 'Add mode of payment', 'guard_name' => 'web'],
             ['group' => 'mode_of_payment', 'name' => 'edit_mode_of_payment', 'title' => 'Edit mode of payment', 'guard_name' => 'web'],
             ['group' => 'mode_of_payment', 'name' => 'delete_mode_of_payment', 'title' => 'Delete mode of payment', 'guard_name' => 'web'],
+
+            // demand
+            ['group' => 'demand', 'name' => 'view_demand', 'title' => 'View demand', 'guard_name' => 'web'],
+            ['group' => 'demand', 'name' => 'add_demand', 'title' => 'Add demand', 'guard_name' => 'web'],
+            ['group' => 'demand', 'name' => 'edit_demand', 'title' => 'Edit demand', 'guard_name' => 'web'],
+            ['group' => 'demand', 'name' => 'delete_demand', 'title' => 'Delete demand', 'guard_name' => 'web'],
+
+            // unit
+            ['group' => 'unit', 'name' => 'view_unit', 'title' => 'View unit', 'guard_name' => 'web'],
+            ['group' => 'unit', 'name' => 'add_unit', 'title' => 'Add unit', 'guard_name' => 'web'],
+            ['group' => 'unit', 'name' => 'edit_unit', 'title' => 'Edit unit', 'guard_name' => 'web'],
+            ['group' => 'unit', 'name' => 'delete_unit', 'title' => 'Delete unit', 'guard_name' => 'web'],
         ];
         Permission::insert($permissions);
 
@@ -73,7 +85,7 @@ class RolesAndPermissionsSeeder extends Seeder
 
         //Manager
         $manager = Role::updateOrCreate(['name' => 'manager'], ['title' => 'manager']);
-        $managerPermissions = Permission::whereIn('name', ['view_user', 'view_category', 'view_item', 'view_mode_of_payment'])->get();
+        $managerPermissions = Permission::whereIn('name', ['view_user', 'view_category', 'view_item', 'view_mode_of_payment', 'view_demand', 'view_unit'])->get();
         $manager->permissions()->sync($managerPermissions);
     }
 }
