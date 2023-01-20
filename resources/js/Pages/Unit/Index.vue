@@ -1,25 +1,25 @@
 <template>
 
-    <Head title="Mode Of Payments" />
+    <Head title="Units" />
     <AuthenticatedLayout>
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">All Mode Of Payments</h4>
+                <h4 class="card-title">All Units</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
-                                <button class="btn btn-primary btn-sm" @click="add()" v-if="checkUserPermissions('add_mode_of_payment')">
-                                    <i class="anticon anticon-dollar"></i>
-                                    <span>Add Mode Of Payment</span>
+                                <button class="btn btn-primary btn-sm" @click="add()" v-if="checkUserPermissions('add_unit')">
+                                    <i class="anticon anticon-deployment-unit"></i>
+                                    <span>Add Unit</span>
                                 </button>
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <div id="DataTables_Table_0_filter" class="dataTables_filter">
                                     <label>Search:
-                                        <search :url="'dashboard.mode-of-payment.index'" :searchedKeyword="searchedKeyword"></search>
+                                        <search :url="'dashboard.unit.index'" :searchedKeyword="searchedKeyword"></search>
                                     </label>
                                 </div>
                             </div>
@@ -27,23 +27,25 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="table table-hover e-commerce-table dataTable no-footer"
-                                    id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" v-if="modeOfPayments?.data.length > 0">
+                                    id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" v-if="allUnits?.data.length > 0">
                                     <thead>
                                         <tr role="row">
                                             <th style="width: 70px;">ID</th>
-                                            <th style="width: 225.188px;">Name</th>
+                                            <th style="width: 225.188px;">Full Name</th>
+                                            <th style="width: 225.188px;">Short Name</th>
                                             <th class="text-right" style="width: 96.0125px;">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr role="row" class="odd" v-for="(mop,index) in modeOfPayments.data" :key="index">
-                                            <td>{{ mop.id }}</td>
-                                            <td class="text-capitalize">{{ mop.name }}</td>
+                                        <tr role="row" class="odd" v-for="(unit,index) in allUnits.data" :key="index">
+                                            <td>{{ unit.id }}</td>
+                                            <td class="text-capitalize">{{ unit.full_name }}</td>
+                                            <td class="text-capitalize">{{ unit.short_name }}</td>
                                             <td class="text-right">
-                                                <button @click="edit(mop.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('edit_mode_of_payment')">
+                                                <button @click="edit(unit.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('edit_unit')">
                                                     <i class="anticon anticon-edit"></i>
                                                 </button>
-                                                <button @click="onDelete(mop.id)" class="btn btn-icon btn-hover btn-sm btn-rounded" v-if="checkUserPermissions('delete_mode_of_payment')">
+                                                <button @click="onDelete(unit.id)" class="btn btn-icon btn-hover btn-sm btn-rounded" v-if="checkUserPermissions('delete_unit')">
                                                     <i class="anticon anticon-delete"></i>
                                                 </button>
                                             </td>
@@ -53,7 +55,7 @@
                                 <div v-else class="pt-3 pl-3">No Data Found.</div>
                             </div>
                         </div>
-                        <pagination :meta="modeOfPayments" :keyword="searchedKeyword"></pagination>
+                        <pagination :meta="allUnits" :keyword="searchedKeyword"></pagination>
                     </div>
                 </div>
             </div>
@@ -75,21 +77,21 @@ export default {
         pagination,
         search
     },
-    props: ['mode_of_payments', 'searchedKeyword'],
+    props: ['units', 'searchedKeyword'],
     data() {
         return{
-            modeOfPayments: this.mode_of_payments
+            allUnits: this.units
         }
     },
     methods: {
         add(){
-            this.$inertia.get(route('dashboard.mode-of-payment.create'), {
+            this.$inertia.get(route('dashboard.unit.create'), {
                 onSuccess: () => {},
                 onError: errors => {console.log(errors);}
             })
         },
         edit($id){
-            this.$inertia.get(route('dashboard.mode-of-payment.edit', $id), {
+            this.$inertia.get(route('dashboard.unit.edit', $id), {
                 onSuccess: () => {},
                 onError: errors => {console.log(errors);}
             })
@@ -106,7 +108,7 @@ export default {
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    this.$inertia.delete(route('dashboard.mode-of-payment.destroy', $id), {
+                    this.$inertia.delete(route('dashboard.unit.destroy', $id), {
                         preserveScroll: false,
                         onSuccess: () => {},
                         onError: errors => {console.log(errors);}
@@ -116,9 +118,9 @@ export default {
         }
     },
     watch: {
-        mode_of_payments:{
-            handler(mode_of_payments) {
-                this.modeOfPayments = mode_of_payments
+        units:{
+            handler(units) {
+                this.allUnits = units
             },
             deep: true,
         },

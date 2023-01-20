@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Unit;
+use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Http\Requests\UnitRequest;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UnitController extends Controller
 {
@@ -22,7 +25,26 @@ class UnitController extends Controller
      */
     public function index()
     {
-        //
+        try{
+            $limit = \config()->get('settings.pagination_limit');
+            $units = Unit::where(function ($query) {
+                $keyword = request()->input('keyword');
+                $query->when($keyword, function ($subQuery) use ($keyword){
+                    $subQuery->where('full_name', 'like', '%' . $keyword . '%')
+                    ->orWhere('short_name', 'like', '%' . $keyword . '%');
+                });
+            })->orderBy('id', 'desc')->paginate($limit);
+            return Inertia::render('Unit/Index', [
+                'units' => $units,
+                'searchedKeyword' => request()->input('keyword'),
+            ]);
+        } catch (ModelNotFoundException $e) {
+            flash('Unable to find this unit.', 'danger');
+            return \redirect()->back();
+        } catch (\Exception $e) {
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 
     /**
@@ -32,7 +54,7 @@ class UnitController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Unit/Create');
     }
 
     /**
@@ -43,7 +65,17 @@ class UnitController extends Controller
      */
     public function store(UnitRequest $request)
     {
-        //
+        try{
+            DB::beginTransaction();
+            $unit = Unit::create($request->all());
+            DB::commit();
+            flash('Unit Added Sucessfully!', 'success');
+            return \redirect(route('dashboard.unit.index'));          
+        }catch (\Exception $e) {
+            Db::rollBack();
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 
     /**
@@ -65,7 +97,9 @@ class UnitController extends Controller
      */
     public function edit(Unit $unit)
     {
-        //
+        return Inertia::render('Unit/Edit', [
+            'unit' => $unit
+        ]);
     }
 
     /**
@@ -77,7 +111,17 @@ class UnitController extends Controller
      */
     public function update(UnitRequest $request, Unit $unit)
     {
-        //
+        try{
+            DB::beginTransaction();
+            $unit->update($request->all());
+            DB::commit();
+            flash('Unit Updated Sucessfully!', 'success');
+            return \redirect(route('dashboard.unit.index'));          
+        }catch (\Exception $e) {
+            Db::rollBack();
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 
     /**
@@ -88,6 +132,16 @@ class UnitController extends Controller
      */
     public function destroy(Unit $unit)
     {
-        //
+        try {           
+            $unit->delete();
+            flash('Unit deleted succesfully', 'success');
+            return \redirect()->back();
+        } catch (ModelNotFoundException $e) {
+            flash('Unable to find this unit', 'danger');
+            return \redirect()->back();
+        } catch (\Exception $e) {
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 }

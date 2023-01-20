@@ -1,18 +1,23 @@
 <template>
-    <Head title="Edit Mode of Payment" />
+    <Head title="Edit Unit" />
     <AuthenticatedLayout>
         <form v-if="form" @submit.prevent="submit">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Edit Mode of Payment</h4>
+                    <h4 class="card-title">Edit Unit</h4>
                 </div>
                 <div class="card-body">
                     <div>
                         <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label class="font-weight-semibold" for="userName">Name:</label>
-                                <input type="text" class="form-control" id="name" placeholder="User Name" v-model="form.name" :class="{'is-invalid' : form.errors?.name}">
-                                <error :message="form.errors?.name"></error>
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-semibold" for="userName">Full Name:</label>
+                                <input type="text" class="form-control" id="name" placeholder="Full Name" v-model="form.full_name" :class="{'is-invalid' : form.errors?.full_name}">
+                                <error :message="form.errors?.full_name"></error>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-semibold" for="userName">Short Name:</label>
+                                <input type="text" class="form-control" id="name" placeholder="Short Name" v-model="form.short_name" :class="{'is-invalid' : form.errors?.short_name}">
+                                <error :message="form.errors?.short_name"></error>
                             </div>
                         </div>
                         <div class="form-row">
@@ -36,7 +41,7 @@ import { Head, useForm } from '@inertiajs/inertia-vue3';
 import Error from '@/Components/InputError.vue'
 
 export default {
-    props:['mode_of_payment'],
+    props:['unit'],
     components: {
         AuthenticatedLayout,
         Head,
@@ -49,8 +54,8 @@ export default {
     },
     methods: {
         submit(){
-            this.form.put(route('dashboard.mode-of-payment.update', this.form.id), {
-                errorBag: 'mop',
+            this.form.put(route('dashboard.unit.update', this.form.id), {
+                errorBag: 'unit',
                 preserveScroll: true,
                 onSuccess: () => {},
                 onError: errors => {console.log(errors);}
@@ -59,8 +64,9 @@ export default {
     },
     mounted() {
         this.form = useForm({
-            id: this.mode_of_payment ? this.mode_of_payment.id : null,
-            name: this.mode_of_payment ? this.mode_of_payment.name : null,
+            id: this.unit ? this.unit.id : null,
+            full_name: this.unit ? this.unit.full_name : null,
+            short_name: this.unit ? this.unit.short_name : null,
         })
     },
 }
