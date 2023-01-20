@@ -61,6 +61,22 @@
                         <span class="title">Mode of Payments</span>
                     </Link>
                 </li>
+                <li class="nav-item dropdown">
+                    <Link :href="route('dashboard.demand.index')">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-usb"></i>
+                        </span>
+                        <span class="title">Type of Demands</span>
+                    </Link>
+                </li>
+                <li class="nav-item dropdown">
+                    <Link :href="route('dashboard.unit.index')">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-deployment-unit"></i>
+                        </span>
+                        <span class="title">Units</span>
+                    </Link>
+                </li>
             </ul>
         </div>
     </div>
