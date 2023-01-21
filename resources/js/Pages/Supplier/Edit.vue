@@ -1,18 +1,88 @@
 <template>
-    <Head title="Edit Type of Demand" />
+    <Head title="Edit Supplier" />
     <AuthenticatedLayout>
         <form v-if="form" @submit.prevent="submit">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Edit Type of Demand</h4>
+                    <h4 class="card-title">Edit Supplier</h4>
                 </div>
                 <div class="card-body">
                     <div>
                         <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label class="font-weight-semibold" for="userName">Name:</label>
-                                <input type="text" class="form-control" id="name" placeholder="User Name" v-model="form.name" :class="{'is-invalid' : form.errors?.name}">
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-semibold" for="Name">Name:</label>
+                                <input type="text" class="form-control" id="name" placeholder="Name" v-model="form.name" :class="{'is-invalid' : form.errors?.name}">
                                 <error :message="form.errors?.name"></error>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-semibold" for="Website">Website:</label>
+                                <input type="text" class="form-control" id="name" placeholder="Website" v-model="form.website" :class="{'is-invalid' : form.errors?.website}">
+                                <error :message="form.errors?.website"></error>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-semibold" for="Address">Address:</label>
+                                <input type="text" class="form-control" id="name" placeholder="Address" v-model="form.address" :class="{'is-invalid' : form.errors?.address}">
+                                <error :message="form.errors?.address"></error>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-semibold" for="City">City:</label>
+                                <input type="text" class="form-control" id="name" placeholder="City" v-model="form.city" :class="{'is-invalid' : form.errors?.city}">
+                                <error :message="form.errors?.city"></error>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-semibold" for="District">District:</label>
+                                <input type="text" class="form-control" id="name" placeholder="District" v-model="form.district" :class="{'is-invalid' : form.errors?.district}">
+                                <error :message="form.errors?.district"></error>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-semibold" for="Country">Country:</label>
+                                <input type="text" class="form-control" id="name" placeholder="Country" v-model="form.country" :class="{'is-invalid' : form.errors?.country}">
+                                <error :message="form.errors?.country"></error>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label class="font-weight-semibold" for="Category">Category:</label>
+                                <select id="language" class="form-control" v-model="form.category_id" :class="{'is-invalid' : form.errors?.category_id}">
+                                    <option v-for="(category,index) in categories" :key="index" :value="category.id" class="text-capitalize">{{ category.name }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Bank Details</h4>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-semibold" for="Bank Name">Bank Name:</label>
+                                <input type="text" class="form-control" id="name" placeholder="Bank Name" v-model="form.bank_name" :class="{'is-invalid' : form.errors?.bank_name}">
+                                <error :message="form.errors?.bank_name"></error>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-semibold" for="Account Title">Account Title:</label>
+                                <input type="text" class="form-control" id="name" placeholder="Account Title" v-model="form.account_title" :class="{'is-invalid' : form.errors?.account_title}">
+                                <error :message="form.errors?.account_title"></error>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-semibold" for="Branch Code">Branch Code:</label>
+                                <input type="text" class="form-control" id="name" placeholder="Branch Code" v-model="form.branch_code" :class="{'is-invalid' : form.errors?.branch_code}">
+                                <error :message="form.errors?.branch_code"></error>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-semibold" for="Account Number">Account Number:</label>
+                                <input type="text" class="form-control" id="name" placeholder="Account Number" v-model="form.account_number" :class="{'is-invalid' : form.errors?.account_number}">
+                                <error :message="form.errors?.account_number"></error>
                             </div>
                         </div>
                         <div class="form-row">
@@ -36,7 +106,7 @@ import { Head, useForm } from '@inertiajs/inertia-vue3';
 import Error from '@/Components/InputError.vue'
 
 export default {
-    props:['demand'],
+    props:['categories', 'supplier'],
     components: {
         AuthenticatedLayout,
         Head,
@@ -49,8 +119,8 @@ export default {
     },
     methods: {
         submit(){
-            this.form.put(route('dashboard.demand.update', this.form.id), {
-                errorBag: 'demand',
+            this.form.put(route('dashboard.supplier.update', this.form.id), {
+                errorBag: 'supplier',
                 preserveScroll: true,
                 onSuccess: () => {},
                 onError: errors => {console.log(errors);}
@@ -59,8 +129,18 @@ export default {
     },
     mounted() {
         this.form = useForm({
-            id: this.demand ? this.demand.id : null,
-            name: this.demand ? this.demand.name : null,
+            id: this.supplier ? this.supplier.id : null,
+            name: this.supplier ? this.supplier.name : null,
+            website: this.supplier ? this.supplier.website : null,
+            address: this.supplier ? this.supplier.address : null,
+            city: this.supplier ? this.supplier.city : null,
+            district: this.supplier ? this.supplier.district : null,
+            country: this.supplier ? this.supplier.country : null,
+            category_id: this.supplier ? this.supplier.category_id : null,
+            account_title: this.supplier ? this.supplier.account_title : null,
+            bank_name: this.supplier ? this.supplier.bank_name : null,
+            branch_code: this.supplier ? this.supplier.branch_code : null,
+            account_number: this.supplier ? this.supplier.account_number : null,
         })
     },
 }

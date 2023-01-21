@@ -12,7 +12,7 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
                                 <button class="btn btn-primary btn-sm" @click="add()" v-if="checkUserPermissions('add_supplier')">
-                                    <i class="anticon anticon-usb"></i>
+                                    <i class="anticon anticon-user-add"></i>
                                     <span>Add Supplier</span>
                                 </button>
                             </div>

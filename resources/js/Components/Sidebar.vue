@@ -77,6 +77,14 @@
                         <span class="title">Units</span>
                     </Link>
                 </li>
+                <li class="nav-item dropdown">
+                    <Link :href="route('dashboard.supplier.index')">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-user-add"></i>
+                        </span>
+                        <span class="title">Suppliers</span>
+                    </Link>
+                </li>
             </ul>
         </div>
     </div>

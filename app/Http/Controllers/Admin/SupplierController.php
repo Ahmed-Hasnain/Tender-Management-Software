@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use Inertia\Inertia;
+use App\Models\Category;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SupplierRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -63,7 +65,9 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Supplier/Create', [
+            'categories' => Category::all(),
+        ]);
     }
 
     /**
@@ -74,7 +78,17 @@ class SupplierController extends Controller
      */
     public function store(SupplierRequest $request)
     {
-        //
+        try{
+            DB::beginTransaction();
+            $supplier = Supplier::create($request->all());
+            DB::commit();
+            flash('Supplier Added Sucessfully!', 'success');
+            return \redirect(route('dashboard.supplier.index'));          
+        }catch (\Exception $e) {
+            Db::rollBack();
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 
     /**
@@ -96,7 +110,10 @@ class SupplierController extends Controller
      */
     public function edit(Supplier $supplier)
     {
-        //
+        return Inertia::render('Supplier/Edit', [
+            'categories' => Category::all(),
+            'supplier' => $supplier
+        ]);
     }
 
     /**
@@ -108,7 +125,17 @@ class SupplierController extends Controller
      */
     public function update(SupplierRequest $request, Supplier $supplier)
     {
-        //
+        try{
+            DB::beginTransaction();
+            $supplier->update($request->all());
+            DB::commit();
+            flash('Supplier Updated Sucessfully!', 'success');
+            return \redirect(route('dashboard.supplier.index'));          
+        }catch (\Exception $e) {
+            Db::rollBack();
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 
     /**
@@ -119,6 +146,16 @@ class SupplierController extends Controller
      */
     public function destroy(Supplier $supplier)
     {
-        //
+        try {           
+            $supplier->delete();
+            flash('Supplier deleted succesfully', 'success');
+            return \redirect()->back();
+        } catch (ModelNotFoundException $e) {
+            flash('Unable to find this supplier', 'danger');
+            return \redirect()->back();
+        } catch (\Exception $e) {
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 }
