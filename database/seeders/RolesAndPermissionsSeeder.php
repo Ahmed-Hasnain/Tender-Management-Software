@@ -76,11 +76,17 @@ class RolesAndPermissionsSeeder extends Seeder
             ['group' => 'unit', 'name' => 'edit_unit', 'title' => 'Edit unit', 'guard_name' => 'web'],
             ['group' => 'unit', 'name' => 'delete_unit', 'title' => 'Delete unit', 'guard_name' => 'web'],
 
-            // unit
+            // supplier
             ['group' => 'supplier', 'name' => 'view_supplier', 'title' => 'View supplier', 'guard_name' => 'web'],
             ['group' => 'supplier', 'name' => 'add_supplier', 'title' => 'Add supplier', 'guard_name' => 'web'],
             ['group' => 'supplier', 'name' => 'edit_supplier', 'title' => 'Edit supplier', 'guard_name' => 'web'],
             ['group' => 'supplier', 'name' => 'delete_supplier', 'title' => 'Delete supplier', 'guard_name' => 'web'],
+
+            // client
+            ['group' => 'client', 'name' => 'view_client', 'title' => 'View client', 'guard_name' => 'web'],
+            ['group' => 'client', 'name' => 'add_client', 'title' => 'Add client', 'guard_name' => 'web'],
+            ['group' => 'client', 'name' => 'edit_client', 'title' => 'Edit client', 'guard_name' => 'web'],
+            ['group' => 'client', 'name' => 'delete_client', 'title' => 'Delete client', 'guard_name' => 'web'],
         ];
         Permission::insert($permissions);
 
@@ -91,7 +97,7 @@ class RolesAndPermissionsSeeder extends Seeder
 
         //Manager
         $manager = Role::updateOrCreate(['name' => 'manager'], ['title' => 'manager']);
-        $managerPermissions = Permission::whereIn('name', ['view_user', 'view_category', 'view_item', 'view_mode_of_payment', 'view_demand', 'view_unit', 'view_supplier'])->get();
+        $managerPermissions = Permission::whereIn('name', ['view_user', 'view_category', 'view_item', 'view_mode_of_payment', 'view_demand', 'view_unit', 'view_supplier', 'view_client'])->get();
         $manager->permissions()->sync($managerPermissions);
     }
 }

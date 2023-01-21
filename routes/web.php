@@ -66,6 +66,10 @@ Route::middleware(['auth', 'verified'])
         Route::group(['middleware' => ['can:view_supplier']], function () {
             Route::resource('/supplier', Admin\SupplierController::class);
         });
+        //client
+        Route::group(['middleware' => ['can:view_client']], function () {
+            Route::resource('/client', Admin\ClientController::class);
+        });
 });
 
 require __DIR__.'/auth.php';
