@@ -21,60 +21,76 @@
                         </li>
                     </ul>
                 </li> -->
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" :class="{ 'active': $page.component === 'Dashboard' }">
                     <Link :href="route('dashboard')">
                         <span class="icon-holder">
-                            <i class="anticon anticon-dashboard"></i>
+                            <i class="anticon anticon-dashboard" :class="{ 'text-white': $page.component === 'Dashboard' }"></i>
                         </span>
-                        <span class="title">Dashboard</span>
+                        <span class="title " :class="{ 'text-white': $page.component === 'Dashboard' }">Dashboard</span>
                     </Link>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" :class="{ 'active': $page.component === 'Users/Index' }">
                     <Link :href="route('dashboard.user.index')">
                         <span class="icon-holder">
-                            <i class="anticon anticon-team"></i>
+                            <i class="anticon anticon-team" :class="{ 'text-white': $page.component === 'Users/Index' }"></i>
                         </span>
-                        <span class="title">Users</span>
+                        <span class="title" :class="{ 'text-white': $page.component === 'Users/Index' }">Users</span>
                     </Link>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" :class="{ 'active': $page.component === 'Category/Index' }">
                     <Link :href="route('dashboard.category.index')">
                         <span class="icon-holder">
-                            <i class="anticon anticon-appstore"></i>
+                            <i class="anticon anticon-appstore" :class="{ 'text-white': $page.component === 'Category/Index' }"></i>
                         </span>
-                        <span class="title">Categories</span>
+                        <span class="title" :class="{ 'text-white': $page.component === 'Category/Index' }">Categories</span>
                     </Link>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" :class="{ 'active': $page.component === 'Item/Index' }">
                     <Link :href="route('dashboard.item.index')">
                         <span class="icon-holder">
-                            <i class="anticon anticon-shopping-cart"></i>
+                            <i class="anticon anticon-shopping-cart" :class="{ 'text-white': $page.component === 'Item/Index' }"></i>
                         </span>
-                        <span class="title">Items</span>
+                        <span class="title" :class="{ 'text-white': $page.component === 'Item/Index' }">Items</span>
                     </Link>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" :class="{ 'active': $page.component === 'ModeOfPayment/Index' }">
                     <Link :href="route('dashboard.mode-of-payment.index')">
                         <span class="icon-holder">
-                            <i class="anticon anticon-dollar"></i>
+                            <i class="anticon anticon-dollar" :class="{ 'text-white': $page.component === 'ModeOfPayment/Index' }"></i>
                         </span>
-                        <span class="title">Mode of Payments</span>
+                        <span class="title" :class="{ 'text-white': $page.component === 'ModeOfPayment/Index' }">Mode of Payments</span>
                     </Link>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" :class="{ 'active': $page.component === 'Demand/Index' }">
                     <Link :href="route('dashboard.demand.index')">
                         <span class="icon-holder">
-                            <i class="anticon anticon-usb"></i>
+                            <i class="anticon anticon-usb" :class="{ 'text-white': $page.component === 'Demand/Index' }"></i>
                         </span>
-                        <span class="title">Type of Demands</span>
+                        <span class="title" :class="{ 'text-white': $page.component === 'Demand/Index' }">Type of Demands</span>
                     </Link>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" :class="{ 'active': $page.component === 'Unit/Index' }">
                     <Link :href="route('dashboard.unit.index')">
                         <span class="icon-holder">
-                            <i class="anticon anticon-deployment-unit"></i>
+                            <i class="anticon anticon-deployment-unit" :class="{ 'text-white': $page.component === 'Unit/Index' }"></i>
                         </span>
-                        <span class="title">Units</span>
+                        <span class="title" :class="{ 'text-white': $page.component === 'Unit/Index' }">Units</span>
+                    </Link>
+                </li>
+                <li class="nav-item dropdown" :class="{ 'active': $page.component === 'Supplier/Index' }">
+                    <Link :href="route('dashboard.supplier.index')">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-user-add" :class="{ 'text-white': $page.component === 'Supplier/Index' }"></i>
+                        </span>
+                        <span class="title" :class="{ 'text-white': $page.component === 'Supplier/Index' }">Suppliers</span>
+                    </Link>
+                </li>
+                <li class="nav-item dropdown" :class="{ 'active': $page.component === 'Client/Index' }">
+                    <Link :href="route('dashboard.client.index')">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-copyright" :class="{ 'text-white': $page.component === 'Client/Index' }"></i>
+                        </span>
+                        <span class="title" :class="{ 'text-white': $page.component === 'Client/Index' }">Clients</span>
                     </Link>
                 </li>
             </ul>
@@ -93,5 +109,10 @@ export default {
 </script>
 
 <style>
-
+.active {
+    background: #3f87f5 !important;
+}
+.text-white{
+    color: white !important;
+}
 </style>
