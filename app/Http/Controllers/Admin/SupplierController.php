@@ -1,0 +1,124 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use Inertia\Inertia;
+use App\Models\Supplier;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\SupplierRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
+class SupplierController extends Controller
+{
+    public function __construct()
+    {
+        $this->middleware('can:edit_supplier')->only('edit','update');
+        $this->middleware('can:add_supplier')->only('create', 'store');
+        $this->middleware('can:delete_supplier')->only('destroy');
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        try{
+            $limit = \config()->get('settings.pagination_limit');
+            $suppliers = Supplier::with('category')->where(function ($query) {
+                $keyword = request()->input('keyword');
+                $query->when($keyword, function ($subQuery) use ($keyword){
+                    $subQuery->where('name', 'like', '%' . $keyword . '%')
+                    ->orWhere('website', 'like', '%' . $keyword . '%')
+                    ->orWhere('address', 'like', '%' . $keyword . '%')
+                    ->orWhere('city', 'like', '%' . $keyword . '%')
+                    ->orWhere('district', 'like', '%' . $keyword . '%')
+                    ->orWhere('country', 'like', '%' . $keyword . '%')
+                    ->orWhere('bank_name', 'like', '%' . $keyword . '%')
+                    ->orWhere('account_title', 'like', '%' . $keyword . '%')
+                    ->orWhere('account_number', 'like', '%' . $keyword . '%')
+                    ->orWhereHas('category', function($query) use ($keyword){
+                        $query->where('name', 'like', '%' . $keyword . '%');
+                    });
+                });
+            })->orderBy('id', 'desc')->paginate($limit);
+            return Inertia::render('Supplier/Index', [
+                'suppliers' => $suppliers,
+                'searchedKeyword' => request()->input('keyword'),
+            ]);
+        } catch (ModelNotFoundException $e) {
+            flash('Unable to find this supplier.', 'danger');
+            return \redirect()->back();
+        } catch (\Exception $e) {
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(SupplierRequest $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Supplier  $supplier
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Supplier $supplier)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Supplier  $supplier
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Supplier $supplier)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Supplier  $supplier
+     * @return \Illuminate\Http\Response
+     */
+    public function update(SupplierRequest $request, Supplier $supplier)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Supplier  $supplier
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Supplier $supplier)
+    {
+        //
+    }
+}
