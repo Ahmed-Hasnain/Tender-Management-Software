@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Inertia\Inertia;
 use App\Models\Client;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClientRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -60,7 +62,9 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Client/Create', [
+            'categories' => Category::all(),
+        ]);
     }
 
     /**
@@ -71,7 +75,17 @@ class ClientController extends Controller
      */
     public function store(ClientRequest $request)
     {
-        //
+        try{
+            DB::beginTransaction();
+            $client = Client::create($request->all());
+            DB::commit();
+            flash('Client Added Sucessfully!', 'success');
+            return \redirect(route('dashboard.client.index'));          
+        }catch (\Exception $e) {
+            Db::rollBack();
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 
     /**
@@ -82,7 +96,9 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        //
+        return Inertia::render('Client/Show', [
+            'client' => $client,
+        ]);
     }
 
     /**
@@ -93,7 +109,10 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        //
+        return Inertia::render('Client/Edit', [
+            'categories' => Category::all(),
+            'client' => $client
+        ]);
     }
 
     /**
@@ -105,7 +124,17 @@ class ClientController extends Controller
      */
     public function update(ClientRequest $request, Client $client)
     {
-        //
+        try{
+            DB::beginTransaction();
+            $client->update($request->all());
+            DB::commit();
+            flash('Client Updated Sucessfully!', 'success');
+            return \redirect(route('dashboard.client.index'));          
+        }catch (\Exception $e) {
+            Db::rollBack();
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 
     /**
@@ -116,6 +145,16 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        try {           
+            $client->delete();
+            flash('Client deleted succesfully', 'success');
+            return \redirect()->back();
+        } catch (ModelNotFoundException $e) {
+            flash('Unable to find this client', 'danger');
+            return \redirect()->back();
+        } catch (\Exception $e) {
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 }

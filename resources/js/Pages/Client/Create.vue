@@ -1,10 +1,10 @@
 <template>
-    <Head title="Add Supplier" />
+    <Head title="Add Client" />
     <AuthenticatedLayout>
         <form v-if="form" @submit.prevent="submit">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Add Supplier</h4>
+                    <h4 class="card-title">Add Client</h4>
                 </div>
                 <div class="card-body">
                     <div>
@@ -52,39 +52,6 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Bank Details</h4>
-                </div>
-                <div class="card-body">
-                    <div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Bank Name">Bank Name:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Bank Name" v-model="form.bank_name" :class="{'is-invalid' : form.errors?.bank_name}">
-                                <error :message="form.errors?.bank_name"></error>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Account Title">Account Title:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Account Title" v-model="form.account_title" :class="{'is-invalid' : form.errors?.account_title}">
-                                <error :message="form.errors?.account_title"></error>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Branch Code">Branch Code:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Branch Code" v-model="form.branch_code" :class="{'is-invalid' : form.errors?.branch_code}">
-                                <error :message="form.errors?.branch_code"></error>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Account Number">Account Number:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Account Number" v-model="form.account_number" :class="{'is-invalid' : form.errors?.account_number}">
-                                <error :message="form.errors?.account_number"></error>
-                            </div>
-                        </div>
                         <div class="form-row">
                             <div class="form-group col-md-11">
                                 
@@ -119,8 +86,8 @@ export default {
     },
     methods: {
         submit(){
-            this.form.post(route('dashboard.supplier.store'), {
-                errorBag: 'supplier',
+            this.form.post(route('dashboard.client.store'), {
+                errorBag: 'client',
                 preserveScroll: true,
                 onSuccess: () => {},
                 onError: errors => {console.log(errors);}
@@ -136,10 +103,6 @@ export default {
             district: null,
             country: null,
             category_id: null,
-            account_title: null,
-            bank_name: null,
-            branch_code: null,
-            account_number: null,
         })
     },
 }

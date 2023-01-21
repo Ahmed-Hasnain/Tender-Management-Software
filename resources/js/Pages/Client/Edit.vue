@@ -1,10 +1,10 @@
 <template>
-    <Head title="Edit Supplier" />
+    <Head title="Edit Client" />
     <AuthenticatedLayout>
         <form v-if="form" @submit.prevent="submit">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Edit Supplier</h4>
+                    <h4 class="card-title">Edit Client</h4>
                 </div>
                 <div class="card-body">
                     <div>
@@ -52,39 +52,6 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Bank Details</h4>
-                </div>
-                <div class="card-body">
-                    <div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Bank Name">Bank Name:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Bank Name" v-model="form.bank_name" :class="{'is-invalid' : form.errors?.bank_name}">
-                                <error :message="form.errors?.bank_name"></error>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Account Title">Account Title:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Account Title" v-model="form.account_title" :class="{'is-invalid' : form.errors?.account_title}">
-                                <error :message="form.errors?.account_title"></error>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Branch Code">Branch Code:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Branch Code" v-model="form.branch_code" :class="{'is-invalid' : form.errors?.branch_code}">
-                                <error :message="form.errors?.branch_code"></error>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Account Number">Account Number:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Account Number" v-model="form.account_number" :class="{'is-invalid' : form.errors?.account_number}">
-                                <error :message="form.errors?.account_number"></error>
-                            </div>
-                        </div>
                         <div class="form-row">
                             <div class="form-group col-md-11">
                                 
@@ -106,7 +73,7 @@ import { Head, useForm } from '@inertiajs/inertia-vue3';
 import Error from '@/Components/InputError.vue'
 
 export default {
-    props:['categories', 'supplier'],
+    props:['categories', 'client'],
     components: {
         AuthenticatedLayout,
         Head,
@@ -119,7 +86,7 @@ export default {
     },
     methods: {
         submit(){
-            this.form.put(route('dashboard.supplier.update', this.form.id), {
+            this.form.put(route('dashboard.client.update', this.form.id), {
                 errorBag: 'supplier',
                 preserveScroll: true,
                 onSuccess: () => {},
@@ -129,18 +96,14 @@ export default {
     },
     mounted() {
         this.form = useForm({
-            id: this.supplier ? this.supplier.id : null,
-            name: this.supplier ? this.supplier.name : null,
-            website: this.supplier ? this.supplier.website : null,
-            address: this.supplier ? this.supplier.address : null,
-            city: this.supplier ? this.supplier.city : null,
-            district: this.supplier ? this.supplier.district : null,
-            country: this.supplier ? this.supplier.country : null,
-            category_id: this.supplier ? this.supplier.category_id : null,
-            account_title: this.supplier ? this.supplier.account_title : null,
-            bank_name: this.supplier ? this.supplier.bank_name : null,
-            branch_code: this.supplier ? this.supplier.branch_code : null,
-            account_number: this.supplier ? this.supplier.account_number : null,
+            id: this.client ? this.client.id : null,
+            name: this.client ? this.client.name : null,
+            website: this.client ? this.client.website : null,
+            address: this.client ? this.client.address : null,
+            city: this.client ? this.client.city : null,
+            district: this.client ? this.client.district : null,
+            country: this.client ? this.client.country : null,
+            category_id: this.client ? this.client.category_id : null,
         })
     },
 }
