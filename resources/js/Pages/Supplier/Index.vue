@@ -1,5 +1,4 @@
 <template>
-
     <Head title="Suppliers" />
     <AuthenticatedLayout>
         <div class="card">
@@ -36,7 +35,7 @@
                                             <th style="width: 225.188px;">city</th>
                                             <th style="width: 225.188px;">Category</th>
                                             <th style="width: 225.188px;">Bank Name</th>
-                                            <th class="text-right" style="width: 96.0125px;">Action</th>
+                                            <th class="text-right" style="width: 150px;">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -48,6 +47,9 @@
                                             <td class="text-capitalize">{{ supplier.category.name }}</td>
                                             <td class="text-capitalize">{{ supplier.bank_name }}</td>
                                             <td class="text-right">
+                                                <button @click="show(supplier.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('view_supplier')">
+                                                    <i class="anticon anticon-eye"></i>
+                                                </button>
                                                 <button @click="edit(supplier.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('edit_supplier')">
                                                     <i class="anticon anticon-edit"></i>
                                                 </button>
@@ -98,6 +100,12 @@ export default {
         },
         edit($id){
             this.$inertia.get(route('dashboard.supplier.edit', $id), {
+                onSuccess: () => {},
+                onError: errors => {console.log(errors);}
+            })
+        },
+        show($id){
+            this.$inertia.get(route('dashboard.supplier.show', $id), {
                 onSuccess: () => {},
                 onError: errors => {console.log(errors);}
             })

@@ -99,7 +99,9 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
-        //
+        return Inertia::render('Supplier/Show', [
+            'supplier' => $supplier,
+        ]);
     }
 
     /**
