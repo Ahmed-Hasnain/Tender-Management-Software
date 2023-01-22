@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Person extends Model
+{
+    use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'mobile_no',
+        'phone_no',
+        'email',
+        'department',
+        'personable_type',
+        'personable_id',
+    ];
+    
+    public function personable() 
+    {
+        return $this->morphTo();
+    }
+}

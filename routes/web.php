@@ -42,7 +42,40 @@ Route::middleware(['auth', 'verified'])
         Route::group(['middleware' => ['can:view_user']], function () {
             Route::resource('/user', Admin\UserController::class);
         });
-        
+        //category
+        Route::group(['middleware' => ['can:view_category']], function () {
+            Route::resource('/category', Admin\CategoryController::class);
+        });
+        //item
+        Route::group(['middleware' => ['can:view_item']], function () {
+            Route::resource('/item', Admin\ItemController::class);
+        });
+        //mode of payment
+        Route::group(['middleware' => ['can:view_mode_of_payment']], function () {
+            Route::resource('/mode-of-payment', Admin\ModeOfPaymentController::class);
+        });
+        //unit
+        Route::group(['middleware' => ['can:view_unit']], function () {
+            Route::resource('/unit', Admin\UnitController::class);
+        });
+        //demand
+        Route::group(['middleware' => ['can:view_demand']], function () {
+            Route::resource('/demand', Admin\DemandController::class);
+        });
+        //supplier
+        Route::group(['middleware' => ['can:view_supplier']], function () {
+            Route::resource('/supplier', Admin\SupplierController::class);
+        });
+        //client
+        Route::group(['middleware' => ['can:view_client']], function () {
+            Route::resource('/client', Admin\ClientController::class);
+        });
+        //person
+        Route::group(['prefix' => 'company/{company_id}', 'as' => 'company.'], function () {
+            Route::group(['middleware' => ['can:view_person']], function () {
+                Route::resource('/person', Admin\PersonController::class);
+            });
+        });
 });
 
 require __DIR__.'/auth.php';

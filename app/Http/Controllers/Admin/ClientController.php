@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
 use Inertia\Inertia;
+use App\Models\Client;
+use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\ClientRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class UserController extends Controller
+class ClientController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:edit_user')->only('edit','update');
-        $this->middleware('can:add_user')->only('create', 'store');
-        $this->middleware('can:delete_user')->only('destroy');
+        $this->middleware('can:edit_client')->only('edit','update');
+        $this->middleware('can:add_client')->only('create', 'store');
+        $this->middleware('can:delete_client')->only('destroy');
     }
     /**
      * Display a listing of the resource.
@@ -28,22 +28,26 @@ class UserController extends Controller
     {
         try{
             $limit = \config()->get('settings.pagination_limit');
-            $users = User::where(function ($query) {
+            $clients = Client::with('category')->where(function ($query) {
                 $keyword = request()->input('keyword');
                 $query->when($keyword, function ($subQuery) use ($keyword){
                     $subQuery->where('name', 'like', '%' . $keyword . '%')
-                    ->orWhere('phone', 'like', '%' . $keyword . '%')
-                    ->orWhere('email', 'like', '%' . $keyword . '%')
-                    ->orWhere('user_type', 'like', '%' . $keyword . '%')
-                    ->orWhere('status', 'like', '%' . $keyword . '%');
+                    ->orWhere('website', 'like', '%' . $keyword . '%')
+                    ->orWhere('address', 'like', '%' . $keyword . '%')
+                    ->orWhere('city', 'like', '%' . $keyword . '%')
+                    ->orWhere('district', 'like', '%' . $keyword . '%')
+                    ->orWhere('country', 'like', '%' . $keyword . '%')
+                    ->orWhereHas('category', function($query) use ($keyword){
+                        $query->where('name', 'like', '%' . $keyword . '%');
+                    });
                 });
             })->orderBy('id', 'desc')->paginate($limit);
-            return Inertia::render('Users/Index', [
-                'users' => $users,
+            return Inertia::render('Client/Index', [
+                'clients' => $clients,
                 'searchedKeyword' => request()->input('keyword'),
             ]);
         } catch (ModelNotFoundException $e) {
-            flash('Unable to find this delivery zone', 'danger');
+            flash('Unable to find this client.', 'danger');
             return \redirect()->back();
         } catch (\Exception $e) {
             flash($e->getMessage(), 'danger');
@@ -58,7 +62,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Users/Edit');
+        return Inertia::render('Client/Create', [
+            'categories' => Category::all(),
+        ]);
     }
 
     /**
@@ -67,15 +73,14 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(ClientRequest $request)
     {
         try{
             DB::beginTransaction();
-            $user = User::create($request->except('avatar'));
-            $this->addAvatar($request, $user);
+            $client = Client::create($request->all());
             DB::commit();
-            flash('User Added Sucessfully!', 'success');
-            return \redirect(route('dashboard.user.index'));          
+            flash('Client Added Sucessfully!', 'success');
+            return \redirect(route('dashboard.client.index'));          
         }catch (\Exception $e) {
             Db::rollBack();
             flash($e->getMessage(), 'danger');
@@ -86,24 +91,28 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Client $client)
     {
-        //
+        return Inertia::render('Client/Show', [
+            'client' => $client,
+            'people' => $client->people
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Client $client)
     {
-        return Inertia::render('Users/Edit', [
-            'user' => $user,
+        return Inertia::render('Client/Edit', [
+            'categories' => Category::all(),
+            'client' => $client
         ]);
     }
 
@@ -111,18 +120,17 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, User $user)
+    public function update(ClientRequest $request, Client $client)
     {
         try{
             DB::beginTransaction();
-            $user->update($request->except('avatar'));
-            $this->addAvatar($request, $user);
+            $client->update($request->all());
             DB::commit();
-            flash('User Updated Sucessfully!', 'success');
-            return \redirect(route('dashboard.user.index'));          
+            flash('Client Updated Sucessfully!', 'success');
+            return \redirect(route('dashboard.client.index'));          
         }catch (\Exception $e) {
             Db::rollBack();
             flash($e->getMessage(), 'danger');
@@ -133,37 +141,21 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Client $client)
     {
-        try {
-            $user->delete();
-            flash('User deleted succesfully', 'success');
-            return \redirect()->route('dashboard.user.index');
+        try {           
+            $client->delete();
+            flash('Client deleted succesfully', 'success');
+            return \redirect()->back();
         } catch (ModelNotFoundException $e) {
-            flash('Unable to find this user', 'danger');
+            flash('Unable to find this client', 'danger');
             return \redirect()->back();
         } catch (\Exception $e) {
             flash($e->getMessage(), 'danger');
             return \redirect()->back();
         }
-    }
-
-    public function addAvatar($request, $user){
-        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
-            if ($user->getRawOriginal('avatar')) {
-                $image = $user->getRawOriginal('avatar');
-                if(Storage::disk('public')->exists($image)){
-                    $imagePath = public_path('storage/'.$image);
-                    unlink($imagePath);
-                }
-            }
-            $image = $request->file('avatar')->store('images', 'public');
-            $user->avatar = $image;
-            $user->save();
-        }
-        return;
     }
 }
