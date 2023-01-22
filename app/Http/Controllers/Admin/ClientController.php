@@ -98,6 +98,7 @@ class ClientController extends Controller
     {
         return Inertia::render('Client/Show', [
             'client' => $client,
+            'people' => $client->people
         ]);
     }
 

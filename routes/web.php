@@ -70,6 +70,12 @@ Route::middleware(['auth', 'verified'])
         Route::group(['middleware' => ['can:view_client']], function () {
             Route::resource('/client', Admin\ClientController::class);
         });
+        //person
+        Route::group(['prefix' => 'company/{company_id}', 'as' => 'company.'], function () {
+            Route::group(['middleware' => ['can:view_person']], function () {
+                Route::resource('/person', Admin\PersonController::class);
+            });
+        });
 });
 
 require __DIR__.'/auth.php';

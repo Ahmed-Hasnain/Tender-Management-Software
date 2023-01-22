@@ -32,4 +32,9 @@ class Supplier extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function people() 
+    {
+        return $this->morphMany(Person::class, 'personable');
+    }
 }
