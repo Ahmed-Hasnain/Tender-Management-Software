@@ -75,7 +75,7 @@
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <h5>Contact Persons</h5>
+                        <h5>Team</h5>
                         <button class="btn btn-primary btn-tone mb-3" @click="addPerson()">
                             Add Person
                         </button>
@@ -111,7 +111,7 @@ export default {
     },
     methods: {
         addPerson() {
-            this.$inertia.get(route('dashboard.company.person.create', this.client.id), {
+            this.$inertia.get(route('dashboard.company.person.create', this.client.id), {type: 'client'}, {
                 onSuccess: () => {},
                 onError: errors => {console.log(errors);}
             })

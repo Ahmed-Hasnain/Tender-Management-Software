@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Inertia\Inertia;
 use App\Models\Client;
 use App\Models\Person;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -37,7 +38,8 @@ class PersonController extends Controller
     public function create($companyId)
     {
         return Inertia::render('Person/Create', [
-            'company_id' => $companyId
+            'company_id' => $companyId,
+            'type' => request()->input('type'),
         ]);
     }
 
@@ -51,11 +53,21 @@ class PersonController extends Controller
     {
         try{
             DB::beginTransaction();
-            $client = Client::findOrFail($companyId);
-            $person = $client->people()->create($request->all());
-            DB::commit();
-            flash('Person Added Sucessfully!', 'success');
-            return \redirect(route('dashboard.client.show', $companyId));          
+            $type = $request->input('type');
+            if ($type && $type == 'client') {
+                $client = Client::findOrFail($companyId);
+                $person = $client->people()->create($request->all());
+                DB::commit();
+                flash('Person Added Sucessfully!', 'success');
+                return \redirect(route('dashboard.client.show', $companyId));    
+            }
+            if ($type && $type == 'supplier') {
+                $supplier = Supplier::findOrFail($companyId);
+                $person = $supplier->people()->create($request->all());
+                DB::commit();
+                flash('Person Added Sucessfully!', 'success');
+                return \redirect(route('dashboard.supplier.show', $companyId));    
+            }         
         }catch (\Exception $e) {
             Db::rollBack();
             flash($e->getMessage(), 'danger');
@@ -99,10 +111,16 @@ class PersonController extends Controller
     {
         try{
             DB::beginTransaction();
+            $type = $person->personable_type;
             $person = $person->update($request->all());
             DB::commit();
             flash('Person Updated Sucessfully!', 'success');
-            return \redirect(route('dashboard.client.show', $companyId));          
+            if ($type == "App\Models\Supplier") {
+                return \redirect(route('dashboard.supplier.show', $companyId));  
+            } else {
+                return \redirect(route('dashboard.client.show', $companyId));
+            }
+                    
         }catch (\Exception $e) {
             Db::rollBack();
             flash($e->getMessage(), 'danger');

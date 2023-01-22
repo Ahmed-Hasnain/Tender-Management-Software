@@ -72,7 +72,7 @@ import { Head, useForm } from '@inertiajs/inertia-vue3';
 import Error from '@/Components/InputError.vue';
 
 export default {
-    props:['company_id'],
+    props:['company_id', 'type'],
     components: {
         AuthenticatedLayout,
         Head,
@@ -85,6 +85,8 @@ export default {
     },
     methods: {
         submit(){
+            this.form.type = this.type
+            console.log(this.form.type, this.type);
             this.form.post(route('dashboard.company.person.store', this.company_id), {
                 errorBag: 'person',
                 preserveScroll: true,
@@ -100,6 +102,7 @@ export default {
             mobile_no: null,
             phone_no: null,
             department: null,
+            type: null
         })
     },
 }
