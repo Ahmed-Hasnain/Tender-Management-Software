@@ -75,16 +75,19 @@
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <h5>Team</h5>
-                        <button class="btn btn-primary btn-tone mb-3" @click="addPerson()">
-                            Add Person
-                        </button>
-                        <div class="row" id="card-view" v-if="people.length > 0">
-                            <div class="col-md-4" v-for="(person,index) in people" :key="index">
-                                <person :person="person" :companyId="client.id"></person>
+                        <h5>Contact Persons</h5>
+                        <div class="row" id="card-view">
+                            <div class="col-md-3" v-for="n in 9" :key="n">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="m-t-20 text-center">
+                                            <h4 class="m-t-30">Erin Gonzales</h4>
+                                            <p>erin.gon@gmail.com</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div v-else>No record Found</div>
                     </div>
                 </div>
             </div>
@@ -96,30 +99,19 @@
 import AuthenticatedLayout from "@/Layouts/Authenticated.vue";
 import { Head, useForm } from "@inertiajs/inertia-vue3";
 import Error from "@/Components/InputError.vue";
-import person from "@/Components/person.vue";
 
 export default {
-    props: ["client", "people"],
+    props: ["client"],
     components: {
         AuthenticatedLayout,
         Head,
         Error,
-        person
     },
     data() {
         return {};
     },
-    methods: {
-        addPerson() {
-            this.$inertia.get(route('dashboard.company.person.create', this.client.id), {type: 'client'}, {
-                onSuccess: () => {},
-                onError: errors => {console.log(errors);}
-            })
-        }
-    },
-    mounted() { 
-
-    },
+    methods: {},
+    mounted() { console.log(this.client) },
 };
 </script>
 

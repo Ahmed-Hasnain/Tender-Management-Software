@@ -101,6 +101,7 @@ class SupplierController extends Controller
     {
         return Inertia::render('Supplier/Show', [
             'supplier' => $supplier,
+            'people' => $supplier->people
         ]);
     }
 

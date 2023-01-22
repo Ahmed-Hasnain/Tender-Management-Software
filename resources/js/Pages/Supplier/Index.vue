@@ -31,8 +31,8 @@
                                         <tr role="row">
                                             <th style="width: 70px;">ID</th>
                                             <th style="width: 225.188px;">Name</th>
-                                            <th style="width: 225.188px;">address</th>
-                                            <th style="width: 225.188px;">city</th>
+                                            <th style="width: 225.188px;">Address</th>
+                                            <th style="width: 225.188px;">City</th>
                                             <th style="width: 225.188px;">Category</th>
                                             <th style="width: 225.188px;">Bank Name</th>
                                             <th class="text-right" style="width: 150px;">Action</th>
