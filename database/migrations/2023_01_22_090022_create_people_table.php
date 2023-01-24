@@ -19,7 +19,7 @@ class CreatePeopleTable extends Migration
             $table->string('mobile_no')->nullable();
             $table->string('phone_no')->nullable();
             $table->string('email')->nullable();
-            $table->enum('department', ['Human Resources', 'Accounting and Finance ', 'Sales and Marketing', 'Operations', 'Information Technology', 'Customer Service', 'Research and Development', 'Legal', 'Quality Assurance', 'Supply Chain', 'unknown'])->default('unknown');
+            $table->enum('department', ['Human Resources', 'Accounting and Finance ', 'Sales and Marketing', 'Operations', 'Information Technology', 'Customer Service', 'Research and Development', 'Legal', 'Quality Assurance', 'Supply Chain', 'unknown'])->default('unknown')->nullable();
             $table->morphs('personable');
             $table->timestamps();
         });

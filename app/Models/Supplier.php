@@ -26,16 +26,17 @@ class Supplier extends Model
         'bank_name',
         'branch_code',
         'account_number',
-        'notes'
+        'notes',
+        'iban'
     ];
-
-    public function category() 
-    {
-        return $this->belongsTo(Category::class);
-    }
 
     public function people() 
     {
         return $this->morphMany(Person::class, 'personable');
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'category_supplier');
     }
 }
