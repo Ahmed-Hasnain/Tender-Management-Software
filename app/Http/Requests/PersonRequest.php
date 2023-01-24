@@ -27,19 +27,19 @@ class PersonRequest extends FormRequest
             case 'POST':
                 return [
                     'name' => ['required'],
-                    'email' => 'email|nullable',
-                    'phone_no' => 'numeric|nullable',
-                    'mobile_no' => 'numeric|nullable',
-                    'department' => 'required',
+                    'email' => 'nullable',
+                    'phone_no' => 'nullable',
+                    'mobile_no' => 'nullable',
+                    'department' => 'nullable',
                 ];
                 break;
             case 'PUT':
                 return [
                     'name' => ['required'],
-                    'email' => 'email|nullable',
-                    'phone_no' => 'numeric|nullable',
-                    'mobile_no' => 'numeric|nullable',
-                    'department' => 'required',
+                    'email' => 'nullable',
+                    'phone_no' => 'nullable',
+                    'mobile_no' => 'nullable',
+                    'department' => 'nullable',
                 ];
                 break;   
         }

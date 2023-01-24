@@ -28,7 +28,7 @@ class SupplierController extends Controller
     {
         try{
             $limit = \config()->get('settings.pagination_limit');
-            $suppliers = Supplier::with('category')->where(function ($query) {
+            $suppliers = Supplier::with('categories')->where(function ($query) {
                 $keyword = request()->input('keyword');
                 $query->when($keyword, function ($subQuery) use ($keyword){
                     $subQuery->where('name', 'like', '%' . $keyword . '%')
@@ -40,7 +40,9 @@ class SupplierController extends Controller
                     ->orWhere('bank_name', 'like', '%' . $keyword . '%')
                     ->orWhere('account_title', 'like', '%' . $keyword . '%')
                     ->orWhere('account_number', 'like', '%' . $keyword . '%')
-                    ->orWhereHas('category', function($query) use ($keyword){
+                    ->orWhere('iban', 'like', '%' . $keyword . '%')
+                    ->orWhere('notes', 'like', '%' . $keyword . '%')
+                    ->orWhereHas('categories', function($query) use ($keyword){
                         $query->where('name', 'like', '%' . $keyword . '%');
                     });
                 });
@@ -81,6 +83,7 @@ class SupplierController extends Controller
         try{
             DB::beginTransaction();
             $supplier = Supplier::create($request->all());
+            $supplier->categories()->sync($request->input('selectedCategories'));
             DB::commit();
             flash('Supplier Added Sucessfully!', 'success');
             return \redirect(route('dashboard.supplier.index'));          
@@ -113,9 +116,11 @@ class SupplierController extends Controller
      */
     public function edit(Supplier $supplier)
     {
+        $categories = $supplier->categories()->pluck('id')->toArray();
+        $supplier->categories = $categories;
         return Inertia::render('Supplier/Edit', [
             'categories' => Category::all(),
-            'supplier' => $supplier
+            'supplier' => $supplier,
         ]);
     }
 
@@ -131,6 +136,7 @@ class SupplierController extends Controller
         try{
             DB::beginTransaction();
             $supplier->update($request->all());
+            $supplier->categories()->sync($request->input('selectedCategories'));
             DB::commit();
             flash('Supplier Updated Sucessfully!', 'success');
             return \redirect(route('dashboard.supplier.index'));          

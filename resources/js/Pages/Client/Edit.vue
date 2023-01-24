@@ -44,12 +44,19 @@
                                 <error :message="form.errors?.country"></error>
                             </div>
                         </div>
-                        <div class="form-row">
+                        <!-- <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label class="font-weight-semibold" for="Category">Category:</label>
                                 <select id="language" class="form-control" v-model="form.category_id" :class="{'is-invalid' : form.errors?.category_id}">
                                     <option v-for="(category,index) in categories" :key="index" :value="category.id" class="text-capitalize">{{ category.name }}</option>
                                 </select>
+                            </div>
+                        </div> -->
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label class="font-weight-semibold" for="notes">Notes:</label>
+                                <textarea class="form-control" rows="4" v-model="form.notes" :class="{'is-invalid' : form.errors.notes}"></textarea>
+                                <error :message="form.errors?.notes"></error>
                             </div>
                         </div>
                         <div class="form-row">
@@ -104,6 +111,7 @@ export default {
             district: this.client ? this.client.district : null,
             country: this.client ? this.client.country : null,
             category_id: this.client ? this.client.category_id : null,
+            notes: this.client ? this.client.notes : null,
         })
     },
 }

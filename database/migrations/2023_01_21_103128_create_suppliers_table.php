@@ -18,17 +18,16 @@ class CreateSuppliersTable extends Migration
             $table->string('name')->unique()->nullable();
             $table->string('website')->nullable();
             $table->string('address')->nullable();
+            $table->string('notes')->nullable();
             $table->string('city')->nullable();
             $table->string('district')->nullable();
             $table->string('country')->nullable();
-            $table->unsignedBigInteger('category_id')->nullable();
             $table->string('account_title')->nullable();
             $table->string('bank_name')->nullable();
             $table->string('branch_code')->nullable();
             $table->string('account_number')->nullable();
+            $table->string('iban')->nullable();
             $table->timestamps();
-
-            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 
