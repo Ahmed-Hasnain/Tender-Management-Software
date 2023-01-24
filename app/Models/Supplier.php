@@ -26,6 +26,7 @@ class Supplier extends Model
         'bank_name',
         'branch_code',
         'account_number',
+        'notes'
     ];
 
     public function category() 

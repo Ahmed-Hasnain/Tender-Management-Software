@@ -22,6 +22,7 @@ class Client extends Model
         'district',
         'country',
         'category_id',
+        'notes'
     ];
 
     public function category() 

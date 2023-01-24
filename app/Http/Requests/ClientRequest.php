@@ -33,6 +33,7 @@ class ClientRequest extends FormRequest
                     'city' => 'nullable',
                     'district' => 'nullable',
                     'country' => 'nullable',
+                    'notes' => 'nullable',
                 ];
                 break;
             case 'PUT':
@@ -44,6 +45,7 @@ class ClientRequest extends FormRequest
                     'city' => 'nullable',
                     'district' => 'nullable',
                     'country' => 'nullable',
+                    'notes' => 'nullable',
                 ];
                 break;   
         }
