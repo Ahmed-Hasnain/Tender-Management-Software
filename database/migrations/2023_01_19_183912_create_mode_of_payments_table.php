@@ -15,7 +15,7 @@ class CreateModeOfPaymentsTable extends Migration
     {
         Schema::create('mode_of_payments', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name')->unique()->nullable();
             $table->timestamps();
         });
     }

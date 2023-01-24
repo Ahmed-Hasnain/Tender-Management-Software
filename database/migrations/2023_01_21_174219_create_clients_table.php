@@ -15,13 +15,13 @@ class CreateClientsTable extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('website');
-            $table->string('address');
-            $table->string('city');
-            $table->string('district');
-            $table->string('country');
-            $table->unsignedBigInteger('category_id');
+            $table->string('name')->unique()->nullable();
+            $table->string('website')->nullable();
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('district')->nullable();
+            $table->string('country')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories');
