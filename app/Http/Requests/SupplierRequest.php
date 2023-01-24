@@ -27,7 +27,6 @@ class SupplierRequest extends FormRequest
             case 'POST':
                 return [
                     'name' => ['required', 'unique:suppliers'],
-                    'category_id' => 'nullable',
                     'website' => 'nullable',
                     'address' => 'nullable',
                     'city' => 'nullable',
@@ -37,12 +36,13 @@ class SupplierRequest extends FormRequest
                     'bank_name' => 'nullable',
                     'branch_code' => 'nullable',
                     'account_number' => 'nullable',
+                    'notes' => 'nullable',
+                    'iban' => 'nullable',
                 ];
                 break;
             case 'PUT':
                 return [
                     'name' => ['required', 'unique:suppliers,name,'.$this->id.',id'],
-                    'category_id' => 'nullable',
                     'website' => 'nullable',
                     'address' => 'nullable',
                     'city' => 'nullable',
@@ -52,6 +52,8 @@ class SupplierRequest extends FormRequest
                     'bank_name' => 'nullable',
                     'branch_code' => 'nullable',
                     'account_number' => 'nullable',
+                    'notes' => 'nullable',
+                    'iban' => 'nullable',
                 ];
                 break;   
         }

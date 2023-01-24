@@ -33,7 +33,7 @@
                                             <th style="width: 225.188px;">Name</th>
                                             <th style="width: 225.188px;">Address</th>
                                             <th style="width: 225.188px;">City</th>
-                                            <th style="width: 225.188px;">Category</th>
+                                            <!-- <th style="width: 225.188px;">Category</th> -->
                                             <th style="width: 225.188px;">Website</th>
                                             <th class="text-right" style="width: 150px;">Action</th>
                                         </tr>
@@ -44,7 +44,7 @@
                                             <td class="text-capitalize">{{ client.name }}</td>
                                             <td class="text-capitalize">{{ client.address }}</td>
                                             <td class="text-capitalize">{{ client.city }}</td>
-                                            <td class="text-capitalize">{{ client.category.name }}</td>
+                                            <!-- <td class="text-capitalize">{{ client.category?.name }}</td> -->
                                             <td class="text-capitalize">{{ client.website }}</td>
                                             <td class="text-right">
                                                 <button @click="show(client.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('view_client')">

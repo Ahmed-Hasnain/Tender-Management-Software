@@ -21,6 +21,7 @@ class CreateClientsTable extends Migration
             $table->string('city')->nullable();
             $table->string('district')->nullable();
             $table->string('country')->nullable();
+            $table->string('notes')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->timestamps();
 

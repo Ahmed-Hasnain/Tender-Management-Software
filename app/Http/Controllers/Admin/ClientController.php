@@ -37,9 +37,7 @@ class ClientController extends Controller
                     ->orWhere('city', 'like', '%' . $keyword . '%')
                     ->orWhere('district', 'like', '%' . $keyword . '%')
                     ->orWhere('country', 'like', '%' . $keyword . '%')
-                    ->orWhereHas('category', function($query) use ($keyword){
-                        $query->where('name', 'like', '%' . $keyword . '%');
-                    });
+                    ->orWhere('notes', 'like', '%' . $keyword . '%');
                 });
             })->orderBy('id', 'desc')->paginate($limit);
             return Inertia::render('Client/Index', [

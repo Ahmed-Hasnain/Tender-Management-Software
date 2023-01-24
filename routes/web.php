@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use Inertia\Inertia;
+use App\Models\Supplier;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
@@ -19,8 +20,7 @@ use App\Http\Controllers\Admin as Admin;
 */
 
 Route::get('/test', function () {
-    $pass = Hash::check('12345678', User::first()->password);
-    dd($pass, User::first()->password);
+    
 });
 
 Route::get('/', function () {

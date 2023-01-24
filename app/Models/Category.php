@@ -28,4 +28,9 @@ class Category extends Model
     {
         return $this->hasMany(Category::class , 'parent_id');
     }
+
+    public function suppliers()
+    {
+        return $this->belongsToMany(Supplier::class, 'category_supplier');
+    }
 }
