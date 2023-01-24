@@ -44,7 +44,7 @@
                                             <td class="text-capitalize">{{ supplier.name }}</td>
                                             <td class="text-capitalize">{{ supplier.address }}</td>
                                             <td class="text-capitalize">{{ supplier.city }}</td>
-                                            <td class="text-capitalize">{{ supplier.category.name }}</td>
+                                            <td class="text-capitalize">{{ supplier.category?.name }}</td>
                                             <td class="text-capitalize">{{ supplier.bank_name }}</td>
                                             <td class="text-right">
                                                 <button @click="show(supplier.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('view_supplier')">
