@@ -15,8 +15,8 @@ class CreateUnitsTable extends Migration
     {
         Schema::create('units', function (Blueprint $table) {
             $table->id();
-            $table->string('full_name')->unique();
-            $table->string('short_name')->unique();
+            $table->string('full_name')->unique()->nullable();
+            $table->string('short_name')->unique()->nullable();
             $table->timestamps();
         });
     }
