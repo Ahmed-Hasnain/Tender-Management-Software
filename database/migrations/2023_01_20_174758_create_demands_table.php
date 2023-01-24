@@ -15,7 +15,7 @@ class CreateDemandsTable extends Migration
     {
         Schema::create('demands', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name')->unique()->nullable();
             $table->timestamps();
         });
     }
