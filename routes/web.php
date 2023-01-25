@@ -76,6 +76,10 @@ Route::middleware(['auth', 'verified'])
                 Route::resource('/person', Admin\PersonController::class);
             });
         });
+        //tender
+        Route::group(['middleware' => ['can:view_tender']], function () {
+            Route::resource('/tender', Admin\TenderController::class);
+        });
 });
 
 require __DIR__.'/auth.php';
