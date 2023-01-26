@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Inertia\Inertia;
+use App\Models\Client;
 use App\Models\Tender;
 use Illuminate\Http\Request;
+use App\Models\ModeOfPayment;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TenderRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class TenderController extends Controller
 {
@@ -21,7 +27,31 @@ class TenderController extends Controller
      */
     public function index()
     {
-        return 'hi';
+        try{
+            $limit = \config()->get('settings.pagination_limit');
+            $tenders = Tender::with('client')->where(function ($query) {
+                $keyword = request()->input('keyword');
+                $query->when($keyword, function ($subQuery) use ($keyword){
+                    $subQuery->where('reference_no', 'like', '%' . $keyword . '%')
+                    ->orWhere('file_name', 'like', '%' . $keyword . '%')
+                    ->orWhere('rate_basis', 'like', '%' . $keyword . '%')
+                    ->orWhere('description', 'like', '%' . $keyword . '%')
+                    ->orWhereHas('client', function($query) use ($keyword){
+                        $query->where('name', 'like', '%' . $keyword . '%');
+                    });
+                });
+            })->orderBy('id', 'desc')->paginate($limit);
+            return Inertia::render('Tender/Index', [
+                'tenders' => $tenders,
+                'searchedKeyword' => request()->input('keyword'),
+            ]);
+        } catch (ModelNotFoundException $e) {
+            flash('Unable to find this tender.', 'danger');
+            return \redirect()->back();
+        } catch (\Exception $e) {
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 
     /**
@@ -31,7 +61,10 @@ class TenderController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Tender/Create', [
+            'mode_of_payment' => ModeOfPayment::all(),
+            'clients' => Client::all(),
+        ]);
     }
 
     /**
@@ -40,9 +73,19 @@ class TenderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TenderRequest $request)
     {
-        //
+        try{
+            DB::beginTransaction();
+            $tender = Tender::create($request->all());
+            DB::commit();
+            flash('Tender Added Sucessfully!', 'success');
+            return \redirect(route('dashboard.tender.index'));          
+        }catch (\Exception $e) {
+            Db::rollBack();
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 
     /**
@@ -74,7 +117,7 @@ class TenderController extends Controller
      * @param  \App\Models\Tender  $tender
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tender $tender)
+    public function update(TenderRequest $request, Tender $tender)
     {
         //
     }

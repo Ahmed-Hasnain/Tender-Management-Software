@@ -22,9 +22,9 @@ class CreateTendersTable extends Migration
             $table->string('delivery_time')->nullable();
             $table->string('description')->nullable();
             $table->string('special_terms')->nullable();
-            $table->date('rfq_date')->default(Carbon::now())->nullable();
-            $table->date('last_date_of_submission')->default(Carbon::now())->nullable();
-            $table->date('validity_of_quotation')->default(Carbon::now())->nullable();
+            $table->dateTime('rfq_date')->default(Carbon::now())->nullable();
+            $table->dateTime('last_date_of_submission')->default(Carbon::now())->nullable();
+            $table->dateTime('validity_of_quotation')->default(Carbon::now())->nullable();
             $table->unsignedBigInteger('client_id')->nullable();
             $table->unsignedBigInteger('mode_of_payment_id')->nullable();
             $table->timestamps();

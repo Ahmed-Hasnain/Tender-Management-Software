@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Tender extends Model
 {
@@ -28,8 +29,34 @@ class Tender extends Model
         'mode_of_payment_id',
     ];
 
+    protected function rfqDate(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => setDateValues($value),
+        );
+    }
+
+    protected function lastDateOfSubmission(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => setDateValues($value),
+        );
+    }
+
+    protected function validityOfQuotation(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => setDateValues($value),
+        );
+    }
+
     public function items()
     {
         return $this->hasMany(TenderItem::class);
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class, 'client_id');
     }
 }
