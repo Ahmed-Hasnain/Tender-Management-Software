@@ -96,7 +96,9 @@ class TenderController extends Controller
      */
     public function show(Tender $tender)
     {
-        //
+        return Inertia::render('Tender/Show', [
+            'tender' => $tender,
+        ]);
     }
 
     /**
@@ -107,7 +109,11 @@ class TenderController extends Controller
      */
     public function edit(Tender $tender)
     {
-        //
+        return Inertia::render('Tender/Edit', [
+            'mode_of_payment' => ModeOfPayment::all(),
+            'clients' => Client::all(),
+            'tender' => $tender,
+        ]);
     }
 
     /**
@@ -119,7 +125,17 @@ class TenderController extends Controller
      */
     public function update(TenderRequest $request, Tender $tender)
     {
-        //
+        try{
+            DB::beginTransaction();
+            $tender->update($request->all());
+            DB::commit();
+            flash('Tender Updated Sucessfully!', 'success');
+            return \redirect(route('dashboard.tender.index'));          
+        }catch (\Exception $e) {
+            Db::rollBack();
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 
     /**
@@ -130,6 +146,16 @@ class TenderController extends Controller
      */
     public function destroy(Tender $tender)
     {
-        //
+        try {           
+            $tender->delete();
+            flash('Tender deleted succesfully', 'success');
+            return \redirect()->back();
+        } catch (ModelNotFoundException $e) {
+            flash('Unable to find this tender', 'danger');
+            return \redirect()->back();
+        } catch (\Exception $e) {
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 }

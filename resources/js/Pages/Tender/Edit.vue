@@ -1,62 +1,78 @@
 <template>
-    <Head title="Edit Supplier" />
+    <Head title="Edit Tender" />
     <AuthenticatedLayout>
         <form v-if="form" @submit.prevent="submit">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Edit Supplier</h4>
+                    <h4 class="card-title">Edit Tender</h4>
                 </div>
                 <div class="card-body">
                     <div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Name">Name:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Name" v-model="form.name" :class="{'is-invalid' : form.errors?.name}">
-                                <error :message="form.errors?.name"></error>
+                                <label class="font-weight-semibold" for="Name">Reference No:</label>
+                                <input type="text" class="form-control" id="name" placeholder="Reference Number" v-model="form.reference_no" :class="{'is-invalid' : form.errors?.reference_no}">
+                                <error :message="form.errors?.reference_no"></error>
                             </div>
                             <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Website">Website:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Website" v-model="form.website" :class="{'is-invalid' : form.errors?.website}">
-                                <error :message="form.errors?.website"></error>
+                                <label class="font-weight-semibold" for="file_name">File Name:</label>
+                                <input type="text" class="form-control" id="file_name" placeholder="File Name" v-model="form.file_name" :class="{'is-invalid' : form.errors?.file_name}">
+                                <error :message="form.errors?.file_name"></error>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Address">Address:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Address" v-model="form.address" :class="{'is-invalid' : form.errors?.address}">
-                                <error :message="form.errors?.address"></error>
+                                <label class="font-weight-semibold" for="rate_basis">Rate Basis:</label>
+                                <input type="text" class="form-control" id="rate_basis" placeholder="rate_basis" v-model="form.rate_basis" :class="{'is-invalid' : form.errors?.rate_basis}">
+                                <error :message="form.errors?.rate_basis"></error>
                             </div>
                             <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="City">City:</label>
-                                <input type="text" class="form-control" id="name" placeholder="City" v-model="form.city" :class="{'is-invalid' : form.errors?.city}">
-                                <error :message="form.errors?.city"></error>
+                                <label class="font-weight-semibold" for="delivery_time">Delivery Time:</label>
+                                <input type="text" class="form-control" id="delivery_time" placeholder="delivery_time" v-model="form.delivery_time" :class="{'is-invalid' : form.errors?.delivery_time}">
+                                <error :message="form.errors?.delivery_time"></error>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="District">District:</label>
-                                <input type="text" class="form-control" id="name" placeholder="District" v-model="form.district" :class="{'is-invalid' : form.errors?.district}">
-                                <error :message="form.errors?.district"></error>
+                                <label class="font-weight-semibold" for="Category">Clients:</label>
+                                <select id="language" class="form-control" v-model="form.client_id" :class="{'is-invalid' : form.errors?.client_id}">
+                                    <option v-for="(client,index) in clients" :key="index" :value="client.id" class="text-capitalize">{{ client.name }}</option>
+                                </select>
                             </div>
                             <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Country">Country:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Country" v-model="form.country" :class="{'is-invalid' : form.errors?.country}">
-                                <error :message="form.errors?.country"></error>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label class="font-weight-semibold" for="Category">Category:</label>
-                                <select id="language" class="form-control" v-model="form.selectedCategories" :class="{'is-invalid' : form.errors?.category_id}" size="4" multiple>
-                                    <option v-for="(category,index) in categories" :key="index" :value="category.id" class="text-capitalize">{{ category.name }}</option>
+                                <label class="font-weight-semibold" for="Category">Mode Of Payment:</label>
+                                <select id="language" class="form-control" v-model="form.mode_of_payment_id" :class="{'is-invalid' : form.errors?.mode_of_payment_id}">
+                                    <option v-for="(mop,index) in mode_of_payment" :key="index" :value="mop.id" class="text-capitalize">{{ mop.name }}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label class="font-weight-semibold" for="notes">Notes:</label>
-                                <textarea class="form-control" rows="4" v-model="form.notes" :class="{'is-invalid' : form.errors.notes}"></textarea>
-                                <error :message="form.errors?.notes"></error>
+                            <div class="form-group col-md-4">
+                                <label class="font-weight-semibold" for="rfq_date">RFQ Date:</label>
+                                <Datepicker v-model="form.rfq_date" :enable-time-picker="false"></Datepicker>
+                                <error :message="form.errors?.rfq_date"></error>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="font-weight-semibold" for="last_date_of_submission">Last Date of Submission:</label>
+                                <Datepicker v-model="form.last_date_of_submission" :enable-time-picker="false"></Datepicker>
+                                <error :message="form.errors?.last_date_of_submission"></error>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="font-weight-semibold" for="validity_of_quotation">Validity of Quotation:</label>
+                                <Datepicker v-model="form.validity_of_quotation" :enable-time-picker="false"></Datepicker>
+                                <error :message="form.errors?.validity_of_quotation"></error>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-semibold" for="description">Description:</label>
+                                <textarea class="form-control" rows="4" v-model="form.description" :class="{'is-invalid' : form.errors.description}"></textarea>
+                                <error :message="form.errors?.description"></error>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-semibold" for="special_terms">Special Terms:</label>
+                                <textarea class="form-control" rows="4" v-model="form.special_terms" :class="{'is-invalid' : form.errors.special_terms}"></textarea>
+                                <error :message="form.errors?.special_terms"></error>
                             </div>
                         </div>
                     </div>
@@ -68,7 +84,7 @@
                 </div>
                 <div class="card-body">
                     <div>
-                        <div class="form-row">
+                        <!-- <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label class="font-weight-semibold" for="Bank Name">Bank Name:</label>
                                 <input type="text" class="form-control" id="name" placeholder="Bank Name" v-model="form.bank_name" :class="{'is-invalid' : form.errors?.bank_name}">
@@ -98,7 +114,7 @@
                                 <input type="text" class="form-control" id="name" placeholder="Iban" v-model="form.iban" :class="{'is-invalid' : form.errors?.iban}">
                                 <error :message="form.errors?.iban"></error>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-row">
                             <div class="form-group col-md-11">
                                 
@@ -117,14 +133,17 @@
 <script>
 import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { Head, useForm } from '@inertiajs/inertia-vue3';
-import Error from '@/Components/InputError.vue'
+import Error from '@/Components/InputError.vue';
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
 export default {
-    props:['categories', 'supplier'],
+    props:['mode_of_payment', 'clients', 'tender'],
     components: {
         AuthenticatedLayout,
         Head,
-        Error
+        Error,
+        Datepicker
     },
     data() {
         return {
@@ -133,8 +152,8 @@ export default {
     },
     methods: {
         submit(){
-            this.form.put(route('dashboard.supplier.update', this.form.id), {
-                errorBag: 'supplier',
+            this.form.put(route('dashboard.tender.update', this.form.id), {
+                errorBag: 'tender',
                 preserveScroll: true,
                 onSuccess: () => {},
                 onError: errors => {console.log(errors);}
@@ -143,21 +162,18 @@ export default {
     },
     mounted() {
         this.form = useForm({
-            id: this.supplier ? this.supplier.id : null,
-            name: this.supplier ? this.supplier.name : null,
-            website: this.supplier ? this.supplier.website : null,
-            address: this.supplier ? this.supplier.address : null,
-            city: this.supplier ? this.supplier.city : null,
-            district: this.supplier ? this.supplier.district : null,
-            country: this.supplier ? this.supplier.country : null,
-            category_id: this.supplier ? this.supplier.category_id : null,
-            account_title: this.supplier ? this.supplier.account_title : null,
-            bank_name: this.supplier ? this.supplier.bank_name : null,
-            branch_code: this.supplier ? this.supplier.branch_code : null,
-            account_number: this.supplier ? this.supplier.account_number : null,
-            iban: this.supplier ? this.supplier.iban : null,
-            notes: this.supplier ? this.supplier.notes : null,
-            selectedCategories: this.supplier ? this.supplier.categories : null
+            id: this.tender ? this.tender.id : null,
+            reference_no: this.tender ? this.tender.reference_no : null,
+            file_name: this.tender ? this.tender.file_name : null,
+            rate_basis: this.tender ? this.tender.rate_basis : null, 
+            delivery_time: this.tender ? this.tender.delivery_time : null,
+            description: this.tender ? this.tender.description : null,
+            special_terms: this.tender ? this.tender.special_terms : null,
+            rfq_date: this.tender ? this.tender.rfq_date : null,
+            last_date_of_submission: this.tender ? this.tender.last_date_of_submission : null,
+            validity_of_quotation: this.tender ? this.tender.validity_of_quotation : null,
+            client_id : this.tender ? this.tender.client_id : null,
+            mode_of_payment_id : this.tender ? this.tender.mode_of_payment_id : null,
         })
     },
 }

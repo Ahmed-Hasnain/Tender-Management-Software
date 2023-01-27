@@ -31,6 +31,11 @@
                                         <tr role="row">
                                             <th style="width: 70px;">ID</th>
                                             <th style="width: 225.188px;">Reference #</th>
+                                            <th style="width: 225.188px;">File Name</th>
+                                            <th style="width: 225.188px;">Client</th>
+                                            <th style="width: 225.188px;">RFQ Date</th>
+                                            <th style="width: 225.188px;">LDoS</th>
+                                            <th style="width: 225.188px;">Validity</th>
                                             <th class="text-right" style="width: 150px;">Action</th>
                                         </tr>
                                     </thead>
@@ -38,6 +43,11 @@
                                         <tr role="row" class="odd" v-for="(tender,index) in allTenders.data" :key="index">
                                             <td>{{ tender.id }}</td>
                                             <td class="text-capitalize">{{ tender.reference_no }}</td>
+                                            <td class="text-capitalize">{{ tender.file_name }}</td>
+                                            <td class="text-capitalize">{{ tender.client?.name }}</td>
+                                            <td class="text-capitalize">{{ formatDate(tender.rfq_date) }}</td>
+                                            <td class="text-capitalize">{{ formatDate(tender.last_date_of_submission) }}</td>
+                                            <td class="text-capitalize">{{ formatDate(tender.validity_of_quotation) }}</td>
                                             <td class="text-right">
                                                 <button @click="show(tender.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('view_tender')">
                                                     <i class="anticon anticon-eye"></i>
@@ -130,6 +140,9 @@ export default {
             },
             deep: true,
         },
+    },
+    mounted(){
+        console.log(this.tenders);
     },
     mixins: [Helpers]
 }
