@@ -23,12 +23,12 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label class="font-weight-semibold" for="rate_basis">Rate Basis:</label>
-                                <input type="text" class="form-control" id="rate_basis" placeholder="rate_basis" v-model="form.rate_basis" :class="{'is-invalid' : form.errors?.rate_basis}">
+                                <input type="text" class="form-control" id="rate_basis" placeholder="Rate Basis" v-model="form.rate_basis" :class="{'is-invalid' : form.errors?.rate_basis}">
                                 <error :message="form.errors?.rate_basis"></error>
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="font-weight-semibold" for="delivery_time">Delivery Time:</label>
-                                <input type="text" class="form-control" id="delivery_time" placeholder="delivery_time" v-model="form.delivery_time" :class="{'is-invalid' : form.errors?.delivery_time}">
+                                <input type="text" class="form-control" id="delivery_time" placeholder="Delivery Time" v-model="form.delivery_time" :class="{'is-invalid' : form.errors?.delivery_time}">
                                 <error :message="form.errors?.delivery_time"></error>
                             </div>
                         </div>
@@ -38,12 +38,14 @@
                                 <select id="language" class="form-control" v-model="form.client_id" :class="{'is-invalid' : form.errors?.client_id}">
                                     <option v-for="(client,index) in clients" :key="index" :value="client.id" class="text-capitalize">{{ client.name }}</option>
                                 </select>
+                                <error :message="form.errors?.client_id"></error>
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="font-weight-semibold" for="Category">Mode Of Payment:</label>
                                 <select id="language" class="form-control" v-model="form.mode_of_payment_id" :class="{'is-invalid' : form.errors?.mode_of_payment_id}">
                                     <option v-for="(mop,index) in mode_of_payment" :key="index" :value="mop.id" class="text-capitalize">{{ mop.name }}</option>
                                 </select>
+                                <error :message="form.errors?.mode_of_payment_id"></error>
                             </div>
                         </div>
                         <div class="form-row">
@@ -80,44 +82,37 @@
             </div>
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Bank Details</h4>
+                    <h4 class="card-title">Add Item</h4>
                 </div>
                 <div class="card-body">
                     <div>
-                        <!-- <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Bank Name">Bank Name:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Bank Name" v-model="form.bank_name" :class="{'is-invalid' : form.errors?.bank_name}">
-                                <error :message="form.errors?.bank_name"></error>
+                        <div class="form-row" v-for="(tenderItem ,index) in form.items" :key="index">
+                            <div class="form-group col-md-4">
+                                <label class="font-weight-semibold" for="Bank Name">Item</label>
+                                <select id="language" class="form-control" v-model="tenderItem.item_id">
+                                    <option v-for="(item,index) in items" :key="index" :value="item.id" class="text-capitalize">{{ item.name }}</option>
+                                </select>
+                                <error :message="form.errors[`items.${index}.item_id`]"></error>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Account Title">Account Title:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Account Title" v-model="form.account_title" :class="{'is-invalid' : form.errors?.account_title}">
-                                <error :message="form.errors?.account_title"></error>
+                            <div class="form-group col-md-4">
+                                <label class="font-weight-semibold" for="Account Title">Unit</label>
+                                <select id="language" class="form-control" v-model="tenderItem.unit_id">
+                                    <option v-for="(unit,index) in units" :key="index" :value="unit.id" class="text-capitalize">{{ unit.full_name }}</option>
+                                </select>
+                                <error :message="form.errors[`items.${index}.unit_id`]"></error>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="font-weight-semibold" for="Account Title">Quantity</label>
+                                <input type="number" class="form-control" placeholder="Quantity" v-model="tenderItem.qty">
+                                <error :message="form.errors[`items.${index}.qty`]"></error>
+                            </div>
+                            <div class="form-group col-md-1" style="align-self: center; padding-top: 49px;">
+                                <i class="anticon anticon-plus-square" style="font-size: 50px;" @click="addItem()"></i>
+                                <i class="anticon anticon-minus-square" style="font-size: 50px;" @click="removeItem(index)" v-if="form.items.length > 1 && index > 0"></i>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Branch Code">Branch Code:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Branch Code" v-model="form.branch_code" :class="{'is-invalid' : form.errors?.branch_code}">
-                                <error :message="form.errors?.branch_code"></error>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Account Number">Account Number:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Account Number" v-model="form.account_number" :class="{'is-invalid' : form.errors?.account_number}">
-                                <error :message="form.errors?.account_number"></error>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label class="font-weight-semibold" for="Iban">IBAN Number:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Iban" v-model="form.iban" :class="{'is-invalid' : form.errors?.iban}">
-                                <error :message="form.errors?.iban"></error>
-                            </div>
-                        </div> -->
                         <div class="form-row">
                             <div class="form-group col-md-11">
-                                
                             </div>
                             <div class="form-group col-md-1 text-left">
                                 <button class="btn btn-primary m-t-30 " :disabled="form.processing" :classes="form.processing ? 'btn btn-primary is-loading m-r-5' : 'btn btn-primary m-t-30'">Submit</button>
@@ -138,7 +133,7 @@ import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 
 export default {
-    props:['mode_of_payment', 'clients'],
+    props:['mode_of_payment', 'clients', 'items', 'units'],
     components: {
         AuthenticatedLayout,
         Head,
@@ -159,6 +154,16 @@ export default {
                 onError: errors => {console.log(errors);}
             })
         },  
+        addItem() {
+            this.form.items.push({
+                item_id: null,
+                unit_id: null,
+                qty: null,
+            })
+        },
+        removeItem(index) {
+            this.form.items.splice(index, 1)
+        }
     },
     mounted() {
         this.form = useForm({
@@ -173,6 +178,13 @@ export default {
             validity_of_quotation: null,
             client_id : null,
             mode_of_payment_id : null,
+            items: [
+                {
+                    item_id: null,
+                    unit_id: null,
+                    qty: null,
+                }
+            ]
         })
     },
 }

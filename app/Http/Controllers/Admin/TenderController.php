@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Item;
+use App\Models\Unit;
 use Inertia\Inertia;
 use App\Models\Client;
 use App\Models\Tender;
@@ -10,6 +12,7 @@ use App\Models\ModeOfPayment;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TenderRequest;
+use App\Models\TenderItem;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class TenderController extends Controller
@@ -64,6 +67,8 @@ class TenderController extends Controller
         return Inertia::render('Tender/Create', [
             'mode_of_payment' => ModeOfPayment::all(),
             'clients' => Client::all(),
+            'items' => Item::all(),
+            'units' => Unit::all(),
         ]);
     }
 
@@ -78,6 +83,17 @@ class TenderController extends Controller
         try{
             DB::beginTransaction();
             $tender = Tender::create($request->all());
+            $tenderItems = $request->input('items');
+            if (count($tenderItems) > 0) {
+                foreach ($tenderItems as $key => $tenderItem) {
+                    TenderItem::create([
+                        'tender_id' => $tender->id,
+                        'item_id' => $tenderItem['item_id'],
+                        'unit_id' => $tenderItem['unit_id'],
+                        'qty' => $tenderItem['qty'],
+                    ]);
+                }
+            }
             DB::commit();
             flash('Tender Added Sucessfully!', 'success');
             return \redirect(route('dashboard.tender.index'));          
@@ -112,7 +128,9 @@ class TenderController extends Controller
         return Inertia::render('Tender/Edit', [
             'mode_of_payment' => ModeOfPayment::all(),
             'clients' => Client::all(),
-            'tender' => $tender,
+            'tender' => $tender->load('items'),
+            'items' => Item::all(),
+            'units' => Unit::all(),
         ]);
     }
 
@@ -127,7 +145,17 @@ class TenderController extends Controller
     {
         try{
             DB::beginTransaction();
-            $tender->update($request->all());
+            $tenderId = $tender->id;
+            $tender = $tender->update($request->all());
+            $tenderItems = $request->input('items');
+            if (count($tenderItems) > 0) {
+                foreach ($tenderItems as $key => $tenderItem) {
+                    TenderItem::updateOrCreate(
+                        ['tender_id' => $tenderId, 'item_id' =>  $tenderItem['item_id']],
+                        ['unit_id' => $tenderItem['unit_id'], 'qty' =>  $tenderItem['qty']]
+                    );
+                }
+            }
             DB::commit();
             flash('Tender Updated Sucessfully!', 'success');
             return \redirect(route('dashboard.tender.index'));          

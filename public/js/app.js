@@ -22117,7 +22117,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['mode_of_payment', 'clients'],
+  props: ['mode_of_payment', 'clients', 'items', 'units'],
   components: {
     AuthenticatedLayout: _Layouts_Authenticated_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.Head,
@@ -22139,6 +22139,16 @@ __webpack_require__.r(__webpack_exports__);
           console.log(errors);
         }
       });
+    },
+    addItem: function addItem() {
+      this.form.items.push({
+        item_id: null,
+        unit_id: null,
+        qty: null
+      });
+    },
+    removeItem: function removeItem(index) {
+      this.form.items.splice(index, 1);
     }
   },
   mounted: function mounted() {
@@ -22153,7 +22163,12 @@ __webpack_require__.r(__webpack_exports__);
       last_date_of_submission: null,
       validity_of_quotation: null,
       client_id: null,
-      mode_of_payment_id: null
+      mode_of_payment_id: null,
+      items: [{
+        item_id: null,
+        unit_id: null,
+        qty: null
+      }]
     });
   }
 });
@@ -22182,7 +22197,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['mode_of_payment', 'clients', 'tender'],
+  props: ['mode_of_payment', 'clients', 'tender', 'items', 'units'],
   components: {
     AuthenticatedLayout: _Layouts_Authenticated_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.Head,
@@ -22204,9 +22219,20 @@ __webpack_require__.r(__webpack_exports__);
           console.log(errors);
         }
       });
+    },
+    addItem: function addItem() {
+      this.form.items.push({
+        item_id: null,
+        unit_id: null,
+        qty: null
+      });
+    },
+    removeItem: function removeItem(index) {
+      this.form.items.splice(index, 1);
     }
   },
   mounted: function mounted() {
+    console.log(this.tender);
     this.form = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.useForm)({
       id: this.tender ? this.tender.id : null,
       reference_no: this.tender ? this.tender.reference_no : null,
@@ -22219,7 +22245,8 @@ __webpack_require__.r(__webpack_exports__);
       last_date_of_submission: this.tender ? this.tender.last_date_of_submission : null,
       validity_of_quotation: this.tender ? this.tender.validity_of_quotation : null,
       client_id: this.tender ? this.tender.client_id : null,
-      mode_of_payment_id: this.tender ? this.tender.mode_of_payment_id : null
+      mode_of_payment_id: this.tender ? this.tender.mode_of_payment_id : null,
+      items: this.tender ? this.tender.items : null
     });
   }
 });
@@ -28691,20 +28718,54 @@ var _hoisted_34 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   "class": "card-header"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
   "class": "card-title"
-}, "Bank Details")], -1 /* HOISTED */);
+}, "Add Item")], -1 /* HOISTED */);
 var _hoisted_35 = {
   "class": "card-body"
 };
 var _hoisted_36 = {
+  "class": "form-group col-md-4"
+};
+var _hoisted_37 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "font-weight-semibold",
+  "for": "Bank Name"
+}, "Item", -1 /* HOISTED */);
+var _hoisted_38 = ["onUpdate:modelValue"];
+var _hoisted_39 = ["value"];
+var _hoisted_40 = {
+  "class": "form-group col-md-4"
+};
+var _hoisted_41 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "font-weight-semibold",
+  "for": "Account Title"
+}, "Unit", -1 /* HOISTED */);
+var _hoisted_42 = ["onUpdate:modelValue"];
+var _hoisted_43 = ["value"];
+var _hoisted_44 = {
+  "class": "form-group col-md-3"
+};
+var _hoisted_45 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "font-weight-semibold",
+  "for": "Account Title"
+}, "Quantity", -1 /* HOISTED */);
+var _hoisted_46 = ["onUpdate:modelValue"];
+var _hoisted_47 = {
+  "class": "form-group col-md-1",
+  style: {
+    "align-self": "center",
+    "padding-top": "49px"
+  }
+};
+var _hoisted_48 = ["onClick"];
+var _hoisted_49 = {
   "class": "form-row"
 };
-var _hoisted_37 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_50 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "form-group col-md-11"
 }, null, -1 /* HOISTED */);
-var _hoisted_38 = {
+var _hoisted_51 = {
   "class": "form-group col-md-1 text-left"
 };
-var _hoisted_39 = ["disabled", "classes"];
+var _hoisted_52 = ["disabled", "classes"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Head = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Head");
   var _component_error = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("error");
@@ -28714,10 +28775,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     title: "Add Tender"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_AuthenticatedLayout, null, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      var _$data$form$errors, _$data$form$errors2, _$data$form$errors3, _$data$form$errors4, _$data$form$errors5, _$data$form$errors6, _$data$form$errors7, _$data$form$errors8, _$data$form$errors9, _$data$form$errors10, _$data$form$errors11, _$data$form$errors12, _$data$form$errors13, _$data$form$errors14, _$data$form$errors15;
+      var _$data$form$errors, _$data$form$errors2, _$data$form$errors3, _$data$form$errors4, _$data$form$errors5, _$data$form$errors6, _$data$form$errors7, _$data$form$errors8, _$data$form$errors9, _$data$form$errors10, _$data$form$errors11, _$data$form$errors12, _$data$form$errors13, _$data$form$errors14, _$data$form$errors15, _$data$form$errors16, _$data$form$errors17;
       return [$data.form ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", {
         key: 0,
-        onSubmit: _cache[11] || (_cache[11] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+        onSubmit: _cache[12] || (_cache[12] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
           return $options.submit && $options.submit.apply($options, arguments);
         }, ["prevent"]))
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
@@ -28750,7 +28811,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           'is-invalid': (_$data$form$errors5 = $data.form.errors) === null || _$data$form$errors5 === void 0 ? void 0 : _$data$form$errors5.rate_basis
         }]),
         id: "rate_basis",
-        placeholder: "rate_basis",
+        placeholder: "Rate Basis",
         "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
           return $data.form.rate_basis = $event;
         })
@@ -28762,7 +28823,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           'is-invalid': (_$data$form$errors7 = $data.form.errors) === null || _$data$form$errors7 === void 0 ? void 0 : _$data$form$errors7.delivery_time
         }]),
         id: "delivery_time",
-        placeholder: "delivery_time",
+        placeholder: "Delivery Time",
         "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
           return $data.form.delivery_time = $event;
         })
@@ -28782,10 +28843,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           value: client.id,
           "class": "text-capitalize"
         }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(client.name), 9 /* TEXT, PROPS */, _hoisted_17);
-      }), 128 /* KEYED_FRAGMENT */))], 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.client_id]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [_hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+      }), 128 /* KEYED_FRAGMENT */))], 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.client_id]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
+        message: (_$data$form$errors10 = $data.form.errors) === null || _$data$form$errors10 === void 0 ? void 0 : _$data$form$errors10.client_id
+      }, null, 8 /* PROPS */, ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [_hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
         id: "language",
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", {
-          'is-invalid': (_$data$form$errors10 = $data.form.errors) === null || _$data$form$errors10 === void 0 ? void 0 : _$data$form$errors10.mode_of_payment_id
+          'is-invalid': (_$data$form$errors11 = $data.form.errors) === null || _$data$form$errors11 === void 0 ? void 0 : _$data$form$errors11.mode_of_payment_id
         }]),
         "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
           return $data.form.mode_of_payment_id = $event;
@@ -28796,14 +28859,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           value: mop.id,
           "class": "text-capitalize"
         }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(mop.name), 9 /* TEXT, PROPS */, _hoisted_20);
-      }), 128 /* KEYED_FRAGMENT */))], 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.mode_of_payment_id]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [_hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Datepicker, {
+      }), 128 /* KEYED_FRAGMENT */))], 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.mode_of_payment_id]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
+        message: (_$data$form$errors12 = $data.form.errors) === null || _$data$form$errors12 === void 0 ? void 0 : _$data$form$errors12.mode_of_payment_id
+      }, null, 8 /* PROPS */, ["message"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [_hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Datepicker, {
         modelValue: $data.form.rfq_date,
         "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
           return $data.form.rfq_date = $event;
         }),
         "enable-time-picker": false
       }, null, 8 /* PROPS */, ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
-        message: (_$data$form$errors11 = $data.form.errors) === null || _$data$form$errors11 === void 0 ? void 0 : _$data$form$errors11.rfq_date
+        message: (_$data$form$errors13 = $data.form.errors) === null || _$data$form$errors13 === void 0 ? void 0 : _$data$form$errors13.rfq_date
       }, null, 8 /* PROPS */, ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [_hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Datepicker, {
         modelValue: $data.form.last_date_of_submission,
         "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
@@ -28811,7 +28876,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }),
         "enable-time-picker": false
       }, null, 8 /* PROPS */, ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
-        message: (_$data$form$errors12 = $data.form.errors) === null || _$data$form$errors12 === void 0 ? void 0 : _$data$form$errors12.last_date_of_submission
+        message: (_$data$form$errors14 = $data.form.errors) === null || _$data$form$errors14 === void 0 ? void 0 : _$data$form$errors14.last_date_of_submission
       }, null, 8 /* PROPS */, ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [_hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Datepicker, {
         modelValue: $data.form.validity_of_quotation,
         "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
@@ -28819,7 +28884,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }),
         "enable-time-picker": false
       }, null, 8 /* PROPS */, ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
-        message: (_$data$form$errors13 = $data.form.errors) === null || _$data$form$errors13 === void 0 ? void 0 : _$data$form$errors13.validity_of_quotation
+        message: (_$data$form$errors15 = $data.form.errors) === null || _$data$form$errors15 === void 0 ? void 0 : _$data$form$errors15.validity_of_quotation
       }, null, 8 /* PROPS */, ["message"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [_hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", {
           'is-invalid': $data.form.errors.description
@@ -28829,7 +28894,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           return $data.form.description = $event;
         })
       }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.description]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
-        message: (_$data$form$errors14 = $data.form.errors) === null || _$data$form$errors14 === void 0 ? void 0 : _$data$form$errors14.description
+        message: (_$data$form$errors16 = $data.form.errors) === null || _$data$form$errors16 === void 0 ? void 0 : _$data$form$errors16.description
       }, null, 8 /* PROPS */, ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [_hoisted_32, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", {
           'is-invalid': $data.form.errors.special_terms
@@ -28839,12 +28904,71 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           return $data.form.special_terms = $event;
         })
       }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.special_terms]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
-        message: (_$data$form$errors15 = $data.form.errors) === null || _$data$form$errors15 === void 0 ? void 0 : _$data$form$errors15.special_terms
-      }, null, 8 /* PROPS */, ["message"])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [_hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"form-row\">\r\n                            <div class=\"form-group col-md-6\">\r\n                                <label class=\"font-weight-semibold\" for=\"Bank Name\">Bank Name:</label>\r\n                                <input type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"Bank Name\" v-model=\"form.bank_name\" :class=\"{'is-invalid' : form.errors?.bank_name}\">\r\n                                <error :message=\"form.errors?.bank_name\"></error>\r\n                            </div>\r\n                            <div class=\"form-group col-md-6\">\r\n                                <label class=\"font-weight-semibold\" for=\"Account Title\">Account Title:</label>\r\n                                <input type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"Account Title\" v-model=\"form.account_title\" :class=\"{'is-invalid' : form.errors?.account_title}\">\r\n                                <error :message=\"form.errors?.account_title\"></error>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-row\">\r\n                            <div class=\"form-group col-md-6\">\r\n                                <label class=\"font-weight-semibold\" for=\"Branch Code\">Branch Code:</label>\r\n                                <input type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"Branch Code\" v-model=\"form.branch_code\" :class=\"{'is-invalid' : form.errors?.branch_code}\">\r\n                                <error :message=\"form.errors?.branch_code\"></error>\r\n                            </div>\r\n                            <div class=\"form-group col-md-6\">\r\n                                <label class=\"font-weight-semibold\" for=\"Account Number\">Account Number:</label>\r\n                                <input type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"Account Number\" v-model=\"form.account_number\" :class=\"{'is-invalid' : form.errors?.account_number}\">\r\n                                <error :message=\"form.errors?.account_number\"></error>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-row\">\r\n                            <div class=\"form-group col-md-12\">\r\n                                <label class=\"font-weight-semibold\" for=\"Iban\">IBAN Number:</label>\r\n                                <input type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"Iban\" v-model=\"form.iban\" :class=\"{'is-invalid' : form.errors?.iban}\">\r\n                                <error :message=\"form.errors?.iban\"></error>\r\n                            </div>\r\n                        </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [_hoisted_37, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+        message: (_$data$form$errors17 = $data.form.errors) === null || _$data$form$errors17 === void 0 ? void 0 : _$data$form$errors17.special_terms
+      }, null, 8 /* PROPS */, ["message"])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [_hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.form.items, function (tenderItem, index) {
+        return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+          "class": "form-row",
+          key: index
+        }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [_hoisted_37, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+          id: "language",
+          "class": "form-control",
+          "onUpdate:modelValue": function onUpdateModelValue($event) {
+            return tenderItem.item_id = $event;
+          }
+        }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.items, function (item, index) {
+          return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
+            key: index,
+            value: item.id,
+            "class": "text-capitalize"
+          }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.name), 9 /* TEXT, PROPS */, _hoisted_39);
+        }), 128 /* KEYED_FRAGMENT */))], 8 /* PROPS */, _hoisted_38), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, tenderItem.item_id]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
+          message: $data.form.errors["items.".concat(index, ".item_id")]
+        }, null, 8 /* PROPS */, ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, [_hoisted_41, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+          id: "language",
+          "class": "form-control",
+          "onUpdate:modelValue": function onUpdateModelValue($event) {
+            return tenderItem.unit_id = $event;
+          }
+        }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.units, function (unit, index) {
+          return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
+            key: index,
+            value: unit.id,
+            "class": "text-capitalize"
+          }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(unit.full_name), 9 /* TEXT, PROPS */, _hoisted_43);
+        }), 128 /* KEYED_FRAGMENT */))], 8 /* PROPS */, _hoisted_42), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, tenderItem.unit_id]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
+          message: $data.form.errors["items.".concat(index, ".unit_id")]
+        }, null, 8 /* PROPS */, ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [_hoisted_45, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+          type: "number",
+          "class": "form-control",
+          placeholder: "Quantity",
+          "onUpdate:modelValue": function onUpdateModelValue($event) {
+            return tenderItem.qty = $event;
+          }
+        }, null, 8 /* PROPS */, _hoisted_46), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, tenderItem.qty]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
+          message: $data.form.errors["items.".concat(index, ".qty")]
+        }, null, 8 /* PROPS */, ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+          "class": "anticon anticon-plus-square",
+          style: {
+            "font-size": "50px"
+          },
+          onClick: _cache[11] || (_cache[11] = function ($event) {
+            return $options.addItem();
+          })
+        }), $data.form.items.length > 1 && index > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("i", {
+          key: 0,
+          "class": "anticon anticon-minus-square",
+          style: {
+            "font-size": "50px"
+          },
+          onClick: function onClick($event) {
+            return $options.removeItem(index);
+          }
+        }, null, 8 /* PROPS */, _hoisted_48)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
+      }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_49, [_hoisted_50, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_51, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
         "class": "btn btn-primary m-t-30",
         disabled: $data.form.processing,
         classes: $data.form.processing ? 'btn btn-primary is-loading m-r-5' : 'btn btn-primary m-t-30'
-      }, "Submit", 8 /* PROPS */, _hoisted_39)])])])])])], 32 /* HYDRATE_EVENTS */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
+      }, "Submit", 8 /* PROPS */, _hoisted_52)])])])])])], 32 /* HYDRATE_EVENTS */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
     }),
     _: 1 /* STABLE */
   })], 64 /* STABLE_FRAGMENT */);
@@ -28982,15 +29106,49 @@ var _hoisted_35 = {
   "class": "card-body"
 };
 var _hoisted_36 = {
+  "class": "form-group col-md-4"
+};
+var _hoisted_37 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "font-weight-semibold",
+  "for": "Bank Name"
+}, "Item", -1 /* HOISTED */);
+var _hoisted_38 = ["onUpdate:modelValue"];
+var _hoisted_39 = ["value"];
+var _hoisted_40 = {
+  "class": "form-group col-md-4"
+};
+var _hoisted_41 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "font-weight-semibold",
+  "for": "Account Title"
+}, "Unit", -1 /* HOISTED */);
+var _hoisted_42 = ["onUpdate:modelValue"];
+var _hoisted_43 = ["value"];
+var _hoisted_44 = {
+  "class": "form-group col-md-3"
+};
+var _hoisted_45 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "font-weight-semibold",
+  "for": "Account Title"
+}, "Quantity", -1 /* HOISTED */);
+var _hoisted_46 = ["onUpdate:modelValue"];
+var _hoisted_47 = {
+  "class": "form-group col-md-1",
+  style: {
+    "align-self": "center",
+    "padding-top": "49px"
+  }
+};
+var _hoisted_48 = ["onClick"];
+var _hoisted_49 = {
   "class": "form-row"
 };
-var _hoisted_37 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_50 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "form-group col-md-11"
 }, null, -1 /* HOISTED */);
-var _hoisted_38 = {
+var _hoisted_51 = {
   "class": "form-group col-md-1 text-left"
 };
-var _hoisted_39 = ["disabled", "classes"];
+var _hoisted_52 = ["disabled", "classes"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Head = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Head");
   var _component_error = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("error");
@@ -29003,7 +29161,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       var _$data$form$errors, _$data$form$errors2, _$data$form$errors3, _$data$form$errors4, _$data$form$errors5, _$data$form$errors6, _$data$form$errors7, _$data$form$errors8, _$data$form$errors9, _$data$form$errors10, _$data$form$errors11, _$data$form$errors12, _$data$form$errors13, _$data$form$errors14, _$data$form$errors15;
       return [$data.form ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", {
         key: 0,
-        onSubmit: _cache[11] || (_cache[11] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+        onSubmit: _cache[12] || (_cache[12] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
           return $options.submit && $options.submit.apply($options, arguments);
         }, ["prevent"]))
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
@@ -29126,11 +29284,70 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         })
       }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.special_terms]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
         message: (_$data$form$errors15 = $data.form.errors) === null || _$data$form$errors15 === void 0 ? void 0 : _$data$form$errors15.special_terms
-      }, null, 8 /* PROPS */, ["message"])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [_hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"form-row\">\r\n                            <div class=\"form-group col-md-6\">\r\n                                <label class=\"font-weight-semibold\" for=\"Bank Name\">Bank Name:</label>\r\n                                <input type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"Bank Name\" v-model=\"form.bank_name\" :class=\"{'is-invalid' : form.errors?.bank_name}\">\r\n                                <error :message=\"form.errors?.bank_name\"></error>\r\n                            </div>\r\n                            <div class=\"form-group col-md-6\">\r\n                                <label class=\"font-weight-semibold\" for=\"Account Title\">Account Title:</label>\r\n                                <input type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"Account Title\" v-model=\"form.account_title\" :class=\"{'is-invalid' : form.errors?.account_title}\">\r\n                                <error :message=\"form.errors?.account_title\"></error>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-row\">\r\n                            <div class=\"form-group col-md-6\">\r\n                                <label class=\"font-weight-semibold\" for=\"Branch Code\">Branch Code:</label>\r\n                                <input type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"Branch Code\" v-model=\"form.branch_code\" :class=\"{'is-invalid' : form.errors?.branch_code}\">\r\n                                <error :message=\"form.errors?.branch_code\"></error>\r\n                            </div>\r\n                            <div class=\"form-group col-md-6\">\r\n                                <label class=\"font-weight-semibold\" for=\"Account Number\">Account Number:</label>\r\n                                <input type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"Account Number\" v-model=\"form.account_number\" :class=\"{'is-invalid' : form.errors?.account_number}\">\r\n                                <error :message=\"form.errors?.account_number\"></error>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-row\">\r\n                            <div class=\"form-group col-md-12\">\r\n                                <label class=\"font-weight-semibold\" for=\"Iban\">IBAN Number:</label>\r\n                                <input type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"Iban\" v-model=\"form.iban\" :class=\"{'is-invalid' : form.errors?.iban}\">\r\n                                <error :message=\"form.errors?.iban\"></error>\r\n                            </div>\r\n                        </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [_hoisted_37, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+      }, null, 8 /* PROPS */, ["message"])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [_hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.form.items, function (tenderItem, index) {
+        return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+          "class": "form-row",
+          key: index
+        }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [_hoisted_37, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+          id: "language",
+          "class": "form-control",
+          "onUpdate:modelValue": function onUpdateModelValue($event) {
+            return tenderItem.item_id = $event;
+          }
+        }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.items, function (item, index) {
+          return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
+            key: index,
+            value: item.id,
+            "class": "text-capitalize"
+          }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.name), 9 /* TEXT, PROPS */, _hoisted_39);
+        }), 128 /* KEYED_FRAGMENT */))], 8 /* PROPS */, _hoisted_38), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, tenderItem.item_id]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
+          message: $data.form.errors["items.".concat(index, ".item_id")]
+        }, null, 8 /* PROPS */, ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, [_hoisted_41, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+          id: "language",
+          "class": "form-control",
+          "onUpdate:modelValue": function onUpdateModelValue($event) {
+            return tenderItem.unit_id = $event;
+          }
+        }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.units, function (unit, index) {
+          return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
+            key: index,
+            value: unit.id,
+            "class": "text-capitalize"
+          }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(unit.full_name), 9 /* TEXT, PROPS */, _hoisted_43);
+        }), 128 /* KEYED_FRAGMENT */))], 8 /* PROPS */, _hoisted_42), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, tenderItem.unit_id]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
+          message: $data.form.errors["items.".concat(index, ".unit_id")]
+        }, null, 8 /* PROPS */, ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [_hoisted_45, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+          type: "number",
+          "class": "form-control",
+          placeholder: "Quantity",
+          "onUpdate:modelValue": function onUpdateModelValue($event) {
+            return tenderItem.qty = $event;
+          }
+        }, null, 8 /* PROPS */, _hoisted_46), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, tenderItem.qty]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
+          message: $data.form.errors["items.".concat(index, ".qty")]
+        }, null, 8 /* PROPS */, ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+          "class": "anticon anticon-plus-square",
+          style: {
+            "font-size": "50px"
+          },
+          onClick: _cache[11] || (_cache[11] = function ($event) {
+            return $options.addItem();
+          })
+        }), $data.form.items.length > 1 && index > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("i", {
+          key: 0,
+          "class": "anticon anticon-minus-square",
+          style: {
+            "font-size": "50px"
+          },
+          onClick: function onClick($event) {
+            return $options.removeItem(index);
+          }
+        }, null, 8 /* PROPS */, _hoisted_48)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
+      }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_49, [_hoisted_50, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_51, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
         "class": "btn btn-primary m-t-30",
         disabled: $data.form.processing,
         classes: $data.form.processing ? 'btn btn-primary is-loading m-r-5' : 'btn btn-primary m-t-30'
-      }, "Submit", 8 /* PROPS */, _hoisted_39)])])])])])], 32 /* HYDRATE_EVENTS */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
+      }, "Submit", 8 /* PROPS */, _hoisted_52)])])])])])], 32 /* HYDRATE_EVENTS */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
     }),
     _: 1 /* STABLE */
   })], 64 /* STABLE_FRAGMENT */);
