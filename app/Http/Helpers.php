@@ -26,3 +26,10 @@ function getPermissionsName($role)
 {
     return $role->permissions()->pluck('name');
 }
+
+function setDateValues($value)
+{
+    if ($value) {
+        return date("Y-m-d H:i:s", strtotime($value));
+    }
+}

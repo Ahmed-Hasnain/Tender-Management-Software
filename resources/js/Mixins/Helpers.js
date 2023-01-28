@@ -1,3 +1,4 @@
+import moment from 'moment';
 export default {
     methods: {
         // check user permissions
@@ -24,6 +25,11 @@ export default {
 
         getImage($image) {
             return  $image ? $image : this.$page.props.settings.cover_placeholder
-        }
+        },
+
+        // formate time
+        formatDate(dateString) {
+            return moment(dateString).format("Do MMM YYYY");
+        },
     }
 }
