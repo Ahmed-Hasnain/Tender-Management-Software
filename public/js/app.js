@@ -28741,7 +28741,7 @@ var _hoisted_41 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 var _hoisted_42 = ["onUpdate:modelValue"];
 var _hoisted_43 = ["value"];
 var _hoisted_44 = {
-  "class": "form-group col-md-3"
+  "class": "form-group col-md-2"
 };
 var _hoisted_45 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "font-weight-semibold",
@@ -28749,7 +28749,7 @@ var _hoisted_45 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 }, "Quantity", -1 /* HOISTED */);
 var _hoisted_46 = ["onUpdate:modelValue"];
 var _hoisted_47 = {
-  "class": "form-group col-md-1",
+  "class": "form-group col-md-2",
   style: {
     "align-self": "center",
     "padding-top": "49px"
@@ -29101,7 +29101,7 @@ var _hoisted_34 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   "class": "card-header"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
   "class": "card-title"
-}, "Bank Details")], -1 /* HOISTED */);
+}, "Add Items")], -1 /* HOISTED */);
 var _hoisted_35 = {
   "class": "card-body"
 };
@@ -29124,7 +29124,7 @@ var _hoisted_41 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 var _hoisted_42 = ["onUpdate:modelValue"];
 var _hoisted_43 = ["value"];
 var _hoisted_44 = {
-  "class": "form-group col-md-3"
+  "class": "form-group col-md-2"
 };
 var _hoisted_45 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "font-weight-semibold",
@@ -29132,7 +29132,7 @@ var _hoisted_45 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 }, "Quantity", -1 /* HOISTED */);
 var _hoisted_46 = ["onUpdate:modelValue"];
 var _hoisted_47 = {
-  "class": "form-group col-md-1",
+  "class": "form-group col-md-2",
   style: {
     "align-self": "center",
     "padding-top": "49px"

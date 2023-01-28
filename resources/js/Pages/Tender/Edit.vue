@@ -80,7 +80,7 @@
             </div>
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Bank Details</h4>
+                    <h4 class="card-title">Add Items</h4>
                 </div>
                 <div class="card-body">
                     <div>
@@ -99,12 +99,12 @@
                                 </select>
                                 <error :message="form.errors[`items.${index}.unit_id`]"></error>
                             </div>
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-2">
                                 <label class="font-weight-semibold" for="Account Title">Quantity</label>
                                 <input type="number" class="form-control" placeholder="Quantity" v-model="tenderItem.qty">
                                 <error :message="form.errors[`items.${index}.qty`]"></error>
                             </div>
-                            <div class="form-group col-md-1" style="align-self: center; padding-top: 49px;">
+                            <div class="form-group col-md-2" style="align-self: center; padding-top: 49px;">
                                 <i class="anticon anticon-plus-square" style="font-size: 50px;" @click="addItem()"></i>
                                 <i class="anticon anticon-minus-square" style="font-size: 50px;" @click="removeItem(index)" v-if="form.items.length > 1 && index > 0"></i>
                             </div>

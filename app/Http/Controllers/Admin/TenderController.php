@@ -7,12 +7,13 @@ use App\Models\Unit;
 use Inertia\Inertia;
 use App\Models\Client;
 use App\Models\Tender;
+use App\Models\TenderItem;
 use Illuminate\Http\Request;
 use App\Models\ModeOfPayment;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TenderRequest;
-use App\Models\TenderItem;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class TenderController extends Controller
@@ -86,8 +87,7 @@ class TenderController extends Controller
             $tenderItems = $request->input('items');
             if (count($tenderItems) > 0) {
                 foreach ($tenderItems as $key => $tenderItem) {
-                    TenderItem::create([
-                        'tender_id' => $tender->id,
+                    $tender->items()->create([
                         'item_id' => $tenderItem['item_id'],
                         'unit_id' => $tenderItem['unit_id'],
                         'qty' => $tenderItem['qty'],
@@ -143,18 +143,31 @@ class TenderController extends Controller
      */
     public function update(TenderRequest $request, Tender $tender)
     {
+
         try{
             DB::beginTransaction();
-            $tenderId = $tender->id;
-            $tender = $tender->update($request->all());
+            $tender->update($request->all());
             $tenderItems = $request->input('items');
+            $tenderItemIds = [];
             if (count($tenderItems) > 0) {
                 foreach ($tenderItems as $key => $tenderItem) {
-                    TenderItem::updateOrCreate(
-                        ['tender_id' => $tenderId, 'item_id' =>  $tenderItem['item_id']],
-                        ['unit_id' => $tenderItem['unit_id'], 'qty' =>  $tenderItem['qty']]
-                    );
+                    if (array_key_exists('id', $tenderItem)) {
+                        $tenderItemIds [] = $tenderItem['id'];
+                        $tender->items()->whereId($tenderItem['id'])->update([
+                            'unit_id' => $tenderItem['unit_id'],
+                            'qty' =>  $tenderItem['qty'],
+                            'item_id' =>  $tenderItem['item_id']
+                        ]);
+                    } else {
+                        $tenderItem = $tender->items()->create([
+                            'unit_id' => $tenderItem['unit_id'],
+                            'qty' =>  $tenderItem['qty'],
+                            'item_id' =>  $tenderItem['item_id']
+                        ]);
+                        $tenderItemIds [] = $tenderItem->id;
+                    }
                 }
+                $tender->items()->whereNotIn('id', $tenderItemIds)->delete();
             }
             DB::commit();
             flash('Tender Updated Sucessfully!', 'success');
