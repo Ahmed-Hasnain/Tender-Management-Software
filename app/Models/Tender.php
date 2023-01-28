@@ -59,4 +59,9 @@ class Tender extends Model
     {
         return $this->belongsTo(Client::class, 'client_id');
     }
+
+    public function mop()
+    {
+        return $this->belongsTo(ModeOfPayment::class, 'mode_of_payment_id');
+    }
 }
