@@ -9,9 +9,6 @@
                         <div class="d-md-flex align-items-center">
                             <div class="text-center text-sm-left m-v-15">
                                 <h2 class="m-b-5 text-capitalize">{{ tender.reference_no }}</h2>
-                                <!-- <p class="text-opacity font-size-13">
-                                    {{ tender.description }}
-                                </p> -->
                                 <p class="text-opacity m-b-20">
                                     {{ tender.description }}
                                 </p>
