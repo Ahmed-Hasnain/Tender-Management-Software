@@ -21,76 +21,84 @@
                         </li>
                     </ul>
                 </li> -->
-                <li class="nav-item dropdown" :class="{ 'active': $page.component === 'Dashboard' }">
+                <li class="nav-item dropdown" :class="{ 'active': dashboardFlag }">
                     <Link :href="route('dashboard')">
                         <span class="icon-holder">
-                            <i class="anticon anticon-dashboard" :class="{ 'text-white': $page.component === 'Dashboard' }"></i>
+                            <i class="anticon anticon-dashboard" :class="{ 'text-white': dashboardFlag }"></i>
                         </span>
-                        <span class="title " :class="{ 'text-white': $page.component === 'Dashboard' }">Dashboard</span>
+                        <span class="title " :class="{ 'text-white': dashboardFlag }">Dashboard</span>
                     </Link>
                 </li>
-                <li class="nav-item dropdown" :class="{ 'active': $page.component === 'Users/Index' }">
+                <li class="nav-item dropdown" :class="{ 'active': userFlag }">
                     <Link :href="route('dashboard.user.index')">
                         <span class="icon-holder">
-                            <i class="anticon anticon-team" :class="{ 'text-white': $page.component === 'Users/Index' }"></i>
+                            <i class="anticon anticon-team" :class="{ 'text-white': userFlag }"></i>
                         </span>
-                        <span class="title" :class="{ 'text-white': $page.component === 'Users/Index' }">Users</span>
+                        <span class="title" :class="{ 'text-white': userFlag }">Users</span>
                     </Link>
                 </li>
-                <li class="nav-item dropdown" :class="{ 'active': $page.component === 'Category/Index' }">
+                <li class="nav-item dropdown" :class="{ 'active': categoryFlag }">
                     <Link :href="route('dashboard.category.index')">
                         <span class="icon-holder">
-                            <i class="anticon anticon-appstore" :class="{ 'text-white': $page.component === 'Category/Index' }"></i>
+                            <i class="anticon anticon-appstore" :class="{ 'text-white': categoryFlag }"></i>
                         </span>
-                        <span class="title" :class="{ 'text-white': $page.component === 'Category/Index' }">Categories</span>
+                        <span class="title" :class="{ 'text-white': categoryFlag }">Categories</span>
                     </Link>
                 </li>
-                <li class="nav-item dropdown" :class="{ 'active': $page.component === 'Item/Index' }">
+                <li class="nav-item dropdown" :class="{ 'active': itemFlag }">
                     <Link :href="route('dashboard.item.index')">
                         <span class="icon-holder">
-                            <i class="anticon anticon-shopping-cart" :class="{ 'text-white': $page.component === 'Item/Index' }"></i>
+                            <i class="anticon anticon-shopping-cart" :class="{ 'text-white': itemFlag }"></i>
                         </span>
-                        <span class="title" :class="{ 'text-white': $page.component === 'Item/Index' }">Items</span>
+                        <span class="title" :class="{ 'text-white': itemFlag }">Items</span>
                     </Link>
                 </li>
-                <li class="nav-item dropdown" :class="{ 'active': $page.component === 'ModeOfPayment/Index' }">
+                <li class="nav-item dropdown" :class="{ 'active': mopFlag }">
                     <Link :href="route('dashboard.mode-of-payment.index')">
                         <span class="icon-holder">
-                            <i class="anticon anticon-dollar" :class="{ 'text-white': $page.component === 'ModeOfPayment/Index' }"></i>
+                            <i class="anticon anticon-dollar" :class="{ 'text-white': mopFlag }"></i>
                         </span>
-                        <span class="title" :class="{ 'text-white': $page.component === 'ModeOfPayment/Index' }">Mode of Payments</span>
+                        <span class="title" :class="{ 'text-white': mopFlag }">Mode of Payments</span>
                     </Link>
                 </li>
-                <li class="nav-item dropdown" :class="{ 'active': $page.component === 'Demand/Index' }">
+                <li class="nav-item dropdown" :class="{ 'active': demandFlag }">
                     <Link :href="route('dashboard.demand.index')">
                         <span class="icon-holder">
-                            <i class="anticon anticon-usb" :class="{ 'text-white': $page.component === 'Demand/Index' }"></i>
+                            <i class="anticon anticon-usb" :class="{ 'text-white': demandFlag }"></i>
                         </span>
-                        <span class="title" :class="{ 'text-white': $page.component === 'Demand/Index' }">Type of Demands</span>
+                        <span class="title" :class="{ 'text-white': demandFlag }">Type of Demands</span>
                     </Link>
                 </li>
-                <li class="nav-item dropdown" :class="{ 'active': $page.component === 'Unit/Index' }">
+                <li class="nav-item dropdown" :class="{ 'active': unitFlag }">
                     <Link :href="route('dashboard.unit.index')">
                         <span class="icon-holder">
-                            <i class="anticon anticon-deployment-unit" :class="{ 'text-white': $page.component === 'Unit/Index' }"></i>
+                            <i class="anticon anticon-deployment-unit" :class="{ 'text-white': unitFlag }"></i>
                         </span>
-                        <span class="title" :class="{ 'text-white': $page.component === 'Unit/Index' }">Units</span>
+                        <span class="title" :class="{ 'text-white': unitFlag }">Units</span>
                     </Link>
                 </li>
-                <li class="nav-item dropdown" :class="{ 'active': $page.component === 'Supplier/Index' }">
+                <li class="nav-item dropdown" :class="{ 'active': supplierFlag }">
                     <Link :href="route('dashboard.supplier.index')">
                         <span class="icon-holder">
-                            <i class="anticon anticon-user-add" :class="{ 'text-white': $page.component === 'Supplier/Index' }"></i>
+                            <i class="anticon anticon-user-add" :class="{ 'text-white': supplierFlag }"></i>
                         </span>
-                        <span class="title" :class="{ 'text-white': $page.component === 'Supplier/Index' }">Suppliers</span>
+                        <span class="title" :class="{ 'text-white': supplierFlag }">Suppliers</span>
                     </Link>
                 </li>
-                <li class="nav-item dropdown" :class="{ 'active': $page.component === 'Client/Index' }">
+                <li class="nav-item dropdown" :class="{ 'active': clientFlag }">
                     <Link :href="route('dashboard.client.index')">
                         <span class="icon-holder">
-                            <i class="anticon anticon-copyright" :class="{ 'text-white': $page.component === 'Client/Index' }"></i>
+                            <i class="anticon anticon-copyright" :class="{ 'text-white': clientFlag }"></i>
                         </span>
-                        <span class="title" :class="{ 'text-white': $page.component === 'Client/Index' }">Clients</span>
+                        <span class="title" :class="{ 'text-white': clientFlag }">Clients</span>
+                    </Link>
+                </li>
+                <li class="nav-item dropdown" :class="{ 'active': tenderFlag }">
+                    <Link :href="route('dashboard.tender.index')">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-file-protect" :class="{ 'text-white': tenderFlag }"></i>
+                        </span>
+                        <span class="title" :class="{ 'text-white': tenderFlag }">Tenders</span>
                     </Link>
                 </li>
             </ul>
@@ -104,6 +112,38 @@ export default {
     components: {
         Head,
         Link,
+    },
+    computed: {
+        tenderFlag() {
+            return this.$page.component === 'Tender/Index' || this.$page.component === 'Tender/Create' || this.$page.component === 'Tender/Edit' ? true : false
+        },
+        clientFlag() {
+            return this.$page.component === 'Client/Index' || this.$page.component === 'Client/Create' || this.$page.component === 'Client/Edit' ? true : false
+        },
+        supplierFlag() {
+            return this.$page.component === 'Supplier/Index' || this.$page.component === 'Supplier/Create' || this.$page.component === 'Supplier/Edit' ? true : false
+        },
+        unitFlag() {
+            return this.$page.component === 'Unit/Index' || this.$page.component === 'Unit/Create' || this.$page.component === 'Unit/Edit' ? true : false
+        },
+        demandFlag() {
+            return this.$page.component === 'Demand/Index' || this.$page.component === 'Demand/Create' || this.$page.component === 'Demand/Edit' ? true : false
+        },
+        mopFlag() {
+            return this.$page.component === 'ModeOfPayment/Index' || this.$page.component === 'ModeOfPayment/Create' || this.$page.component === 'ModeOfPayment/Edit' ? true : false
+        },
+        itemFlag() {
+            return this.$page.component === 'Item/Index' || this.$page.component === 'Item/Create' || this.$page.component === 'Item/Edit' ? true : false
+        },
+        categoryFlag() {
+            return this.$page.component === 'Category/Index' || this.$page.component === 'Category/Create' || this.$page.component === 'Category/Edit' ? true : false
+        },
+        userFlag() {
+            return this.$page.component === 'Users/Index' || this.$page.component === 'Users/Create' || this.$page.component === 'Users/Edit' ? true : false
+        },
+        dashboardFlag() {
+            return this.$page.component === 'Dashboard' || this.$page.component === 'Dashboard' || this.$page.component === 'Dashboard' ? true : false
+        },
     }
 }
 </script>

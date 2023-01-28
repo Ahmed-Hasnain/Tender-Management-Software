@@ -19889,6 +19889,38 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Head,
     Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Link
+  },
+  computed: {
+    tenderFlag: function tenderFlag() {
+      return this.$page.component === 'Tender/Index' || this.$page.component === 'Tender/Create' || this.$page.component === 'Tender/Edit' ? true : false;
+    },
+    clientFlag: function clientFlag() {
+      return this.$page.component === 'Client/Index' || this.$page.component === 'Client/Create' || this.$page.component === 'Client/Edit' ? true : false;
+    },
+    supplierFlag: function supplierFlag() {
+      return this.$page.component === 'Supplier/Index' || this.$page.component === 'Supplier/Create' || this.$page.component === 'Supplier/Edit' ? true : false;
+    },
+    unitFlag: function unitFlag() {
+      return this.$page.component === 'Unit/Index' || this.$page.component === 'Unit/Create' || this.$page.component === 'Unit/Edit' ? true : false;
+    },
+    demandFlag: function demandFlag() {
+      return this.$page.component === 'Demand/Index' || this.$page.component === 'Demand/Create' || this.$page.component === 'Demand/Edit' ? true : false;
+    },
+    mopFlag: function mopFlag() {
+      return this.$page.component === 'ModeOfPayment/Index' || this.$page.component === 'ModeOfPayment/Create' || this.$page.component === 'ModeOfPayment/Edit' ? true : false;
+    },
+    itemFlag: function itemFlag() {
+      return this.$page.component === 'Item/Index' || this.$page.component === 'Item/Create' || this.$page.component === 'Item/Edit' ? true : false;
+    },
+    categoryFlag: function categoryFlag() {
+      return this.$page.component === 'Category/Index' || this.$page.component === 'Category/Create' || this.$page.component === 'Category/Edit' ? true : false;
+    },
+    userFlag: function userFlag() {
+      return this.$page.component === 'Users/Index' || this.$page.component === 'Users/Create' || this.$page.component === 'Users/Edit' ? true : false;
+    },
+    dashboardFlag: function dashboardFlag() {
+      return this.$page.component === 'Dashboard' || this.$page.component === 'Dashboard' || this.$page.component === 'Dashboard' ? true : false;
+    }
   }
 });
 
@@ -23183,11 +23215,14 @@ var _hoisted_11 = {
 var _hoisted_12 = {
   "class": "icon-holder"
 };
+var _hoisted_13 = {
+  "class": "icon-holder"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Link");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item dropdown open\">\r\n                    <a class=\"dropdown-toggle\" href=\"javascript:void(0);\">\r\n                        <span class=\"icon-holder\">\r\n                            <i class=\"anticon anticon-dashboard\"></i>\r\n                        </span>\r\n                        <span class=\"title\">Dashboard</span>\r\n                        <span class=\"arrow\">\r\n                            <i class=\"arrow-icon\"></i>\r\n                        </span>\r\n                    </a>\r\n                    <ul class=\"dropdown-menu\">\r\n                        <li :class=\"{ 'active': $page.component === 'Dashboard' }\">\r\n                            <Link :href=\"route('dashboard')\">Default</Link>\r\n                        </li>\r\n                        <li :class=\"{ 'active': $page.component === 'Dashboard2' }\">\r\n                            <Link :href=\"route('dashboard2')\">CRM</Link>\r\n                        </li>\r\n                    </ul>\r\n                </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["nav-item dropdown", {
-      'active': _ctx.$page.component === 'Dashboard'
+      'active': $options.dashboardFlag
     }])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
     href: _ctx.route('dashboard')
@@ -23195,11 +23230,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["anticon anticon-dashboard", {
-          'text-white': _ctx.$page.component === 'Dashboard'
+          'text-white': $options.dashboardFlag
         }])
       }, null, 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["title", {
-          'text-white': _ctx.$page.component === 'Dashboard'
+          'text-white': $options.dashboardFlag
         }])
       }, "Dashboard", 2 /* CLASS */)];
     }),
@@ -23207,7 +23242,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1 /* STABLE */
   }, 8 /* PROPS */, ["href"])], 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["nav-item dropdown", {
-      'active': _ctx.$page.component === 'Users/Index'
+      'active': $options.userFlag
     }])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
     href: _ctx.route('dashboard.user.index')
@@ -23215,11 +23250,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["anticon anticon-team", {
-          'text-white': _ctx.$page.component === 'Users/Index'
+          'text-white': $options.userFlag
         }])
       }, null, 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["title", {
-          'text-white': _ctx.$page.component === 'Users/Index'
+          'text-white': $options.userFlag
         }])
       }, "Users", 2 /* CLASS */)];
     }),
@@ -23227,7 +23262,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1 /* STABLE */
   }, 8 /* PROPS */, ["href"])], 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["nav-item dropdown", {
-      'active': _ctx.$page.component === 'Category/Index'
+      'active': $options.categoryFlag
     }])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
     href: _ctx.route('dashboard.category.index')
@@ -23235,11 +23270,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["anticon anticon-appstore", {
-          'text-white': _ctx.$page.component === 'Category/Index'
+          'text-white': $options.categoryFlag
         }])
       }, null, 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["title", {
-          'text-white': _ctx.$page.component === 'Category/Index'
+          'text-white': $options.categoryFlag
         }])
       }, "Categories", 2 /* CLASS */)];
     }),
@@ -23247,7 +23282,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1 /* STABLE */
   }, 8 /* PROPS */, ["href"])], 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["nav-item dropdown", {
-      'active': _ctx.$page.component === 'Item/Index'
+      'active': $options.itemFlag
     }])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
     href: _ctx.route('dashboard.item.index')
@@ -23255,11 +23290,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["anticon anticon-shopping-cart", {
-          'text-white': _ctx.$page.component === 'Item/Index'
+          'text-white': $options.itemFlag
         }])
       }, null, 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["title", {
-          'text-white': _ctx.$page.component === 'Item/Index'
+          'text-white': $options.itemFlag
         }])
       }, "Items", 2 /* CLASS */)];
     }),
@@ -23267,7 +23302,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1 /* STABLE */
   }, 8 /* PROPS */, ["href"])], 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["nav-item dropdown", {
-      'active': _ctx.$page.component === 'ModeOfPayment/Index'
+      'active': $options.mopFlag
     }])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
     href: _ctx.route('dashboard.mode-of-payment.index')
@@ -23275,11 +23310,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["anticon anticon-dollar", {
-          'text-white': _ctx.$page.component === 'ModeOfPayment/Index'
+          'text-white': $options.mopFlag
         }])
       }, null, 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["title", {
-          'text-white': _ctx.$page.component === 'ModeOfPayment/Index'
+          'text-white': $options.mopFlag
         }])
       }, "Mode of Payments", 2 /* CLASS */)];
     }),
@@ -23287,7 +23322,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1 /* STABLE */
   }, 8 /* PROPS */, ["href"])], 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["nav-item dropdown", {
-      'active': _ctx.$page.component === 'Demand/Index'
+      'active': $options.demandFlag
     }])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
     href: _ctx.route('dashboard.demand.index')
@@ -23295,11 +23330,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["anticon anticon-usb", {
-          'text-white': _ctx.$page.component === 'Demand/Index'
+          'text-white': $options.demandFlag
         }])
       }, null, 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["title", {
-          'text-white': _ctx.$page.component === 'Demand/Index'
+          'text-white': $options.demandFlag
         }])
       }, "Type of Demands", 2 /* CLASS */)];
     }),
@@ -23307,7 +23342,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1 /* STABLE */
   }, 8 /* PROPS */, ["href"])], 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["nav-item dropdown", {
-      'active': _ctx.$page.component === 'Unit/Index'
+      'active': $options.unitFlag
     }])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
     href: _ctx.route('dashboard.unit.index')
@@ -23315,11 +23350,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["anticon anticon-deployment-unit", {
-          'text-white': _ctx.$page.component === 'Unit/Index'
+          'text-white': $options.unitFlag
         }])
       }, null, 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["title", {
-          'text-white': _ctx.$page.component === 'Unit/Index'
+          'text-white': $options.unitFlag
         }])
       }, "Units", 2 /* CLASS */)];
     }),
@@ -23327,7 +23362,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1 /* STABLE */
   }, 8 /* PROPS */, ["href"])], 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["nav-item dropdown", {
-      'active': _ctx.$page.component === 'Supplier/Index'
+      'active': $options.supplierFlag
     }])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
     href: _ctx.route('dashboard.supplier.index')
@@ -23335,11 +23370,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["anticon anticon-user-add", {
-          'text-white': _ctx.$page.component === 'Supplier/Index'
+          'text-white': $options.supplierFlag
         }])
       }, null, 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["title", {
-          'text-white': _ctx.$page.component === 'Supplier/Index'
+          'text-white': $options.supplierFlag
         }])
       }, "Suppliers", 2 /* CLASS */)];
     }),
@@ -23347,7 +23382,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1 /* STABLE */
   }, 8 /* PROPS */, ["href"])], 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["nav-item dropdown", {
-      'active': _ctx.$page.component === 'Client/Index'
+      'active': $options.clientFlag
     }])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
     href: _ctx.route('dashboard.client.index')
@@ -23355,13 +23390,33 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["anticon anticon-copyright", {
-          'text-white': _ctx.$page.component === 'Client/Index'
+          'text-white': $options.clientFlag
         }])
       }, null, 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["title", {
-          'text-white': _ctx.$page.component === 'Client/Index'
+          'text-white': $options.clientFlag
         }])
       }, "Clients", 2 /* CLASS */)];
+    }),
+
+    _: 1 /* STABLE */
+  }, 8 /* PROPS */, ["href"])], 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["nav-item dropdown", {
+      'active': $options.tenderFlag
+    }])
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
+    href: _ctx.route('dashboard.tender.index')
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+        "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["anticon anticon-file-protect", {
+          'text-white': $options.tenderFlag
+        }])
+      }, null, 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+        "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["title", {
+          'text-white': $options.tenderFlag
+        }])
+      }, "Tenders", 2 /* CLASS */)];
     }),
 
     _: 1 /* STABLE */
@@ -29393,7 +29448,7 @@ var _hoisted_7 = {
   "class": "col-sm-12 col-md-6"
 };
 var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
-  "class": "anticon anticon-user-add"
+  "class": "anticon anticon-file-protect"
 }, null, -1 /* HOISTED */);
 var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Add Tender", -1 /* HOISTED */);
 var _hoisted_10 = [_hoisted_8, _hoisted_9];

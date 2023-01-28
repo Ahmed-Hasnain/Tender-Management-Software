@@ -11,7 +11,7 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
                                 <button class="btn btn-primary btn-sm" @click="add()" v-if="checkUserPermissions('add_tender')">
-                                    <i class="anticon anticon-user-add"></i>
+                                    <i class="anticon anticon-file-protect"></i>
                                     <span>Add Tender</span>
                                 </button>
                             </div>
