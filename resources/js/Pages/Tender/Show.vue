@@ -1,6 +1,6 @@
 <template>
 
-    <Head title="Supplier Detail" />
+    <Head title="Tender Detail" />
     <AuthenticatedLayout>
         <div class="card">
             <div class="card-body">
@@ -8,16 +8,10 @@
                     <div class="col-md-7">
                         <div class="d-md-flex align-items-center">
                             <div class="text-center text-sm-left m-v-15">
-                                <h2 class="m-b-5 text-capitalize">{{ supplier.name }}</h2>
-                                <p class="text-opacity font-size-13">
-                                    {{ supplier.website }}
+                                <h2 class="m-b-5 text-capitalize">{{ tender.reference_no }}</h2>
+                                <p class="text-opacity m-b-20">
+                                    {{ tender.description }}
                                 </p>
-                                <p class="text-dark m-b-20">
-                                    Frontend Developer, UI/UX Designer
-                                </p>
-                                <button class="btn btn-primary btn-tone">
-                                    Contact
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -27,90 +21,92 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="card">
                             <div class="card-body">
-                                <h5>Address</h5>
-                                <div class="m-t-20">
-                                    <div class="media m-b-30">
-                                        <div class="avatar avatar-image">
-                                            <i class="anticon anticon-check" style="color:black"></i>
+                                <h5>Details</h5>
+                                <div class="m-t-20 row">
+                                    <div class="col-6">
+                                        <div class="media m-b-30">
+                                            <div class="avatar avatar-image">
+                                                <i class="anticon anticon-check" style="color:black"></i>
+                                            </div>
+                                            <div class="media-body m-l-20">
+                                                <h6 class="m-b-0 text-capitalize">{{ tender.file_name }}</h6>
+                                                <span class="font-size-13 text-gray text-capitalize">File name</span>
+                                            </div>
                                         </div>
-                                        <div class="media-body m-l-20">
-                                            <h6 class="m-b-0 text-capitalize">{{ supplier.address }}</h6>
-                                            <span class="font-size-13 text-gray text-capitalize">Address</span>
+                                        <div class="media m-b-30">
+                                            <div class="avatar avatar-image">
+                                                <i class="anticon anticon-check" style="color:black"></i>
+                                            </div>
+                                            <div class="media-body m-l-20">
+                                                <h6 class="m-b-0 text-capitalize">{{ tender.rate_basis }}</h6>
+                                                <span class="font-size-13 text-gray text-capitalize">Rate Basis</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="media m-b-30">
-                                        <div class="avatar avatar-image">
-                                            <i class="anticon anticon-check" style="color:black"></i>
+                                        <div class="media m-b-30">
+                                            <div class="avatar avatar-image">
+                                                <i class="anticon anticon-check" style="color:black"></i>
+                                            </div>
+                                            <div class="media-body m-l-20">
+                                                <h6 class="m-b-0 text-capitalize">{{ tender.client?.name }}</h6>
+                                                <span class="font-size-13 text-gray text-capitalize">Client</span>
+                                            </div>
                                         </div>
-                                        <div class="media-body m-l-20">
-                                            <h6 class="m-b-0 text-capitalize">{{ supplier.city }}</h6>
-                                            <span class="font-size-13 text-gray text-capitalize">City</span>
-                                        </div>
-                                    </div>
-                                    <div class="media m-b-30">
-                                        <div class="avatar avatar-image">
-                                            <i class="anticon anticon-check" style="color:black"></i>
-                                        </div>
-                                        <div class="media-body m-l-20">
-                                            <h6 class="m-b-0 text-capitalize">{{ supplier.district }}</h6>
-                                            <span class="font-size-13 text-gray text-capitalize">District</span>
-                                        </div>
-                                    </div>
-                                    <div class="media m-b-30">
-                                        <div class="avatar avatar-image">
-                                            <i class="anticon anticon-check" style="color:black"></i>
-                                        </div>
-                                        <div class="media-body m-l-20">
-                                            <h6 class="m-b-0 text-capitalize">{{ supplier.country }}</h6>
-                                            <span class="font-size-13 text-gray text-capitalize">Country</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5>Bank Info</h5>
-                                <div class="m-t-20">
-                                    <div class="media m-b-30">
-                                        <div class="avatar avatar-image">
-                                            <i class="anticon anticon-check" style="color:black"></i>
-                                        </div>
-                                        <div class="media-body m-l-20">
-                                            <h6 class="m-b-0 text-capitalize">{{ supplier.bank_name }}</h6>
-                                            <span class="font-size-13 text-gray text-capitalize">Bank Name</span>
+                                        <div class="media m-b-30">
+                                            <div class="avatar avatar-image">
+                                                <i class="anticon anticon-check" style="color:black"></i>
+                                            </div>
+                                            <div class="media-body m-l-20">
+                                                <h6 class="m-b-0 text-capitalize">{{ tender.mop?.name }}</h6>
+                                                <span class="font-size-13 text-gray text-capitalize">Mode of
+                                                    Payment</span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="media m-b-30">
-                                        <div class="avatar avatar-image">
-                                            <i class="anticon anticon-check" style="color:black"></i>
+                                    <div class="col-6">
+                                        <div class="media m-b-30">
+                                            <div class="avatar avatar-image">
+                                                <i class="anticon anticon-check" style="color:black"></i>
+                                            </div>
+                                            <div class="media-body m-l-20">
+                                                <h6 class="m-b-0 text-capitalize">{{ formatDate(tender.rfq_date) }}</h6>
+                                                <span class="font-size-13 text-gray text-capitalize">RFQ Date</span>
+                                            </div>
                                         </div>
-                                        <div class="media-body m-l-20">
-                                            <h6 class="m-b-0 text-capitalize">{{ supplier.account_title }}</h6>
-                                            <span class="font-size-13 text-gray text-capitalize">Account Title</span>
+                                        <div class="media m-b-30">
+                                            <div class="avatar avatar-image">
+                                                <i class="anticon anticon-check" style="color:black"></i>
+                                            </div>
+                                            <div class="media-body m-l-20">
+                                                <h6 class="m-b-0 text-capitalize">{{
+                                                    formatDate(tender.last_date_of_submission)
+                                                }}</h6>
+                                                <span class="font-size-13 text-gray text-capitalize">Last date of
+                                                    submission</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="media m-b-30">
-                                        <div class="avatar avatar-image">
-                                            <i class="anticon anticon-check" style="color:black"></i>
+                                        <div class="media m-b-30">
+                                            <div class="avatar avatar-image">
+                                                <i class="anticon anticon-check" style="color:black"></i>
+                                            </div>
+                                            <div class="media-body m-l-20">
+                                                <h6 class="m-b-0 text-capitalize">{{
+                                                    formatDate(tender.validity_of_quotation)
+                                                }}</h6>
+                                                <span class="font-size-13 text-gray text-capitalize">Validity Of
+                                                    Quotation</span>
+                                            </div>
                                         </div>
-                                        <div class="media-body m-l-20">
-                                            <h6 class="m-b-0 text-capitalize">{{ supplier.account_number }}</h6>
-                                            <span class="font-size-13 text-gray text-capitalize">Account Number</span>
-                                        </div>
-                                    </div>
-                                    <div class="media m-b-30">
-                                        <div class="avatar avatar-image">
-                                            <i class="anticon anticon-check" style="color:black"></i>
-                                        </div>
-                                        <div class="media-body m-l-20">
-                                            <h6 class="m-b-0 text-capitalize">{{ supplier.branch_code }}</h6>
-                                            <span class="font-size-13 text-gray text-capitalize">Branch Code</span>
+                                        <div class="media m-b-30">
+                                            <div class="avatar avatar-image">
+                                                <i class="anticon anticon-check" style="color:black"></i>
+                                            </div>
+                                            <div class="media-body m-l-20">
+                                                <h6 class="m-b-0 text-capitalize">Special Terms</h6>
+                                                <span class="font-size-13 text-gray text-capitalize">{{ tender.special_terms }}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -120,14 +116,26 @@
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <h5>Team</h5>
-                        <button class="btn btn-primary btn-tone mb-3" @click="addPerson()">
-                            Add Person
-                        </button>
-                        <div class="row" id="card-view" v-if="people.length > 0">
-                            <div class="col-md-4" v-for="(person,index) in people" :key="index">
-                                <person :person="person" :companyId="supplier.id"></person>
-                            </div>
+                        <h5>Items</h5>
+                        <div class="table-responsive" v-if="tender.allItems.length > 0">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Unit</th>
+                                        <th scope="col">Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(item,index) in tender.allItems" :key="index">
+                                        <th scope="row">{{ item.id }}</th>
+                                        <td class="text-capitalize">{{ item.item?.name }}</td>
+                                        <td class="text-capitalize">{{ item.unit?.full_name }}</td>
+                                        <td class="text-capitalize">{{item.qty}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                         <div v-else>No record Found</div>
                     </div>
@@ -142,9 +150,11 @@ import AuthenticatedLayout from "@/Layouts/Authenticated.vue";
 import { Head, useForm } from "@inertiajs/inertia-vue3";
 import Error from "@/Components/InputError.vue";
 import person from "@/Components/person.vue";
+import Helpers from '@/Mixins/Helpers';
+
 
 export default {
-    props: ["supplier", "people"],
+    props: ["tender"],
     components: {
         AuthenticatedLayout,
         Head,
@@ -155,14 +165,12 @@ export default {
         return {};
     },
     methods: {
-        addPerson() {
-            this.$inertia.get(route('dashboard.company.person.create', this.supplier.id), {type: 'supplier'}, {
-                onSuccess: () => {},
-                onError: errors => {console.log(errors);}
-            })
-        }
+
     },
-    mounted() { },
+    mounted() {
+        console.log(this.tender);
+    },
+    mixins: [Helpers]
 };
 </script>
 

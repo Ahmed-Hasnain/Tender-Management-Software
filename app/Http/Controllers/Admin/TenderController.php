@@ -112,8 +112,9 @@ class TenderController extends Controller
      */
     public function show(Tender $tender)
     {
+        $tender->allItems = $tender->items()->with('item', 'unit')->get();
         return Inertia::render('Tender/Show', [
-            'tender' => $tender,
+            'tender' => $tender->load('client', 'mop'),
         ]);
     }
 
