@@ -31,7 +31,6 @@
                                         <tr role="row">
                                             <th style="width: 70px;">ID</th>
                                             <th style="width: 225.188px;">Reference #</th>
-                                            <th style="width: 225.188px;">File Name</th>
                                             <th style="width: 225.188px;">Client</th>
                                             <th style="width: 225.188px;">RFQ Date</th>
                                             <th style="width: 225.188px;">LDoS</th>
@@ -43,7 +42,6 @@
                                         <tr role="row" class="odd" v-for="(tender,index) in allTenders.data" :key="index">
                                             <td>{{ tender.id }}</td>
                                             <td class="text-capitalize">{{ tender.reference_no }}</td>
-                                            <td class="text-capitalize">{{ tender.file_name }}</td>
                                             <td class="text-capitalize">{{ tender.client?.name }}</td>
                                             <td class="text-capitalize">{{ formatDate(tender.rfq_date) }}</td>
                                             <td class="text-capitalize">{{ formatDate(tender.last_date_of_submission) }}</td>

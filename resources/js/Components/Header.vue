@@ -1,10 +1,10 @@
 <template>
     <div class="header">
         <div class="logo logo-dark">
-            <a href="#" class="pt-1">
+            <Link :href="route('dashboard')" class="pt-1">
                 <img :src="getImage(this.$page.props.settings.logo)" alt="Logo" height="60" width="100">
                 <img class="logo-fold" :src="getImage(this.$page.props.settings.logo)" alt="Logo" height="30" width="90">
-            </a>
+            </Link>
         </div>
         <div class="logo logo-white">
             <a href="#">
