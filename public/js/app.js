@@ -22973,7 +22973,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         src: _ctx.getImage(_this.$page.props.settings.logo),
         alt: "Logo",
         height: "60",
-        width: "100"
+        width: "60"
       }, null, 8 /* PROPS */, _hoisted_3), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
         "class": "logo-fold",
         src: _ctx.getImage(_this.$page.props.settings.logo),
