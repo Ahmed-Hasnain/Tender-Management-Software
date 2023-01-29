@@ -93,6 +93,12 @@ class RolesAndPermissionsSeeder extends Seeder
             ['group' => 'person', 'name' => 'add_person', 'title' => 'Add person', 'guard_name' => 'web'],
             ['group' => 'person', 'name' => 'edit_person', 'title' => 'Edit person', 'guard_name' => 'web'],
             ['group' => 'person', 'name' => 'delete_person', 'title' => 'Delete person', 'guard_name' => 'web'],
+
+            // tender
+            ['group' => 'tender', 'name' => 'view_tender', 'title' => 'View tender', 'guard_name' => 'web'],
+            ['group' => 'tender', 'name' => 'add_tender', 'title' => 'Add tender', 'guard_name' => 'web'],
+            ['group' => 'tender', 'name' => 'edit_tender', 'title' => 'Edit tender', 'guard_name' => 'web'],
+            ['group' => 'tender', 'name' => 'delete_tender', 'title' => 'Delete tender', 'guard_name' => 'web'],
         ];
         Permission::insert($permissions);
 
@@ -112,7 +118,8 @@ class RolesAndPermissionsSeeder extends Seeder
             'view_unit', 
             'view_supplier', 
             'view_client',
-            'view_person'
+            'view_person',
+            'view_tender'
             ])->get();
         $manager->permissions()->sync($managerPermissions);
     }
