@@ -27,7 +27,32 @@ class PersonController extends Controller
      */
     public function index($companyId)
     {
-        
+        try{
+            $limit = \config()->get('settings.pagination_limit');
+            $people = Person::with('personable')->where(function ($query) {
+                $keyword = request()->input('keyword');
+                $query->when($keyword, function ($subQuery) use ($keyword){
+                    $subQuery->where('name', 'like', '%' . $keyword . '%')
+                    ->orWhere('mobile_no', 'like', '%' . $keyword . '%')
+                    ->orWhere('phone_no', 'like', '%' . $keyword . '%')
+                    ->orWhere('email', 'like', '%' . $keyword . '%')
+                    ->orWhere('department', 'like', '%' . $keyword . '%')
+                    ->orWhereHas('personable', function($query) use ($keyword){
+                        $query->where('name', 'like', '%' . $keyword . '%');
+                    });
+                });
+            })->orderBy('id', 'desc')->paginate(2);
+            return Inertia::render('Person/Index', [
+                'people' => $people,
+                'searchedKeyword' => request()->input('keyword'),
+            ]);
+        } catch (ModelNotFoundException $e) {
+            flash('Unable to find this person.', 'danger');
+            return \redirect()->back();
+        } catch (\Exception $e) {
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 
     /**
