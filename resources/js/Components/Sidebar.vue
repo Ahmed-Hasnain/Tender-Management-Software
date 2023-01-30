@@ -93,6 +93,14 @@
                         <span class="title" :class="{ 'text-white': clientFlag }">Clients</span>
                     </Link>
                 </li>
+                <li class="nav-item dropdown" :class="{ 'active': personFlag }">
+                    <Link :href="route('dashboard.company.person.index', 1)">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-contacts" :class="{ 'text-white': personFlag }"></i>
+                        </span>
+                        <span class="title" :class="{ 'text-white': personFlag }">Contact People</span>
+                    </Link>
+                </li>
                 <li class="nav-item dropdown" :class="{ 'active': tenderFlag }">
                     <Link :href="route('dashboard.tender.index')">
                         <span class="icon-holder">
@@ -143,6 +151,9 @@ export default {
         },
         dashboardFlag() {
             return this.$page.component === 'Dashboard' || this.$page.component === 'Dashboard' || this.$page.component === 'Dashboard' ? true : false
+        },
+        personFlag() {
+            return this.$page.component === 'Person/Index' || this.$page.component === 'Person/Create' || this.$page.component === 'Person/Edit' ? true : false
         },
     }
 }

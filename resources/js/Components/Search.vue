@@ -5,7 +5,7 @@
 
 <script>
 export default {
-    props: ['url', 'params', 'searchedKeyword'],
+    props: ['url', 'params', 'searchedKeyword', 'id'],
     data() {
         return {
             keyword: this.searchedKeyword,
@@ -14,6 +14,7 @@ export default {
     methods: {
         search() {
             this.$inertia.replace(route(this.url, {
+                    company_id: this.id ? this.id : null,
                     keyword: this.keyword,
                     params: this.params,
                 })
