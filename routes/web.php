@@ -80,6 +80,10 @@ Route::middleware(['auth', 'verified'])
         Route::group(['middleware' => ['can:view_tender']], function () {
             Route::resource('/tender', Admin\TenderController::class);
         });
+        //quotation
+        Route::group(['middleware' => ['can:view_quotation']], function () {
+            Route::resource('/quotation', Admin\QuotationController::class);
+        });
 });
 
 require __DIR__.'/auth.php';
