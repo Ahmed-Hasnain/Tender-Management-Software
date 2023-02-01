@@ -26,4 +26,9 @@ class Quotation extends Model
     {
         return $this->belongsTo(Tender::class, 'tender_id');
     }
+
+    public function items()
+    {
+        return $this->hasMany(QuotationItem::class, 'quotation_id');
+    }
 }

@@ -98,7 +98,7 @@ class TenderController extends Controller
             flash('Tender Added Sucessfully!', 'success');
             return \redirect(route('dashboard.tender.index'));          
         }catch (\Exception $e) {
-            Db::rollBack();
+            DB::rollBack();
             flash($e->getMessage(), 'danger');
             return \redirect()->back();
         }

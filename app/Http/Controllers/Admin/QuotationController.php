@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Inertia\Inertia;
+use App\Models\Tender;
 use App\Models\Quotation;
+use App\Models\TenderItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class QuotationController extends Controller
@@ -21,7 +25,26 @@ class QuotationController extends Controller
      */
     public function index()
     {
-        return 'hello';
+        try{
+            $limit = \config()->get('settings.pagination_limit');
+            $quotations = Quotation::with('tender')->where(function ($query) {
+                $keyword = request()->input('keyword');
+                $query->when($keyword, function ($subQuery) use ($keyword){
+                    $subQuery->where('reference_no', 'like', '%' . $keyword . '%')
+                    ->orWhere('total_price', 'like', '%' . $keyword . '%')
+                    ->orWhereHas('tender', function($query) use ($keyword){
+                        $query->where('reference_no', 'like', '%' . $keyword . '%');
+                    });
+                });
+            })->orderBy('id', 'desc')->paginate($limit);
+            return Inertia::render('Quotation/Index', [
+                'quotations' => $quotations,
+                'searchedKeyword' => request()->input('keyword'),
+            ]);
+        } catch (\Exception $e) {
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 
     /**
@@ -31,7 +54,9 @@ class QuotationController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Quotation/Create', [
+            'tender_items' => Tender::find(request()->input('tender_id'))->items()->with('item', 'unit')->get(),
+        ]);
     }
 
     /**
@@ -42,7 +67,30 @@ class QuotationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            DB::beginTransaction();
+            $quotation = Quotation::create([
+                'currency' => $request->input('currency'),
+                'terms_and_conditions' => $request->input('terms_and_conditions'),
+                'tender_id' => $request->input('tender_id'),
+            ]);
+            $quotationItems = $request->input('items');
+            if (count($quotationItems) > 0) {
+                foreach ($quotationItems as $key => $quotationItem) {
+                    $quotation->items()->create([
+                        'tender_item_id' => $quotationItem['tender_item_id'],
+                        'unit_price' => $quotationItem['unit_price'],
+                    ]);
+                }
+            }
+            DB::commit();
+            flash('Quotation Added Sucessfully!', 'success');
+            return \redirect(route('dashboard.tender.index'));          
+        }catch (\Exception $e) {
+            DB::rollBack();
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 
     /**
