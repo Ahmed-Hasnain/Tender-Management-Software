@@ -1,70 +1,69 @@
 <template>
-    <Head title="Edit Client" />
+
+    <Head title="Edit Quotation" />
     <AuthenticatedLayout>
         <form v-if="form" @submit.prevent="submit">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Edit Client</h4>
+                    <h4 class="card-title">Edit Quotation</h4>
                 </div>
                 <div class="card-body">
                     <div>
                         <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Name">Name:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Name" v-model="form.name" :class="{'is-invalid' : form.errors?.name}">
-                                <error :message="form.errors?.name"></error>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Website">Website:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Website" v-model="form.website" :class="{'is-invalid' : form.errors?.website}">
-                                <error :message="form.errors?.website"></error>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Address">Address:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Address" v-model="form.address" :class="{'is-invalid' : form.errors?.address}">
-                                <error :message="form.errors?.address"></error>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="City">City:</label>
-                                <input type="text" class="form-control" id="name" placeholder="City" v-model="form.city" :class="{'is-invalid' : form.errors?.city}">
-                                <error :message="form.errors?.city"></error>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="District">District:</label>
-                                <input type="text" class="form-control" id="name" placeholder="District" v-model="form.district" :class="{'is-invalid' : form.errors?.district}">
-                                <error :message="form.errors?.district"></error>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Country">Country:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Country" v-model="form.country" :class="{'is-invalid' : form.errors?.country}">
-                                <error :message="form.errors?.country"></error>
-                            </div>
-                        </div>
-                        <!-- <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label class="font-weight-semibold" for="Category">Category:</label>
-                                <select id="language" class="form-control" v-model="form.category_id" :class="{'is-invalid' : form.errors?.category_id}">
-                                    <option v-for="(category,index) in categories" :key="index" :value="category.id" class="text-capitalize">{{ category.name }}</option>
+                                <label class="font-weight-semibold" for="currency">Currency:</label>
+                                <select id="language" class="form-control" v-model="form.currency">
+                                    <option value="PKR" class="text-capitalize">PKR</option>
+                                    <option value="USD" class="text-capitalize">USD</option>
+                                    <option value="EUR" class="text-capitalize">EUR</option>
                                 </select>
+                                <error :message="form.errors?.currency"></error>
                             </div>
-                        </div> -->
+                        </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label class="font-weight-semibold" for="notes">Notes:</label>
-                                <textarea class="form-control" rows="4" v-model="form.notes" :class="{'is-invalid' : form.errors.notes}"></textarea>
-                                <error :message="form.errors?.notes"></error>
+                                <label class="font-weight-semibold" for="terms_and_conditions">Terms and
+                                    Conditions:</label>
+                                <textarea class="form-control" rows="2" v-model="form.terms_and_conditions"
+                                    :class="{ 'is-invalid': form.errors.terms_and_conditions }"></textarea>
+                                <error :message="form.errors?.terms_and_conditions"></error>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <div class="table-responsive" v-if="this.form.items.length > 0">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Id</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Unit</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col" style="width: 250px;">Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="(item, index) in this.form.items" :key="index">
+                                                <th scope="row">{{ item.id }}</th>
+                                                <td class="text-capitalize">{{ item.tender_item?.item?.name }}</td>
+                                                <td class="text-capitalize">{{ item.tender_item?.unit?.full_name }}</td>
+                                                <td class="text-capitalize">{{ item.tender_item?.qty }}</td>
+                                                <td class="text-capitalize"> 
+                                                    <input type="number" class="form-control" id="name" placeholder="Unit Price" v-model="item.unit_price" >
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div v-else>No record Found</div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-11">
-                                
                             </div>
                             <div class="form-group col-md-1 text-left">
-                                <button class="btn btn-primary m-t-30 " :disabled="form.processing" :classes="form.processing ? 'btn btn-primary is-loading m-r-5' : 'btn btn-primary m-t-30'">Submit</button>
+                                <button class="btn btn-primary m-t-30 " :disabled="form.processing"
+                                    :classes="form.processing ? 'btn btn-primary is-loading m-r-5' : 'btn btn-primary m-t-30'">Submit</button>
                             </div>
                         </div>
                     </div>
@@ -80,7 +79,7 @@ import { Head, useForm } from '@inertiajs/inertia-vue3';
 import Error from '@/Components/InputError.vue'
 
 export default {
-    props:['categories', 'client'],
+    props: ['quotation', 'quotation_items'],
     components: {
         AuthenticatedLayout,
         Head,
@@ -92,26 +91,21 @@ export default {
         }
     },
     methods: {
-        submit(){
-            this.form.put(route('dashboard.client.update', this.form.id), {
-                errorBag: 'supplier',
+        submit() {
+            this.form.put(route('dashboard.quotation.update', this.form.id), {
+                errorBag: 'quotation',
                 preserveScroll: true,
-                onSuccess: () => {},
-                onError: errors => {console.log(errors);}
+                onSuccess: () => { },
+                onError: errors => { console.log(errors); }
             })
-        },  
+        },
     },
     mounted() {
         this.form = useForm({
-            id: this.client ? this.client.id : null,
-            name: this.client ? this.client.name : null,
-            website: this.client ? this.client.website : null,
-            address: this.client ? this.client.address : null,
-            city: this.client ? this.client.city : null,
-            district: this.client ? this.client.district : null,
-            country: this.client ? this.client.country : null,
-            category_id: this.client ? this.client.category_id : null,
-            notes: this.client ? this.client.notes : null,
+            id: this.quotation ? this.quotation.id : null,
+            currency: this.quotation ? this.quotation.currency : null,
+            terms_and_conditions: this.quotation ? this.quotation.terms_and_conditions : null,
+            items: this.quotation_items,
         })
     },
 }

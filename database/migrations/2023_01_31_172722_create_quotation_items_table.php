@@ -19,9 +19,10 @@ class CreateQuotationItemsTable extends Migration
             $table->unsignedBigInteger('tender_item_id')->nullable();
             $table->string('unit_price')->nullable();
             $table->string('total_price')->nullable();
+            $table->string('in_supply_order')->nullable();
             $table->timestamps();
 
-            $table->foreign('quotation_id')->references('id')->on('quotations');
+            $table->foreign('quotation_id')->references('id')->on('quotations')->onDelete('cascade');
             $table->foreign('tender_item_id')->references('id')->on('tender_items');
         });
     }

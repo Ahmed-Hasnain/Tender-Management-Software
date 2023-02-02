@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\QuotationItem;
+use Illuminate\Support\Facades\Log;
 
 class QuotationItemObserver
 {
@@ -14,7 +15,19 @@ class QuotationItemObserver
      */
     public function created(QuotationItem $quotationItem)
     {
-        //
+        try {
+            if ($quotationItem) {
+                $total_price =  $quotationItem->unit_price * $quotationItem->tenderItem->qty;
+                $quotationItem->total_price = $total_price;
+                $quotationItem->saveQuietly();
+                if ($quotationItem->quotation) {
+                    $quotationItem->quotation->total_price = $quotationItem->quotation->items->sum('total_price');  
+                    $quotationItem->quotation->save();
+                }
+            }
+        } catch (\Throwable $th) {
+            Log::info($th->getMessage());
+        }
     }
 
     /**
@@ -25,7 +38,20 @@ class QuotationItemObserver
      */
     public function updated(QuotationItem $quotationItem)
     {
-        //
+        try {
+            if ($quotationItem) {
+                $total_price =  $quotationItem->unit_price * $quotationItem->tenderItem->qty;
+                $quotationItem->total_price = $total_price;
+                $quotationItem->saveQuietly();
+                if ($quotationItem->quotation) {
+                    $quotationItem->quotation->total_price =  0;
+                    $quotationItem->quotation->total_price =  $quotationItem->quotation->items->sum('total_price');
+                    $quotationItem->quotation->save();
+                }
+            }
+        } catch (\Throwable $th) {
+            Log::info($th->getMessage());
+        }
     }
 
     /**

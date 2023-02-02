@@ -7,8 +7,10 @@ use App\Models\Tender;
 use App\Models\Quotation;
 use App\Models\TenderItem;
 use Illuminate\Http\Request;
+use App\Models\QuotationItem;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class QuotationController extends Controller
 {
@@ -112,7 +114,12 @@ class QuotationController extends Controller
      */
     public function edit(Quotation $quotation)
     {
-        //
+        return Inertia::render('Quotation/Edit', [
+            'quotation' => $quotation,
+            'quotation_items' => $quotation->items()->with(['tenderItem' => function ($query) {
+                $query->with('item', 'unit');
+            }])->get(),
+        ]);
     }
 
     /**
@@ -124,7 +131,28 @@ class QuotationController extends Controller
      */
     public function update(Request $request, Quotation $quotation)
     {
-        //
+        try{
+            DB::beginTransaction();
+            $quotation->update([
+                'currency' => $request->input('currency'),
+                'terms_and_conditions' => $request->input('terms_and_conditions'),
+            ]);
+            $quotationItems = $request->input('items');
+            if (count($quotationItems) > 0) {
+                foreach ($quotationItems as $key => $quotationItem) {
+                    QuotationItem::find($quotationItem['id'])->update([
+                        'unit_price' => $quotationItem['unit_price'],
+                    ]);
+                }
+            }
+            DB::commit();
+            flash('Quotation Added Sucessfully!', 'success');
+            return \redirect(route('dashboard.tender.index'));          
+        }catch (\Exception $e) {
+            DB::rollBack();
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 
     /**
@@ -135,6 +163,16 @@ class QuotationController extends Controller
      */
     public function destroy(Quotation $quotation)
     {
-        //
+        try {           
+            $quotation->delete();
+            flash('Quotation deleted succesfully', 'success');
+            return \redirect()->back();
+        } catch (ModelNotFoundException $e) {
+            flash('Unable to find this quotation', 'danger');
+            return \redirect()->back();
+        } catch (\Exception $e) {
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 }
