@@ -33,7 +33,7 @@ class TenderController extends Controller
     {
         try{
             $limit = \config()->get('settings.pagination_limit');
-            $tenders = Tender::with('client')->where(function ($query) {
+            $tenders = Tender::with('client', 'quotation')->where(function ($query) {
                 $keyword = request()->input('keyword');
                 $query->when($keyword, function ($subQuery) use ($keyword){
                     $subQuery->where('reference_no', 'like', '%' . $keyword . '%')

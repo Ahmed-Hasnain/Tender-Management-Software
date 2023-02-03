@@ -103,7 +103,9 @@ class QuotationController extends Controller
      */
     public function show(Quotation $quotation)
     {
-        //
+        return Inertia::render('Quotation/Show', [
+            'quotation' => $quotation->load('tender.client', 'items.tenderItem.item', 'items.tenderItem.unit'),
+        ]);
     }
 
     /**

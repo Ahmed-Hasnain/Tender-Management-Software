@@ -45,8 +45,8 @@
                                             <td class="text-capitalize">{{ formatDate(tender.last_date_of_submission) }}</td>
                                             <td class="text-capitalize">{{ formatDate(tender.validity_of_quotation) }}</td>
                                             <td class="text-right">
-                                                <button @click="addTender(tender.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('add_quotation')">
-                                                    <i class="anticon anticon-file-protect"></i>
+                                                <button @click="tender.quotation ? showTender(tender.quotation.id) : addTender(tender.id) " class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('add_quotation')">
+                                                    <i class="anticon anticon-file-text"></i>
                                                 </button>
                                                 <button @click="show(tender.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('view_tender')">
                                                     <i class="anticon anticon-eye"></i>
@@ -133,6 +133,12 @@ export default {
         },
         addTender(id) {
             this.$inertia.get(route('dashboard.quotation.create'), {tender_id: id}, {
+                onSuccess: () => {},
+                onError: errors => {console.log(errors);}
+            })
+        },
+        showTender(id) {
+            this.$inertia.get(route('dashboard.quotation.show', id), {
                 onSuccess: () => {},
                 onError: errors => {console.log(errors);}
             })

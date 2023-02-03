@@ -1,90 +1,101 @@
 <template>
 
-    <Head title="Client Detail" />
+    <Head title="Quotation Details" />
     <AuthenticatedLayout>
         <div class="card">
             <div class="card-body">
-                <div class="row align-items-center">
-                    <div class="col-md-7">
-                        <div class="d-md-flex align-items-center">
-                            <div class="text-center text-sm-left m-v-15">
-                                <h2 class="m-b-5 text-capitalize">{{ client.name }}</h2>
-                                <p class="text-opacity font-size-13">
-                                    {{ client.website }}
-                                </p>
-                                <p class="text-dark m-b-20">
-                                    Frontend Developer, UI/UX Designer
-                                </p>
-                                <button class="btn btn-primary btn-tone">
-                                    Contact
-                                </button>
-                            </div>
+                <div id="invoice" class="p-h-30">
+                    <div class="m-t-15 lh-2">
+                        <div class="inline-block">
+                            <img :src="getImage(this.$page.props.settings.logo)" alt="Logo" height="60" width="60">
+                            <address class="p-l-10">
+                                <span class="font-weight-semibold text-dark">Ondre Ticaret, Inc.</span><br>
+                                <span>Office # 1102, 11th Floor, Green Trust Tower,</span><br>
+                                <span>Jinnah Avenue, Blue Area, Islamabad</span><br>
+                                <abbr class="text-dark" title="Phone">Phone#</abbr>
+                                <span> 051-2813153</span>
+                                <br>
+                                <abbr class="text-dark" title="Mobile">Mobile#</abbr>
+                                <span> 0318-3788114</span>
+                            </address>
+                        </div>
+                        <div class="float-right">
+                            <h2>QUOTATION</h2>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5>Address</h5>
-                                <div class="m-t-20">
-                                    <div class="media m-b-30">
-                                        <div class="avatar avatar-image">
-                                            <i class="anticon anticon-check" style="color:black"></i>
-                                        </div>
-                                        <div class="media-body m-l-20">
-                                            <h6 class="m-b-0 text-capitalize">{{ client.address }}</h6>
-                                            <span class="font-size-13 text-gray text-capitalize">Address</span>
-                                        </div>
-                                    </div>
-                                    <div class="media m-b-30">
-                                        <div class="avatar avatar-image">
-                                            <i class="anticon anticon-check" style="color:black"></i>
-                                        </div>
-                                        <div class="media-body m-l-20">
-                                            <h6 class="m-b-0 text-capitalize">{{ client.city }}</h6>
-                                            <span class="font-size-13 text-gray text-capitalize">City</span>
-                                        </div>
-                                    </div>
-                                    <div class="media m-b-30">
-                                        <div class="avatar avatar-image">
-                                            <i class="anticon anticon-check" style="color:black"></i>
-                                        </div>
-                                        <div class="media-body m-l-20">
-                                            <h6 class="m-b-0 text-capitalize">{{ client.district }}</h6>
-                                            <span class="font-size-13 text-gray text-capitalize">District</span>
-                                        </div>
-                                    </div>
-                                    <div class="media m-b-30">
-                                        <div class="avatar avatar-image">
-                                            <i class="anticon anticon-check" style="color:black"></i>
-                                        </div>
-                                        <div class="media-body m-l-20">
-                                            <h6 class="m-b-0 text-capitalize">{{ client.country }}</h6>
-                                            <span class="font-size-13 text-gray text-capitalize">Country</span>
-                                        </div>
-                                    </div>
+                    <div class="row m-t-20 lh-2">
+                        <div class="col-sm-9">
+                            <h3 class="p-l-10 m-t-10">Quotation To:</h3>
+                            <address class="p-l-10 m-t-10">
+                                <span class="font-weight-semibold text-dark">{{ quotation.tender?.client?.name }}</span><br>
+                                <span>{{ quotation.tender?.client?.address }}, </span><br>
+                                <span>{{ quotation.tender?.client?.city }}, {{ quotation.tender?.client?.district }}, {{ quotation.tender?.client?.country }}</span>
+                            </address>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="m-t-80">
+                                <div class="text-dark text-uppercase d-inline-block">
+                                    <span class="font-weight-semibold text-dark">Quotation No :</span>
+                                </div>
+                                <div class="float-right">{{ quotation.reference_no }}</div>
+                            </div>
+                            <div class="text-dark text-uppercase d-inline-block">
+                                <span class="font-weight-semibold text-dark">Date :</span>
+                            </div>
+                            <div class="float-right">25/7/2018</div>
+                        </div>
+                    </div>
+                    <div class="m-t-20">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Items</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody v-if="quotation.items.length > 0">
+                                    <tr v-for="(item, index) in quotation.items" :key="index">
+                                        <th>{{ index }}</th>
+                                        <td>{{ item.tender_item?.item?.name }}</td>
+                                        <td>{{ item.tender_item?.qty }}</td>
+                                        <td>{{ formatNumber(item.unit_price) }} {{ quotation.currency }}</td>
+                                        <td>{{ formatNumber(item.total_price) }} {{ quotation.currency }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row m-t-30 lh-1-8">
+                            <div class="col-sm-12">
+                                <div class="float-right text-right">
+                                    <p>Total amount: {{ formatNumber(quotation.total_price) }} {{ quotation.currency }}</p>
+                                    <p>vat ({{ $page.props.settings.tax_percentage }}%) : {{formatNumber(calculateTax(quotation.total_price))}} {{ quotation.currency }} </p>
+                                    <hr>
+                                    <h3><span class="font-weight-semibold text-dark">Total :</span> {{ getTotal(quotation.total_price, calculateTax(quotation.total_price)) }} {{ quotation.currency }}</h3>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h5>Team</h5>
-                        <button class="btn btn-primary btn-tone mb-3" @click="addPerson()">
-                            Add Person
-                        </button>
-                        <div class="row" id="card-view" v-if="people.length > 0">
-                            <div class="col-md-4" v-for="(person,index) in people" :key="index">
-                                <person :person="person" :companyId="client.id"></person>
+                        <div class="row m-t-30 lh-2">
+                            <div class="col-sm-12">
+                                <div class="border-bottom p-v-20">
+                                    <p class="text-opacity"><small>{{ quotation.terms_and_conditions }}</small></p>
+                                </div>
                             </div>
                         </div>
-                        <div v-else>No record Found</div>
+                        <div class="row m-v-20">
+                            <div class="col-sm-6">
+                                <img class="img-fluid text-opacity m-t-5" width="100" src="assets/images/logo/logo.png"
+                                    alt="">
+                            </div>
+                            <div class="col-sm-6 text-right">
+                                <small><span class="font-weight-semibold text-dark">Phone:</span> 0318-3788114</small>
+                                <br>
+                                <small>support@ondreticaret.co</small>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -96,30 +107,25 @@
 import AuthenticatedLayout from "@/Layouts/Authenticated.vue";
 import { Head, useForm } from "@inertiajs/inertia-vue3";
 import Error from "@/Components/InputError.vue";
-import person from "@/Components/person.vue";
+import Helpers from '@/Mixins/Helpers';
 
 export default {
-    props: ["client", "people"],
+    props: ["quotation"],
     components: {
         AuthenticatedLayout,
         Head,
         Error,
-        person
     },
     data() {
         return {};
     },
     methods: {
-        addPerson() {
-            this.$inertia.get(route('dashboard.company.person.create', this.client.id), {type: 'client'}, {
-                onSuccess: () => {},
-                onError: errors => {console.log(errors);}
-            })
-        }
-    },
-    mounted() { 
 
     },
+    mounted() {
+        console.log(this.quotation);
+    },
+    mixins: [Helpers]
 };
 </script>
 
