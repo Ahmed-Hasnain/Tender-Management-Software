@@ -105,6 +105,12 @@ class RolesAndPermissionsSeeder extends Seeder
             ['group' => 'quotation', 'name' => 'add_quotation', 'title' => 'Add quotation', 'guard_name' => 'web'],
             ['group' => 'quotation', 'name' => 'edit_quotation', 'title' => 'Edit quotation', 'guard_name' => 'web'],
             ['group' => 'quotation', 'name' => 'delete_quotation', 'title' => 'Delete quotation', 'guard_name' => 'web'],
+
+            // company
+            ['group' => 'company', 'name' => 'view_company', 'title' => 'View company', 'guard_name' => 'web'],
+            ['group' => 'company', 'name' => 'add_company', 'title' => 'Add company', 'guard_name' => 'web'],
+            ['group' => 'company', 'name' => 'edit_company', 'title' => 'Edit company', 'guard_name' => 'web'],
+            ['group' => 'company', 'name' => 'delete_company', 'title' => 'Delete company', 'guard_name' => 'web'],
         ];
         Permission::insert($permissions);
 
@@ -126,7 +132,8 @@ class RolesAndPermissionsSeeder extends Seeder
             'view_client',
             'view_person',
             'view_tender',
-            'view_quotation'
+            'view_quotation',
+            'view_company'
             ])->get();
         $manager->permissions()->sync($managerPermissions);
     }

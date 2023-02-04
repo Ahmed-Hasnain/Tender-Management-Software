@@ -77,6 +77,14 @@
                         <span class="title" :class="{ 'text-white': unitFlag }">Units</span>
                     </Link>
                 </li>
+                <li class="nav-item dropdown" :class="{ 'active': companyFlag }">
+                    <Link :href="route('dashboard.company.index')">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-bank" :class="{ 'text-white': companyFlag }"></i>
+                        </span>
+                        <span class="title" :class="{ 'text-white': companyFlag }">Companies</span>
+                    </Link>
+                </li>
                 <li class="nav-item dropdown" :class="{ 'active': supplierFlag }">
                     <Link :href="route('dashboard.supplier.index')">
                         <span class="icon-holder">
@@ -165,6 +173,9 @@ export default {
         },
         quotationFlag() {
             return this.$page.component === 'Quotation/Index' || this.$page.component === 'Quotation/Create' || this.$page.component === 'Quotation/Edit' || this.$page.component === 'Quotation/Show' ? true : false
+        },
+        companyFlag() {
+            return this.$page.component === 'Company/Index' || this.$page.component === 'Company/Create' || this.$page.component === 'Company/Edit' ? true : false
         },
     }
 }
