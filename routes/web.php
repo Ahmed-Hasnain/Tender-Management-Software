@@ -84,6 +84,10 @@ Route::middleware(['auth', 'verified'])
         Route::group(['middleware' => ['can:view_quotation']], function () {
             Route::resource('/quotation', Admin\QuotationController::class);
         });
+        //company
+        Route::group(['middleware' => ['can:view_company']], function () {
+            Route::resource('/company', Admin\CompanyController::class);
+        });
 });
 
 require __DIR__.'/auth.php';
