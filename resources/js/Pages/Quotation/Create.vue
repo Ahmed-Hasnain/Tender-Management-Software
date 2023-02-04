@@ -13,9 +13,9 @@
                             <div class="form-group col-md-12">
                                 <label class="font-weight-semibold" for="currency">Currency:</label>
                                 <select id="language" class="form-control" v-model="form.currency">
-                                    <option value="PKR" class="text-capitalize">PKR</option>
-                                    <option value="USD" class="text-capitalize">USD</option>
-                                    <option value="EUR" class="text-capitalize">EUR</option>
+                                    <option value="Rs" class="text-capitalize">PKR</option>
+                                    <option value="$" class="text-capitalize">USD</option>
+                                    <option value="€" class="text-capitalize">EUR</option>
                                 </select>
                                 <error :message="form.errors?.currency"></error>
                             </div>

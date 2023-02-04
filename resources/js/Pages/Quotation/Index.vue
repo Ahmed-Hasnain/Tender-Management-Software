@@ -38,7 +38,7 @@
                                             <td>{{ quotation.id }}</td>
                                             <td class="text-capitalize">{{ quotation.reference_no }}</td>
                                             <td class="text-capitalize">{{ quotation.tender?.reference_no }}</td>
-                                            <td class="text-capitalize">{{ formatNumber(quotation.total_price) }} {{ quotation.currency }}</td>
+                                            <td class="text-capitalize">{{ quotation.currency }}{{ formatNumber(quotation.total_price) }}</td>
                                             <td class="text-right">
                                                 <button @click="show(quotation.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('view_quotation')">
                                                     <i class="anticon anticon-eye"></i>
