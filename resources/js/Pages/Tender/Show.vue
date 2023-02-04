@@ -139,16 +139,16 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Id</th>
+                                        <th scope="col" style="width: 60px;">Id</th>
                                         <th scope="col">Name</th>
-                                        <th scope="col">Unit</th>
-                                        <th scope="col">Quantity</th>
+                                        <th scope="col" style="width: 200px;">Unit</th>
+                                        <th scope="col" style="width: 200px;">Quantity</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr v-for="(item,index) in tender.allItems" :key="index">
                                         <th scope="row">{{ item.id }}</th>
-                                        <td class="text-capitalize">{{ item.item?.name }} <br><small>{{ item.description }}</small></td>
+                                        <td class="text-capitalize">{{ item.item?.name }}<br><small>{{ item.description }}</small></td>
                                         <td class="text-capitalize">{{ item.unit?.full_name }}</td>
                                         <td class="text-capitalize">{{item.qty}}</td>
                                     </tr>
