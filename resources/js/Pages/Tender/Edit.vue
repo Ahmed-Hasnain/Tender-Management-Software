@@ -141,7 +141,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-10">
                                     <label class="font-weight-semibold" for="description">Item Description:</label>
-                                    <textarea class="form-control" rows="2"
+                                    <textarea class="form-control" rows="1"
                                         v-model="tenderItem.description"></textarea>
                                     <error :message="form.errors[`items.${index}.description`]"></error>
                                 </div>

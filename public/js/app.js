@@ -30556,7 +30556,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }
         }, null, 8 /* PROPS */, _hoisted_51)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_52, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_53, [_hoisted_54, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
           "class": "form-control",
-          rows: "2",
+          rows: "1",
           "onUpdate:modelValue": function onUpdateModelValue($event) {
             return tenderItem.description = $event;
           }
@@ -31022,7 +31022,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }
         }, null, 8 /* PROPS */, _hoisted_51)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_52, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_53, [_hoisted_54, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
           "class": "form-control",
-          rows: "2",
+          rows: "1",
           "onUpdate:modelValue": function onUpdateModelValue($event) {
             return tenderItem.description = $event;
           }
