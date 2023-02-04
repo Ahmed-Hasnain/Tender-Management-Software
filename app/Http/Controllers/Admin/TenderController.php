@@ -6,7 +6,9 @@ use App\Models\Item;
 use App\Models\Unit;
 use Inertia\Inertia;
 use App\Models\Client;
+use App\Models\Demand;
 use App\Models\Tender;
+use App\Models\Company;
 use App\Models\TenderItem;
 use Illuminate\Http\Request;
 use App\Models\ModeOfPayment;
@@ -70,6 +72,8 @@ class TenderController extends Controller
             'clients' => Client::all(),
             'items' => Item::all(),
             'units' => Unit::all(),
+            'companies' => Company::all(),
+            'demands' => Demand::all(),
         ]);
     }
 
@@ -114,7 +118,7 @@ class TenderController extends Controller
     {
         $tender->allItems = $tender->items()->with('item', 'unit')->get();
         return Inertia::render('Tender/Show', [
-            'tender' => $tender->load('client', 'mop'),
+            'tender' => $tender->load('client', 'mop', 'demand', 'company'),
         ]);
     }
 
@@ -132,6 +136,8 @@ class TenderController extends Controller
             'tender' => $tender->load('items'),
             'items' => Item::all(),
             'units' => Unit::all(),
+            'companies' => Company::all(),
+            'demands' => Demand::all(),
         ]);
     }
 

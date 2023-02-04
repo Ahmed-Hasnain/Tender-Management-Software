@@ -64,8 +64,26 @@
                                                     Payment</span>
                                             </div>
                                         </div>
+                                        <div class="media m-b-30">
+                                            <div class="avatar avatar-image">
+                                                <i class="anticon anticon-check" style="color:black"></i>
+                                            </div>
+                                            <div class="media-body m-l-20">
+                                                <h6 class="m-b-0 text-capitalize">{{ tender.company?.name }}</h6>
+                                                <span class="font-size-13 text-gray text-capitalize">Company</span>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-6">
+                                        <div class="media m-b-30">
+                                            <div class="avatar avatar-image">
+                                                <i class="anticon anticon-check" style="color:black"></i>
+                                            </div>
+                                            <div class="media-body m-l-20">
+                                                <h6 class="m-b-0 text-capitalize">{{ tender.demand?.name }}</h6>
+                                                <span class="font-size-13 text-gray text-capitalize">Type Of Demand</span>
+                                            </div>
+                                        </div>
                                         <div class="media m-b-30">
                                             <div class="avatar avatar-image">
                                                 <i class="anticon anticon-check" style="color:black"></i>
