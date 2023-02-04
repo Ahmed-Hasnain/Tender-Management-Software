@@ -164,7 +164,6 @@ export default {
         }  
     },
     mounted() {
-        console.log(this.tender);
         this.form = useForm({
             id: this.tender ? this.tender.id : null,
             reference_no: this.tender ? this.tender.reference_no : null,

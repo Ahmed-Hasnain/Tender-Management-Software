@@ -109,6 +109,14 @@
                         <span class="title" :class="{ 'text-white': tenderFlag }">Tenders</span>
                     </Link>
                 </li>
+                <li class="nav-item dropdown" :class="{ 'active': quotationFlag }">
+                    <Link :href="route('dashboard.quotation.index')">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-file-text" :class="{ 'text-white': quotationFlag }"></i>
+                        </span>
+                        <span class="title" :class="{ 'text-white': quotationFlag }">Quotations</span>
+                    </Link>
+                </li>
             </ul>
         </div>
     </div>
@@ -154,6 +162,9 @@ export default {
         },
         personFlag() {
             return this.$page.component === 'Person/Index' || this.$page.component === 'Person/Create' || this.$page.component === 'Person/Edit' ? true : false
+        },
+        quotationFlag() {
+            return this.$page.component === 'Quotation/Index' || this.$page.component === 'Quotation/Create' || this.$page.component === 'Quotation/Edit' || this.$page.component === 'Quotation/Show' ? true : false
         },
     }
 }

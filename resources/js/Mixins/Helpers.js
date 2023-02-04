@@ -31,5 +31,25 @@ export default {
         formatDate(dateString) {
             return moment(dateString).format("Do MMM YYYY");
         },
+
+        //to formate amount formate
+        formatNumber(number) {
+            number = parseFloat(number)
+            number.toFixed(2)
+            return number.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+        },
+
+        //calculate tax
+        calculateTax(amount) {
+            amount = parseFloat(amount)
+            return (this.$page.props.settings.tax_percentage * amount) / 100
+        },
+
+        //get total
+        getTotal(amount, tax) {
+            amount = parseFloat(amount)
+            tax = parseFloat(tax)
+            return this.formatNumber(amount + tax)
+        }
     }
 }
