@@ -9,6 +9,9 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="{{asset('assets/images/logo/logo.png')}}">
+
         <link href="{{asset('assets/css/app.min.css')}}" rel="stylesheet">
         <link href="{{asset('assets/vendors/datatables/dataTables.bootstrap.min.css')}}" rel="stylesheet">
 

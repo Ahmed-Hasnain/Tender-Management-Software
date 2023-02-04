@@ -62,8 +62,8 @@
                                         <th>{{ index }}</th>
                                         <td>{{ item.tender_item?.item?.name }}</td>
                                         <td>{{ item.tender_item?.qty }}</td>
-                                        <td>{{ formatNumber(item.unit_price) }} {{ quotation.currency }}</td>
-                                        <td>{{ formatNumber(item.total_price) }} {{ quotation.currency }}</td>
+                                        <td>{{ quotation.currency }}{{ formatNumber(item.unit_price) }} </td>
+                                        <td>{{ quotation.currency }}{{ formatNumber(item.total_price) }} </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -71,10 +71,10 @@
                         <div class="row m-t-30 lh-1-8">
                             <div class="col-sm-12">
                                 <div class="float-right text-right">
-                                    <p>Total amount: {{ formatNumber(quotation.total_price) }} {{ quotation.currency }}</p>
-                                    <p>vat ({{ $page.props.settings.tax_percentage }}%) : {{formatNumber(calculateTax(quotation.total_price))}} {{ quotation.currency }} </p>
+                                    <p>Total amount: {{ quotation.currency }}{{ formatNumber(quotation.total_price) }}</p>
+                                    <p>vat ({{ $page.props.settings.tax_percentage }}%) : {{ quotation.currency }}{{formatNumber(calculateTax(quotation.total_price))}}  </p>
                                     <hr>
-                                    <h3><span class="font-weight-semibold text-dark">Total :</span> {{ getTotal(quotation.total_price, calculateTax(quotation.total_price)) }} {{ quotation.currency }}</h3>
+                                    <h3><span class="font-weight-semibold text-dark">Total :</span> {{ quotation.currency }}{{ getTotal(quotation.total_price, calculateTax(quotation.total_price)) }} </h3>
                                 </div>
                             </div>
                         </div>
