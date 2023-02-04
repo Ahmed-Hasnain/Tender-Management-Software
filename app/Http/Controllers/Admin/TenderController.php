@@ -95,6 +95,7 @@ class TenderController extends Controller
                         'item_id' => $tenderItem['item_id'],
                         'unit_id' => $tenderItem['unit_id'],
                         'qty' => $tenderItem['qty'],
+                        'description' => $tenderItem['description'],
                     ]);
                 }
             }
@@ -163,13 +164,16 @@ class TenderController extends Controller
                         $tender->items()->whereId($tenderItem['id'])->update([
                             'unit_id' => $tenderItem['unit_id'],
                             'qty' =>  $tenderItem['qty'],
-                            'item_id' =>  $tenderItem['item_id']
+                            'item_id' =>  $tenderItem['item_id'],
+                            'description' => $tenderItem['description'],
+
                         ]);
                     } else {
                         $tenderItem = $tender->items()->create([
                             'unit_id' => $tenderItem['unit_id'],
                             'qty' =>  $tenderItem['qty'],
-                            'item_id' =>  $tenderItem['item_id']
+                            'item_id' =>  $tenderItem['item_id'],
+                            'description' => $tenderItem['description'],
                         ]);
                         $tenderItemIds [] = $tenderItem->id;
                     }

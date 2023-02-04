@@ -90,29 +90,38 @@
                 </div>
                 <div class="card-body">
                     <div>
-                        <div class="form-row" v-for="(tenderItem ,index) in form.items" :key="index">
-                            <div class="form-group col-md-4">
-                                <label class="font-weight-semibold" for="Bank Name">Item</label>
-                                <select id="language" class="form-control" v-model="tenderItem.item_id">
-                                    <option v-for="(item,index) in items" :key="index" :value="item.id" class="text-capitalize">{{ item.name }}</option>
-                                </select>
-                                <error :message="form.errors[`items.${index}.item_id`]"></error>
+                        <div v-for="(tenderItem ,index) in form.items" :key="index">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label class="font-weight-semibold" for="Bank Name">Item</label>
+                                    <select id="language" class="form-control" v-model="tenderItem.item_id">
+                                        <option v-for="(item,index) in items" :key="index" :value="item.id" class="text-capitalize">{{ item.name }}</option>
+                                    </select>
+                                    <error :message="form.errors[`items.${index}.item_id`]"></error>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="font-weight-semibold" for="Account Title">Unit</label>
+                                    <select id="language" class="form-control" v-model="tenderItem.unit_id">
+                                        <option v-for="(unit,index) in units" :key="index" :value="unit.id" class="text-capitalize">{{ unit.full_name }}</option>
+                                    </select>
+                                    <error :message="form.errors[`items.${index}.unit_id`]"></error>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label class="font-weight-semibold" for="Account Title">Quantity</label>
+                                    <input type="number" class="form-control" placeholder="Quantity" v-model="tenderItem.qty">
+                                    <error :message="form.errors[`items.${index}.qty`]"></error>
+                                </div>
+                                <div class="form-group col-md-2" style="align-self: center; padding-top: 49px;">
+                                    <i class="anticon anticon-plus-square" style="font-size: 50px;" @click="addItem()"></i>
+                                    <i class="anticon anticon-minus-square" style="font-size: 50px;" @click="removeItem(index)" v-if="form.items.length > 1 && index > 0"></i>
+                                </div>
                             </div>
-                            <div class="form-group col-md-4">
-                                <label class="font-weight-semibold" for="Account Title">Unit</label>
-                                <select id="language" class="form-control" v-model="tenderItem.unit_id">
-                                    <option v-for="(unit,index) in units" :key="index" :value="unit.id" class="text-capitalize">{{ unit.full_name }}</option>
-                                </select>
-                                <error :message="form.errors[`items.${index}.unit_id`]"></error>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label class="font-weight-semibold" for="Account Title">Quantity</label>
-                                <input type="number" class="form-control" placeholder="Quantity" v-model="tenderItem.qty">
-                                <error :message="form.errors[`items.${index}.qty`]"></error>
-                            </div>
-                            <div class="form-group col-md-2" style="align-self: center; padding-top: 49px;">
-                                <i class="anticon anticon-plus-square" style="font-size: 50px;" @click="addItem()"></i>
-                                <i class="anticon anticon-minus-square" style="font-size: 50px;" @click="removeItem(index)" v-if="form.items.length > 1 && index > 0"></i>
+                            <div class="form-row">
+                                <div class="form-group col-md-10">
+                                    <label class="font-weight-semibold" for="description">Item Description:</label>
+                                    <textarea class="form-control" rows="2" v-model="tenderItem.description"></textarea>
+                                    <error :message="form.errors[`items.${index}.description`]"></error>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -184,6 +193,7 @@ export default {
                 item_id: null,
                 unit_id: null,
                 qty: null,
+                description: null,
             })
         },
         removeItem(index) {
@@ -210,6 +220,7 @@ export default {
                     item_id: null,
                     unit_id: null,
                     qty: null,
+                    description: null,
                 }
             ]
         })
