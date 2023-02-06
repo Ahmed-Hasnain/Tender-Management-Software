@@ -72,6 +72,7 @@ class QuotationController extends Controller
         try{
             DB::beginTransaction();
             $quotation = Quotation::create([
+                'reference_no' => $request->input('reference_no'),
                 'currency' => $request->input('currency'),
                 'terms_and_conditions' => $request->input('terms_and_conditions'),
                 'tender_id' => $request->input('tender_id'),
@@ -136,6 +137,7 @@ class QuotationController extends Controller
         try{
             DB::beginTransaction();
             $quotation->update([
+                'reference_no' => $request->input('reference_no'),
                 'currency' => $request->input('currency'),
                 'terms_and_conditions' => $request->input('terms_and_conditions'),
             ]);

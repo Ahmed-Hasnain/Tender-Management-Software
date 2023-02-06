@@ -50,6 +50,11 @@ export default {
             amount = parseFloat(amount)
             tax = parseFloat(tax)
             return this.formatNumber(amount + tax)
+        },
+
+        // current date
+        getCurrentDate() {
+            return moment().format("DD-MM-YYYY");
         }
     }
 }
