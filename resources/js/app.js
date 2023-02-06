@@ -6,7 +6,7 @@ import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
 
-const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
+const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Ondre Ticaret';
 
 // Sweet Alert
 window.swal = require('sweetalert2');
@@ -21,7 +21,7 @@ window.toast = swal.mixin({
 });
 
 createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
+    title: (title) => `${title}`,
     resolve: (name) => require(`./Pages/${name}.vue`),
     setup({ el, app, props, plugin }) {
         const appVue = createApp({ render: () => h(app, props) })

@@ -27,6 +27,8 @@ class Tender extends Model
         'validity_of_quotation',
         'client_id',
         'mode_of_payment_id',
+        'company_id',
+        'demand_id',
     ];
 
     protected function rfqDate(): Attribute
@@ -63,5 +65,20 @@ class Tender extends Model
     public function mop()
     {
         return $this->belongsTo(ModeOfPayment::class, 'mode_of_payment_id');
+    }
+
+    public function demand()
+    {
+        return $this->belongsTo(Demand::class, 'demand_id');
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
+
+    public function quotation() 
+    {
+        return $this->hasOne(Quotation::class, 'tender_id');
     }
 }

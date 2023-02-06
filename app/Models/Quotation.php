@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TenderItem extends Model
+class Quotation extends Model
 {
     use HasFactory;
 
@@ -15,25 +15,20 @@ class TenderItem extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'reference_no',
+        'currency',
+        'total_price',
+        'terms_and_conditions',
         'tender_id',
-        'item_id',
-        'unit_id',
-        'qty',
-        'description'
     ];
 
-    public function tender()
+    public function tender() 
     {
         return $this->belongsTo(Tender::class, 'tender_id');
     }
 
-    public function item()
+    public function items()
     {
-        return $this->belongsTo(Item::class, 'item_id');
-    }
-
-    public function unit()
-    {
-        return $this->belongsTo(Unit::class, 'unit_id');
+        return $this->hasMany(QuotationItem::class, 'quotation_id');
     }
 }

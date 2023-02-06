@@ -77,6 +77,14 @@
                         <span class="title" :class="{ 'text-white': unitFlag }">Units</span>
                     </Link>
                 </li>
+                <li class="nav-item dropdown" :class="{ 'active': companyFlag }">
+                    <Link :href="route('dashboard.company.index')">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-bank" :class="{ 'text-white': companyFlag }"></i>
+                        </span>
+                        <span class="title" :class="{ 'text-white': companyFlag }">Companies</span>
+                    </Link>
+                </li>
                 <li class="nav-item dropdown" :class="{ 'active': supplierFlag }">
                     <Link :href="route('dashboard.supplier.index')">
                         <span class="icon-holder">
@@ -93,12 +101,28 @@
                         <span class="title" :class="{ 'text-white': clientFlag }">Clients</span>
                     </Link>
                 </li>
+                <li class="nav-item dropdown" :class="{ 'active': personFlag }">
+                    <Link :href="route('dashboard.company.person.index', 1)">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-contacts" :class="{ 'text-white': personFlag }"></i>
+                        </span>
+                        <span class="title" :class="{ 'text-white': personFlag }">Contact People</span>
+                    </Link>
+                </li>
                 <li class="nav-item dropdown" :class="{ 'active': tenderFlag }">
                     <Link :href="route('dashboard.tender.index')">
                         <span class="icon-holder">
                             <i class="anticon anticon-file-protect" :class="{ 'text-white': tenderFlag }"></i>
                         </span>
                         <span class="title" :class="{ 'text-white': tenderFlag }">Tenders</span>
+                    </Link>
+                </li>
+                <li class="nav-item dropdown" :class="{ 'active': quotationFlag }">
+                    <Link :href="route('dashboard.quotation.index')">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-file-text" :class="{ 'text-white': quotationFlag }"></i>
+                        </span>
+                        <span class="title" :class="{ 'text-white': quotationFlag }">Quotations</span>
                     </Link>
                 </li>
             </ul>
@@ -143,6 +167,15 @@ export default {
         },
         dashboardFlag() {
             return this.$page.component === 'Dashboard' || this.$page.component === 'Dashboard' || this.$page.component === 'Dashboard' ? true : false
+        },
+        personFlag() {
+            return this.$page.component === 'Person/Index' || this.$page.component === 'Person/Create' || this.$page.component === 'Person/Edit' ? true : false
+        },
+        quotationFlag() {
+            return this.$page.component === 'Quotation/Index' || this.$page.component === 'Quotation/Create' || this.$page.component === 'Quotation/Edit' || this.$page.component === 'Quotation/Show' ? true : false
+        },
+        companyFlag() {
+            return this.$page.component === 'Company/Index' || this.$page.component === 'Company/Create' || this.$page.component === 'Company/Edit' ? true : false
         },
     }
 }

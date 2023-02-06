@@ -1,24 +1,21 @@
 <template>
-    <Head title="Contact People" />
+    <Head title="Quotations" />
     <AuthenticatedLayout>
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">All Contact People</h4>
+                <h4 class="card-title">All Quotations</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
-                                <!-- <button class="btn btn-primary btn-sm" @click="add()" v-if="checkUserPermissions('add_person')">
-                                    <i class="anticon anticon-copyright"></i>
-                                    <span>Add Client</span>
-                                </button> -->
+                                
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <div id="DataTables_Table_0_filter" class="dataTables_filter">
                                     <label>Search:
-                                        <search :url="'dashboard.company.person.index'" :searchedKeyword="searchedKeyword" :id="'1'"></search>
+                                        <search :url="'dashboard.quotation.index'" :searchedKeyword="searchedKeyword"></search>
                                     </label>
                                 </div>
                             </div>
@@ -26,31 +23,30 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="table table-hover e-commerce-table dataTable no-footer"
-                                    id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" v-if="allPeople?.data.length > 0">
+                                    id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" v-if="allQuotations?.data.length > 0">
                                     <thead>
                                         <tr role="row">
                                             <th style="width: 70px;">ID</th>
-                                            <th style="width: 225.188px;">Name</th>
-                                            <th style="width: 225.188px;">Email</th>
-                                            <th style="width: 225.188px;">Company</th>
-                                            <th style="width: 225.188px;">Department</th>
-                                            <th style="width: 225.188px;">Phone No</th>
+                                            <th style="width: 225.188px;">Quotaion Reference#</th>
+                                            <th style="width: 225.188px;">Tender Reference#</th>
+                                            <th style="width: 225.188px;">Total Price</th>
                                             <th class="text-right" style="width: 150px;">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr role="row" class="odd" v-for="(person,index) in allPeople.data" :key="index">
-                                            <td>{{ person.id }}</td>
-                                            <td class="text-capitalize">{{ person.name }}</td>
-                                            <td class="text-capitalize">{{ person.email }}</td>
-                                            <td class="text-capitalize">{{ person.personable?.name }}</td>
-                                            <td class="text-capitalize">{{ person.department }}</td>
-                                            <td class="text-capitalize">{{ person.mobile_no }}</td>
+                                        <tr role="row" class="odd" v-for="(quotation, index) in allQuotations.data" :key="index">
+                                            <td>{{ quotation.id }}</td>
+                                            <td class="text-capitalize">{{ quotation.reference_no }}</td>
+                                            <td class="text-capitalize">{{ quotation.tender?.reference_no }}</td>
+                                            <td class="text-capitalize">{{ quotation.currency }}{{ formatNumber(quotation.total_price) }}</td>
                                             <td class="text-right">
-                                                <button @click="edit(person.personable.id, person.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('edit_person')">
+                                                <button @click="show(quotation.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('view_quotation')">
+                                                    <i class="anticon anticon-eye"></i>
+                                                </button>
+                                                <button @click="edit(quotation.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('edit_quotation')">
                                                     <i class="anticon anticon-edit"></i>
                                                 </button>
-                                                <button @click="onDelete(person.personable.id, person.id)" class="btn btn-icon btn-hover btn-sm btn-rounded" v-if="checkUserPermissions('delete_person')">
+                                                <button @click="onDelete(quotation.id)" class="btn btn-icon btn-hover btn-sm btn-rounded" v-if="checkUserPermissions('delete_quotation')">
                                                     <i class="anticon anticon-delete"></i>
                                                 </button>
                                             </td>
@@ -60,7 +56,7 @@
                                 <div v-else class="pt-3 pl-3">No Data Found.</div>
                             </div>
                         </div>
-                        <pagination :meta="allPeople" :keyword="searchedKeyword"></pagination>
+                        <pagination :meta="allQuotations" :keyword="searchedKeyword"></pagination>
                     </div>
                 </div>
             </div>
@@ -82,20 +78,26 @@ export default {
         pagination,
         search
     },
-    props: ['people', 'searchedKeyword'],
+    props: ['quotations', 'searchedKeyword'],
     data() {
         return{
-            allPeople: this.people
+            allQuotations: this.quotations
         }
     },
     methods: {
-        edit($companyId, $id){
-            this.$inertia.get(route('dashboard.company.person.edit', [$companyId, $id]), {
+        edit($id){
+            this.$inertia.get(route('dashboard.quotation.edit', $id), {
                 onSuccess: () => {},
                 onError: errors => {console.log(errors);}
             })
         },
-        onDelete($companyId, $id) {
+        show($id){
+            this.$inertia.get(route('dashboard.quotation.show', $id), {
+                onSuccess: () => {},
+                onError: errors => {console.log(errors);}
+            })
+        },
+        onDelete($id) {
             this.swal.fire({
                 title: "",
                 html: "<h1 class='text-lg text-gray-800 mb-1'>Delete Record</h1><p class='text-base'>Are you sure want to delete this record?</p>",
@@ -107,7 +109,7 @@ export default {
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    this.$inertia.delete(route('dashboard.company.person.destroy', [$companyId, $id]), {
+                    this.$inertia.delete(route('dashboard.quotation.destroy', $id), {
                         preserveScroll: false,
                         onSuccess: () => {},
                         onError: errors => {console.log(errors);}
@@ -117,15 +119,12 @@ export default {
         }
     },
     watch: {
-        people:{
-            handler(people) {
-                this.allPeople = people
+        quotations:{
+            handler(quotations) {
+                this.allQuotations = quotations
             },
             deep: true,
         },
-    },
-    mounted() {
-        
     },
     mixins: [Helpers]
 }

@@ -29,24 +29,25 @@
                                     id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" v-if="allTenders?.data.length > 0">
                                     <thead>
                                         <tr role="row">
-                                            <th style="width: 70px;">ID</th>
                                             <th style="width: 225.188px;">Reference #</th>
                                             <th style="width: 225.188px;">Client</th>
                                             <th style="width: 225.188px;">RFQ Date</th>
                                             <th style="width: 225.188px;">LDoS</th>
-                                            <th style="width: 225.188px;">Validity</th>
-                                            <th class="text-right" style="width: 150px;">Action</th>
+                                            <th style="width: 225.188px;">Company</th>
+                                            <th class="text-right" style="width: 255.188px;">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr role="row" class="odd" v-for="(tender,index) in allTenders.data" :key="index">
-                                            <td>{{ tender.id }}</td>
                                             <td class="text-capitalize">{{ tender.reference_no }}</td>
                                             <td class="text-capitalize">{{ tender.client?.name }}</td>
                                             <td class="text-capitalize">{{ formatDate(tender.rfq_date) }}</td>
                                             <td class="text-capitalize">{{ formatDate(tender.last_date_of_submission) }}</td>
-                                            <td class="text-capitalize">{{ formatDate(tender.validity_of_quotation) }}</td>
+                                            <td class="text-capitalize">{{ tender.company?.name }}</td>
                                             <td class="text-right">
+                                                <button @click="tender.quotation ? showTender(tender.quotation.id) : addTender(tender.id) " class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('add_quotation')">
+                                                    <i class="anticon anticon-file-text"></i>
+                                                </button>
                                                 <button @click="show(tender.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('view_tender')">
                                                     <i class="anticon anticon-eye"></i>
                                                 </button>
@@ -128,6 +129,18 @@ export default {
                         onError: errors => {console.log(errors);}
                     })
                 }
+            })
+        },
+        addTender(id) {
+            this.$inertia.get(route('dashboard.quotation.create'), {tender_id: id}, {
+                onSuccess: () => {},
+                onError: errors => {console.log(errors);}
+            })
+        },
+        showTender(id) {
+            this.$inertia.get(route('dashboard.quotation.show', id), {
+                onSuccess: () => {},
+                onError: errors => {console.log(errors);}
             })
         }
     },

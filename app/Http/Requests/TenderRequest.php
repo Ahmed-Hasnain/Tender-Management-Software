@@ -37,9 +37,12 @@ class TenderRequest extends FormRequest
                     'validity_of_quotation' => 'nullable|date',
                     'client_id ' => 'nullable',
                     'mode_of_payment_id ' => 'nullable',
+                    'company_id ' => 'nullable',
+                    'demand_id ' => 'nullable',
                     'items.*.item_id' => 'required',
                     'items.*.unit_id' => 'required',
                     'items.*.qty' => 'required',
+                    'items.*.description' => 'nullable',
                 ];
                 break;
             case 'PUT':
@@ -55,9 +58,13 @@ class TenderRequest extends FormRequest
                     'validity_of_quotation' => 'nullable|date',
                     'client_id ' => 'nullable',
                     'mode_of_payment_id ' => 'nullable',
+                    'company_id ' => 'nullable',
+                    'demand_id ' => 'nullable',
                     'items.*.item_id' => 'required',
                     'items.*.unit_id' => 'required',
                     'items.*.qty' => 'required',
+                    'items.*.description' => 'nullable',
+
                 ];
                 break;   
         }

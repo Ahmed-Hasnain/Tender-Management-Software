@@ -6,7 +6,9 @@ use App\Models\Item;
 use App\Models\Unit;
 use Inertia\Inertia;
 use App\Models\Client;
+use App\Models\Demand;
 use App\Models\Tender;
+use App\Models\Company;
 use App\Models\TenderItem;
 use Illuminate\Http\Request;
 use App\Models\ModeOfPayment;
@@ -33,7 +35,7 @@ class TenderController extends Controller
     {
         try{
             $limit = \config()->get('settings.pagination_limit');
-            $tenders = Tender::with('client')->where(function ($query) {
+            $tenders = Tender::with('client', 'quotation', 'company')->where(function ($query) {
                 $keyword = request()->input('keyword');
                 $query->when($keyword, function ($subQuery) use ($keyword){
                     $subQuery->where('reference_no', 'like', '%' . $keyword . '%')
@@ -41,6 +43,9 @@ class TenderController extends Controller
                     ->orWhere('rate_basis', 'like', '%' . $keyword . '%')
                     ->orWhere('description', 'like', '%' . $keyword . '%')
                     ->orWhereHas('client', function($query) use ($keyword){
+                        $query->where('name', 'like', '%' . $keyword . '%');
+                    })
+                    ->orWhereHas('company', function($query) use ($keyword){
                         $query->where('name', 'like', '%' . $keyword . '%');
                     });
                 });
@@ -70,6 +75,8 @@ class TenderController extends Controller
             'clients' => Client::all(),
             'items' => Item::all(),
             'units' => Unit::all(),
+            'companies' => Company::all(),
+            'demands' => Demand::all(),
         ]);
     }
 
@@ -91,6 +98,7 @@ class TenderController extends Controller
                         'item_id' => $tenderItem['item_id'],
                         'unit_id' => $tenderItem['unit_id'],
                         'qty' => $tenderItem['qty'],
+                        'description' => $tenderItem['description'],
                     ]);
                 }
             }
@@ -98,7 +106,7 @@ class TenderController extends Controller
             flash('Tender Added Sucessfully!', 'success');
             return \redirect(route('dashboard.tender.index'));          
         }catch (\Exception $e) {
-            Db::rollBack();
+            DB::rollBack();
             flash($e->getMessage(), 'danger');
             return \redirect()->back();
         }
@@ -114,7 +122,7 @@ class TenderController extends Controller
     {
         $tender->allItems = $tender->items()->with('item', 'unit')->get();
         return Inertia::render('Tender/Show', [
-            'tender' => $tender->load('client', 'mop'),
+            'tender' => $tender->load('client', 'mop', 'demand', 'company'),
         ]);
     }
 
@@ -132,6 +140,8 @@ class TenderController extends Controller
             'tender' => $tender->load('items'),
             'items' => Item::all(),
             'units' => Unit::all(),
+            'companies' => Company::all(),
+            'demands' => Demand::all(),
         ]);
     }
 
@@ -157,13 +167,16 @@ class TenderController extends Controller
                         $tender->items()->whereId($tenderItem['id'])->update([
                             'unit_id' => $tenderItem['unit_id'],
                             'qty' =>  $tenderItem['qty'],
-                            'item_id' =>  $tenderItem['item_id']
+                            'item_id' =>  $tenderItem['item_id'],
+                            'description' => $tenderItem['description'],
+
                         ]);
                     } else {
                         $tenderItem = $tender->items()->create([
                             'unit_id' => $tenderItem['unit_id'],
                             'qty' =>  $tenderItem['qty'],
-                            'item_id' =>  $tenderItem['item_id']
+                            'item_id' =>  $tenderItem['item_id'],
+                            'description' => $tenderItem['description'],
                         ]);
                         $tenderItemIds [] = $tenderItem->id;
                     }
