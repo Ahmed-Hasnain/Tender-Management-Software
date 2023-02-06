@@ -10,7 +10,12 @@
                 <div class="card-body">
                     <div>
                         <div class="form-row">
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-semibold" for="Name">Reference Number:</label>
+                                <input type="text" class="form-control" placeholder="Reference Number" v-model="form.reference_no" :class="{'is-invalid' : form.errors?.reference_no}">
+                                <error :message="form.errors?.reference_no"></error>
+                            </div>
+                            <div class="form-group col-md-6">
                                 <label class="font-weight-semibold" for="currency">Currency:</label>
                                 <select id="language" class="form-control" v-model="form.currency">
                                     <option value="Rs" class="text-capitalize">PKR</option>
@@ -115,6 +120,7 @@ export default {
     },
     mounted() {
         this.form = useForm({
+            reference_no: null,
             currency: null,
             terms_and_conditions: null,
             tender_id: null,

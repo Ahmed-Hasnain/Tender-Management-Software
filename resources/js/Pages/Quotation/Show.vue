@@ -42,7 +42,7 @@
                             <div class="text-dark text-uppercase d-inline-block">
                                 <span class="font-weight-semibold text-dark">Date :</span>
                             </div>
-                            <div class="float-right">25/7/2018</div>
+                            <div class="float-right">{{ formatDate(quotation.created_at) }}</div>
                         </div>
                     </div>
                     <div class="m-t-20">

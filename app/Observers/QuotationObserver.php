@@ -26,10 +26,7 @@ class QuotationObserver
      */
     public function created(Quotation $quotation)
     {
-        if ($quotation) {
-            $quotation->reference_no = Str::random(6);
-            $quotation->save();
-        }
+        
     }
 
     /**
