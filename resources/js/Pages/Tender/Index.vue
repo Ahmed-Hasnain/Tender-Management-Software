@@ -33,7 +33,7 @@
                                             <th style="width: 225.188px;">Client</th>
                                             <th style="width: 225.188px;">RFQ Date</th>
                                             <th style="width: 225.188px;">LDoS</th>
-                                            <th style="width: 225.188px;">Validity</th>
+                                            <th style="width: 225.188px;">Company</th>
                                             <th class="text-right" style="width: 255.188px;">Action</th>
                                         </tr>
                                     </thead>
@@ -43,7 +43,7 @@
                                             <td class="text-capitalize">{{ tender.client?.name }}</td>
                                             <td class="text-capitalize">{{ formatDate(tender.rfq_date) }}</td>
                                             <td class="text-capitalize">{{ formatDate(tender.last_date_of_submission) }}</td>
-                                            <td class="text-capitalize">{{ formatDate(tender.validity_of_quotation) }}</td>
+                                            <td class="text-capitalize">{{ tender.company?.name }}</td>
                                             <td class="text-right">
                                                 <button @click="tender.quotation ? showTender(tender.quotation.id) : addTender(tender.id) " class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('add_quotation')">
                                                     <i class="anticon anticon-file-text"></i>
