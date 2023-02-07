@@ -41,7 +41,7 @@ class PersonController extends Controller
                         $query->where('name', 'like', '%' . $keyword . '%');
                     });
                 });
-            })->orderBy('id', 'desc')->paginate(2);
+            })->orderBy('id', 'desc')->paginate($limit);
             return Inertia::render('Person/Index', [
                 'people' => $people,
                 'searchedKeyword' => request()->input('keyword'),
