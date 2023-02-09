@@ -9,8 +9,8 @@
                         <div class="card shadow-lg">
                             <div class="card-body">
                                 <div class="d-flex align-items-center justify-content-between m-b-30">
-                                    <img class="img-fluid" alt="" src="assets/images/logo/logo.png">
-                                    <h2 class="m-b-0">Sign In</h2>
+                                    <h2 class="m-b-0">Ondre Ticaret Tijarah</h2>
+                                    <img :src="getImage(this.$page.props.settings.logo)" alt="Logo" height="60" width="60">
                                 </div>
                                 <form @submit.prevent="submit">
                                     <div class="form-group">
@@ -68,6 +68,7 @@ import Input from '@/Components/Input.vue'
 import Label from '@/Components/Label.vue'
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import Error from '@/Components/InputError.vue'
+import Helpers from '@/Mixins/Helpers';
 
 export default {
     layout: BreezeGuestLayout,
@@ -104,6 +105,7 @@ export default {
                 }
             })
         }
-    }
+    },
+    mixins: [Helpers]
 }
 </script>
