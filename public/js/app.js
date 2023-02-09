@@ -26327,7 +26327,7 @@ var _hoisted_38 = {
   "class": "media align-items-center"
 };
 var _hoisted_39 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "avatar avatar-icon avatar-lg avatar-blue"
+  "class": "avatar avatar-icon avatar-lg avatar-red"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "anticon anticon-file-protect"
 })], -1 /* HOISTED */);
@@ -26353,7 +26353,7 @@ var _hoisted_46 = {
   "class": "media align-items-center"
 };
 var _hoisted_47 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "avatar avatar-icon avatar-lg avatar-cyan"
+  "class": "avatar avatar-icon avatar-lg avatar-green"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "anticon anticon-file-text"
 })], -1 /* HOISTED */);
@@ -26379,7 +26379,7 @@ var _hoisted_54 = {
   "class": "media align-items-center"
 };
 var _hoisted_55 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "avatar avatar-icon avatar-lg avatar-gold"
+  "class": "avatar avatar-icon avatar-lg avatar-lime"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "anticon anticon-shopping-cart"
 })], -1 /* HOISTED */);
@@ -26405,7 +26405,7 @@ var _hoisted_62 = {
   "class": "media align-items-center"
 };
 var _hoisted_63 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "avatar avatar-icon avatar-lg avatar-purple"
+  "class": "avatar avatar-icon avatar-lg avatar-magenta"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "anticon anticon-user"
 })], -1 /* HOISTED */);

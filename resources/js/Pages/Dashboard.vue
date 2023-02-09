@@ -68,7 +68,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="media align-items-center">
-                            <div class="avatar avatar-icon avatar-lg avatar-blue">
+                            <div class="avatar avatar-icon avatar-lg avatar-red">
                                 <i class="anticon anticon-file-protect"></i>
                             </div>
                             <div class="m-l-15">
@@ -83,7 +83,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="media align-items-center">
-                            <div class="avatar avatar-icon avatar-lg avatar-cyan">
+                            <div class="avatar avatar-icon avatar-lg avatar-green">
                                 <i class="anticon anticon-file-text"></i>
                             </div>
                             <div class="m-l-15">
@@ -98,7 +98,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="media align-items-center">
-                            <div class="avatar avatar-icon avatar-lg avatar-gold">
+                            <div class="avatar avatar-icon avatar-lg avatar-lime">
                                 <i class="anticon anticon-shopping-cart"></i>
                             </div>
                             <div class="m-l-15">
@@ -113,7 +113,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="media align-items-center">
-                            <div class="avatar avatar-icon avatar-lg avatar-purple">
+                            <div class="avatar avatar-icon avatar-lg avatar-magenta">
                                 <i class="anticon anticon-user"></i>
                             </div>
                             <div class="m-l-15">
