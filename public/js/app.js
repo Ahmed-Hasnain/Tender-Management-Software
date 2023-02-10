@@ -25864,7 +25864,7 @@ var _hoisted_19 = {
   "class": "text-capitalize"
 };
 var _hoisted_20 = {
-  "class": "text-capitalize"
+  "class": ""
 };
 var _hoisted_21 = {
   "class": "text-right"
@@ -28792,7 +28792,7 @@ var _hoisted_14 = {
   "class": "text-capitalize"
 };
 var _hoisted_15 = {
-  "class": "text-capitalize"
+  "class": ""
 };
 var _hoisted_16 = {
   "class": "text-capitalize"

@@ -45,7 +45,7 @@
                                             <td class="text-capitalize">{{ client.address }}</td>
                                             <td class="text-capitalize">{{ client.city }}</td>
                                             <!-- <td class="text-capitalize">{{ client.category?.name }}</td> -->
-                                            <td class="text-capitalize">{{ client.website }}</td>
+                                            <td class="">{{ client.website }}</td>
                                             <td class="text-right">
                                                 <button @click="show(client.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('view_client')">
                                                     <i class="anticon anticon-eye"></i>

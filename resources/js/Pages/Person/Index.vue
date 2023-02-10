@@ -42,7 +42,7 @@
                                         <tr role="row" class="odd" v-for="(person,index) in allPeople.data" :key="index">
                                             <td>{{ person.id }}</td>
                                             <td class="text-capitalize">{{ person.name }}</td>
-                                            <td class="text-capitalize">{{ person.email }}</td>
+                                            <td class="">{{ person.email }}</td>
                                             <td class="text-capitalize"><a href="#" @click="redirect($event, person)">{{ person.personable?.name }}</a></td>
                                             <td class="text-capitalize">{{ person.department }}</td>
                                             <td class="text-capitalize">{{ person.mobile_no }}</td>
