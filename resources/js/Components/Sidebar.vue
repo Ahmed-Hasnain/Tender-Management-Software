@@ -22,7 +22,7 @@
                     </ul>
                 </li> -->
                 <li class="nav-item dropdown" :class="{ 'active': dashboardFlag }">
-                    <Link :href="route('dashboard')">
+                    <Link :href="route('dashboard')" class="custom-menuitem-padding">
                         <span class="icon-holder">
                             <i class="anticon anticon-dashboard" :class="{ 'text-white': dashboardFlag }"></i>
                         </span>
@@ -30,7 +30,7 @@
                     </Link>
                 </li>
                 <li class="nav-item dropdown" :class="{ 'active': userFlag }">
-                    <Link :href="route('dashboard.user.index')">
+                    <Link :href="route('dashboard.user.index')" class="custom-menuitem-padding">
                         <span class="icon-holder">
                             <i class="anticon anticon-team" :class="{ 'text-white': userFlag }"></i>
                         </span>
@@ -38,7 +38,7 @@
                     </Link>
                 </li>
                 <li class="nav-item dropdown" :class="{ 'active': categoryFlag }">
-                    <Link :href="route('dashboard.category.index')">
+                    <Link :href="route('dashboard.category.index')" class="custom-menuitem-padding">
                         <span class="icon-holder">
                             <i class="anticon anticon-appstore" :class="{ 'text-white': categoryFlag }"></i>
                         </span>
@@ -46,7 +46,7 @@
                     </Link>
                 </li>
                 <li class="nav-item dropdown" :class="{ 'active': itemFlag }">
-                    <Link :href="route('dashboard.item.index')">
+                    <Link :href="route('dashboard.item.index')" class="custom-menuitem-padding">
                         <span class="icon-holder">
                             <i class="anticon anticon-shopping-cart" :class="{ 'text-white': itemFlag }"></i>
                         </span>
@@ -54,7 +54,7 @@
                     </Link>
                 </li>
                 <li class="nav-item dropdown" :class="{ 'active': mopFlag }">
-                    <Link :href="route('dashboard.mode-of-payment.index')">
+                    <Link :href="route('dashboard.mode-of-payment.index')" class="custom-menuitem-padding">
                         <span class="icon-holder">
                             <i class="anticon anticon-dollar" :class="{ 'text-white': mopFlag }"></i>
                         </span>
@@ -62,7 +62,7 @@
                     </Link>
                 </li>
                 <li class="nav-item dropdown" :class="{ 'active': demandFlag }">
-                    <Link :href="route('dashboard.demand.index')">
+                    <Link :href="route('dashboard.demand.index')" class="custom-menuitem-padding">
                         <span class="icon-holder">
                             <i class="anticon anticon-usb" :class="{ 'text-white': demandFlag }"></i>
                         </span>
@@ -70,15 +70,23 @@
                     </Link>
                 </li>
                 <li class="nav-item dropdown" :class="{ 'active': unitFlag }">
-                    <Link :href="route('dashboard.unit.index')">
+                    <Link :href="route('dashboard.unit.index')" class="custom-menuitem-padding">
                         <span class="icon-holder">
                             <i class="anticon anticon-deployment-unit" :class="{ 'text-white': unitFlag }"></i>
                         </span>
                         <span class="title" :class="{ 'text-white': unitFlag }">Units</span>
                     </Link>
                 </li>
+                <li class="nav-item dropdown" :class="{ 'active': currencyFlag }">
+                    <Link :href="route('dashboard.currency.index')" class="custom-menuitem-padding">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-euro" :class="{ 'text-white': currencyFlag }"></i>
+                        </span>
+                        <span class="title" :class="{ 'text-white': currencyFlag }">Currencies</span>
+                    </Link>
+                </li>
                 <li class="nav-item dropdown" :class="{ 'active': companyFlag }">
-                    <Link :href="route('dashboard.company.index')">
+                    <Link :href="route('dashboard.company.index')" class="custom-menuitem-padding">
                         <span class="icon-holder">
                             <i class="anticon anticon-bank" :class="{ 'text-white': companyFlag }"></i>
                         </span>
@@ -86,7 +94,7 @@
                     </Link>
                 </li>
                 <li class="nav-item dropdown" :class="{ 'active': supplierFlag }">
-                    <Link :href="route('dashboard.supplier.index')">
+                    <Link :href="route('dashboard.supplier.index')" class="custom-menuitem-padding">
                         <span class="icon-holder">
                             <i class="anticon anticon-user-add" :class="{ 'text-white': supplierFlag }"></i>
                         </span>
@@ -94,7 +102,7 @@
                     </Link>
                 </li>
                 <li class="nav-item dropdown" :class="{ 'active': clientFlag }">
-                    <Link :href="route('dashboard.client.index')">
+                    <Link :href="route('dashboard.client.index')" class="custom-menuitem-padding">
                         <span class="icon-holder">
                             <i class="anticon anticon-copyright" :class="{ 'text-white': clientFlag }"></i>
                         </span>
@@ -102,7 +110,7 @@
                     </Link>
                 </li>
                 <li class="nav-item dropdown" :class="{ 'active': personFlag }">
-                    <Link :href="route('dashboard.company.person.index', 1)">
+                    <Link :href="route('dashboard.company.person.index', 1)" class="custom-menuitem-padding">
                         <span class="icon-holder">
                             <i class="anticon anticon-contacts" :class="{ 'text-white': personFlag }"></i>
                         </span>
@@ -110,7 +118,7 @@
                     </Link>
                 </li>
                 <li class="nav-item dropdown" :class="{ 'active': tenderFlag }">
-                    <Link :href="route('dashboard.tender.index')">
+                    <Link :href="route('dashboard.tender.index')" class="custom-menuitem-padding">
                         <span class="icon-holder">
                             <i class="anticon anticon-file-protect" :class="{ 'text-white': tenderFlag }"></i>
                         </span>
@@ -118,7 +126,7 @@
                     </Link>
                 </li>
                 <li class="nav-item dropdown" :class="{ 'active': quotationFlag }">
-                    <Link :href="route('dashboard.quotation.index')">
+                    <Link :href="route('dashboard.quotation.index')" class="custom-menuitem-padding">
                         <span class="icon-holder">
                             <i class="anticon anticon-file-text" :class="{ 'text-white': quotationFlag }"></i>
                         </span>
@@ -177,6 +185,9 @@ export default {
         companyFlag() {
             return this.$page.component === 'Company/Index' || this.$page.component === 'Company/Create' || this.$page.component === 'Company/Edit' ? true : false
         },
+        currencyFlag() {
+            return this.$page.component === 'Currency/Index' || this.$page.component === 'Currency/Create' || this.$page.component === 'Currency/Edit' ? true : false
+        },
     }
 }
 </script>
@@ -187,5 +198,8 @@ export default {
 }
 .text-white{
     color: white !important;
+}
+.custom-menuitem-padding{
+    padding: 3px 10px !important;
 }
 </style>

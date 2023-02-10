@@ -86,6 +86,10 @@ Route::middleware(['auth', 'verified'])
         Route::group(['middleware' => ['can:view_company']], function () {
             Route::resource('/company', Admin\CompanyController::class);
         });
+        //currency
+        Route::group(['middleware' => ['can:view_currency']], function () {
+            Route::resource('/currency', Admin\CurrencyController::class);
+        });
 });
 
 require __DIR__.'/auth.php';
