@@ -37,7 +37,14 @@ class ClientController extends Controller
                     ->orWhere('city', 'like', '%' . $keyword . '%')
                     ->orWhere('district', 'like', '%' . $keyword . '%')
                     ->orWhere('country', 'like', '%' . $keyword . '%')
-                    ->orWhere('notes', 'like', '%' . $keyword . '%');
+                    ->orWhere('notes', 'like', '%' . $keyword . '%')
+                    ->orWhereHas('people', function($query) use ($keyword){
+                        $query->where('name', 'like', '%' . $keyword . '%')
+                        ->orWhere('mobile_no', 'like', '%' . $keyword . '%')
+                        ->orWhere('phone_no', 'like', '%' . $keyword . '%')
+                        ->orWhere('email', 'like', '%' . $keyword . '%')
+                        ->orWhere('department', 'like', '%' . $keyword . '%');
+                    });
                 });
             })->orderBy('id', 'desc')->paginate($limit);
             return Inertia::render('Client/Index', [

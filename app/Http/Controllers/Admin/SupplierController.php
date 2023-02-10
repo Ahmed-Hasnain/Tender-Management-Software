@@ -44,6 +44,13 @@ class SupplierController extends Controller
                     ->orWhere('notes', 'like', '%' . $keyword . '%')
                     ->orWhereHas('categories', function($query) use ($keyword){
                         $query->where('name', 'like', '%' . $keyword . '%');
+                    })
+                    ->orWhereHas('people', function($query) use ($keyword){
+                        $query->where('name', 'like', '%' . $keyword . '%')
+                        ->orWhere('mobile_no', 'like', '%' . $keyword . '%')
+                        ->orWhere('phone_no', 'like', '%' . $keyword . '%')
+                        ->orWhere('email', 'like', '%' . $keyword . '%')
+                        ->orWhere('department', 'like', '%' . $keyword . '%');
                     });
                 });
             })->orderBy('id', 'desc')->paginate($limit);
