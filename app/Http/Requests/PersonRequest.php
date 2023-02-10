@@ -30,6 +30,7 @@ class PersonRequest extends FormRequest
                     'email' => 'nullable',
                     'phone_no' => 'nullable',
                     'mobile_no' => 'nullable',
+                    'fax' => 'nullable',
                     'department' => 'nullable',
                 ];
                 break;
@@ -39,6 +40,7 @@ class PersonRequest extends FormRequest
                     'email' => 'nullable',
                     'phone_no' => 'nullable',
                     'mobile_no' => 'nullable',
+                    'fax' => 'nullable',
                     'department' => 'nullable',
                 ];
                 break;   

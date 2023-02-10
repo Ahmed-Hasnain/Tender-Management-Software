@@ -37,6 +37,7 @@ class PersonController extends Controller
                     ->orWhere('phone_no', 'like', '%' . $keyword . '%')
                     ->orWhere('email', 'like', '%' . $keyword . '%')
                     ->orWhere('department', 'like', '%' . $keyword . '%')
+                    ->orWhere('fax', 'like', '%' . $keyword . '%')
                     ->orWhereHas('personable', function($query) use ($keyword){
                         $query->where('name', 'like', '%' . $keyword . '%')
                         ->orWhere('website', 'like', '%' . $keyword . '%')

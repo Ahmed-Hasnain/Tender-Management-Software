@@ -33,7 +33,12 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-semibold" for="fax">Fax Number:</label>
+                                <input type="text" class="form-control" id="fax" placeholder="Fax Number" v-model="form.fax" :class="{'is-invalid' : form.errors?.fax}">
+                                <error :message="form.errors?.fax"></error>
+                            </div>
+                            <div class="form-group col-md-6">
                                 <label class="font-weight-semibold" for="Category">Departments:</label>
                                 <select id="language" class="form-control" v-model="form.department" :class="{'is-invalid' : form.errors?.department}">
                                     <option class="text-capitalize">Human Resources</option>
@@ -46,6 +51,7 @@
                                     <option class="text-capitalize">Legal</option>
                                     <option class="text-capitalize">Quality Assurance</option>
                                     <option class="text-capitalize">Supply Chain</option>
+                                    <option class="text-capitalize">Procurement</option>
                                     <option class="text-capitalize">unknown</option>
                                 </select>
                                 <error :message="form.errors?.department"></error>
@@ -102,7 +108,8 @@ export default {
             mobile_no: null,
             phone_no: null,
             department: null,
-            type: null
+            type: null,
+            fax: null
         })
     },
 }

@@ -35,6 +35,7 @@
                                             <th style="width: 225.188px;">Company</th>
                                             <th style="width: 225.188px;">Department</th>
                                             <th style="width: 225.188px;">Mobile No.</th>
+                                            <th style="width: 225.188px;">Fax No.</th>
                                             <th class="text-right" style="width: 150px;">Action</th>
                                         </tr>
                                     </thead>
@@ -46,6 +47,7 @@
                                             <td class="text-capitalize"><a href="#" @click="redirect($event, person)">{{ person.personable?.name }}</a></td>
                                             <td class="text-capitalize">{{ person.department }}</td>
                                             <td class="text-capitalize">{{ person.mobile_no }}</td>
+                                            <td class="text-capitalize">{{ person.fax }}</td>
                                             <td class="text-right">
                                                 <button @click="edit(person.personable.id, person.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('edit_person')">
                                                     <i class="anticon anticon-edit"></i>

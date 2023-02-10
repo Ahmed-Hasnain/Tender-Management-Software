@@ -22,6 +22,7 @@ class Person extends Model
         'department',
         'personable_type',
         'personable_id',
+        'fax'
     ];
     
     public function personable() 
