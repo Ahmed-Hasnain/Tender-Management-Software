@@ -34,7 +34,7 @@
                                             <th style="width: 225.188px;">Email</th>
                                             <th style="width: 225.188px;">Company</th>
                                             <th style="width: 225.188px;">Department</th>
-                                            <th style="width: 225.188px;">Phone No</th>
+                                            <th style="width: 225.188px;">Mobile No.</th>
                                             <th class="text-right" style="width: 150px;">Action</th>
                                         </tr>
                                     </thead>
