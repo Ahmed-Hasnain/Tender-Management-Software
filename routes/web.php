@@ -63,10 +63,12 @@ Route::middleware(['auth', 'verified'])
         //supplier
         Route::group(['middleware' => ['can:view_supplier']], function () {
             Route::resource('/supplier', Admin\SupplierController::class);
+            Route::get('/supplier/person/search', [Admin\SupplierController::class, 'searchPerson'])->name('supplier.person.search');
         });
         //client
         Route::group(['middleware' => ['can:view_client']], function () {
             Route::resource('/client', Admin\ClientController::class);
+            Route::get('/client/person/search', [Admin\ClientController::class, 'searchPerson'])->name('client.person.search');
         });
         //person
         Route::group(['prefix' => 'company/{company_id}', 'as' => 'company.'], function () {

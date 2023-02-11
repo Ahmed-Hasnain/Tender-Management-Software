@@ -25,10 +25,11 @@ export default {
     components: {
         Link,
     },
-    props: ['meta', 'keyword'],
+    props: ['meta', 'keyword', 'company_id'],
     methods: {
         pageUrl(url) {
             let searchedKeyword = this.keyword ? '&keyword=' + this.keyword : ''
+            searchedKeyword = this.company_id ? searchedKeyword + '&company_id=' + this.company_id : searchedKeyword
             return url + searchedKeyword
         }
     },
