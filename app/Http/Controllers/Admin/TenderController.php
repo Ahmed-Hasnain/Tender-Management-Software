@@ -154,7 +154,6 @@ class TenderController extends Controller
      */
     public function update(TenderRequest $request, Tender $tender)
     {
-
         try{
             DB::beginTransaction();
             $tender->update($request->all());

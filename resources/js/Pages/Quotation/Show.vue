@@ -122,9 +122,6 @@ export default {
     methods: {
 
     },
-    mounted() {
-        console.log(this.quotation);
-    },
     mixins: [Helpers]
 };
 </script>

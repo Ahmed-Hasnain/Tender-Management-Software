@@ -256,7 +256,6 @@ export default {
         people: {
             handler(people) {
                 this.allPeople = people
-                console.log(this.allPeople);
             },
             deep: true,
         },

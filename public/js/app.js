@@ -21867,9 +21867,6 @@ __webpack_require__.r(__webpack_exports__);
       deep: true
     }
   },
-  mounted: function mounted() {
-    console.log(this.allItems);
-  },
   mixins: [_Mixins_Helpers__WEBPACK_IMPORTED_MODULE_2__["default"]]
 });
 
@@ -22096,7 +22093,6 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     submit: function submit() {
       this.form.type = this.type;
-      console.log(this.form.type, this.type);
       this.form.post(route('dashboard.company.person.store', this.company_id), {
         errorBag: 'person',
         preserveScroll: true,
@@ -22305,10 +22301,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {};
   },
-  methods: {},
-  mounted: function mounted() {
-    console.log(this.client);
-  }
+  methods: {}
 });
 
 /***/ }),
@@ -22553,9 +22546,6 @@ __webpack_require__.r(__webpack_exports__);
     return {};
   },
   methods: {},
-  mounted: function mounted() {
-    console.log(this.quotation);
-  },
   mixins: [_Mixins_Helpers__WEBPACK_IMPORTED_MODULE_3__["default"]]
 });
 
@@ -22870,7 +22860,6 @@ __webpack_require__.r(__webpack_exports__);
     people: {
       handler: function handler(people) {
         this.allPeople = people;
-        console.log(this.allPeople);
       },
       deep: true
     }
@@ -23153,9 +23142,6 @@ __webpack_require__.r(__webpack_exports__);
       deep: true
     }
   },
-  mounted: function mounted() {
-    console.log(this.tenders);
-  },
   mixins: [_Mixins_Helpers__WEBPACK_IMPORTED_MODULE_2__["default"]]
 });
 
@@ -23194,9 +23180,6 @@ __webpack_require__.r(__webpack_exports__);
     return {};
   },
   methods: {},
-  mounted: function mounted() {
-    console.log(this.tender);
-  },
   mixins: [_Mixins_Helpers__WEBPACK_IMPORTED_MODULE_4__["default"]]
 });
 

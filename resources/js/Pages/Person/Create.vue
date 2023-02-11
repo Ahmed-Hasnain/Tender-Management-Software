@@ -92,7 +92,6 @@ export default {
     methods: {
         submit(){
             this.form.type = this.type
-            console.log(this.form.type, this.type);
             this.form.post(route('dashboard.company.person.store', this.company_id), {
                 errorBag: 'person',
                 preserveScroll: true,

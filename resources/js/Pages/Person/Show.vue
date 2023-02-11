@@ -111,7 +111,6 @@ export default {
         return {};
     },
     methods: {},
-    mounted() { console.log(this.client) },
 };
 </script>
 
