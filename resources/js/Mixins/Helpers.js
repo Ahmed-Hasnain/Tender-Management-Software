@@ -40,9 +40,9 @@ export default {
         },
 
         //calculate tax
-        calculateTax(amount) {
+        calculateTax(amount, tax) {
             amount = parseFloat(amount)
-            return (this.$page.props.settings.tax_percentage * amount) / 100
+            return (tax * amount) / 100
         },
 
         //get total
