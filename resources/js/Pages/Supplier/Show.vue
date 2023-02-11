@@ -7,17 +7,11 @@
                 <div class="row align-items-center">
                     <div class="col-md-7">
                         <div class="d-md-flex align-items-center">
-                            <div class="text-center text-sm-left m-v-15">
+                            <div class="text-center text-sm-left">
                                 <h2 class="m-b-5 text-capitalize">{{ supplier.name }}</h2>
                                 <p class="text-opacity font-size-13">
                                     {{ supplier.website }}
                                 </p>
-                                <p class="text-dark m-b-20">
-                                    Frontend Developer, UI/UX Designer
-                                </p>
-                                <button class="btn btn-primary btn-tone">
-                                    Contact
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -32,7 +26,7 @@
                             <div class="card-body">
                                 <h5>Address</h5>
                                 <div class="m-t-20">
-                                    <div class="media m-b-30">
+                                    <div class="media m-b-10">
                                         <div class="avatar avatar-image">
                                             <i class="anticon anticon-check" style="color:black"></i>
                                         </div>
@@ -41,7 +35,7 @@
                                             <span class="font-size-13 text-gray text-capitalize">Address</span>
                                         </div>
                                     </div>
-                                    <div class="media m-b-30">
+                                    <div class="media m-b-10">
                                         <div class="avatar avatar-image">
                                             <i class="anticon anticon-check" style="color:black"></i>
                                         </div>
@@ -50,7 +44,7 @@
                                             <span class="font-size-13 text-gray text-capitalize">City</span>
                                         </div>
                                     </div>
-                                    <div class="media m-b-30">
+                                    <div class="media m-b-10">
                                         <div class="avatar avatar-image">
                                             <i class="anticon anticon-check" style="color:black"></i>
                                         </div>
@@ -59,7 +53,7 @@
                                             <span class="font-size-13 text-gray text-capitalize">District</span>
                                         </div>
                                     </div>
-                                    <div class="media m-b-30">
+                                    <div class="media m-b-10">
                                         <div class="avatar avatar-image">
                                             <i class="anticon anticon-check" style="color:black"></i>
                                         </div>
@@ -77,7 +71,7 @@
                             <div class="card-body">
                                 <h5>Bank Info</h5>
                                 <div class="m-t-20">
-                                    <div class="media m-b-30">
+                                    <div class="media m-b-10">
                                         <div class="avatar avatar-image">
                                             <i class="anticon anticon-check" style="color:black"></i>
                                         </div>
@@ -86,7 +80,7 @@
                                             <span class="font-size-13 text-gray text-capitalize">Bank Name</span>
                                         </div>
                                     </div>
-                                    <div class="media m-b-30">
+                                    <div class="media m-b-10">
                                         <div class="avatar avatar-image">
                                             <i class="anticon anticon-check" style="color:black"></i>
                                         </div>
@@ -95,7 +89,7 @@
                                             <span class="font-size-13 text-gray text-capitalize">Account Title</span>
                                         </div>
                                     </div>
-                                    <div class="media m-b-30">
+                                    <div class="media m-b-10">
                                         <div class="avatar avatar-image">
                                             <i class="anticon anticon-check" style="color:black"></i>
                                         </div>
@@ -104,7 +98,7 @@
                                             <span class="font-size-13 text-gray text-capitalize">Account Number</span>
                                         </div>
                                     </div>
-                                    <div class="media m-b-30">
+                                    <div class="media m-b-10">
                                         <div class="avatar avatar-image">
                                             <i class="anticon anticon-check" style="color:black"></i>
                                         </div>

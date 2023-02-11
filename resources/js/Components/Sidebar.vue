@@ -147,13 +147,13 @@ export default {
     },
     computed: {
         tenderFlag() {
-            return this.$page.component === 'Tender/Index' || this.$page.component === 'Tender/Create' || this.$page.component === 'Tender/Edit' ? true : false
+            return this.$page.component === 'Tender/Index' || this.$page.component === 'Tender/Create' || this.$page.component === 'Tender/Edit' || this.$page.component === 'Tender/Show' ? true : false
         },
         clientFlag() {
-            return this.$page.component === 'Client/Index' || this.$page.component === 'Client/Create' || this.$page.component === 'Client/Edit' ? true : false
+            return this.$page.component === 'Client/Index' || this.$page.component === 'Client/Create' || this.$page.component === 'Client/Edit' || this.$page.component === 'Client/Show' ? true : false
         },
         supplierFlag() {
-            return this.$page.component === 'Supplier/Index' || this.$page.component === 'Supplier/Create' || this.$page.component === 'Supplier/Edit' ? true : false
+            return this.$page.component === 'Supplier/Index' || this.$page.component === 'Supplier/Create' || this.$page.component === 'Supplier/Edit' || this.$page.component === 'Supplier/Show' ? true : false
         },
         unitFlag() {
             return this.$page.component === 'Unit/Index' || this.$page.component === 'Unit/Create' || this.$page.component === 'Unit/Edit' ? true : false
