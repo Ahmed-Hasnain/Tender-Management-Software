@@ -88,7 +88,7 @@ class QuotationController extends Controller
             }
             DB::commit();
             flash('Quotation Added Sucessfully!', 'success');
-            return \redirect(route('dashboard.tender.index'));          
+            return \redirect(route('dashboard.quotation.index'));          
         }catch (\Exception $e) {
             DB::rollBack();
             flash($e->getMessage(), 'danger');

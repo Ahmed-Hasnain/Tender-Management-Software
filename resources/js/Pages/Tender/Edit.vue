@@ -11,6 +11,20 @@
                     <div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
+                                <label class="font-weight-semibold" for="Name">Reference No:</label>
+                                <input type="text" class="form-control" id="name" placeholder="Reference Number"
+                                    v-model="form.reference_no" :class="{ 'is-invalid': form.errors?.reference_no }">
+                                <error :message="form.errors?.reference_no"></error>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-semibold" for="file_name">File Name:</label>
+                                <input type="text" class="form-control" id="file_name" placeholder="File Name"
+                                    v-model="form.file_name" :class="{ 'is-invalid': form.errors?.file_name }">
+                                <error :message="form.errors?.file_name"></error>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
                                 <label class="font-weight-semibold" for="Category">Company:</label>
                                 <select id="language" class="form-control" v-model="form.company_id"
                                     :class="{ 'is-invalid': form.errors?.company_id }">
@@ -68,20 +82,6 @@
                                 <Datepicker v-model="form.validity_of_quotation" :enable-time-picker="false">
                                 </Datepicker>
                                 <error :message="form.errors?.validity_of_quotation"></error>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Name">Reference No:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Reference Number"
-                                    v-model="form.reference_no" :class="{ 'is-invalid': form.errors?.reference_no }">
-                                <error :message="form.errors?.reference_no"></error>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="file_name">File Name:</label>
-                                <input type="text" class="form-control" id="file_name" placeholder="File Name"
-                                    v-model="form.file_name" :class="{ 'is-invalid': form.errors?.file_name }">
-                                <error :message="form.errors?.file_name"></error>
                             </div>
                         </div>
                         <div class="form-row">
