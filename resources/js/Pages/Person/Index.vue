@@ -34,7 +34,8 @@
                                             <th style="width: 225.188px;">Email</th>
                                             <th style="width: 225.188px;">Company</th>
                                             <th style="width: 225.188px;">Department</th>
-                                            <th style="width: 225.188px;">Phone No</th>
+                                            <th style="width: 225.188px;">Mobile No.</th>
+                                            <th style="width: 225.188px;">Fax No.</th>
                                             <th class="text-right" style="width: 150px;">Action</th>
                                         </tr>
                                     </thead>
@@ -42,10 +43,11 @@
                                         <tr role="row" class="odd" v-for="(person,index) in allPeople.data" :key="index">
                                             <td>{{ person.id }}</td>
                                             <td class="text-capitalize">{{ person.name }}</td>
-                                            <td class="text-capitalize">{{ person.email }}</td>
-                                            <td class="text-capitalize">{{ person.personable?.name }}</td>
+                                            <td class="">{{ person.email }}</td>
+                                            <td class="text-capitalize"><a href="#" @click="redirect($event, person)">{{ person.personable?.name }}</a></td>
                                             <td class="text-capitalize">{{ person.department }}</td>
                                             <td class="text-capitalize">{{ person.mobile_no }}</td>
+                                            <td class="text-capitalize">{{ person.fax }}</td>
                                             <td class="text-right">
                                                 <button @click="edit(person.personable.id, person.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('edit_person')">
                                                     <i class="anticon anticon-edit"></i>
@@ -114,6 +116,21 @@ export default {
                     })
                 }
             })
+        },
+        redirect(e, person) {
+            e.preventDefault()
+            if (person.personable_type == "App\\Models\\Client") {
+                this.$inertia.get(route('dashboard.client.show', person.personable_id), {
+                    onSuccess: () => {},
+                    onError: errors => {console.log(errors);}
+                })
+            }
+            if (person.personable_type == "App\\Models\\Supplier") {
+                this.$inertia.get(route('dashboard.supplier.show', person.personable_id), {
+                    onSuccess: () => {},
+                    onError: errors => {console.log(errors);}
+                })
+            }
         }
     },
     watch: {
@@ -125,7 +142,6 @@ export default {
         },
     },
     mounted() {
-        
     },
     mixins: [Helpers]
 }

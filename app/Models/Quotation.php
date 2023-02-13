@@ -20,6 +20,10 @@ class Quotation extends Model
         'total_price',
         'terms_and_conditions',
         'tender_id',
+        'delivery_time',
+        'validity_of_quotation',
+        'status',
+        'tax'
     ];
 
     public function tender() 

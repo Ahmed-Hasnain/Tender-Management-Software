@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PersonRequest extends FormRequest
+class CurrencyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,22 +26,14 @@ class PersonRequest extends FormRequest
         switch ($this->method()) {
             case 'POST':
                 return [
-                    'name' => ['required'],
-                    'email' => 'nullable',
-                    'phone_no' => 'nullable',
-                    'mobile_no' => 'nullable',
-                    'fax' => 'nullable',
-                    'department' => 'nullable',
+                    'name' => ['required', 'unique:currencies'],
+                    'symbol' => ['required', 'unique:currencies'],
                 ];
                 break;
             case 'PUT':
                 return [
-                    'name' => ['required'],
-                    'email' => 'nullable',
-                    'phone_no' => 'nullable',
-                    'mobile_no' => 'nullable',
-                    'fax' => 'nullable',
-                    'department' => 'nullable',
+                    'name' => ['required', 'unique:currencies,name,'.$this->id.',id'],
+                    'symbol' => ['required', 'unique:currencies,symbol,'.$this->id.',id'],
                 ];
                 break;   
         }

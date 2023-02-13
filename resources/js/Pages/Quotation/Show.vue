@@ -50,20 +50,20 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>No.</th>
+                                        <th style="width: 50px;">No.</th>
                                         <th>Items</th>
-                                        <th>Quantity</th>
-                                        <th>Price</th>
-                                        <th>Total</th>
+                                        <th style="width: 150px;">Quantity</th>
+                                        <th style="width: 150px;">Price</th>
+                                        <th style="width: 150px;">Total</th>
                                     </tr>
                                 </thead>
                                 <tbody v-if="quotation.items.length > 0">
                                     <tr v-for="(item, index) in quotation.items" :key="index">
                                         <th>{{ index }}</th>
-                                        <td>{{ item.tender_item?.item?.name }}</td>
+                                        <td>{{ item.tender_item?.item?.name }}<br><small>{{ item.tender_item?.description }}</small></td>
                                         <td>{{ item.tender_item?.qty }}</td>
-                                        <td>{{ quotation.currency }}{{ formatNumber(item.unit_price) }} </td>
-                                        <td>{{ quotation.currency }}{{ formatNumber(item.total_price) }} </td>
+                                        <td>{{ quotation.currency }} {{ formatNumber(item.unit_price) }} </td>
+                                        <td>{{ quotation.currency }} {{ formatNumber(item.total_price) }} </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -71,10 +71,10 @@
                         <div class="row m-t-30 lh-1-8">
                             <div class="col-sm-12">
                                 <div class="float-right text-right">
-                                    <p>Total amount: {{ quotation.currency }}{{ formatNumber(quotation.total_price) }}</p>
-                                    <p>vat ({{ $page.props.settings.tax_percentage }}%) : {{ quotation.currency }}{{formatNumber(calculateTax(quotation.total_price))}}  </p>
+                                    <p>Total amount: {{ quotation.currency }} {{ formatNumber(quotation.total_price) }}</p>
+                                    <p>GST ({{ quotation.tax }}%) : {{ quotation.currency }} {{formatNumber(calculateTax(quotation.total_price, quotation.tax))}}  </p>
                                     <hr>
-                                    <h3><span class="font-weight-semibold text-dark">Total :</span> {{ quotation.currency }}{{ getTotal(quotation.total_price, calculateTax(quotation.total_price)) }} </h3>
+                                    <h3><span class="font-weight-semibold text-dark">Total :</span> {{ quotation.currency }} {{ getTotal(quotation.total_price, calculateTax(quotation.total_price, quotation.tax)) }} </h3>
                                 </div>
                             </div>
                         </div>

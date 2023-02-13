@@ -127,9 +127,6 @@ export default {
             deep: true,
         },
     },
-    mounted(){
-        console.log(this.allItems);
-    },
     mixins: [Helpers]
 }
 </script>

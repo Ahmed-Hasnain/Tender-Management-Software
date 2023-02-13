@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Person extends Model
+class Currency extends Model
 {
     use HasFactory;
 
@@ -16,17 +16,6 @@ class Person extends Model
      */
     protected $fillable = [
         'name',
-        'mobile_no',
-        'phone_no',
-        'email',
-        'department',
-        'personable_type',
-        'personable_id',
-        'fax'
+        'symbol',
     ];
-    
-    public function personable() 
-    {
-        return $this->morphTo();
-    }
 }
