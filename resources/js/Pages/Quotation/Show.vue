@@ -100,6 +100,11 @@
                 </div>
             </div>
         </div>
+        <div class="card">
+            <div class="card-body">
+                <a :href="route('dashboard.downloadQuotation', quotation.id)" class="btn btn-primary">Download Pdf</a>
+            </div>
+        </div>
     </AuthenticatedLayout>
 </template>
 
@@ -120,10 +125,19 @@ export default {
         return {};
     },
     methods: {
-
+        downloadPdf() {
+            this.$inertia.post(route('dashboard.quotation.download'), {
+                quotation: this.quotation
+            }, {
+                errorBag: 'pdf',
+                preserveScroll: true,
+                onSuccess: () => { },
+                onError: errors => { console.log(errors); }
+            })
+        }
     },
     mounted() {
-        console.log(this.quotation);
+        console.log(this.quotation.id);
     },
     mixins: [Helpers]
 };
