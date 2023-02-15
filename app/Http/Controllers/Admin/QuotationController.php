@@ -4,12 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use Inertia\Inertia;
 use App\Models\Tender;
+use App\Models\Currency;
 use App\Models\Quotation;
 use App\Models\TenderItem;
 use Illuminate\Http\Request;
 use App\Models\QuotationItem;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\QuotationRequest;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class QuotationController extends Controller
@@ -58,6 +63,7 @@ class QuotationController extends Controller
     {
         return Inertia::render('Quotation/Create', [
             'tender_items' => Tender::find(request()->input('tender_id'))->items()->with('item', 'unit')->get(),
+            'currencies' => Currency::all(),
         ]);
     }
 
@@ -67,7 +73,7 @@ class QuotationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QuotationRequest $request)
     {
         try{
             DB::beginTransaction();
@@ -76,6 +82,10 @@ class QuotationController extends Controller
                 'currency' => $request->input('currency'),
                 'terms_and_conditions' => $request->input('terms_and_conditions'),
                 'tender_id' => $request->input('tender_id'),
+                'tax' => $request->input('tax'),
+                'delivery_time' => $request->input('delivery_time'),
+                'validity_of_quotation' => $request->input('validity_of_quotation'),
+                'status' => $request->input('status'),
             ]);
             $quotationItems = $request->input('items');
             if (count($quotationItems) > 0) {
@@ -88,7 +98,7 @@ class QuotationController extends Controller
             }
             DB::commit();
             flash('Quotation Added Sucessfully!', 'success');
-            return \redirect(route('dashboard.tender.index'));          
+            return \redirect(route('dashboard.quotation.index'));          
         }catch (\Exception $e) {
             DB::rollBack();
             flash($e->getMessage(), 'danger');
@@ -122,6 +132,7 @@ class QuotationController extends Controller
             'quotation_items' => $quotation->items()->with(['tenderItem' => function ($query) {
                 $query->with('item', 'unit');
             }])->get(),
+            'currencies' => Currency::all(),
         ]);
     }
 
@@ -132,7 +143,7 @@ class QuotationController extends Controller
      * @param  \App\Models\Quotation  $quotation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Quotation $quotation)
+    public function update(QuotationRequest $request, Quotation $quotation)
     {
         try{
             DB::beginTransaction();
@@ -140,6 +151,10 @@ class QuotationController extends Controller
                 'reference_no' => $request->input('reference_no'),
                 'currency' => $request->input('currency'),
                 'terms_and_conditions' => $request->input('terms_and_conditions'),
+                'tax' => $request->input('tax'),
+                'delivery_time' => $request->input('delivery_time'),
+                'validity_of_quotation' => $request->input('validity_of_quotation'),
+                'status' => $request->input('status'),
             ]);
             $quotationItems = $request->input('items');
             if (count($quotationItems) > 0) {
@@ -151,7 +166,7 @@ class QuotationController extends Controller
             }
             DB::commit();
             flash('Quotation Added Sucessfully!', 'success');
-            return \redirect(route('dashboard.tender.index'));          
+            return \redirect(route('dashboard.quotation.index'));          
         }catch (\Exception $e) {
             DB::rollBack();
             flash($e->getMessage(), 'danger');
@@ -177,6 +192,20 @@ class QuotationController extends Controller
         } catch (\Exception $e) {
             flash($e->getMessage(), 'danger');
             return \redirect()->back();
+        }
+    }
+
+    public function downloadQuotation($quotationId) 
+    {
+        try {
+            $quotation = Quotation::with('tender.client', 'items.tenderItem.item', 'items.tenderItem.unit')->findOrFail($quotationId);
+            $data = [
+                'quotation' => $quotation,
+            ];
+            $pdf = Pdf::loadView('quotation', $data);
+            return $pdf->download('quotation.pdf');
+        } catch (\Throwable $th) {
+            Log::info($th->getMessage());
         }
     }
 }

@@ -18,7 +18,6 @@ use App\Http\Controllers\Admin as Admin;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/test', function () {
     
 });
@@ -27,9 +26,7 @@ Route::get('/', function () {
     return redirect()->route('dashboard');
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [Admin\DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/dashboard2', function () {
     return Inertia::render('Dashboard2');
@@ -65,10 +62,12 @@ Route::middleware(['auth', 'verified'])
         //supplier
         Route::group(['middleware' => ['can:view_supplier']], function () {
             Route::resource('/supplier', Admin\SupplierController::class);
+            Route::get('/supplier/person/search', [Admin\SupplierController::class, 'searchPerson'])->name('supplier.person.search');
         });
         //client
         Route::group(['middleware' => ['can:view_client']], function () {
             Route::resource('/client', Admin\ClientController::class);
+            Route::get('/client/person/search', [Admin\ClientController::class, 'searchPerson'])->name('client.person.search');
         });
         //person
         Route::group(['prefix' => 'company/{company_id}', 'as' => 'company.'], function () {
@@ -83,10 +82,15 @@ Route::middleware(['auth', 'verified'])
         //quotation
         Route::group(['middleware' => ['can:view_quotation']], function () {
             Route::resource('/quotation', Admin\QuotationController::class);
+            Route::get('/downloadQuotation/{quotationId}', [Admin\QuotationController::class, 'downloadQuotation'])->name('downloadQuotation');
         });
         //company
         Route::group(['middleware' => ['can:view_company']], function () {
             Route::resource('/company', Admin\CompanyController::class);
+        });
+        //currency
+        Route::group(['middleware' => ['can:view_currency']], function () {
+            Route::resource('/currency', Admin\CurrencyController::class);
         });
 });
 

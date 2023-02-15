@@ -44,6 +44,13 @@ class SupplierController extends Controller
                     ->orWhere('notes', 'like', '%' . $keyword . '%')
                     ->orWhereHas('categories', function($query) use ($keyword){
                         $query->where('name', 'like', '%' . $keyword . '%');
+                    })
+                    ->orWhereHas('people', function($query) use ($keyword){
+                        $query->where('name', 'like', '%' . $keyword . '%')
+                        ->orWhere('mobile_no', 'like', '%' . $keyword . '%')
+                        ->orWhere('phone_no', 'like', '%' . $keyword . '%')
+                        ->orWhere('email', 'like', '%' . $keyword . '%')
+                        ->orWhere('department', 'like', '%' . $keyword . '%');
                     });
                 });
             })->orderBy('id', 'desc')->paginate($limit);
@@ -102,9 +109,10 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
+        $limit = \config()->get('settings.pagination_limit');
         return Inertia::render('Supplier/Show', [
             'supplier' => $supplier,
-            'people' => $supplier->people
+            'people' => $supplier->people()->with('personable')->paginate($limit),
         ]);
     }
 
@@ -161,6 +169,36 @@ class SupplierController extends Controller
             return \redirect()->back();
         } catch (ModelNotFoundException $e) {
             flash('Unable to find this supplier', 'danger');
+            return \redirect()->back();
+        } catch (\Exception $e) {
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
+    }
+
+    public function searchPerson() 
+    {
+        try {           
+            $limit = \config()->get('settings.pagination_limit');
+            $supplier = Supplier::findOrFail(request()->input('company_id'));
+            $people = $supplier->people()->with('personable')->where(function ($query) {
+                $keyword = request()->input('keyword');
+                $query->when($keyword, function ($subQuery) use ($keyword){
+                    $subQuery->where('name', 'like', '%' . $keyword . '%')
+                    ->orWhere('mobile_no', 'like', '%' . $keyword . '%')
+                    ->orWhere('phone_no', 'like', '%' . $keyword . '%')
+                    ->orWhere('email', 'like', '%' . $keyword . '%')
+                    ->orWhere('department', 'like', '%' . $keyword . '%')
+                    ->orWhere('fax', 'like', '%' . $keyword . '%');
+                });
+            })->orderBy('id', 'desc')->paginate($limit);
+            return Inertia::render('Supplier/Show', [
+                'supplier' => $supplier,
+                'people' => $people,
+                'searchedKeyword' => request()->input('keyword'),
+            ]);
+        } catch (ModelNotFoundException $e) {
+            flash('Unable to find this person', 'danger');
             return \redirect()->back();
         } catch (\Exception $e) {
             flash($e->getMessage(), 'danger');

@@ -152,9 +152,6 @@ export default {
             deep: true,
         },
     },
-    mounted(){
-        console.log(this.tenders);
-    },
     mixins: [Helpers]
 }
 </script>

@@ -37,7 +37,14 @@ class ClientController extends Controller
                     ->orWhere('city', 'like', '%' . $keyword . '%')
                     ->orWhere('district', 'like', '%' . $keyword . '%')
                     ->orWhere('country', 'like', '%' . $keyword . '%')
-                    ->orWhere('notes', 'like', '%' . $keyword . '%');
+                    ->orWhere('notes', 'like', '%' . $keyword . '%')
+                    ->orWhereHas('people', function($query) use ($keyword){
+                        $query->where('name', 'like', '%' . $keyword . '%')
+                        ->orWhere('mobile_no', 'like', '%' . $keyword . '%')
+                        ->orWhere('phone_no', 'like', '%' . $keyword . '%')
+                        ->orWhere('email', 'like', '%' . $keyword . '%')
+                        ->orWhere('department', 'like', '%' . $keyword . '%');
+                    });
                 });
             })->orderBy('id', 'desc')->paginate($limit);
             return Inertia::render('Client/Index', [
@@ -94,9 +101,10 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
+        $limit = \config()->get('settings.pagination_limit');
         return Inertia::render('Client/Show', [
             'client' => $client,
-            'people' => $client->people
+            'people' => $client->people()->with('personable')->paginate($limit),
         ]);
     }
 
@@ -150,6 +158,36 @@ class ClientController extends Controller
             return \redirect()->back();
         } catch (ModelNotFoundException $e) {
             flash('Unable to find this client', 'danger');
+            return \redirect()->back();
+        } catch (\Exception $e) {
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
+    }
+
+    public function searchPerson() 
+    {
+        try {           
+            $limit = \config()->get('settings.pagination_limit');
+            $client = Client::findOrFail(request()->input('company_id'));
+            $people = $client->people()->with('personable')->where(function ($query) {
+                $keyword = request()->input('keyword');
+                $query->when($keyword, function ($subQuery) use ($keyword){
+                    $subQuery->where('name', 'like', '%' . $keyword . '%')
+                    ->orWhere('mobile_no', 'like', '%' . $keyword . '%')
+                    ->orWhere('phone_no', 'like', '%' . $keyword . '%')
+                    ->orWhere('email', 'like', '%' . $keyword . '%')
+                    ->orWhere('department', 'like', '%' . $keyword . '%')
+                    ->orWhere('fax', 'like', '%' . $keyword . '%');
+                });
+            })->orderBy('id', 'desc')->paginate($limit);
+            return Inertia::render('Client/Show', [
+                'client' => $client,
+                'people' => $people,
+                'searchedKeyword' => request()->input('keyword'),
+            ]);
+        } catch (ModelNotFoundException $e) {
+            flash('Unable to find this person', 'danger');
             return \redirect()->back();
         } catch (\Exception $e) {
             flash($e->getMessage(), 'danger');

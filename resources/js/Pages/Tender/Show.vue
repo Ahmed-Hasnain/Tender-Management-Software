@@ -7,9 +7,9 @@
                 <div class="row align-items-center">
                     <div class="col-md-7">
                         <div class="d-md-flex align-items-center">
-                            <div class="text-center text-sm-left m-v-15">
+                            <div class="text-center text-sm-left">
                                 <h2 class="m-b-5 text-capitalize">{{ tender.reference_no }}</h2>
-                                <p class="text-opacity m-b-20">
+                                <p class="text-opacity ">
                                     {{ tender.description }}
                                 </p>
                             </div>
@@ -27,7 +27,7 @@
                                 <h5>Details</h5>
                                 <div class="m-t-20 row">
                                     <div class="col-6">
-                                        <div class="media m-b-30">
+                                        <div class="media m-b-10">
                                             <div class="avatar avatar-image">
                                                 <i class="anticon anticon-check" style="color:black"></i>
                                             </div>
@@ -36,7 +36,7 @@
                                                 <span class="font-size-13 text-gray text-capitalize">File name</span>
                                             </div>
                                         </div>
-                                        <div class="media m-b-30">
+                                        <div class="media m-b-10">
                                             <div class="avatar avatar-image">
                                                 <i class="anticon anticon-check" style="color:black"></i>
                                             </div>
@@ -45,7 +45,7 @@
                                                 <span class="font-size-13 text-gray text-capitalize">Rate Basis</span>
                                             </div>
                                         </div>
-                                        <div class="media m-b-30">
+                                        <div class="media m-b-10">
                                             <div class="avatar avatar-image">
                                                 <i class="anticon anticon-check" style="color:black"></i>
                                             </div>
@@ -54,7 +54,7 @@
                                                 <span class="font-size-13 text-gray text-capitalize">Client</span>
                                             </div>
                                         </div>
-                                        <div class="media m-b-30">
+                                        <div class="media m-b-10">
                                             <div class="avatar avatar-image">
                                                 <i class="anticon anticon-check" style="color:black"></i>
                                             </div>
@@ -64,7 +64,7 @@
                                                     Payment</span>
                                             </div>
                                         </div>
-                                        <div class="media m-b-30">
+                                        <div class="media m-b-10">
                                             <div class="avatar avatar-image">
                                                 <i class="anticon anticon-check" style="color:black"></i>
                                             </div>
@@ -75,7 +75,7 @@
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="media m-b-30">
+                                        <div class="media m-b-10">
                                             <div class="avatar avatar-image">
                                                 <i class="anticon anticon-check" style="color:black"></i>
                                             </div>
@@ -84,7 +84,7 @@
                                                 <span class="font-size-13 text-gray text-capitalize">Type Of Demand</span>
                                             </div>
                                         </div>
-                                        <div class="media m-b-30">
+                                        <div class="media m-b-10">
                                             <div class="avatar avatar-image">
                                                 <i class="anticon anticon-check" style="color:black"></i>
                                             </div>
@@ -93,7 +93,7 @@
                                                 <span class="font-size-13 text-gray text-capitalize">RFQ Date</span>
                                             </div>
                                         </div>
-                                        <div class="media m-b-30">
+                                        <div class="media m-b-10">
                                             <div class="avatar avatar-image">
                                                 <i class="anticon anticon-check" style="color:black"></i>
                                             </div>
@@ -105,7 +105,7 @@
                                                     submission</span>
                                             </div>
                                         </div>
-                                        <div class="media m-b-30">
+                                        <div class="media m-b-10">
                                             <div class="avatar avatar-image">
                                                 <i class="anticon anticon-check" style="color:black"></i>
                                             </div>
@@ -117,7 +117,7 @@
                                                     Quotation</span>
                                             </div>
                                         </div>
-                                        <div class="media m-b-30">
+                                        <div class="media m-b-10">
                                             <div class="avatar avatar-image">
                                                 <i class="anticon anticon-check" style="color:black"></i>
                                             </div>
@@ -147,7 +147,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(item,index) in tender.allItems" :key="index">
-                                        <th scope="row">{{ item.id }}</th>
+                                        <th scope="row">{{ index }}</th>
                                         <td class="text-capitalize">{{ item.item?.name }}<br><small>{{ item.description }}</small></td>
                                         <td class="text-capitalize">{{ item.unit?.full_name }}</td>
                                         <td class="text-capitalize">{{item.qty}}</td>
@@ -184,9 +184,6 @@ export default {
     },
     methods: {
 
-    },
-    mounted() {
-        console.log(this.tender);
     },
     mixins: [Helpers]
 };
