@@ -9,9 +9,12 @@ use App\Models\Quotation;
 use App\Models\TenderItem;
 use Illuminate\Http\Request;
 use App\Models\QuotationItem;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\QuotationRequest;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class QuotationController extends Controller
@@ -189,6 +192,20 @@ class QuotationController extends Controller
         } catch (\Exception $e) {
             flash($e->getMessage(), 'danger');
             return \redirect()->back();
+        }
+    }
+
+    public function downloadQuotation($quotationId) 
+    {
+        try {
+            $quotation = Quotation::with('tender.client', 'items.tenderItem.item', 'items.tenderItem.unit')->findOrFail($quotationId);
+            $data = [
+                'quotation' => $quotation,
+            ];
+            $pdf = Pdf::loadView('quotation', $data);
+            return $pdf->download('quotation.pdf');
+        } catch (\Throwable $th) {
+            Log::info($th->getMessage());
         }
     }
 }

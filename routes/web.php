@@ -18,7 +18,6 @@ use App\Http\Controllers\Admin as Admin;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/test', function () {
     
 });
@@ -83,6 +82,7 @@ Route::middleware(['auth', 'verified'])
         //quotation
         Route::group(['middleware' => ['can:view_quotation']], function () {
             Route::resource('/quotation', Admin\QuotationController::class);
+            Route::get('/downloadQuotation/{quotationId}', [Admin\QuotationController::class, 'downloadQuotation'])->name('downloadQuotation');
         });
         //company
         Route::group(['middleware' => ['can:view_company']], function () {
