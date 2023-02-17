@@ -199,11 +199,18 @@ class QuotationController extends Controller
     {
         try {
             $quotation = Quotation::with('tender.client', 'items.tenderItem.item', 'items.tenderItem.unit')->findOrFail($quotationId);
-            $data = [
-                'quotation' => $quotation,
+            // $data = [
+            //     'quotation' => $quotation,
+            // ];
+            $items = [
+                ['name' => 'Item 1', 'description' => 'Description 1', 'quantity' => 2, 'price' => 10],
+                ['name' => 'Item 1', 'description' => 'Description 1', 'quantity' => 2, 'price' => 10],
+                ['name' => 'Item 1', 'description' => 'Description 1', 'quantity' => 2, 'price' => 10],
+                ['name' => 'Item 1', 'description' => 'Description 1', 'quantity' => 2, 'price' => 10],
+                ['name' => 'Item 1', 'description' => 'Description 1', 'quantity' => 2, 'price' => 10],
             ];
-            $pdf = Pdf::loadView('quotation', $data);
-            return $pdf->download('quotation.pdf');
+            $pdf = Pdf::loadView('quotation2', $items);
+            return $pdf->download('quotation1.pdf');
         } catch (\Throwable $th) {
             Log::info($th->getMessage());
         }
