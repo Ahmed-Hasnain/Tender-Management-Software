@@ -209,6 +209,7 @@ class QuotationController extends Controller
                 ['name' => 'Item 1', 'description' => 'Description 1', 'quantity' => 2, 'price' => 10],
                 ['name' => 'Item 1', 'description' => 'Description 1', 'quantity' => 2, 'price' => 10],
             ];
+            // return view('quotation2', $items);
             $pdf = Pdf::loadView('quotation2', $items);
             return $pdf->download('quotation1.pdf');
         } catch (\Throwable $th) {
