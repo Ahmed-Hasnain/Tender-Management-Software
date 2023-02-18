@@ -115,7 +115,7 @@ class QuotationController extends Controller
     public function show(Quotation $quotation)
     {
         return Inertia::render('Quotation/Show', [
-            'quotation' => $quotation->load('tender.client', 'items.tenderItem.item', 'items.tenderItem.unit'),
+            'quotation' => $quotation->load('tender.client', 'tender.mop',  'items.tenderItem.item', 'items.tenderItem.unit'),
         ]);
     }
 
@@ -198,20 +198,13 @@ class QuotationController extends Controller
     public function downloadQuotation($quotationId) 
     {
         try {
-            $quotation = Quotation::with('tender.client', 'items.tenderItem.item', 'items.tenderItem.unit')->findOrFail($quotationId);
-            // $data = [
-            //     'quotation' => $quotation,
-            // ];
-            $items = [
-                ['name' => 'Item 1', 'description' => 'Description 1', 'quantity' => 2, 'price' => 10],
-                ['name' => 'Item 1', 'description' => 'Description 1', 'quantity' => 2, 'price' => 10],
-                ['name' => 'Item 1', 'description' => 'Description 1', 'quantity' => 2, 'price' => 10],
-                ['name' => 'Item 1', 'description' => 'Description 1', 'quantity' => 2, 'price' => 10],
-                ['name' => 'Item 1', 'description' => 'Description 1', 'quantity' => 2, 'price' => 10],
+            $quotation = Quotation::with('tender.client', 'tender.mop', 'items.tenderItem.item', 'items.tenderItem.unit')->findOrFail($quotationId);
+            $data = [
+                'quotation' => $quotation,
             ];
-            // return view('quotation2', $items);
-            $pdf = Pdf::loadView('quotation2', $items);
-            return $pdf->download('quotation1.pdf');
+            // return view('MSaadAndCompanyTemplate', $data);
+            $pdf = Pdf::loadView('MSaadAndCompanyTemplate', $data);
+            return $pdf->download('quotation.pdf');
         } catch (\Throwable $th) {
             Log::info($th->getMessage());
         }

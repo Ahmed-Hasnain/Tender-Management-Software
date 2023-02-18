@@ -137,7 +137,7 @@ export default {
         }
     },
     mounted() {
-        console.log(this.quotation.id);
+        console.log(this.quotation);
     },
     mixins: [Helpers]
 };

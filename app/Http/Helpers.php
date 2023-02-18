@@ -1,4 +1,5 @@
 <?php
+use Carbon\Carbon;
 
 /**
  * Set flash messages
@@ -32,4 +33,20 @@ function setDateValues($value)
     if ($value) {
         return date("Y-m-d H:i:s", strtotime($value));
     }
+}
+
+function calculateTax($percentage, $total)
+{
+    return ($percentage * $total) / 100;
+}
+
+function numberFormate($price)
+{
+    return number_format($price, 0, '.', ',');
+}
+
+function dateFormate($date)
+{
+    $date = Carbon::parse($date);
+    return $date->format('F j, Y');
 }

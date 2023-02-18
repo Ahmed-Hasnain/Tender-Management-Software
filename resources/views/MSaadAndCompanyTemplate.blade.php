@@ -53,27 +53,24 @@
 </head>
 <body>
     <div class="header">
-        <img src="assets/images/logo/logo.png" alt="Logo" height="100" width="100">
-        <div class="title">Invoice</div>
+        <img src="assets/images/logo/saad&co.png" alt="Logo" height="100" width="200">
         <table>
             <tbody>
                 <tr>
                     <td style="border: 0px !important;">
-                        Your Company Name<br>
-                        123 Main St<br>
-                        Anytown, USA 12345<br>
-                        Tel: 555-555-1212<br>
-                        Email: info@yourcompany.com
+                        NTN: 12345678<br>
+                        Our Reference: {{$quotation->reference_no}}<br>
+                        Customer Reference: {{$quotation->tender->reference_no}}<br>
+                        File Name: {{$quotation->tender->file_name}}
                     </td>
                     <td style="border: 0px !important; vertical-align: top; text-align: center;">
                         Quotation
                     </td>
                     <td style="text-align: right; border: 0px !important;">
-                        Your Company Name<br>
-                        123 Main St<br>
-                        Anytown, USA 12345<br>
-                        Tel: 555-555-1212<br>
-                        Email: info@yourcompany.com
+                        STRN: 123456789<br>
+                        Dated: {{dateFormate($quotation->created_at)}}<br>
+                        RFQ Date: {{dateFormate($quotation->tender->rfq_date)}}<br>
+                        Validity: {{$quotation->validity_of_quotation}}
                     </td>
                 </tr>
             </tbody>
@@ -83,7 +80,7 @@
     <table>
         <thead>
             <tr>
-                <th>Sr.</th>
+                <th class="w-5">Sr.</th>
                 <th class="w-50">Description</th>
                 <th class="w-5">Qty</th>
                 <th class="w-5">A/U</th>
@@ -92,39 +89,35 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td class="w-50">Lorum ipsum <br> <small> ipsum dolor, sit amet consectetur adipisicing elit.</small></td>
-                <td class="w-5">100</td>
-                <td class="w-5">Kg</td>
-                <td>10</td>
-                <td>100</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td class="w-50">Lorum ipsum</td>
-                <td class="w-5">10</td>
-                <td class="w-5">Kg</td>
-                <td>10</td>
-                <td>100</td>
-            </tr>
+            @if ($quotation->items->count() > 0)  
+                @foreach ($quotation->items as $key => $item)
+                    <tr>
+                        <td>{{$key+1}}</td>
+                        <td class="w-50">{{$item->tenderItem?->item?->name}}<br> <small> {{$item->tenderItem?->description}}</small></td>
+                        <td class="w-5">{{$item->tenderItem?->qty}}</td>
+                        <td class="w-5">{{$item->tenderItem?->unit?->short_name}}</td>
+                        <td>{{$quotation->currency}} {{numberFormate($item->unit_price)}}</td>
+                        <td>{{$quotation->currency}}  {{numberFormate($item->total_price)}}</td>
+                    </tr>
+                @endforeach
+            @endif
         </tbody>
         <tfoot>
             <tr>
                 <td colspan="5" class="footer" style="border: 0px !important;">Subtotal:</td>
-                <td>80</td>
+                <td>{{$quotation->currency}} {{numberFormate($quotation->total_price)}}</td>
             </tr>
             <tr>
                 <td colspan="5" class="footer" style="border: 0px !important;">GST %</td>
-                <td>20</td>
+                <td>{{$quotation->tax}}</td>
             </tr>
             <tr>
                 <td colspan="5" class="footer" style="border: 0px !important;">GST Amount:</td>
-                <td>100</td>
+                <td>{{$quotation->currency}} {{numberFormate(calculateTax($quotation->tax, $quotation->total_price))}}</td>
             </tr>
             <tr>
                 <td colspan="5" class="footer" style="border: 0px !important;">Grand Total:</td>
-                <td>100</td>
+                <td>{{$quotation->currency}} {{numberFormate($quotation->total_price + calculateTax($quotation->tax, $quotation->total_price))}}</td>
             </tr>
         </tfoot>
     </table>
@@ -138,15 +131,15 @@
             </tr>
             <tr>
                 <td class="w-50">Mode of Payment</td>
-                <td class="w-50">asdas</td>
+                <td class="w-50">{{$quotation->tender->mop->name}}</td>
             </tr>
             <tr>
                 <td class="w-50">Rate Basis</td>
-                <td class="w-50">xcvxc</td>
+                <td class="w-50">{{$quotation->tender->rate_basis}}</td>
             </tr>
             <tr>
                 <td class="w-50">Delivery Period</td>
-                <td class="w-50">xcvxc</td>
+                <td class="w-50">{{$quotation->delivery_time}}</td>
             </tr>
         </tbody>
     </table>
