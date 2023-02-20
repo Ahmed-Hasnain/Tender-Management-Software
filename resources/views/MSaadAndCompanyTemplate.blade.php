@@ -58,18 +58,18 @@
             <tbody>
                 <tr>
                     <td style="border: 0px !important;">
-                        NTN: 7881680-2<br>
+                        NTN: 7881680-2<br><br>
                         Our Reference: {{$quotation->reference_no}}<br>
                         Customer Reference: {{$quotation->tender->reference_no}}<br>
                         File Name: {{$quotation->tender->file_name}}
                     </td>
                     <td style="border: 0px !important; vertical-align: top; text-align: center;">
-                        Quotation
+                        Quotation<br>
                     </td>
                     <td style="text-align: right; border: 0px !important;">
-                        STRN: 3277876141811<br>
+                        STRN: 3277876141811<br><br>
                         Dated: {{dateFormate($quotation->created_at)}}<br>
-                        RFQ Date: {{dateFormate($quotation->tender->rfq_date)}}<br>
+                        Dated: {{dateFormate($quotation->tender->rfq_date)}}<br>
                         Validity: {{$quotation->validity_of_quotation}}
                     </td>
                 </tr>

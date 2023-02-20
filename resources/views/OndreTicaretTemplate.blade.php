@@ -45,6 +45,12 @@
         .w-10 {
             width: 10%;
         }
+        .w-20 {
+            width: 20%;
+        }
+        .w-33 {
+            width: 33%;
+        }
         table thead tr th{
             border: 0px !important;
             background-color: white;
@@ -53,24 +59,43 @@
 </head>
 <body>
     <div class="header">
-        <img src="{{public_path($logo)}}" alt="Logo" height="100" width="200">
         <table>
             <tbody>
                 <tr>
-                    <td style="border: 0px !important;">
-                        NTN: 12345678<br>
-                        Our Reference: {{$quotation->reference_no}}<br>
-                        Customer Reference: {{$quotation->tender->reference_no}}<br>
-                        File Name: {{$quotation->tender->file_name}}
+                    <td style="border: 0px !important; width: 75%;">
+                        <img src="{{public_path($logo)}}" alt="Logo" height="100" width="520">
                     </td>
-                    <td style="border: 0px !important; vertical-align: top; text-align: center;">
+                    <td style="text-align: justify; border: 0px !important; width: 35%;">
+                        <span style="color:#5598cc">Office No. 1102, 11<sup>th</sup> Floor,</span><br>
+                        <span style="color:#5598cc">Green Tower Trust, Jinnah</span><br>
+                        <span style="color:#5598cc">Avenue, Blue Area,</span><br> 
+                        <span style="color:#5598cc">Islamabad, Pakistan</span><br>
+                        <span style="color:#c9cc77">Tel: +92 51 2813153</span><br>
+                        <span style="color:#c9cc77">Fax: +92 51 2813154</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table style="padding-top: 20px;">
+            <tbody>
+                <tr>
+                    <td style="background: white; border: 0px;" colspan="2">
+                        <span style="font-weight: bold;">Subject: Quotation Against Your Inquiry</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border: 0px !important;" class="w-33">
+                        Our Reference: {{$quotation->reference_no}}<br>
+                        Dated: {{dateFormate($quotation->created_at)}}<br>
+                        Validity: {{$quotation->validity_of_quotation}}
+                    </td>
+                    <td style="border: 0px !important; vertical-align: top; text-align: center;" class="w-33" >
                         Quotation
                     </td>
-                    <td style="text-align: right; border: 0px !important;">
-                        STRN: 123456789<br>
-                        Dated: {{dateFormate($quotation->created_at)}}<br>
+                    <td style="text-align: justify; border: 0px !important;" class="w-33">  
+                        Customer Reference: {{$quotation->tender->reference_no}}<br>
                         RFQ Date: {{dateFormate($quotation->tender->rfq_date)}}<br>
-                        Validity: {{$quotation->validity_of_quotation}}
+                        Delivery Period: {{$quotation->delivery_time}}
                     </td>
                 </tr>
             </tbody>
@@ -122,27 +147,11 @@
         </tfoot>
     </table>
     <br>
-    <table style="margin-top: 30px;"> 
-        <tbody>
-            <tr>
-                <td colspan="2" style="text-align: center; font-weight: bold;">
-                    Terms and Conditions
-                </td>
-            </tr>
-            <tr>
-                <td class="w-50">Mode of Payment</td>
-                <td class="w-50">{{$quotation->tender->mop->name}}</td>
-            </tr>
-            <tr>
-                <td class="w-50">Rate Basis</td>
-                <td class="w-50">{{$quotation->tender->rate_basis}}</td>
-            </tr>
-            <tr>
-                <td class="w-50">Delivery Period</td>
-                <td class="w-50">{{$quotation->delivery_time}}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div>
+        <h3 style="text-decoration: underline;">Terms and Conditions:</h3>
+        <p><strong>Mode of Payment:</strong>  {{$quotation->tender->mop->name}}</p> 
+        <p><strong>Rate Basis:</strong>  {{$quotation->tender->rate_basis}}</p> 
+    </div>
 
 </body>
 </html>

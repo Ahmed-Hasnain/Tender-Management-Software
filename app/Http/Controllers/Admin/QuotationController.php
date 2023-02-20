@@ -204,11 +204,11 @@ class QuotationController extends Controller
             ];
             switch ($company) {
                 case 'OndreTicaretTemplate':
-                    $data['logo'] = "assets/images/logo/saad&co.png";
+                    $data['logo'] = "assets/images/logo/onder-logo.png";
                     $pdf = Pdf::loadView('OndreTicaretTemplate', $data);
                     break;
                 case 'MSaadAndCompanyTemplate':
-                    $data['logo'] = "assets/images/logo/logo.png";
+                    $data['logo'] = "assets/images/logo/saad&co.png";
                     $pdf = Pdf::loadView('MSaadAndCompanyTemplate', $data);
                     break;
                 case 'AscentTemplate':
