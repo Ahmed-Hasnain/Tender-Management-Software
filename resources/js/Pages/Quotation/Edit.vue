@@ -110,7 +110,7 @@
                                             <td class="text-capitalize">{{ item.tender_item?.unit?.full_name }}</td>
                                             <td class="text-capitalize">{{ item.tender_item?.qty }}</td>
                                             <td class="text-capitalize"> 
-                                                <input type="number" class="form-control" id="name" placeholder="Unit Price" v-model="item.unit_price" required>
+                                                <input type="number" step="0.01" class="form-control" id="name" placeholder="Unit Price" v-model="item.unit_price" required>
                                             </td>
                                         </tr>
                                     </tbody>

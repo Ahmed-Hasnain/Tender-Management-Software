@@ -29657,6 +29657,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           key: index
         }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_48, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.id), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_49, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_item$item = item.item) === null || _item$item === void 0 ? void 0 : _item$item.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_50, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_item$unit = item.unit) === null || _item$unit === void 0 ? void 0 : _item$unit.full_name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_51, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.qty), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_52, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
           type: "number",
+          step: "0.01",
           "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", {
             'is-invalid': (_$data$form$errors13 = $data.form.errors) === null || _$data$form$errors13 === void 0 ? void 0 : _$data$form$errors13.reference_no
           }]),
@@ -29998,6 +29999,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           key: index
         }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_48, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.id), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_49, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_item$tender_item = item.tender_item) === null || _item$tender_item === void 0 ? void 0 : (_item$tender_item$ite = _item$tender_item.item) === null || _item$tender_item$ite === void 0 ? void 0 : _item$tender_item$ite.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_50, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_item$tender_item2 = item.tender_item) === null || _item$tender_item2 === void 0 ? void 0 : (_item$tender_item2$un = _item$tender_item2.unit) === null || _item$tender_item2$un === void 0 ? void 0 : _item$tender_item2$un.full_name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_51, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_item$tender_item3 = item.tender_item) === null || _item$tender_item3 === void 0 ? void 0 : _item$tender_item3.qty), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_52, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
           type: "number",
+          step: "0.01",
           "class": "form-control",
           id: "name",
           placeholder: "Unit Price",

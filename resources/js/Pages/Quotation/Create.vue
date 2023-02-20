@@ -110,7 +110,7 @@
                                             <td class="text-capitalize">{{ item.unit?.full_name }}</td>
                                             <td class="text-capitalize">{{ item.qty }}</td>
                                             <td class="text-capitalize">
-                                                <input type="number" class="form-control" id="name"
+                                                <input type="number" step="0.01" class="form-control" id="name"
                                                     placeholder="Unit Price" v-model="form.items[index].unit_price"
                                                     :class="{ 'is-invalid': form.errors?.reference_no }" required>
                                                 {{ this.setTenderItemId(item.id, index) }}
