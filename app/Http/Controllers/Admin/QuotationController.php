@@ -86,6 +86,7 @@ class QuotationController extends Controller
                 'delivery_time' => $request->input('delivery_time'),
                 'validity_of_quotation' => $request->input('validity_of_quotation'),
                 'status' => $request->input('status'),
+                'applied_date' => $request->input('applied_date'),
             ]);
             $quotationItems = $request->input('items');
             if (count($quotationItems) > 0) {
@@ -155,6 +156,7 @@ class QuotationController extends Controller
                 'delivery_time' => $request->input('delivery_time'),
                 'validity_of_quotation' => $request->input('validity_of_quotation'),
                 'status' => $request->input('status'),
+                'applied_date' => $request->input('applied_date'),
             ]);
             $quotationItems = $request->input('items');
             if (count($quotationItems) > 0) {

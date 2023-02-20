@@ -86,7 +86,7 @@
                 <tr>
                     <td style="border: 0px !important;" class="w-33">
                         Our Reference: {{$quotation->reference_no}}<br>
-                        Dated: {{dateFormate($quotation->created_at)}}<br>
+                        Dated: {{dateFormate($quotation->applied_date)}}<br>
                         Validity: {{$quotation->validity_of_quotation}}
                     </td>
                     <td style="border: 0px !important; vertical-align: top; text-align: center;" class="w-33" >
@@ -152,6 +152,5 @@
         <p><strong>Mode of Payment:</strong>  {{$quotation->tender->mop->name}}</p> 
         <p><strong>Rate Basis:</strong>  {{$quotation->tender->rate_basis}}</p> 
     </div>
-
 </body>
 </html>

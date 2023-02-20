@@ -68,7 +68,7 @@
                     </td>
                     <td style="text-align: right; border: 0px !important;">
                         STRN: 3277876141811<br><br>
-                        Dated: {{dateFormate($quotation->created_at)}}<br>
+                        Dated: {{dateFormate($quotation->applied_date)}}<br>
                         Dated: {{dateFormate($quotation->tender->rfq_date)}}<br>
                         Validity: {{$quotation->validity_of_quotation}}
                     </td>
