@@ -53,7 +53,7 @@
 </head>
 <body>
     <div class="header">
-        <img src="assets/images/logo/saad&co.png" alt="Logo" height="100" width="200">
+        <img src="{{public_path($logo)}}" alt="Logo" height="100" width="200">
         <table>
             <tbody>
                 <tr>

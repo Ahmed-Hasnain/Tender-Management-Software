@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Invoice</title>
+    <title>Quotation</title>
     <style>
         /* Define your CSS styles here */
         body {
@@ -53,12 +53,12 @@
 </head>
 <body>
     <div class="header">
-        <img src="assets/images/logo/saad&co.png" alt="Logo" height="100" width="200">
+        <img src="{{public_path($logo)}}" alt="Logo" height="100" width="200">
         <table>
             <tbody>
                 <tr>
                     <td style="border: 0px !important;">
-                        NTN: 12345678<br>
+                        NTN: 7881680-2<br>
                         Our Reference: {{$quotation->reference_no}}<br>
                         Customer Reference: {{$quotation->tender->reference_no}}<br>
                         File Name: {{$quotation->tender->file_name}}
@@ -67,7 +67,7 @@
                         Quotation
                     </td>
                     <td style="text-align: right; border: 0px !important;">
-                        STRN: 123456789<br>
+                        STRN: 3277876141811<br>
                         Dated: {{dateFormate($quotation->created_at)}}<br>
                         RFQ Date: {{dateFormate($quotation->tender->rfq_date)}}<br>
                         Validity: {{$quotation->validity_of_quotation}}

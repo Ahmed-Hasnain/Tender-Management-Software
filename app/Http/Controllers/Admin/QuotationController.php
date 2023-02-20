@@ -197,14 +197,26 @@ class QuotationController extends Controller
 
     public function downloadQuotation($quotationId, $company) 
     {
-        // dd($quotationId, $company);
         try {
             $quotation = Quotation::with('tender.client', 'tender.mop', 'items.tenderItem.item', 'items.tenderItem.unit')->findOrFail($quotationId);
             $data = [
                 'quotation' => $quotation,
             ];
-            return view($company, $data);
-            $pdf = Pdf::loadView($company, $data);
+            switch ($company) {
+                case 'OndreTicaretTemplate':
+                    $data['logo'] = "assets/images/logo/saad&co.png";
+                    $pdf = Pdf::loadView('OndreTicaretTemplate', $data);
+                    break;
+                case 'MSaadAndCompanyTemplate':
+                    $data['logo'] = "assets/images/logo/logo.png";
+                    $pdf = Pdf::loadView('MSaadAndCompanyTemplate', $data);
+                    break;
+                case 'AscentTemplate':
+                    $data['logo'] = "assets/images/logo/logo-fold.png";
+                    $pdf = Pdf::loadView('AscentTemplate', $data);
+                    break;
+            }
+            // return view($company, $data);
             return $pdf->download('quotation.pdf');
         } catch (\Throwable $th) {
             Log::info($th->getMessage());
