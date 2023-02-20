@@ -102,7 +102,18 @@
         </div>
         <div class="card">
             <div class="card-body">
-                <a :href="route('dashboard.downloadQuotation', quotation.id)" class="btn btn-primary">Download Pdf</a>
+                <div class="form-row">
+                    <div class="form-group col-md-10">
+                        <select class="form-control" v-model="company">
+                            <option value="OndreTicaretTemplate" class="text-capitalize">Ondre Ticaret</option>
+                            <option value="MSaadAndCompanyTemplate" class="text-capitalize">M Saad and Company</option>
+                            <option value="AscentTemplate" class="text-capitalize">Ascent</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2 text-right">
+                        <a :href="route('dashboard.downloadQuotation', [quotation.id, company])" class="btn btn-primary btn-">Download Pdf</a>
+                    </div>
+                </div>
             </div>
         </div>
     </AuthenticatedLayout>
@@ -122,19 +133,11 @@ export default {
         Error,
     },
     data() {
-        return {};
+        return {
+            company: 'OndreTicaretTemplate',
+        };
     },
     methods: {
-        downloadPdf() {
-            this.$inertia.post(route('dashboard.quotation.download'), {
-                quotation: this.quotation
-            }, {
-                errorBag: 'pdf',
-                preserveScroll: true,
-                onSuccess: () => { },
-                onError: errors => { console.log(errors); }
-            })
-        }
     },
     mounted() {
         console.log(this.quotation);

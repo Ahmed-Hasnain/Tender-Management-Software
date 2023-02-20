@@ -195,15 +195,16 @@ class QuotationController extends Controller
         }
     }
 
-    public function downloadQuotation($quotationId) 
+    public function downloadQuotation($quotationId, $company) 
     {
+        // dd($quotationId, $company);
         try {
             $quotation = Quotation::with('tender.client', 'tender.mop', 'items.tenderItem.item', 'items.tenderItem.unit')->findOrFail($quotationId);
             $data = [
                 'quotation' => $quotation,
             ];
-            // return view('MSaadAndCompanyTemplate', $data);
-            $pdf = Pdf::loadView('MSaadAndCompanyTemplate', $data);
+            return view($company, $data);
+            $pdf = Pdf::loadView($company, $data);
             return $pdf->download('quotation.pdf');
         } catch (\Throwable $th) {
             Log::info($th->getMessage());
