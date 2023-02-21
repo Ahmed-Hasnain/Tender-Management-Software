@@ -1,5 +1,4 @@
 <template>
-
     <Head title="Add Quotation" />
     <AuthenticatedLayout>
         <form v-if="form" @submit.prevent="submit">

@@ -45,6 +45,15 @@
         .w-10 {
             width: 10%;
         }
+        .w-20 {
+            width: 20%;
+        }
+        .w-33 {
+            width: 33%;
+        }
+        .w-77 {
+            width: 77%;
+        }
         table thead tr th{
             border: 0px !important;
             background-color: white;
@@ -53,24 +62,83 @@
 </head>
 <body>
     <div class="header">
-        <img src="{{public_path($logo)}}" alt="Logo" height="100" width="200">
         <table>
             <tbody>
-                <tr>
-                    <td style="border: 0px !important;">
-                        NTN: 12345678<br>
-                        Our Reference: {{$quotation->reference_no}}<br>
-                        Customer Reference: {{$quotation->tender->reference_no}}<br>
-                        File Name: {{$quotation->tender->file_name}}
+                <tr style="border-bottom: 4px solid #894e3c !important;">
+                    <td style="border: 0px !important; width: 45%;">
+                        <img src="{{public_path($logo)}}" alt="Logo" height="100" width="150">
+                        <p><strong style="text-align: left;">NTN # 5599160-8</strong></p>
                     </td>
-                    <td style="border: 0px !important; vertical-align: top; text-align: center;">
+                    <td style="border: 0px !important; width: 30%; vertical-align: middle; text-align: left; font-size: 20px">
                         Quotation
                     </td>
-                    <td style="text-align: right; border: 0px !important;">
-                        STRN: 123456789<br>
-                        Dated: {{dateFormate($quotation->created_at)}}<br>
-                        RFQ Date: {{dateFormate($quotation->tender->rfq_date)}}<br>
-                        Validity: {{$quotation->validity_of_quotation}}
+                    <td style="text-align: justify; width: 25%; margin-right: -80px !important; border: 0px !important">
+                        <div style="border-left: 3px solid #323653 !important; padding-left: 8px !important">
+                            <span style="color:#323653"><i class="anticon anticon-deployment-unit"></i> Tel: +92 51 2813153</span><br>
+                            <span style="color:#323653"><i class="anticon anticon-deployment-unit"></i> Fax: +92 51 2813154</span><br>
+                            <span style="color:#323653"><i class="anticon anticon-deployment-unit"></i> House # 35, Khyber Road,</span><br> 
+                            <span style="color:#323653">Block B, Soan Garden, Islamabad</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table style="padding-top: 20px;">
+            <tbody>
+                <tr>
+                    <td style="border: 0px !important;" class="w-50">
+                        <table style="margin-top: 10px;"> 
+                            <tbody>
+                                <tr>
+                                    <td colspan="2" style="text-align: center; font-weight: bold;">
+                                        Customer Information
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="w-33">Name</td>
+                                    <td class="w-77">{{$quotation->tender->client->name}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="w-33">Reference</td>
+                                    <td class="w-77">{{$quotation->reference_no}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="w-33">Date</td>
+                                    <td class="w-77">{{dateFormate($quotation->applied_date)}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="w-33">Validity</td>
+                                    <td class="w-77">{{$quotation->validity_of_quotation}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td style="text-align: justify; border: 0px !important;" class="w-50">  
+                        <table style="margin-top: 10px;"> 
+                            <tbody>
+                                <tr>
+                                    <td colspan="2" style="text-align: center; font-weight: bold;">
+                                        Our Information
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="w-33">File Name</td>
+                                    <td class="w-77">{{$quotation->tender->file_name}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="w-33">Reference</td>
+                                    <td class="w-77">{{$quotation->tender->reference_no}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="w-33">Date</td>
+                                    <td class="w-77">{{dateFormate($quotation->tender->rfq_date)}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="w-33">Delivery Time</td>
+                                    <td class="w-77">{{$quotation->delivery_time}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </td>
                 </tr>
             </tbody>
@@ -82,8 +150,8 @@
             <tr>
                 <th class="w-5">Sr.</th>
                 <th class="w-50">Description</th>
+                <th class="w-5">UOM</th>
                 <th class="w-5">Qty</th>
-                <th class="w-5">A/U</th>
                 <th>Unit Price</th>
                 <th>Total Amount</th>
             </tr>
@@ -94,8 +162,8 @@
                     <tr>
                         <td>{{$key+1}}</td>
                         <td class="w-50">{{$item->tenderItem?->item?->name}}<br> <small> {{$item->tenderItem?->description}}</small></td>
-                        <td class="w-5">{{$item->tenderItem?->qty}}</td>
                         <td class="w-5">{{$item->tenderItem?->unit?->short_name}}</td>
+                        <td class="w-5">{{$item->tenderItem?->qty}}</td>
                         <td>{{$quotation->currency}} {{numberFormate($item->unit_price)}}</td>
                         <td>{{$quotation->currency}}  {{numberFormate($item->total_price)}}</td>
                     </tr>
@@ -122,27 +190,11 @@
         </tfoot>
     </table>
     <br>
-    <table style="margin-top: 30px;"> 
-        <tbody>
-            <tr>
-                <td colspan="2" style="text-align: center; font-weight: bold;">
-                    Terms and Conditions
-                </td>
-            </tr>
-            <tr>
-                <td class="w-50">Mode of Payment</td>
-                <td class="w-50">{{$quotation->tender->mop->name}}</td>
-            </tr>
-            <tr>
-                <td class="w-50">Rate Basis</td>
-                <td class="w-50">{{$quotation->tender->rate_basis}}</td>
-            </tr>
-            <tr>
-                <td class="w-50">Delivery Period</td>
-                <td class="w-50">{{$quotation->delivery_time}}</td>
-            </tr>
-        </tbody>
-    </table>
-
+    <div>
+        <h3 style="text-decoration: underline;">Terms and Conditions:</h3>
+        <p><strong>Payment Terms:</strong>  100% Against Delivery</p> 
+        <p>Above Prices are Ex-Works Prices</p> 
+        <p>Above prices are valid till availability of stock.</p> 
+    </div>
 </body>
 </html>

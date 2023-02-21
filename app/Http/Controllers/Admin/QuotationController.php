@@ -214,7 +214,7 @@ class QuotationController extends Controller
                     $pdf = Pdf::loadView('MSaadAndCompanyTemplate', $data);
                     break;
                 case 'AscentTemplate':
-                    $data['logo'] = "assets/images/logo/logo-fold.png";
+                    $data['logo'] = "assets/images/logo/ascent.png";
                     $pdf = Pdf::loadView('AscentTemplate', $data);
                     break;
             }
