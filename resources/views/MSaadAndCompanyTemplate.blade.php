@@ -6,7 +6,7 @@
     <style>
         /* Define your CSS styles here */
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Courier New", Courier, monospace !important;
             font-size: 12px;
         }
         table {
@@ -53,24 +53,44 @@
 </head>
 <body>
     <div class="header">
-        <img src="{{public_path($logo)}}" alt="Logo" height="100" width="200">
         <table>
+            <tbody>
+                <tr>
+                    <td style="border: 0px !important; width: 72%;">
+                        <img src="{{public_path($logo)}}" alt="Logo" height="100" width="200">
+                    </td>
+                    <td style="width: 28%; border: 0px !important">
+                        <div>
+                            <span style="color:#323653">Tel: +92 51 2745668</span><br>
+                            <span style="color:#323653">Fax: +92 51 2745778</span><br>
+                            <span style="color:#323653">Email: msaadandcom@gmail.com</span><br>
+                            <span style="color:#323653">Office # 18, 3<sup>rd</sup> Floor,</span><br> 
+                            <span style="color:#323653">Gulberg Trade Center,</span><br> 
+                            <span style="color:#323653">Business Park,</span><br> 
+                            <span style="color:#323653">Gulberg Greens, Islamabad</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        {{-- <img src="{{public_path($logo)}}" alt="Logo" height="100" width="200"> --}}
+        <table style="padding-top: 20px;">
             <tbody>
                 <tr>
                     <td style="border: 0px !important;">
                         NTN: 7881680-2<br><br>
-                        Our Reference: {{$quotation->reference_no}}<br>
-                        Customer Reference: {{$quotation->tender->reference_no}}<br>
-                        File Name: {{$quotation->tender->file_name}}
+                        <strong>Our Reference:</strong> {{$quotation->reference_no}}<br>
+                        <strong>Customer Reference:</strong> {{$quotation->tender->reference_no}}<br>
+                        <strong>File Name:</strong> {{$quotation->tender->file_name}}
                     </td>
                     <td style="border: 0px !important; vertical-align: top; text-align: center;">
                         Quotation<br>
                     </td>
                     <td style="text-align: right; border: 0px !important;">
                         STRN: 3277876141811<br><br>
-                        Dated: {{dateFormate($quotation->applied_date)}}<br>
-                        Dated: {{dateFormate($quotation->tender->rfq_date)}}<br>
-                        Validity: {{$quotation->validity_of_quotation}}
+                        <strong>Dated:</strong> {{dateFormate($quotation->applied_date)}}<br>
+                        <strong>Dated:</strong> {{dateFormate($quotation->tender->rfq_date)}}<br>
+                        <strong>Validity:</strong> {{$quotation->validity_of_quotation}}
                     </td>
                 </tr>
             </tbody>

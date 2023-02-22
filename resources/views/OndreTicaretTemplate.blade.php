@@ -71,7 +71,7 @@
                         <span style="color:#5598cc">Avenue, Blue Area,</span><br> 
                         <span style="color:#5598cc">Islamabad, Pakistan</span><br>
                         <span style="color:#c9cc77">Tel: +92 51 2813153</span><br>
-                        <span style="color:#c9cc77">Fax: +92 51 2813154</span>
+                        <span style="color:#c9cc77">Fax: +92 51 8444066</span>
                     </td>
                 </tr>
             </tbody>
@@ -85,17 +85,19 @@
                 </tr>
                 <tr>
                     <td style="border: 0px !important;" class="w-33">
-                        Our Reference: {{$quotation->reference_no}}<br>
-                        Dated: {{dateFormate($quotation->applied_date)}}<br>
-                        Validity: {{$quotation->validity_of_quotation}}
+                        NTN: 7354447-7<br><br>
+                        <strong>Our Reference:</strong> {{$quotation->reference_no}}<br>
+                        <strong>Dated:</strong> {{dateFormate($quotation->applied_date)}}<br>
+                        <strong>Validity:</strong> {{$quotation->validity_of_quotation}}
                     </td>
                     <td style="border: 0px !important; vertical-align: top; text-align: center;" class="w-33" >
                         Quotation
                     </td>
                     <td style="text-align: justify; border: 0px !important;" class="w-33">  
-                        Customer Reference: {{$quotation->tender->reference_no}}<br>
-                        RFQ Date: {{dateFormate($quotation->tender->rfq_date)}}<br>
-                        Delivery Period: {{$quotation->delivery_time}}
+                        STRN: 3277876132361<br><br>
+                        <strong>Customer Reference:</strong> {{$quotation->tender->reference_no}}<br>
+                        <strong>RFQ Date:</strong> {{dateFormate($quotation->tender->rfq_date)}}<br>
+                        <strong>Delivery Period:</strong> {{$quotation->delivery_time}}
                     </td>
                 </tr>
             </tbody>

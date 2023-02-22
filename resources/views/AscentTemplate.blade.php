@@ -6,7 +6,7 @@
     <style>
         /* Define your CSS styles here */
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Arial Narrow", Arial, sans-serif !important;
             font-size: 12px;
         }
         table {
@@ -74,10 +74,11 @@
                     </td>
                     <td style="text-align: justify; width: 25%; margin-right: -80px !important; border: 0px !important">
                         <div style="border-left: 3px solid #323653 !important; padding-left: 8px !important">
-                            <span style="color:#323653"><i class="anticon anticon-deployment-unit"></i> Tel: +92 51 2813153</span><br>
-                            <span style="color:#323653"><i class="anticon anticon-deployment-unit"></i> Fax: +92 51 2813154</span><br>
-                            <span style="color:#323653"><i class="anticon anticon-deployment-unit"></i> House # 35, Khyber Road,</span><br> 
-                            <span style="color:#323653">Block B, Soan Garden, Islamabad</span>
+                            <span style="color:#323653">Tel: +92 318 3788114</span><br>
+                            <span style="color:#323653">Fax: +92 51 8772576</span><br>
+                            <span style="color:#323653">Office # 18, 3<sup>rd</sup> Floor,</span><br> 
+                            <span style="color:#323653">Gulberg Trade Center, Business Park,</span><br> 
+                            <span style="color:#323653">Gulberg Greens, Islamabad</span>
                         </div>
                     </td>
                 </tr>
@@ -95,19 +96,19 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="w-33">Name</td>
+                                    <td class="w-33"><strong>Name</strong></td>
                                     <td class="w-77">{{$quotation->tender->client->name}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="w-33">Reference</td>
+                                    <td class="w-33"><strong>Reference</strong></td>
                                     <td class="w-77">{{$quotation->reference_no}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="w-33">Date</td>
+                                    <td class="w-33"><strong>Date</strong></td>
                                     <td class="w-77">{{dateFormate($quotation->applied_date)}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="w-33">Validity</td>
+                                    <td class="w-33"><strong>Validity</strong></td>
                                     <td class="w-77">{{$quotation->validity_of_quotation}}</td>
                                 </tr>
                             </tbody>
@@ -122,19 +123,19 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="w-33">File Name</td>
+                                    <td class="w-33"><strong>File Name</strong></td>
                                     <td class="w-77">{{$quotation->tender->file_name}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="w-33">Reference</td>
+                                    <td class="w-33"><strong>Reference</strong></td>
                                     <td class="w-77">{{$quotation->tender->reference_no}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="w-33">Date</td>
+                                    <td class="w-33"><strong>Date</strong></td>
                                     <td class="w-77">{{dateFormate($quotation->tender->rfq_date)}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="w-33">Delivery Time</td>
+                                    <td class="w-33"><strong>Delivery Time</strong></td>
                                     <td class="w-77">{{$quotation->delivery_time}}</td>
                                 </tr>
                             </tbody>
