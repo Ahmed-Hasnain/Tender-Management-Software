@@ -39,7 +39,7 @@ class QuotationController extends Controller
                 $query->when($keyword, function ($subQuery) use ($keyword){
                     $subQuery->where('reference_no', 'like', '%' . $keyword . '%')
                     ->orWhere('total_price', 'like', '%' . $keyword . '%')
-                    ->orWhere('status', 'like', '%' . $keyword . '%')
+                    ->orWhere('status', 'like', '%' . str_replace(" ", "_", $keyword) . '%')
                     ->orWhereHas('tender', function($query) use ($keyword){
                         $query->where('reference_no', 'like', '%' . $keyword . '%');
                     });
