@@ -1,5 +1,4 @@
 <template>
-
     <Head title="Add Quotation" />
     <AuthenticatedLayout>
         <form v-if="form" @submit.prevent="submit">
@@ -10,11 +9,18 @@
                 <div class="card-body">
                     <div>
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-12">
                                 <label class="font-weight-semibold" for="Name">Reference Number:</label>
                                 <input type="text" class="form-control" placeholder="Reference Number"
                                     v-model="form.reference_no" :class="{ 'is-invalid': form.errors?.reference_no }">
                                 <error :message="form.errors?.reference_no"></error>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-semibold" for="date">Applied Date:</label>
+                                <Datepicker v-model="form.applied_date" :enable-time-picker="false"></Datepicker>
+                                <error :message="form.errors?.applied_date"></error>
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="font-weight-semibold" for="currency">Currency:</label>
@@ -103,9 +109,9 @@
                                             <td class="text-capitalize">{{ item.unit?.full_name }}</td>
                                             <td class="text-capitalize">{{ item.qty }}</td>
                                             <td class="text-capitalize">
-                                                <input type="number" class="form-control" id="name"
+                                                <input type="number" step="0.01" class="form-control" id="name"
                                                     placeholder="Unit Price" v-model="form.items[index].unit_price"
-                                                    :class="{ 'is-invalid': form.errors?.reference_no }">
+                                                    :class="{ 'is-invalid': form.errors?.reference_no }" required>
                                                 {{ this.setTenderItemId(item.id, index) }}
                                             </td>
                                         </tr>
@@ -133,13 +139,16 @@
 import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { Head, useForm } from '@inertiajs/inertia-vue3';
 import Error from '@/Components/InputError.vue'
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
 export default {
     props: ['tender_items', 'currencies'],
     components: {
         AuthenticatedLayout,
         Head,
-        Error
+        Error,
+        Datepicker
     },
     data() {
         return {
@@ -179,6 +188,7 @@ export default {
             delivery_time: null,
             validity_of_quotation: null,
             status: 'quotation_in_process',
+            applied_date: null,
         })
         this.addItems()
     },

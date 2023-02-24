@@ -42,7 +42,7 @@
                             <div class="text-dark text-uppercase d-inline-block">
                                 <span class="font-weight-semibold text-dark">Date :</span>
                             </div>
-                            <div class="float-right">{{ formatDate(quotation.created_at) }}</div>
+                            <div class="float-right">{{ formatDate(quotation.applied_date) }}</div>
                         </div>
                     </div>
                     <div class="m-t-20">
@@ -59,7 +59,7 @@
                                 </thead>
                                 <tbody v-if="quotation.items.length > 0">
                                     <tr v-for="(item, index) in quotation.items" :key="index">
-                                        <th>{{ index }}</th>
+                                        <th>{{ index+1 }}</th>
                                         <td>{{ item.tender_item?.item?.name }}<br><small>{{ item.tender_item?.description }}</small></td>
                                         <td>{{ item.tender_item?.qty }}</td>
                                         <td>{{ quotation.currency }} {{ formatNumber(item.unit_price) }} </td>
@@ -102,7 +102,18 @@
         </div>
         <div class="card">
             <div class="card-body">
-                <a :href="route('dashboard.downloadQuotation', quotation.id)" class="btn btn-primary">Download Pdf</a>
+                <div class="form-row">
+                    <div class="form-group col-md-10">
+                        <select class="form-control" v-model="company">
+                            <option value="OndreTicaretTemplate" class="text-capitalize">Ondre Ticaret</option>
+                            <option value="MSaadAndCompanyTemplate" class="text-capitalize">M Saad and Company</option>
+                            <option value="AscentTemplate" class="text-capitalize">Ascent</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2 text-right">
+                        <a :href="route('dashboard.downloadQuotation', [quotation.id, company])" class="btn btn-primary btn-">Download Pdf</a>
+                    </div>
+                </div>
             </div>
         </div>
     </AuthenticatedLayout>
@@ -122,22 +133,14 @@ export default {
         Error,
     },
     data() {
-        return {};
+        return {
+            company: 'OndreTicaretTemplate',
+        };
     },
     methods: {
-        downloadPdf() {
-            this.$inertia.post(route('dashboard.quotation.download'), {
-                quotation: this.quotation
-            }, {
-                errorBag: 'pdf',
-                preserveScroll: true,
-                onSuccess: () => { },
-                onError: errors => { console.log(errors); }
-            })
-        }
     },
     mounted() {
-        console.log(this.quotation.id);
+        console.log(this.quotation);
     },
     mixins: [Helpers]
 };
