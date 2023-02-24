@@ -43,7 +43,7 @@ export default {
             if (isNaN(num)) {
                 return NaN;
             }
-            return num.toFixed(2);
+            return num.toFixed(2);  
         },
 
         //calculate tax
@@ -64,5 +64,8 @@ export default {
             return moment().format("DD-MM-YYYY");
         },
         
+        removeDashes(str) {
+            return str.replace(/_/g, " ");
+        }
     }
 }
