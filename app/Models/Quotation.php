@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Quotation extends Model
 {
@@ -23,8 +24,16 @@ class Quotation extends Model
         'delivery_time',
         'validity_of_quotation',
         'status',
-        'tax'
+        'tax',
+        'applied_date'
     ];
+
+    protected function appliedDate(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => setDateValues($value),
+        );
+    }
 
     public function tender() 
     {
