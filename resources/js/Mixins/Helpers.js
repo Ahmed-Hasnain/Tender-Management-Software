@@ -34,9 +34,16 @@ export default {
 
         //to formate amount formate
         formatNumber(number) {
-            number = parseFloat(number)
-            number.toFixed(2)
-            return number.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+            let num = this.convertToTwoDecimalPlaces(number)
+            return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+        },
+        
+        convertToTwoDecimalPlaces(numStr) {
+            const num = parseFloat(numStr);
+            if (isNaN(num)) {
+                return NaN;
+            }
+            return num.toFixed(2);
         },
 
         //calculate tax
@@ -55,6 +62,7 @@ export default {
         // current date
         getCurrentDate() {
             return moment().format("DD-MM-YYYY");
-        }
+        },
+        
     }
 }

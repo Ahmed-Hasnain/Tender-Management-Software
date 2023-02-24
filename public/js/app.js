@@ -33933,9 +33933,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     },
     //to formate amount formate
     formatNumber: function formatNumber(number) {
-      number = parseFloat(number);
-      number.toFixed(2);
-      return number.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+      var num = this.convertToTwoDecimalPlaces(number);
+      return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+    },
+    convertToTwoDecimalPlaces: function convertToTwoDecimalPlaces(numStr) {
+      var num = parseFloat(numStr);
+      if (isNaN(num)) {
+        return NaN;
+      }
+      return num.toFixed(2);
     },
     //calculate tax
     calculateTax: function calculateTax(amount, tax) {
