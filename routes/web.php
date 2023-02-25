@@ -92,6 +92,10 @@ Route::middleware(['auth', 'verified'])
         Route::group(['middleware' => ['can:view_currency']], function () {
             Route::resource('/currency', Admin\CurrencyController::class);
         });
+        //supply Order
+        Route::group(['middleware' => ['can:view_supply_order']], function () {
+            Route::resource('/supply-order', Admin\SupplyOrderController::class);
+        });
 });
 
 require __DIR__.'/auth.php';

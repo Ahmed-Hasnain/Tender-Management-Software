@@ -42,9 +42,6 @@
                                             <td class="text-capitalize">{{ quotation.currency }} {{ formatNumber(quotation.total_price) }}</td>
                                             <td class="text-capitalize">{{ removeDashes(quotation.status) }}</td>
                                             <td class="text-right">
-                                                <button @click="quotation.supply_order ? showSupplyOrder(quotation.supply_order.id) : addSupplyOrder(quotation.id) " class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('add_supply_order')">
-                                                    <i class="anticon anticon-audit"></i>
-                                                </button>
                                                 <button @click="show(quotation.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('view_quotation')">
                                                     <i class="anticon anticon-eye"></i>
                                                 </button>
@@ -120,18 +117,6 @@ export default {
                         onError: errors => {console.log(errors);}
                     })
                 }
-            })
-        },
-        addSupplyOrder(id) {
-            this.$inertia.get(route('dashboard.supply-order.create'), {quotation_id: id}, {
-                onSuccess: () => {},
-                onError: errors => {console.log(errors);}
-            })
-        },
-        showSupplyOrder(id) {
-            this.$inertia.get(route('dashboard.supply-order.show', id), {
-                onSuccess: () => {},
-                onError: errors => {console.log(errors);}
             })
         }
     },
