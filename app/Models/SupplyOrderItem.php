@@ -16,7 +16,7 @@ class SupplyOrderItem extends Model
         'unit_price',
     ];
 
-    public function suppyOrder() 
+    public function supplyOrder() 
     {
         return $this->belongsTo(SupplyOrder::class);
     }

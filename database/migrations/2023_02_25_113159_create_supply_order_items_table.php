@@ -19,6 +19,7 @@ class CreateSupplyOrderItemsTable extends Migration
             $table->unsignedBigInteger('quotation_item_id')->nullable();
             $table->string('qty')->nullable();
             $table->string('unit_price')->nullable();
+            $table->string('total')->nullable();
             $table->timestamps();
 
             $table->foreign('supply_order_id')->references('id')->on('supply_orders');

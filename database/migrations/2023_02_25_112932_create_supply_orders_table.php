@@ -19,6 +19,8 @@ class CreateSupplyOrdersTable extends Migration
             $table->unsignedBigInteger('quotation_id')->nullable();
             $table->dateTime('date_of_supply_order')->default(Carbon::now())->nullable();
             $table->dateTime('delivery_date')->default(Carbon::now())->nullable();
+            $table->string('total_price')->nullable();
+            $table->string('total_price_plus_tax')->nullable();
             $table->timestamps();
 
             $table->foreign('quotation_id')->references('id')->on('quotations');

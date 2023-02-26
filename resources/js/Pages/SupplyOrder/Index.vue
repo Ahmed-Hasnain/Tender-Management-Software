@@ -1,9 +1,9 @@
 <template>
-    <Head title="Quotations" />
+    <Head title="Supply Orders" />
     <AuthenticatedLayout>
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">All Quotations</h4>
+                <h4 class="card-title">All Supply Orders</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -15,7 +15,7 @@
                             <div class="col-sm-12 col-md-6">
                                 <div id="DataTables_Table_0_filter" class="dataTables_filter">
                                     <label>Search:
-                                        <search :url="'dashboard.quotation.index'" :searchedKeyword="searchedKeyword"></search>
+                                        <search :url="'dashboard.supply-order.index'" :searchedKeyword="searchedKeyword"></search>
                                     </label>
                                 </div>
                             </div>
@@ -23,32 +23,30 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="table table-hover e-commerce-table dataTable no-footer"
-                                    id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" v-if="allQuotations?.data.length > 0">
+                                    id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" v-if="allSupplyOrder?.data.length > 0">
                                     <thead>
                                         <tr role="row">
                                             <th style="width: 70px;">ID</th>
                                             <th style="width: 225.188px;">Quotaion Reference#</th>
                                             <th style="width: 225.188px;">Tender Reference#</th>
                                             <th style="width: 225.188px;">Total Price</th>
-                                            <th style="width: 225.188px;">Status</th>
                                             <th class="text-right" style="width: 150px;">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr role="row" class="odd" v-for="(quotation, index) in allQuotations.data" :key="index">
-                                            <td>{{ quotation.id }}</td>
-                                            <td class="text-capitalize">{{ quotation.reference_no }}</td>
-                                            <td class="text-capitalize">{{ quotation.tender?.reference_no }}</td>
-                                            <td class="text-capitalize">{{ quotation.currency }} {{ formatNumber(quotation.total_price) }}</td>
-                                            <td class="text-capitalize">{{ removeDashes(quotation.status) }}</td>
+                                        <tr role="row" class="odd" v-for="(supplyOrder, index) in allSupplyOrder.data" :key="index">
+                                            <td>{{ supplyOrder.id }}</td>
+                                            <td class="text-capitalize">{{ supplyOrder.quotation?.reference_no }}</td>
+                                            <td class="text-capitalize">{{ supplyOrder.quotation?.tender?.reference_no }}</td>
+                                            <td class="text-capitalize">{{ supplyOrder.quotation?.currency }} {{ formatNumber(supplyOrder.total_price) }}</td>
                                             <td class="text-right">
-                                                <button @click="show(quotation.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('view_quotation')">
+                                                <button @click="show(supplyOrder.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('view_supply_order')">
                                                     <i class="anticon anticon-eye"></i>
                                                 </button>
-                                                <button @click="edit(quotation.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('edit_quotation')">
+                                                <button @click="edit(supplyOrder.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('edit_supply_order')">
                                                     <i class="anticon anticon-edit"></i>
                                                 </button>
-                                                <button @click="onDelete(quotation.id)" class="btn btn-icon btn-hover btn-sm btn-rounded" v-if="checkUserPermissions('delete_quotation')">
+                                                <button @click="onDelete(supplyOrder.id)" class="btn btn-icon btn-hover btn-sm btn-rounded" v-if="checkUserPermissions('delete_supply_order')">
                                                     <i class="anticon anticon-delete"></i>
                                                 </button>
                                             </td>
@@ -58,7 +56,7 @@
                                 <div v-else class="pt-3 pl-3">No Data Found.</div>
                             </div>
                         </div>
-                        <pagination :meta="allQuotations" :keyword="searchedKeyword"></pagination>
+                        <pagination :meta="allSupplyOrder" :keyword="searchedKeyword"></pagination>
                     </div>
                 </div>
             </div>
@@ -80,21 +78,21 @@ export default {
         pagination,
         search
     },
-    props: ['quotations', 'searchedKeyword'],
+    props: ['supplyOrder', 'searchedKeyword'],
     data() {
         return{
-            allQuotations: this.quotations
+            allSupplyOrder: this.supplyOrder
         }
     },
     methods: {
         edit($id){
-            this.$inertia.get(route('dashboard.quotation.edit', $id), {
+            this.$inertia.get(route('dashboard.supply-order.edit', $id), {
                 onSuccess: () => {},
                 onError: errors => {console.log(errors);}
             })
         },
         show($id){
-            this.$inertia.get(route('dashboard.quotation.show', $id), {
+            this.$inertia.get(route('dashboard.supply-order.show', $id), {
                 onSuccess: () => {},
                 onError: errors => {console.log(errors);}
             })
@@ -111,7 +109,7 @@ export default {
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    this.$inertia.delete(route('dashboard.quotation.destroy', $id), {
+                    this.$inertia.delete(route('dashboard.supply-order.destroy', $id), {
                         preserveScroll: false,
                         onSuccess: () => {},
                         onError: errors => {console.log(errors);}
@@ -121,9 +119,9 @@ export default {
         }
     },
     watch: {
-        quotations:{
-            handler(quotations) {
-                this.allQuotations = quotations
+        supplyOrder:{
+            handler(supplyOrder) {
+                this.allSupplyOrder = supplyOrder
             },
             deep: true,
         },

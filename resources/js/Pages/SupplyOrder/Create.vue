@@ -1,84 +1,23 @@
 <template>
-    <Head title="Add Quotation" />
+    <Head title="Add Supply Order" />
     <AuthenticatedLayout>
         <form v-if="form" @submit.prevent="submit">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Add Quotation</h4>
+                    <h4 class="card-title">Add Supply Order</h4>
                 </div>
                 <div class="card-body">
                     <div>
                         <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label class="font-weight-semibold" for="Name">Reference Number:</label>
-                                <input type="text" class="form-control" placeholder="Reference Number"
-                                    v-model="form.reference_no" :class="{ 'is-invalid': form.errors?.reference_no }">
-                                <error :message="form.errors?.reference_no"></error>
-                            </div>
-                        </div>
-                        <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="date">Applied Date:</label>
-                                <Datepicker v-model="form.applied_date" :enable-time-picker="false"></Datepicker>
-                                <error :message="form.errors?.applied_date"></error>
+                                <label class="font-weight-semibold" for="date">Date of Supply Order:</label>
+                                <Datepicker v-model="form.date_of_supply_order" :enable-time-picker="false"></Datepicker>
+                                <error :message="form.errors?.date_of_supply_order"></error>
                             </div>
                             <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="currency">Currency:</label>
-                                <select id="language" class="form-control" v-model="form.currency">
-                                    <option v-for="(currency, index) in currencies" :key="index"
-                                        :value="currency.symbol" class="text-capitalize">{{ currency.name }}</option>
-                                </select>
-                                <error :message="form.errors?.currency"></error>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="tax">Tax Percentage:</label>
-                                <input type="text" class="form-control" placeholder="tax" v-model="form.tax"
-                                    :class="{ 'is-invalid': form.errors?.tax }">
-                                <error :message="form.errors?.tax"></error>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="status">Status:</label>
-                                <select class="form-control" v-model="form.status">
-                                    <option value="quotation_in_process" class="text-capitalize">quotation in process</option>
-                                    <option value="quotation_applied" class="text-capitalize">quotation applied</option>
-                                    <option value="quotation_not_applied" class="text-capitalize">quotation not applied</option>
-                                    <option value="quotation_not_qualified" class="text-capitalize">quotation not qualified</option>
-                                    <option value="expected_order" class="text-capitalize">expected order</option>
-                                    <option value="clarification_before_supply_order" class="text-capitalize">clarification before supply order</option>
-                                    <option value="validity_extended" class="text-capitalize">validity extended</option>
-                                    <option value="purchasing_in_process" class="text-capitalize">purchasing in process</option>
-                                    <option value="clarification_after_supply_order" class="text-capitalize">clarification after supply order</option>
-                                    <option value="store_purchased" class="text-capitalize">store purchased</option>
-                                    <option value="store_delivered" class="text-capitalize">store delivered</option>
-                                    <option value="payment_received" class="text-capitalize">payment received</option>
-                                    <option value="supply_regretted" class="text-capitalize">supply regretted</option>
-                                </select>
-                                <error :message="form.errors?.status"></error>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold">Delivery Time:</label>
-                                <input type="text" class="form-control" placeholder="Delivery Time"
-                                    v-model="form.delivery_time" :class="{ 'is-invalid': form.errors?.delivery_time }">
-                                <error :message="form.errors?.delivery_time"></error>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold">Validity of Quotation:</label>
-                                <input type="text" class="form-control" placeholder="Validity of Quotation"
-                                    v-model="form.validity_of_quotation" :class="{ 'is-invalid': form.errors?.validity_of_quotation }">
-                                <error :message="form.errors?.validity_of_quotation"></error>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label class="font-weight-semibold" for="terms_and_conditions">Terms and
-                                    Conditions:</label>
-                                <textarea class="form-control" rows="2" v-model="form.terms_and_conditions"
-                                    :class="{ 'is-invalid': form.errors.terms_and_conditions }"></textarea>
-                                <error :message="form.errors?.terms_and_conditions"></error>
+                                <label class="font-weight-semibold" for="date">Delivery Date:</label>
+                                <Datepicker v-model="form.delivery_date" :enable-time-picker="false"></Datepicker>
+                                <error :message="form.errors?.delivery_date"></error>
                             </div>
                         </div>
                     </div>
@@ -91,28 +30,32 @@
                 <div class="card-body">
                     <div class="form-row">
                         <div class="form-group col-md-12">
-                            <div class="table-responsive" v-if="tender_items.length > 0">
+                            <div class="table-responsive" v-if="quotation_items.length > 0">
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Id</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Unit</th>
-                                            <th scope="col">Quantity</th>
-                                            <th scope="col" style="width: 250px;">Price</th>
+                                            <th scope="col" style="width: 50px;"></th>
+                                            <th scope="col" style="width: 300px;">Name</th>
+                                            <th scope="col" style="width: 100px;">Unit</th>
+                                            <th scope="col" style="width: 100px;">Quantity</th>
+                                            <th scope="col" style="width: 100px;">Price</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(item, index) in tender_items" :key="index">
-                                            <th scope="row">{{ item.id }}</th>
-                                            <td class="text-capitalize">{{ item.item?.name }}</td>
-                                            <td class="text-capitalize">{{ item.unit?.full_name }}</td>
-                                            <td class="text-capitalize">{{ item.qty }}</td>
+                                        <tr v-for="(item, index) in quotation_items" :key="index">
+                                            <td scope="row">
+                                                <input type="checkbox" class="form-control" id="status" v-model="form.items[index].status" style="height: 25px;">
+                                            </td>
+                                            <td class="text-capitalize">{{ item.tender_item?.item?.name }}</td>
+                                            <td class="text-capitalize">{{ item.tender_item?.unit?.full_name }}</td>
+                                            <td class="text-capitalize">
+                                                <input type="number" step="0.01" class="form-control" id="qty"
+                                                placeholder="qty" v-model="form.items[index].qty" required>
+                                            </td>
                                             <td class="text-capitalize">
                                                 <input type="number" step="0.01" class="form-control" id="name"
-                                                    placeholder="Unit Price" v-model="form.items[index].unit_price"
-                                                    :class="{ 'is-invalid': form.errors?.reference_no }" required>
-                                                {{ this.setTenderItemId(item.id, index) }}
+                                                placeholder="Unit Price" v-model="form.items[index].unit_price"
+                                                :class="{ 'is-invalid': form.errors?.reference_no }" required>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -143,7 +86,7 @@ import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 
 export default {
-    props: ['tender_items', 'currencies'],
+    props: ['quotation_items', 'quotation_id'],
     components: {
         AuthenticatedLayout,
         Head,
@@ -157,40 +100,33 @@ export default {
     },
     methods: {
         submit() {
-            this.form.tender_id = this.tender_items[0].tender_id
-            this.form.post(route('dashboard.quotation.store'), {
-                errorBag: 'quotation',
+            this.form.quotation_id = this.quotation_id
+            this.form.post(route('dashboard.supply-order.store'), {
+                errorBag: 'supply-order',
                 preserveScroll: true,
                 onSuccess: () => { },
                 onError: errors => { console.log(errors); }
             })
         },
         addItems() {
-            this.tender_items.forEach((val, index) => {
+            this.quotation_items.forEach((val, index) => {
                 this.form.items.push({
-                    tender_item_id: null,
-                    unit_price: null,
+                    quotation_item_id: val.id,
+                    unit_price: val.unit_price,
+                    status: false,
+                    qty: val.tender_item.qty,
                 })
             })
         },
-        setTenderItemId(id, index) {
-            this.form.items[index].tender_item_id = id
-        }
     },
     mounted() {
         this.form = useForm({
-            reference_no: null,
-            currency: null,
-            terms_and_conditions: null,
-            tender_id: null,
+            date_of_supply_order: null,
+            delivery_date: null,
+            quotation_id: null,
             items: [],
-            tax: null,
-            delivery_time: null,
-            validity_of_quotation: null,
-            status: 'quotation_in_process',
-            applied_date: null,
         })
-        // this.addItems()
+        this.addItems()
     },
 }
 </script>
