@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SupplyOrderRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class SupplyOrderController extends Controller
 {
@@ -106,7 +107,9 @@ class SupplyOrderController extends Controller
      */
     public function show(SupplyOrder $supplyOrder)
     {
-        //
+        return Inertia::render('SupplyOrder/Show', [
+            'supplyOrder' => $supplyOrder->load('items.quotationItem.tenderItem.item', 'items.quotationItem.tenderItem.unit', 'quotation.tender.items.item', 'quotation.tender.items.unit'),
+        ]);
     }
 
     /**
@@ -119,6 +122,7 @@ class SupplyOrderController extends Controller
     {
         return Inertia::render('SupplyOrder/Edit', [
             'supplyOrder' => $supplyOrder->load('items.quotationItem.tenderItem.item', 'items.quotationItem.tenderItem.unit', 'quotation.tender.items.item', 'quotation.tender.items.unit'),
+            'quotation_items' => Quotation::find($supplyOrder->quotation_id)->items()->with('quotation' , 'tenderItem.item', 'tenderItem.unit')->get(),
         ]);
     }
 
@@ -131,7 +135,35 @@ class SupplyOrderController extends Controller
      */
     public function update(SupplyOrderRequest $request, SupplyOrder $supplyOrder)
     {
-        //
+        try{
+            DB::beginTransaction();
+            $supplyOrder->update([
+                'date_of_supply_order' => $request->input('date_of_supply_order'),
+                'delivery_date' => $request->input('delivery_date'),
+            ]);
+            if ($supplyOrder->items()->count() > 0) {
+                $supplyOrder->items()->delete();
+            }
+            $supplyOrderItems = $request->input('items');
+            if (count($supplyOrderItems) > 0) {
+                foreach ($supplyOrderItems as $key => $supplyOrderItem) {
+                    if ($supplyOrderItem['status']) {
+                        $supplyOrder->items()->create([
+                            'quotation_item_id' => $supplyOrderItem['quotation_item_id'],
+                            'unit_price' => $supplyOrderItem['unit_price'],
+                            'qty' => $supplyOrderItem['qty'],
+                        ]);
+                    }
+                }
+            }
+            DB::commit();
+            flash('Supply Order Edited Sucessfully!', 'success');
+            return \redirect(route('dashboard.supply-order.index'));          
+        }catch (\Exception $e) {
+            DB::rollBack();
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 
     /**
@@ -142,6 +174,16 @@ class SupplyOrderController extends Controller
      */
     public function destroy(SupplyOrder $supplyOrder)
     {
-        //
+        try {           
+            $supplyOrder->delete();
+            flash('Supply Order deleted succesfully', 'success');
+            return \redirect()->back();
+        } catch (ModelNotFoundException $e) {
+            flash('Unable to find this supply order', 'danger');
+            return \redirect()->back();
+        } catch (\Exception $e) {
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 }

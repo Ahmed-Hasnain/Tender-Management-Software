@@ -1,10 +1,10 @@
 <template>
-    <Head title="Edit Supply Order" />
+    <Head title="Add Supply Order" />
     <AuthenticatedLayout>
         <form v-if="form" @submit.prevent="submit">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Edit Supply Order</h4>
+                    <h4 class="card-title">Add Supply Order</h4>
                 </div>
                 <div class="card-body">
                     <div>
@@ -30,7 +30,7 @@
                 <div class="card-body">
                     <div class="form-row">
                         <div class="form-group col-md-12">
-                            <div class="table-responsive" v-if="supplyOrder.items.length > 0">
+                            <div class="table-responsive" v-if="quotation_items.length > 0">
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
@@ -42,19 +42,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(item, index) in supplyOrder.items" :key="index">
+                                        <tr v-for="(item, index) in quotation_items" :key="index">
                                             <td scope="row">
                                                 <input type="checkbox" class="form-control" id="status" v-model="form.items[index].status" style="height: 25px;">
                                             </td>
-                                            <td class="text-capitalize">{{ item.quotation_item?.tender_item?.item?.name }}</td>
-                                            <td class="text-capitalize">{{ item.quotation_item?.tender_item?.unit?.full_name }}</td>
+                                            <td class="text-capitalize">{{ item.tender_item?.item?.name }}</td>
+                                            <td class="text-capitalize">{{ item.tender_item?.unit?.full_name }}</td>
                                             <td class="text-capitalize">
                                                 <input type="number" step="0.01" class="form-control" id="qty"
-                                                placeholder="qty" v-model="item.qty" required>
+                                                placeholder="qty" v-model="form.items[index].qty" required>
                                             </td>
                                             <td class="text-capitalize">
                                                 <input type="number" step="0.01" class="form-control" id="name"
-                                                placeholder="Unit Price" v-model="item.unit_price" required>
+                                                placeholder="Unit Price" v-model="form.items[index].unit_price"
+                                                :class="{ 'is-invalid': form.errors?.reference_no }" required>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -85,7 +86,7 @@ import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 
 export default {
-    props: ['supplyOrder'],
+    props: ['quotation_items', 'supplyOrder'],
     components: {
         AuthenticatedLayout,
         Head,
@@ -118,13 +119,13 @@ export default {
         },
     },
     mounted() {
-        console.log(this.supplyOrder);
         this.form = useForm({
             id: this.supplyOrder ? this.supplyOrder.id : null,
             date_of_supply_order: this.supplyOrder ? this.supplyOrder.date_of_supply_order : null,
             delivery_date: this.supplyOrder ? this.supplyOrder.delivery_date : null,
-            items: this.supplyOrder ? this.supplyOrder.items : null,
+            items: [],
         })
+        this.addItems()
     },
 }
 </script>

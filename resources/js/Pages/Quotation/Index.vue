@@ -143,6 +143,9 @@ export default {
             deep: true,
         },
     },
+    mounted() {
+        console.log(this.quotations);
+    },
     mixins: [Helpers]
 }
 </script>

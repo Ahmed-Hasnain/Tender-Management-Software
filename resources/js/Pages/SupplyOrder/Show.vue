@@ -20,10 +20,40 @@
                             </address>
                         </div>
                         <div class="float-right">
-                            <h2>QUOTATION</h2>
+                            <h2>Supply Order</h2>
+                            <div class="m-t-20">
+                                <div class="text-dark text-capitalize d-inline-block">
+                                    <span class="font-weight-semibold text-dark">Our Reference: </span>
+                                </div>
+                                <div class="float-right"> {{ supplyOrder.quotation?.reference_no }}</div>
+                            </div>
+                            <div>
+                                <div class="text-dark text-capitalize d-inline-block">
+                                    <span class="font-weight-semibold text-dark">Client Reference: </span>
+                                </div>
+                                <div class="float-right"> {{ supplyOrder.quotation?.tender?.reference_no }}</div>
+                            </div>
+                            <div>
+                                <div class="text-dark text-capitalize d-inline-block">
+                                    <span class="font-weight-semibold text-dark">File Name: </span>
+                                </div>
+                                <div class="float-right"> {{ supplyOrder.quotation?.tender?.file_name }}</div>
+                            </div>
+                            <div>
+                                <div class="text-dark text-capitalize d-inline-block">
+                                    <span class="font-weight-semibold text-dark">Supply Order Date: </span>
+                                </div>
+                                <div class="float-right"> {{ formatDate(supplyOrder.date_of_supply_order) }}</div>
+                            </div>
+                            <div>
+                                <div class="text-dark text-capitalize d-inline-block">
+                                    <span class="font-weight-semibold text-dark">Delivery Date: </span>
+                                </div>
+                                <div class="float-right"> {{ formatDate(supplyOrder.delivery_date) }}</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row m-t-20 lh-2">
+                    <!-- <div class="row m-t-20 lh-2">
                         <div class="col-sm-9">
                             <h3 class="p-l-10 m-t-10">Quotation To:</h3>
                             <address class="p-l-10 m-t-10">
@@ -44,7 +74,7 @@
                             </div>
                             <div class="float-right">{{ formatDate(quotation.applied_date) }}</div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="m-t-20">
                         <div class="table-responsive">
                             <table class="table">
@@ -57,13 +87,13 @@
                                         <th style="width: 150px;">Total</th>
                                     </tr>
                                 </thead>
-                                <tbody v-if="quotation.items.length > 0">
-                                    <tr v-for="(item, index) in quotation.items" :key="index">
+                                <tbody v-if="supplyOrder.items.length > 0">
+                                    <tr v-for="(item, index) in supplyOrder.items" :key="index">
                                         <th>{{ index+1 }}</th>
-                                        <td>{{ item.tender_item?.item?.name }}<br><small>{{ item.tender_item?.description }}</small></td>
-                                        <td>{{ item.tender_item?.qty }}</td>
-                                        <td>{{ quotation.currency }} {{ formatNumber(item.unit_price) }} </td>
-                                        <td>{{ quotation.currency }} {{ formatNumber(item.total_price) }} </td>
+                                        <td>{{ item.quotation_item?.tender_item?.item?.name }}<br><small>{{ item.quotation_item?.tender_item?.description }}</small></td>
+                                        <td>{{ item.qty }}</td>
+                                        <td>{{ supplyOrder.quotation?.currency }} {{ formatNumber(item.unit_price) }} </td>
+                                        <td>{{ supplyOrder.quotation?.currency }} {{ formatNumber(item.total) }} </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -71,17 +101,17 @@
                         <div class="row m-t-30 lh-1-8">
                             <div class="col-sm-12">
                                 <div class="float-right text-right">
-                                    <p>Total amount: {{ quotation.currency }} {{ formatNumber(quotation.total_price) }}</p>
-                                    <p>GST ({{ quotation.tax }}%) : {{ quotation.currency }} {{formatNumber(calculateTax(quotation.total_price, quotation.tax))}}  </p>
+                                    <p>Total amount: {{ supplyOrder.quotation.currency }} {{ formatNumber(supplyOrder.total_price) }}</p>
+                                    <p>GST ({{ supplyOrder.quotation?.tax }}%) : {{ supplyOrder.quotation?.currency }} {{formatNumber(calculateTax(supplyOrder.total_price, supplyOrder.quotation?.tax))}}  </p>
                                     <hr>
-                                    <h3><span class="font-weight-semibold text-dark">Total :</span> {{ quotation.currency }} {{ getTotal(quotation.total_price, calculateTax(quotation.total_price, quotation.tax)) }} </h3>
+                                    <h3><span class="font-weight-semibold text-dark">Total :</span> {{ supplyOrder.quotation?.currency }} {{ getTotal(supplyOrder.total_price, calculateTax(supplyOrder.total_price, supplyOrder.quotation?.tax)) }} </h3>
                                 </div>
                             </div>
                         </div>
                         <div class="row m-t-30 lh-2">
                             <div class="col-sm-12">
                                 <div class="border-bottom p-v-20">
-                                    <p class="text-opacity"><small>{{ quotation.terms_and_conditions }}</small></p>
+                                    <p class="text-opacity"><small>{{ supplyOrder.quotation?.terms_and_conditions }}</small></p>
                                 </div>
                             </div>
                         </div>
@@ -100,7 +130,7 @@
                 </div>
             </div>
         </div>
-        <div class="card">
+        <!-- <div class="card">
             <div class="card-body">
                 <div class="form-row">
                     <div class="form-group col-md-10">
@@ -115,7 +145,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </AuthenticatedLayout>
 </template>
 
@@ -126,7 +156,7 @@ import Error from "@/Components/InputError.vue";
 import Helpers from '@/Mixins/Helpers';
 
 export default {
-    props: ["quotation"],
+    props: ["supplyOrder"],
     components: {
         AuthenticatedLayout,
         Head,
@@ -140,7 +170,7 @@ export default {
     methods: {
     },
     mounted() {
-        console.log(this.quotation);
+        console.log(this.supplyOrder);
     },
     mixins: [Helpers]
 };

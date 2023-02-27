@@ -22,7 +22,7 @@ class CreateSupplyOrderItemsTable extends Migration
             $table->string('total')->nullable();
             $table->timestamps();
 
-            $table->foreign('supply_order_id')->references('id')->on('supply_orders');
+            $table->foreign('supply_order_id')->references('id')->on('supply_orders')->onDelete('cascade');
             $table->foreign('quotation_item_id')->references('id')->on('quotation_items');
         });
     }
