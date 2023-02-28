@@ -133,6 +133,14 @@
                         <span class="title" :class="{ 'text-white': quotationFlag }">Quotations</span>
                     </Link>
                 </li>
+                <li class="nav-item dropdown" :class="{ 'active': supplyOrderFlag }">
+                    <Link :href="route('dashboard.supply-order.index')" class="custom-menuitem-padding">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-audit" :class="{ 'text-white': supplyOrderFlag }"></i>
+                        </span>
+                        <span class="title" :class="{ 'text-white': supplyOrderFlag }">Supply Order</span>
+                    </Link>
+                </li>
             </ul>
         </div>
     </div>
@@ -187,6 +195,9 @@ export default {
         },
         currencyFlag() {
             return this.$page.component === 'Currency/Index' || this.$page.component === 'Currency/Create' || this.$page.component === 'Currency/Edit' ? true : false
+        },
+        supplyOrderFlag() {
+            return this.$page.component === 'SupplyOrder/Index' || this.$page.component === 'SupplyOrder/Create' || this.$page.component === 'SupplyOrder/Edit' || this.$page.component === 'SupplyOrder/Show' ? true : false
         },
     }
 }

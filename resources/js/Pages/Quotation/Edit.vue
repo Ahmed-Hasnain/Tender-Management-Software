@@ -77,7 +77,7 @@
                             <div class="form-group col-md-12">
                                 <label class="font-weight-semibold" for="terms_and_conditions">Terms and
                                     Conditions:</label>
-                                <textarea class="form-control" rows="2" v-model="form.terms_and_conditions"
+                                <textarea class="form-control" placeholder="Use full-stop to seperate lines..." rows="2" v-model="form.terms_and_conditions"
                                     :class="{ 'is-invalid': form.errors.terms_and_conditions }"></textarea>
                                 <error :message="form.errors?.terms_and_conditions"></error>
                             </div>

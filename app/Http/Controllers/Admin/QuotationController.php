@@ -34,7 +34,7 @@ class QuotationController extends Controller
     {
         try{
             $limit = \config()->get('settings.pagination_limit');
-            $quotations = Quotation::with('tender')->where(function ($query) {
+            $quotations = Quotation::with('tender', 'supplyOrder')->where(function ($query) {
                 $keyword = request()->input('keyword');
                 $query->when($keyword, function ($subQuery) use ($keyword){
                     $subQuery->where('reference_no', 'like', '%' . $keyword . '%')

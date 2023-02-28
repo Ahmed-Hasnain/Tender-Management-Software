@@ -50,3 +50,13 @@ function dateFormate($date)
     $date = Carbon::parse($date);
     return $date->format('F j, Y');
 }
+
+function breakString($str) {
+    $sentences = explode(".", $str); // split the string into an array of sentences
+    $sentences = array_map('trim', $sentences); // remove whitespace from each sentence
+    $sentences = array_filter($sentences); // remove empty sentences
+    $sentences = array_map(function($sentence) {
+      return $sentence . "."; // add a full stop to the end of each sentence
+    }, $sentences);
+    return $sentences; // return the array of sentences
+}
