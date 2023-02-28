@@ -101,11 +101,11 @@
                                 </tr>
                                 <tr>
                                     <td class="w-33"><strong>Reference</strong></td>
-                                    <td class="w-77">{{$quotation->reference_no}}</td>
+                                    <td class="w-77">{{$quotation->tender->reference_no}}</td>
                                 </tr>
                                 <tr>
                                     <td class="w-33"><strong>Date</strong></td>
-                                    <td class="w-77">{{dateFormate($quotation->applied_date)}}</td>
+                                    <td class="w-77">{{dateFormate($quotation->tender->rfq_date)}}</td>
                                 </tr>
                                 <tr>
                                     <td class="w-33"><strong>Validity</strong></td>
@@ -128,11 +128,11 @@
                                 </tr>
                                 <tr>
                                     <td class="w-33"><strong>Reference</strong></td>
-                                    <td class="w-77">{{$quotation->tender->reference_no}}</td>
+                                    <td class="w-77">{{$quotation->reference_no}}</td>
                                 </tr>
                                 <tr>
                                     <td class="w-33"><strong>Date</strong></td>
-                                    <td class="w-77">{{dateFormate($quotation->tender->rfq_date)}}</td>
+                                    <td class="w-77">{{dateFormate($quotation->applied_date)}}</td>
                                 </tr>
                                 <tr>
                                     <td class="w-33"><strong>Delivery Time</strong></td>
@@ -153,8 +153,8 @@
                 <th class="w-50">Description</th>
                 <th class="w-5">UOM</th>
                 <th class="w-5">Qty</th>
-                <th>Unit Price</th>
-                <th>Total Amount</th>
+                <th>Unit Price ({{$quotation->currency}})</th>
+                <th>Total Amount ({{$quotation->currency}})</th>
             </tr>
         </thead>
         <tbody>
@@ -165,8 +165,8 @@
                         <td class="w-50">{{$item->tenderItem?->item?->name}}<br> <small> {{$item->tenderItem?->description}}</small></td>
                         <td class="w-5">{{$item->tenderItem?->unit?->short_name}}</td>
                         <td class="w-5">{{$item->tenderItem?->qty}}</td>
-                        <td>{{$quotation->currency}} {{numberFormate($item->unit_price)}}</td>
-                        <td>{{$quotation->currency}}  {{numberFormate($item->total_price)}}</td>
+                        <td>{{numberFormate($item->unit_price)}}</td>
+                        <td>{{numberFormate($item->total_price)}}</td>
                     </tr>
                 @endforeach
             @endif
@@ -193,9 +193,9 @@
     <br>
     <div>
         <h3 style="text-decoration: underline;">Terms and Conditions:</h3>
-        <p><strong>Payment Terms:</strong>  100% Against Delivery</p> 
-        <p>Above Prices are Ex-Works Prices</p> 
-        <p>Above prices are valid till availability of stock.</p> 
+        @foreach (breakString($quotation->terms_and_conditions) as $term)
+            <p>{{$term}}</p>
+        @endforeach
     </div>
 </body>
 </html>

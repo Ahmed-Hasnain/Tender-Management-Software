@@ -29962,6 +29962,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", {
           'is-invalid': $data.form.errors.terms_and_conditions
         }]),
+        placeholder: "Use full-stop to seperate lines...",
         rows: "2",
         "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
           return $data.form.terms_and_conditions = $event;
@@ -30304,6 +30305,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", {
           'is-invalid': $data.form.errors.terms_and_conditions
         }]),
+        placeholder: "Use full-stop to seperate lines...",
         rows: "2",
         "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
           return $data.form.terms_and_conditions = $event;
