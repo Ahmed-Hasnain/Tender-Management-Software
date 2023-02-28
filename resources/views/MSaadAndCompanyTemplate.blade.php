@@ -104,8 +104,8 @@
                 <th class="w-50">Description</th>
                 <th class="w-5">Qty</th>
                 <th class="w-5">A/U</th>
-                <th>Unit Price</th>
-                <th>Total Amount</th>
+                <th>Unit Price ({{$quotation->currency}})</th>
+                <th>Total Amount ({{$quotation->currency}})</th>
             </tr>
         </thead>
         <tbody>
@@ -116,8 +116,8 @@
                         <td class="w-50">{{$item->tenderItem?->item?->name}}<br> <small> {{$item->tenderItem?->description}}</small></td>
                         <td class="w-5">{{$item->tenderItem?->qty}}</td>
                         <td class="w-5">{{$item->tenderItem?->unit?->short_name}}</td>
-                        <td>{{$quotation->currency}} {{numberFormate($item->unit_price)}}</td>
-                        <td>{{$quotation->currency}}  {{numberFormate($item->total_price)}}</td>
+                        <td>{{numberFormate($item->unit_price)}}</td>
+                        <td>{{numberFormate($item->total_price)}}</td>
                     </tr>
                 @endforeach
             @endif

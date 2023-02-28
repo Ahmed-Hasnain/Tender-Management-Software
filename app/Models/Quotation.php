@@ -44,4 +44,9 @@ class Quotation extends Model
     {
         return $this->hasMany(QuotationItem::class, 'quotation_id');
     }
+
+    public function supplyOrder()
+    {
+        return $this->hasOne(SupplyOrder::class);
+    }
 }
