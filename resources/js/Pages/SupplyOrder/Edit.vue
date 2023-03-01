@@ -46,7 +46,7 @@
                                             <td scope="row">
                                                 <input type="checkbox" class="form-control" id="status" v-model="form.items[index].status" style="height: 25px;">
                                             </td>
-                                            <td class="text-capitalize">{{ item.tender_item?.item?.name }}</td>
+                                            <td class="text-capitalize">{{ item.tender_item?.item?.name }}<br><small>{{ item.tender_item?.description }}</small></td>
                                             <td class="text-capitalize">{{ item.tender_item?.unit?.full_name }}</td>
                                             <td class="text-capitalize">
                                                 <input type="number" step="0.01" class="form-control" id="qty"

@@ -106,7 +106,7 @@
                                     <tbody>
                                         <tr v-for="(item, index) in this.form.items" :key="index">
                                             <th scope="row">{{ item.id }}</th>
-                                            <td class="text-capitalize">{{ item.tender_item?.item?.name }}</td>
+                                            <td class="text-capitalize">{{ item.tender_item?.item?.name }}<br><small>{{ item.tender_item?.description }}</small></td>
                                             <td class="text-capitalize">{{ item.tender_item?.unit?.full_name }}</td>
                                             <td class="text-capitalize">{{ item.tender_item?.qty }}</td>
                                             <td class="text-capitalize"> 
