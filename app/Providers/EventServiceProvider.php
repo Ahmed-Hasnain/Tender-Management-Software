@@ -4,15 +4,17 @@ namespace App\Providers;
 
 use App\Models\User;
 use App\Models\Quotation;
-use App\Models\QuotationItem;
 use App\Models\SupplyOrder;
+use App\Models\QuotationItem;
 use App\Models\SupplyOrderItem;
 use App\Observers\UserObserver;
+use App\Models\DeliveryChallanItem;
 use App\Observers\QuotationObserver;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use App\Observers\QuotationItemObserver;
 use App\Observers\SupplyOrderItemObserver;
+use App\Observers\DeliveryChallanItemObserver;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -40,5 +42,6 @@ class EventServiceProvider extends ServiceProvider
         Quotation::observe(QuotationObserver::class);
         QuotationItem::observe(QuotationItemObserver::class);
         SupplyOrderItem::observe(SupplyOrderItemObserver::class);
+        DeliveryChallanItem::observe(DeliveryChallanItemObserver::class);
     }
 }

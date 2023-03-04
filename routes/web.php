@@ -96,6 +96,10 @@ Route::middleware(['auth', 'verified'])
         Route::group(['middleware' => ['can:view_supply_order']], function () {
             Route::resource('/supply-order', Admin\SupplyOrderController::class);
         });
+        //Delivery Challan
+        Route::group(['middleware' => ['can:view_delivery_challan']], function () {
+            Route::resource('/delivery-challan', Admin\DeliveryChallanController::class);
+        });
 });
 
 require __DIR__.'/auth.php';
