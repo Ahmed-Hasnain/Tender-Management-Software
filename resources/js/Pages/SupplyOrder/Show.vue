@@ -1,6 +1,6 @@
 <template>
 
-    <Head title="Quotation Details" />
+    <Head title="Supply Order Details" />
     <AuthenticatedLayout>
         <div class="card">
             <div class="card-body">

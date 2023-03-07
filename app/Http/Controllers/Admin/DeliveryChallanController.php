@@ -112,7 +112,10 @@ class DeliveryChallanController extends Controller
      */
     public function show(DeliveryChallan $deliveryChallan)
     {
-        //
+        return Inertia::render('DeliveryChallan/Show', [
+            'deliveryChallan' => $deliveryChallan->load('items.supplyOrderItem.quotationItem.tenderItem.item', 'items.supplyOrderItem.quotationItem.tenderItem.unit', 'supplyOrder'),
+            'supplyOrder' => $deliveryChallan->supplyOrder->load('items.quotationItem.tenderItem.item', 'items.quotationItem.tenderItem.unit', 'quotation.tender.items.item', 'quotation.tender.items.unit'),
+        ]);
     }
 
     /**

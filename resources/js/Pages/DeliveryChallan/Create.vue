@@ -33,8 +33,7 @@
                                             </td>
                                             <td class="text-capitalize">
                                                 <input type="number" step="0.01" class="form-control" :value="item.unit_price"
-                                                placeholder="Unit Price" v-model="form.items[index].unit_price"
-                                                :class="{ 'is-invalid': form.errors?.reference_no }" disabled>
+                                                placeholder="Unit Price" :class="{ 'is-invalid': form.errors?.reference_no }" disabled>
                                             </td>
                                         </tr>
                                     </tbody>
