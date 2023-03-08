@@ -24,6 +24,10 @@ class DeliveryChallanItemObserver
                     $deliveryChallanItem->deliveryChallan->total = $deliveryChallanItem->deliveryChallan->items->sum('total_price');  
                     $deliveryChallanItem->deliveryChallan->save();
                 }
+                if ($deliveryChallanItem->supplyOrderItem) {
+                    $deliveryChallanItem->supplyOrderItem->qty_left = $deliveryChallanItem->supplyOrderItem->qty_left - $deliveryChallanItem->qty;
+                    $deliveryChallanItem->supplyOrderItem->saveQuietly();
+                }
             }
         } catch (\Throwable $th) {
             Log::info($th->getMessage());

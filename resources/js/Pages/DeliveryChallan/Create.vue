@@ -4,13 +4,13 @@
         <form v-if="form" @submit.prevent="submit">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Add Supply Order</h4>
+                    <h4 class="card-title">Add Delivery Challan</h4>
                 </div>
                 <div class="card-body">
                     <div class="form-row">
                         <div class="form-group col-md-12">
-                            <div class="table-responsive" v-if="supply_order_items.length > 0">
-                                <table class="table table-bordered">
+                            <div class="table-responsive" v-if="supply_order_items.length > 0 && supplyOrderItems">
+                                <table class="table table-bordered" v-if="supplyOrderItems">
                                     <thead>
                                         <tr>
                                             <th scope="col" style="width: 50px;"></th>
@@ -21,14 +21,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(item, index) in supply_order_items" :key="index">
+                                        <tr v-for="(item, index) in supplyOrderItems" :key="index">
                                             <td scope="row">
                                                 <input type="checkbox" class="form-control" id="status" v-model="form.items[index].status" style="height: 25px;">
                                             </td>
                                             <td class="text-capitalize">{{ item.quotation_item?.tender_item?.item?.name }}<br><small>{{ item.quotation_item?.tender_item?.description }}</small></td>
                                             <td class="text-capitalize">{{ item.quotation_item?.tender_item?.unit?.full_name }}</td>
                                             <td class="text-capitalize">
-                                                <input type="number" step="0.01" class="form-control" id="qty"
+                                                <input type="number" step="1" :max="max_limit[index]" min="1" class="form-control" id="qty"
                                                 placeholder="qty" v-model="form.items[index].qty" required>
                                             </td>
                                             <td class="text-capitalize">
@@ -39,7 +39,6 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div v-else>No record Found</div>
                         </div>
                     </div>
                     <div class="form-row">
@@ -81,6 +80,7 @@ export default {
     data() {
         return {
             form: null,
+            max_limit: [],
         }
     },
     methods: {
@@ -97,14 +97,18 @@ export default {
                 this.form.items.push({
                     supply_order_item_id: val.id,
                     unit_price: val.unit_price,
-                    qty: val.qty,
+                    qty: val.qty_left,
                     status: false,
                 })
+                this.maxLimit(val.qty_left, index);
             })
         },
+        maxLimit(limit, index){
+            this.max_limit[index] = limit
+            console.log(this.max_limit);
+        },  
     },
     mounted() {
-        console.log(this.supply_order_items, this.supply_order_id);
         this.form = useForm({
             description: null,
             supply_order_id: this.supply_order_id,
@@ -113,6 +117,14 @@ export default {
         })
         this.addItems()
     },
+    computed: {
+        supplyOrderItems(){
+            this.supply_order_items.filter((val, key) => {
+                console.log(val);
+                return val.qty_left != 0
+            })
+        }
+    }
 }
 </script>
 
