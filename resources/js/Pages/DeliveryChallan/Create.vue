@@ -9,9 +9,9 @@
                 <div class="card-body">
                     <div class="form-row">
                         <div class="form-group col-md-12">
-                            <div class="table-responsive" v-if="supply_order_items.length > 0 && supplyOrderItems">
+                            <div class="table-responsive" v-if="supplyOrderItemsNew.length > 0">
                                 <h5>Items Left</h5>
-                                <table class="table table-bordered" v-if="supplyOrderItems">
+                                <table class="table table-bordered" v-if="supplyOrderItemsNew.length > 0">
                                     <thead>
                                         <tr>
                                             <th scope="col" style="width: 50px;"></th>
@@ -22,7 +22,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(item, index) in supplyOrderItems" :key="index">
+                                        <tr v-for="(item, index) in supplyOrderItemsNew" :key="index">
                                             <td scope="row">
                                                 <input type="checkbox" class="form-control" id="status" v-model="form.items[index].status" style="height: 25px;">
                                             </td>
@@ -107,6 +107,7 @@ export default {
         return {
             form: null,
             max_limit: [],
+            supplyOrderItemsNew: []
         }
     },
     methods: {
@@ -132,6 +133,11 @@ export default {
         maxLimit(limit, index){
             this.max_limit[index] = limit
         },  
+        supplyOrderItems(){
+            this.supplyOrderItemsNew = this.supply_order_items.filter((val, key) => {
+                return val.qty_left != 0
+            })
+        }
     },
     mounted() {
         this.form = useForm({
@@ -141,15 +147,8 @@ export default {
             items: [],
         })
         this.addItems()
-        console.log(this.delivery_challan_items);
+        this.supplyOrderItems()
     },
-    computed: {
-        supplyOrderItems(){
-            this.supply_order_items.filter((val, key) => {
-                return val.qty_left != 0
-            })
-        }
-    }
 }
 </script>
 

@@ -21493,7 +21493,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: null,
-      max_limit: []
+      max_limit: [],
+      supplyOrderItemsNew: []
     };
   },
   methods: {
@@ -21521,6 +21522,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     maxLimit: function maxLimit(limit, index) {
       this.max_limit[index] = limit;
+    },
+    supplyOrderItems: function supplyOrderItems() {
+      this.supplyOrderItemsNew = this.supply_order_items.filter(function (val, key) {
+        return val.qty_left != 0;
+      });
     }
   },
   mounted: function mounted() {
@@ -21531,14 +21537,7 @@ __webpack_require__.r(__webpack_exports__);
       items: []
     });
     this.addItems();
-    console.log(this.delivery_challan_items);
-  },
-  computed: {
-    supplyOrderItems: function supplyOrderItems() {
-      this.supply_order_items.filter(function (val, key) {
-        return val.qty_left != 0;
-      });
-    }
+    this.supplyOrderItems();
   }
 });
 
@@ -28280,7 +28279,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         onSubmit: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
           return $options.submit && $options.submit.apply($options, arguments);
         }, ["prevent"]))
-      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [$props.supply_order_items.length > 0 && $options.supplyOrderItems ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, [_hoisted_7, $options.supplyOrderItems ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("table", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.supplyOrderItems, function (item, index) {
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [$data.supplyOrderItemsNew.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, [_hoisted_7, $data.supplyOrderItemsNew.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("table", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.supplyOrderItemsNew, function (item, index) {
         var _item$quotation_item, _item$quotation_item$, _item$quotation_item$2, _item$quotation_item2, _item$quotation_item3, _item$quotation_item4, _item$quotation_item5, _item$quotation_item6, _$data$form$errors;
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
           key: index
