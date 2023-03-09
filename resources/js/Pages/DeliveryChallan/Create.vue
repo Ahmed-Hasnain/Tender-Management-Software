@@ -10,6 +10,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <div class="table-responsive" v-if="supply_order_items.length > 0 && supplyOrderItems">
+                                <h5>Items Left</h5>
                                 <table class="table table-bordered" v-if="supplyOrderItems">
                                     <thead>
                                         <tr>
@@ -35,6 +36,31 @@
                                                 <input type="number" step="0.01" class="form-control" :value="item.unit_price"
                                                 placeholder="Unit Price" :class="{ 'is-invalid': form.errors?.reference_no }" disabled>
                                             </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-responsive" v-if="delivery_challan_items.length > 0">
+                                <h5>Items Given</h5>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 50px;"></th>
+                                            <th scope="col" style="width: 300px;">Name</th>
+                                            <th scope="col" style="width: 100px;">Unit</th>
+                                            <th scope="col" style="width: 100px;">Quantity</th>
+                                            <th scope="col" style="width: 100px;">Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(item, index) in delivery_challan_items" :key="index">
+                                            <td scope="row">
+                                                {{ item.delivery_challan?.reference_no }}
+                                            </td>
+                                            <td class="text-capitalize">{{ item.supply_order_item?.quotation_item?.tender_item?.item?.name }}<br><small>{{ item.supply_order_item?.quotation_item?.tender_item?.description }}</small></td>
+                                            <td class="text-capitalize">{{ item.supply_order_item?.quotation_item?.tender_item?.unit?.full_name }}</td>
+                                            <td class="text-capitalize">{{ item.qty }}</td>
+                                            <td class="text-capitalize">{{ item.unit_price }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -70,7 +96,7 @@ import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 
 export default {
-    props: ['supply_order_items', 'supply_order_id'],
+    props: ['supply_order_items', 'supply_order_id', 'delivery_challan_items'],
     components: {
         AuthenticatedLayout,
         Head,
@@ -105,7 +131,6 @@ export default {
         },
         maxLimit(limit, index){
             this.max_limit[index] = limit
-            console.log(this.max_limit);
         },  
     },
     mounted() {
@@ -116,11 +141,11 @@ export default {
             items: [],
         })
         this.addItems()
+        console.log(this.delivery_challan_items);
     },
     computed: {
         supplyOrderItems(){
             this.supply_order_items.filter((val, key) => {
-                console.log(val);
                 return val.qty_left != 0
             })
         }

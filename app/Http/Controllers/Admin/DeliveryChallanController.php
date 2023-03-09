@@ -60,9 +60,11 @@ class DeliveryChallanController extends Controller
      */
     public function create()
     {
+        // dd(SupplyOrder::with('deliveryChallanItems.deliveryChallan')->find(request()->input('supply_order_id')));
         return Inertia::render('DeliveryChallan/Create' , [
             'supply_order_items' => SupplyOrder::find(request()->input('supply_order_id'))->items()->with('quotationItem.tenderItem.item', 'quotationItem.tenderItem.unit')->get(),
             'supply_order_id' => request()->input('supply_order_id'),
+            'delivery_challan_items' => SupplyOrder::find(request()->input('supply_order_id'))->deliveryChallanItems()->with('deliveryChallan', 'supplyOrderItem.quotationItem.tenderItem.item', 'supplyOrderItem.quotationItem.tenderItem.unit')->get(),
         ]);
     }
 
