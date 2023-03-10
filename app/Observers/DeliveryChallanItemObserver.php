@@ -26,7 +26,7 @@ class DeliveryChallanItemObserver
                 }
                 if ($deliveryChallanItem->supplyOrderItem) {
                     $deliveryChallanItem->supplyOrderItem->qty_left = $deliveryChallanItem->supplyOrderItem->qty_left - $deliveryChallanItem->qty;
-                    $deliveryChallanItem->supplyOrderItem->saveQuietly();
+                    $deliveryChallanItem->supplyOrderItem->save();
                 }
             }
         } catch (\Throwable $th) {

@@ -21510,7 +21510,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     addItems: function addItems() {
       var _this = this;
-      this.supply_order_items.forEach(function (val, index) {
+      this.supplyOrderItemsNew.forEach(function (val, index) {
         _this.form.items.push({
           supply_order_item_id: val.id,
           unit_price: val.unit_price,
@@ -21536,8 +21536,8 @@ __webpack_require__.r(__webpack_exports__);
       delivered: 0,
       items: []
     });
-    this.addItems();
     this.supplyOrderItems();
+    this.addItems();
   }
 });
 

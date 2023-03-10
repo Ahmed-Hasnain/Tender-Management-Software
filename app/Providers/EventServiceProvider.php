@@ -11,6 +11,7 @@ use App\Observers\UserObserver;
 use App\Models\DeliveryChallanItem;
 use App\Observers\QuotationObserver;
 use Illuminate\Support\Facades\Event;
+use App\Observers\SupplyOrderObserver;
 use Illuminate\Auth\Events\Registered;
 use App\Observers\QuotationItemObserver;
 use App\Observers\SupplyOrderItemObserver;
@@ -43,5 +44,6 @@ class EventServiceProvider extends ServiceProvider
         QuotationItem::observe(QuotationItemObserver::class);
         SupplyOrderItem::observe(SupplyOrderItemObserver::class);
         DeliveryChallanItem::observe(DeliveryChallanItemObserver::class);
+        SupplyOrder::observe(SupplyOrderObserver::class);
     }
 }

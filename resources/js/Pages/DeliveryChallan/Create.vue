@@ -120,7 +120,7 @@ export default {
             })
         },
         addItems() {
-            this.supply_order_items.forEach((val, index) => {
+            this.supplyOrderItemsNew.forEach((val, index) => {
                 this.form.items.push({
                     supply_order_item_id: val.id,
                     unit_price: val.unit_price,
@@ -146,8 +146,8 @@ export default {
             delivered: 0,
             items: [],
         })
-        this.addItems()
         this.supplyOrderItems()
+        this.addItems()
     },
 }
 </script>
