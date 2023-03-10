@@ -28621,11 +28621,7 @@ var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   style: {
     "width": "225.188px"
   }
-}, "Total Price"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-  style: {
-    "width": "225.188px"
-  }
-}, "Tax"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+}, "Total Price"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <th style=\"width: 225.188px;\">Tax</th> "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
   "class": "text-right",
   style: {
     "width": "150px"
@@ -28641,22 +28637,19 @@ var _hoisted_16 = {
   "class": "text-capitalize"
 };
 var _hoisted_17 = {
-  "class": "text-capitalize"
-};
-var _hoisted_18 = {
   "class": "text-right"
 };
-var _hoisted_19 = ["onClick"];
-var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_18 = ["onClick"];
+var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "anticon anticon-eye"
 }, null, -1 /* HOISTED */);
-var _hoisted_21 = [_hoisted_20];
-var _hoisted_22 = ["onClick"];
-var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_20 = [_hoisted_19];
+var _hoisted_21 = ["onClick"];
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "anticon anticon-delete"
 }, null, -1 /* HOISTED */);
-var _hoisted_24 = [_hoisted_23];
-var _hoisted_25 = {
+var _hoisted_23 = [_hoisted_22];
+var _hoisted_24 = {
   key: 1,
   "class": "pt-3 pl-3"
 };
@@ -28674,25 +28667,25 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         url: 'dashboard.delivery-challan.index',
         searchedKeyword: $props.searchedKeyword
       }, null, 8 /* PROPS */, ["url", "searchedKeyword"])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [((_$data$allDeliveryCha = $data.allDeliveryChallan) === null || _$data$allDeliveryCha === void 0 ? void 0 : _$data$allDeliveryCha.data.length) > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("table", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.allDeliveryChallan.data, function (deliveryChallan, index) {
-        var _deliveryChallan$supp, _deliveryChallan$supp2, _deliveryChallan$supp3, _deliveryChallan$supp4, _deliveryChallan$supp5, _deliveryChallan$supp6, _deliveryChallan$supp7, _deliveryChallan$supp8, _deliveryChallan$supp9, _deliveryChallan$supp10, _deliveryChallan$supp11;
+        var _deliveryChallan$supp, _deliveryChallan$supp2, _deliveryChallan$supp3, _deliveryChallan$supp4, _deliveryChallan$supp5, _deliveryChallan$supp6, _deliveryChallan$supp7;
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
           role: "row",
           "class": "odd",
           key: index
-        }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(deliveryChallan.reference_no), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_deliveryChallan$supp = deliveryChallan.supply_order) === null || _deliveryChallan$supp === void 0 ? void 0 : (_deliveryChallan$supp2 = _deliveryChallan$supp.quotation) === null || _deliveryChallan$supp2 === void 0 ? void 0 : _deliveryChallan$supp2.reference_no), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_deliveryChallan$supp3 = deliveryChallan.supply_order) === null || _deliveryChallan$supp3 === void 0 ? void 0 : (_deliveryChallan$supp4 = _deliveryChallan$supp3.quotation) === null || _deliveryChallan$supp4 === void 0 ? void 0 : (_deliveryChallan$supp5 = _deliveryChallan$supp4.tender) === null || _deliveryChallan$supp5 === void 0 ? void 0 : _deliveryChallan$supp5.reference_no), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_deliveryChallan$supp6 = deliveryChallan.supply_order) === null || _deliveryChallan$supp6 === void 0 ? void 0 : (_deliveryChallan$supp7 = _deliveryChallan$supp6.quotation) === null || _deliveryChallan$supp7 === void 0 ? void 0 : _deliveryChallan$supp7.currency) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.formatNumber(deliveryChallan.total)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_deliveryChallan$supp8 = deliveryChallan.supply_order) === null || _deliveryChallan$supp8 === void 0 ? void 0 : (_deliveryChallan$supp9 = _deliveryChallan$supp8.quotation) === null || _deliveryChallan$supp9 === void 0 ? void 0 : _deliveryChallan$supp9.currency) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.formatNumber(_ctx.calculateTax(deliveryChallan.total, (_deliveryChallan$supp10 = deliveryChallan.supply_order) === null || _deliveryChallan$supp10 === void 0 ? void 0 : (_deliveryChallan$supp11 = _deliveryChallan$supp10.quotation) === null || _deliveryChallan$supp11 === void 0 ? void 0 : _deliveryChallan$supp11.tax))), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_18, [_ctx.checkUserPermissions('view_delivery_challan') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+        }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(deliveryChallan.reference_no), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_deliveryChallan$supp = deliveryChallan.supply_order) === null || _deliveryChallan$supp === void 0 ? void 0 : (_deliveryChallan$supp2 = _deliveryChallan$supp.quotation) === null || _deliveryChallan$supp2 === void 0 ? void 0 : _deliveryChallan$supp2.reference_no), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_deliveryChallan$supp3 = deliveryChallan.supply_order) === null || _deliveryChallan$supp3 === void 0 ? void 0 : (_deliveryChallan$supp4 = _deliveryChallan$supp3.quotation) === null || _deliveryChallan$supp4 === void 0 ? void 0 : (_deliveryChallan$supp5 = _deliveryChallan$supp4.tender) === null || _deliveryChallan$supp5 === void 0 ? void 0 : _deliveryChallan$supp5.reference_no), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_deliveryChallan$supp6 = deliveryChallan.supply_order) === null || _deliveryChallan$supp6 === void 0 ? void 0 : (_deliveryChallan$supp7 = _deliveryChallan$supp6.quotation) === null || _deliveryChallan$supp7 === void 0 ? void 0 : _deliveryChallan$supp7.currency) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.formatNumber(deliveryChallan.total)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <td class=\"text-capitalize\">{{ deliveryChallan.supply_order?.quotation?.currency }} {{formatNumber(calculateTax(deliveryChallan.total, deliveryChallan.supply_order?.quotation?.tax))}}</td> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_17, [_ctx.checkUserPermissions('view_delivery_challan') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
           key: 0,
           onClick: function onClick($event) {
             return $options.show(deliveryChallan.id);
           },
           "class": "btn btn-icon btn-hover btn-sm btn-rounded pull-right"
-        }, _hoisted_21, 8 /* PROPS */, _hoisted_19)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.checkUserPermissions('delete_delivery_challan') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+        }, _hoisted_20, 8 /* PROPS */, _hoisted_18)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.checkUserPermissions('delete_delivery_challan') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
           key: 1,
           onClick: function onClick($event) {
             return $options.onDelete(deliveryChallan.id);
           },
           "class": "btn btn-icon btn-hover btn-sm btn-rounded"
-        }, _hoisted_24, 8 /* PROPS */, _hoisted_22)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
-      }), 128 /* KEYED_FRAGMENT */))])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_25, "No Data Found."))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_pagination, {
+        }, _hoisted_23, 8 /* PROPS */, _hoisted_21)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
+      }), 128 /* KEYED_FRAGMENT */))])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_24, "No Data Found."))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_pagination, {
         meta: $data.allDeliveryChallan,
         keyword: $props.searchedKeyword
       }, null, 8 /* PROPS */, ["meta", "keyword"])])])])])];
