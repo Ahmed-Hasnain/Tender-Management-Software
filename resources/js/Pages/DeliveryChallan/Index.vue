@@ -30,6 +30,7 @@
                                             <th style="width: 225.188px;">Quotaion Reference#</th>
                                             <th style="width: 225.188px;">Tender Reference#</th>
                                             <th style="width: 225.188px;">Total Price</th>
+                                            <th style="width: 225.188px;">Tax</th>
                                             <th class="text-right" style="width: 150px;">Action</th>
                                         </tr>
                                     </thead>
@@ -39,6 +40,7 @@
                                             <td class="text-capitalize">{{ deliveryChallan.supply_order?.quotation?.reference_no }}</td>
                                             <td class="text-capitalize">{{ deliveryChallan.supply_order?.quotation?.tender?.reference_no }}</td>
                                             <td class="text-capitalize">{{ deliveryChallan.supply_order?.quotation?.currency }} {{ formatNumber(deliveryChallan.total) }}</td>
+                                            <td class="text-capitalize">{{ deliveryChallan.supply_order?.quotation?.currency }} {{formatNumber(calculateTax(deliveryChallan.total, deliveryChallan.supply_order?.quotation?.tax))}}</td>
                                             <td class="text-right">
                                                 <button @click="show(deliveryChallan.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('view_delivery_challan')">
                                                     <i class="anticon anticon-eye"></i>
