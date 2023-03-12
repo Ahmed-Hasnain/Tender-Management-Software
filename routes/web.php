@@ -99,6 +99,7 @@ Route::middleware(['auth', 'verified'])
         //Delivery Challan
         Route::group(['middleware' => ['can:view_delivery_challan']], function () {
             Route::resource('/delivery-challan', Admin\DeliveryChallanController::class);
+            Route::get('/downloadDC/{deliveryChallanId}/{company}', [Admin\DeliveryChallanController::class, 'downloadDeliveryChallan'])->name('downloadDeliveryChallan');
         });
 });
 

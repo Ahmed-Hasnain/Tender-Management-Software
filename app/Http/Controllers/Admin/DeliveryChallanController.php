@@ -7,7 +7,9 @@ use App\Models\Quotation;
 use App\Models\SupplyOrder;
 use Illuminate\Http\Request;
 use App\Models\DeliveryChallan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DeliveryChallanRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -161,6 +163,34 @@ class DeliveryChallanController extends Controller
         } catch (\Exception $e) {
             flash($e->getMessage(), 'danger');
             return \redirect()->back();
+        }
+    }
+
+    public function downloadDeliveryChallan($deliveryChallanId, $company)
+    {
+        try {
+            $deliveryChallan = DeliveryChallan::with( 'supplyOrder.quotation.tender.client','items.supplyOrderItem.quotationItem.tenderItem.item', 'items.supplyOrderItem.quotationItem.tenderItem.unit')->findOrFail($deliveryChallanId);
+            $data = [
+                'deliveryChallan' => $deliveryChallan,
+            ];
+            switch ($company) {
+                case 'OndreTicaretTemplate':
+                    $data['logo'] = "assets/images/logo/onder-logo.png";
+                    $pdf = Pdf::loadView('DeliveryChallan/OndreTicaretDCTemplate', $data);
+                    break;
+                case 'MSaadAndCompanyTemplate':
+                    $data['logo'] = "assets/images/logo/saad&co.png";
+                    $pdf = Pdf::loadView('DeliveryChallan/MSaadAndCompanyDCTemplate', $data);
+                    break;
+                case 'AscentTemplate':
+                    $data['logo'] = "assets/images/logo/ascent.png";
+                    $pdf = Pdf::loadView('DeliveryChallan/AscentDCTemplate', $data);
+                    break;
+            }
+            // return view('DeliveryChallan/OndreTicaretDCTemplate', $data);
+            return $pdf->download('DeliveryChallan.pdf');
+        } catch (\Throwable $th) {
+            Log::info($th->getMessage());
         }
     }
 }

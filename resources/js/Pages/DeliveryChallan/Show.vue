@@ -130,7 +130,7 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="card">
+        <div class="card">
             <div class="card-body">
                 <div class="form-row">
                     <div class="form-group col-md-10">
@@ -141,11 +141,11 @@
                         </select>
                     </div>
                     <div class="form-group col-md-2 text-right">
-                        <a :href="route('dashboard.downloadQuotation', [quotation.id, company])" class="btn btn-primary btn-">Download Pdf</a>
+                        <a :href="route('dashboard.downloadDeliveryChallan', [deliveryChallan.id, company])" class="btn btn-primary btn-">Download Pdf</a>
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
     </AuthenticatedLayout>
 </template>
 
