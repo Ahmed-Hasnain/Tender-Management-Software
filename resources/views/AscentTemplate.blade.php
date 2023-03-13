@@ -247,7 +247,7 @@
                                 </tr>
                                 <tr>
                                     <td class="w-33"><strong>Validity</strong></td>
-                                    <td class="w-77">{{$quotation->validity_of_quotation}}</td>
+                                    <td class="w-77">{{addDaysToDate($quotation->applied_date, $quotation->validity_of_quotation)}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -274,7 +274,7 @@
                                 </tr>
                                 <tr>
                                     <td class="w-33"><strong>Delivery Time</strong></td>
-                                    <td class="w-77">{{$quotation->delivery_time}}</td>
+                                    <td class="w-77">{{$quotation->delivery_time}} Days</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -334,8 +334,8 @@
         @endforeach
     </div>
     <footer>
-        <p style="padding: 0px !important; margin: 0px !important;">Head Quarter: Office # 18, 3<sup>rd</sup> Floor, Gulberg Trade Center, Business Park, Gulberg Greens, Islamabad.</p>
-        <p style="padding: 0px !important; margin: 0px !important;">Regional Office: Plot No 117 Shaheed Millat Road, Defence View Phase II, Karachi. Mobile: 0333-2814609</p>
+        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Head Quarter: Office # 18, 3<sup>rd</sup> Floor, Gulberg Trade Center, Business Park, Gulberg Greens, Islamabad.</p>
+        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Regional Office: Plot No 117 Shaheed Millat Road, Defence View Phase II, Karachi. Mobile: 0333-2814609</p>
     </footer>
 </body>
 </html>

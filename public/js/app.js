@@ -36192,6 +36192,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     },
     removeDashes: function removeDashes(str) {
       return str.replace(/_/g, " ");
+    },
+    // number of days added date
+    addDays: function addDays(dateString, days) {
+      return moment__WEBPACK_IMPORTED_MODULE_0___default()(dateString).add(days, 'days').format("Do MMM YYYY").toDate();
     }
   }
 });
