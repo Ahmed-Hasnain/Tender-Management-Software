@@ -39,4 +39,14 @@ class SupplyOrder extends Model
     {
         return $this->hasMany(SupplyOrderItem::class);
     }
+
+    public function deliveryChallan()
+    {
+        return $this->hasMany(DeliveryChallan::class);
+    }
+
+    public function deliveryChallanItems()
+    {
+        return $this->hasManyThrough(DeliveryChallanItem::class, DeliveryChallan::class);
+    }
 }

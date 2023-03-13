@@ -1,9 +1,9 @@
 <template>
-    <Head title="Supply Orders" />
+    <Head title="Delivery Challan" />
     <AuthenticatedLayout>
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">All Supply Orders</h4>
+                <h4 class="card-title">All Delivery Challans</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -15,7 +15,7 @@
                             <div class="col-sm-12 col-md-6">
                                 <div id="DataTables_Table_0_filter" class="dataTables_filter">
                                     <label>Search:
-                                        <search :url="'dashboard.supply-order.index'" :searchedKeyword="searchedKeyword"></search>
+                                        <search :url="'dashboard.delivery-challan.index'" :searchedKeyword="searchedKeyword"></search>
                                     </label>
                                 </div>
                             </div>
@@ -23,33 +23,29 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="table table-hover e-commerce-table dataTable no-footer"
-                                    id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" v-if="allSupplyOrder?.data.length > 0">
+                                    id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" v-if="allDeliveryChallan?.data.length > 0">
                                     <thead>
                                         <tr role="row">
-                                            <th style="width: 70px;">ID</th>
+                                            <th style="width: 70px;">Ref# </th>
                                             <th style="width: 225.188px;">Quotaion Reference#</th>
                                             <th style="width: 225.188px;">Tender Reference#</th>
                                             <th style="width: 225.188px;">Total Price</th>
+                                            <!-- <th style="width: 225.188px;">Tax</th> -->
                                             <th class="text-right" style="width: 150px;">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr role="row" class="odd" v-for="(supplyOrder, index) in allSupplyOrder.data" :key="index">
-                                            <td>{{ supplyOrder.id }}</td>
-                                            <td class="text-capitalize">{{ supplyOrder.quotation?.reference_no }}</td>
-                                            <td class="text-capitalize">{{ supplyOrder.quotation?.tender?.reference_no }}</td>
-                                            <td class="text-capitalize">{{ supplyOrder.quotation?.currency }} {{ formatNumber(supplyOrder.total_price) }}</td>
+                                        <tr role="row" class="odd" v-for="(deliveryChallan, index) in allDeliveryChallan.data" :key="index">
+                                            <td>{{ deliveryChallan.reference_no }}</td>
+                                            <td class="text-capitalize">{{ deliveryChallan.supply_order?.quotation?.reference_no }}</td>
+                                            <td class="text-capitalize">{{ deliveryChallan.supply_order?.quotation?.tender?.reference_no }}</td>
+                                            <td class="text-capitalize">{{ deliveryChallan.supply_order?.quotation?.currency }} {{ formatNumber(deliveryChallan.total) }}</td>
+                                            <!-- <td class="text-capitalize">{{ deliveryChallan.supply_order?.quotation?.currency }} {{formatNumber(calculateTax(deliveryChallan.total, deliveryChallan.supply_order?.quotation?.tax))}}</td> -->
                                             <td class="text-right">
-                                                <button @click="false ? showDeliveryChallan(supplyOrder.delivery_challan.id) : addDeliveryChallan(supplyOrder.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('add_delivery_challan')">
-                                                    <i class="anticon anticon-reconciliation"></i>
-                                                </button>
-                                                <button @click="show(supplyOrder.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('view_supply_order')">
+                                                <button @click="show(deliveryChallan.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('view_delivery_challan')">
                                                     <i class="anticon anticon-eye"></i>
                                                 </button>
-                                                <button @click="edit(supplyOrder.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('edit_supply_order')">
-                                                    <i class="anticon anticon-edit"></i>
-                                                </button>
-                                                <button @click="onDelete(supplyOrder.id)" class="btn btn-icon btn-hover btn-sm btn-rounded" v-if="checkUserPermissions('delete_supply_order')">
+                                                <button @click="onDelete(deliveryChallan.id)" class="btn btn-icon btn-hover btn-sm btn-rounded" v-if="checkUserPermissions('delete_delivery_challan')">
                                                     <i class="anticon anticon-delete"></i>
                                                 </button>
                                             </td>
@@ -59,7 +55,7 @@
                                 <div v-else class="pt-3 pl-3">No Data Found.</div>
                             </div>
                         </div>
-                        <pagination :meta="allSupplyOrder" :keyword="searchedKeyword"></pagination>
+                        <pagination :meta="allDeliveryChallan" :keyword="searchedKeyword"></pagination>
                     </div>
                 </div>
             </div>
@@ -81,21 +77,21 @@ export default {
         pagination,
         search
     },
-    props: ['supplyOrder', 'searchedKeyword'],
+    props: ['deliveryChallan', 'searchedKeyword'],
     data() {
         return{
-            allSupplyOrder: this.supplyOrder
+            allDeliveryChallan: this.deliveryChallan
         }
     },
     methods: {
         edit($id){
-            this.$inertia.get(route('dashboard.supply-order.edit', $id), {
+            this.$inertia.get(route('dashboard.delivery-challan.edit', $id), {
                 onSuccess: () => {},
                 onError: errors => {console.log(errors);}
             })
         },
         show($id){
-            this.$inertia.get(route('dashboard.supply-order.show', $id), {
+            this.$inertia.get(route('dashboard.delivery-challan.show', $id), {
                 onSuccess: () => {},
                 onError: errors => {console.log(errors);}
             })
@@ -112,31 +108,19 @@ export default {
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    this.$inertia.delete(route('dashboard.supply-order.destroy', $id), {
+                    this.$inertia.delete(route('dashboard.delivery-challan.destroy', $id), {
                         preserveScroll: false,
                         onSuccess: () => {},
                         onError: errors => {console.log(errors);}
                     })
                 }
             })
-        },
-        addDeliveryChallan(id) {
-            this.$inertia.get(route('dashboard.delivery-challan.create'), {supply_order_id: id}, {
-                onSuccess: () => {},
-                onError: errors => {console.log(errors);}
-            })
-        },
-        showDeliveryChallan(id) {
-            this.$inertia.get(route('dashboard.supply-order.show', id), {
-                onSuccess: () => {},
-                onError: errors => {console.log(errors);}
-            })
         }
     },
     watch: {
-        supplyOrder:{
-            handler(supplyOrder) {
-                this.allSupplyOrder = supplyOrder
+        deliveryChallan:{
+            handler(deliveryChallan) {
+                this.allDeliveryChallan = deliveryChallan
             },
             deep: true,
         },

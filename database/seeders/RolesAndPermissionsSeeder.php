@@ -123,6 +123,12 @@ class RolesAndPermissionsSeeder extends Seeder
             ['group' => 'supply order', 'name' => 'add_supply_order', 'title' => 'Add supply order', 'guard_name' => 'web'],
             ['group' => 'supply order', 'name' => 'edit_supply_order', 'title' => 'Edit supply order', 'guard_name' => 'web'],
             ['group' => 'supply order', 'name' => 'delete_supply_order', 'title' => 'Delete supply order', 'guard_name' => 'web'],
+
+            // delivery challan
+            ['group' => 'delivery challan', 'name' => 'view_delivery_challan', 'title' => 'View delivery challan', 'guard_name' => 'web'],
+            ['group' => 'delivery challan', 'name' => 'add_delivery_challan', 'title' => 'Add delivery challan', 'guard_name' => 'web'],
+            ['group' => 'delivery challan', 'name' => 'edit_delivery_challan', 'title' => 'Edit delivery challan', 'guard_name' => 'web'],
+            ['group' => 'delivery challan', 'name' => 'delete_delivery_challan', 'title' => 'Delete delivery challan', 'guard_name' => 'web'],
         ];
         Permission::insert($permissions);
 
@@ -148,6 +154,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'view_company',
             'view_currency',
             'view_supply_order',
+            'view_delivery_challan'
             ])->get();
         $manager->permissions()->sync($managerPermissions);
     }

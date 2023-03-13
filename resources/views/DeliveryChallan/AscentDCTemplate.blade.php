@@ -2,13 +2,12 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Ascent</title>
+    <title>Ascent DC</title>
     <style>
         /* Define your CSS styles here */
         body {
-            font-family: "Arial Narrow", Arial, sans-serif !important;
+            font-family: Arial, sans-serif;
             font-size: 12px;
-            margin: 0px 8px !important; 
         }
         table {
             width: 100%;
@@ -52,19 +51,15 @@
         .w-33 {
             width: 33%;
         }
-        .w-77 {
-            width: 77%;
+        .w-70 {
+            width: 70% !important;
+        }
+        .w-30 {
+            width: 30% !important;
         }
         table thead tr th{
             border: 0px !important;
             background-color: white;
-        }
-        footer {
-                position: fixed;
-                bottom: 0cm;
-                left: 0cm;
-                right: 0cm;
-                border-top: 4px solid #894e3c !important;"
         }
         .text-left {
             text-align: left !important;
@@ -75,7 +70,6 @@
         .text-center {
             text-align: center !important;
         }
-
         .p-0 { padding: 0px; }
         .p-1 { padding: 1px; }
         .p-2 { padding: 2px; }
@@ -202,79 +196,28 @@
 </head>
 <body>
     <div class="header">
-        <table>
-            <tbody>
-                <tr style="border-bottom: 4px solid #894e3c !important;">
-                    <td style="border: 0px !important; width: 40%;">
-                        <img src="{{public_path($logo)}}" alt="Logo" height="100" width="150">
-                        <p><strong style="text-align: left;">NTN # 5599160-8</strong></p>
-                    </td>
-                    <td style="border: 0px !important; width: 30%; vertical-align: middle; text-align: left; font-size: 20px">
-                        QUOTATION
-                    </td>
-                    <td style="text-align: justify; width: 30%; margin-right: -80px !important; border: 0px !important">
-                        <div style="border-left: 3px solid #323653 !important; padding-left: 8px !important">
-                            <span style="color:#323653">Tel: +92 318 3788114</span><br>
-                            <span style="color:#323653">Fax: +92 51 8772576</span><br>
-                            <span style="color:#323653">E-mail: ascent.tts@gmail.com</span><br>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <h2 class="text-center">Delivery Challan</h2>
         <table style="padding-top: 20px;">
             <tbody>
                 <tr>
-                    <td style="border: 0px !important;" class="w-50">
-                        <table style="margin-top: 10px;"> 
-                            <tbody>
-                                <tr>
-                                    <td colspan="2" style="text-align: center; font-weight: bold;">
-                                        Customer Information
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="w-33"><strong>Name</strong></td>
-                                    <td class="w-77">{{$quotation->tender->client->name}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="w-33"><strong>Reference</strong></td>
-                                    <td class="w-77">{{$quotation->tender->reference_no}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="w-33"><strong>Date</strong></td>
-                                    <td class="w-77">{{dateFormate($quotation->tender->rfq_date)}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="w-33"><strong>Validity</strong></td>
-                                    <td class="w-77">{{addDaysToDate($quotation->applied_date, $quotation->validity_of_quotation)}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <td style="border: 0px !important; width: 60%;" class="w-70">
+                        <strong>Customer Name:</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->client?->name}} <br><br>
+                        <strong>Customer Reference:</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->reference_no}}<br>
                     </td>
-                    <td style="text-align: justify; border: 0px !important;" class="w-50">  
+                    <td style="border: 0px !important; width: 40%;" class="w-30 text-right">  
                         <table style="margin-top: 10px;"> 
                             <tbody>
                                 <tr>
-                                    <td colspan="2" style="text-align: center; font-weight: bold;">
-                                        Our Information
-                                    </td>
+                                    <td class="w-50 text-right" style="border: 0px !important"><strong>Date</strong></td>
+                                    <td class="w-50 bg-secondary">{{dateFormate($deliveryChallan->supplyOrder?->quotation?->applied_date)}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="w-33"><strong>File Name</strong></td>
-                                    <td class="w-77">{{$quotation->tender->file_name}}</td>
+                                    <td class="w-50 text-right" style="border: 0px !important"><strong>No#</strong></td>
+                                    <td class="w-50 bg-secondary">{{$deliveryChallan->reference_no}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="w-33"><strong>Reference</strong></td>
-                                    <td class="w-77">{{$quotation->reference_no}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="w-33"><strong>Date</strong></td>
-                                    <td class="w-77">{{dateFormate($quotation->applied_date)}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="w-33"><strong>Delivery Time</strong></td>
-                                    <td class="w-77">{{$quotation->delivery_time}} Days</td>
+                                    <td class="w-50 text-right" style="border: 0px !important"><strong>Our Reference</strong></td>
+                                    <td class="w-50 bg-secondary">{{$deliveryChallan->supplyOrder?->quotation?->reference_no}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -289,53 +232,49 @@
             <tr>
                 <th class="w-5 text-center">Sr.</th>
                 <th class="w-50 text-center">Description</th>
-                <th class="w-5 text-center">UOM</th>
                 <th class="w-5 text-center">Qty</th>
-                <th class="text-center">Unit Price ({{$quotation->currency}})</th>
-                <th class="text-center">Total Amount ({{$quotation->currency}})</th>
+                <th class="w-5 text-center">A/U</th>
+                <th class="text-center">Unit Price ({{$deliveryChallan->supplyOrder->quotation->currency}})</th>
+                <th class="text-center">Total Amount ({{$deliveryChallan->supplyOrder->quotation->currency}})</th>
             </tr>
         </thead>
         <tbody>
-            @if ($quotation->items->count() > 0)  
-                @foreach ($quotation->items as $key => $item)
+            @if ($deliveryChallan->items->count() > 0)  
+                @foreach ($deliveryChallan->items as $key => $item)
                     <tr>
-                        <td class="text-center">{{$key+1}}</td>
-                        <td class="w-50 ">{{$item->tenderItem?->item?->name}}<br> <small> {{$item->tenderItem?->description}}</small></td>
-                        <td class="w-5 text-center">{{$item->tenderItem?->unit?->short_name}}</td>
-                        <td class="w-5 text-center">{{$item->tenderItem?->qty}}</td>
+                        <td  class="text-center">{{$key+1}}</td>
+                        <td class="w-50">{{$item->supplyOrderItem?->quotationItem?->tenderItem?->item?->name}}<br><small> {{$item->supplyOrderItem?->quotationItem?->tenderItem?->description}}</small></td>
+                        <td class="w-5 text-center">{{$item->qty}}</td>
+                        <td class="w-5 text-center">{{$item->supplyOrderItem?->quotationItem?->tenderItem?->unit?->short_name}}</td>
                         <td class="text-right">{{numberFormate($item->unit_price)}}</td>
-                        <td class="text-right">{{numberFormate($item->total_price)}}</td>
+                        <td class="text-right bg-secondary">{{numberFormate($item->unit_price)}}</td>
                     </tr>
                 @endforeach
             @endif
         </tbody>
-        <tfoot>
+        {{-- <tfoot>
             <tr>
                 <td colspan="5" class="footer" style="border: 0px !important;">Subtotal:</td>
-                <td class="text-right">{{numberFormate($quotation->total_price)}}</td>
+                <td>qwerty123</td>
             </tr>
             <tr>
-                <td colspan="5" class="footer" style="border: 0px !important;">GST({{$quotation->tax}}%):</td>
-                <td class="text-right">{{numberFormate(calculateTax($quotation->tax, $quotation->total_price))}}</td>
+                <td colspan="5" class="footer" style="border: 0px !important;">GST %</td>
+                <td>qwerty123</td>
+            </tr>
+            <tr>
+                <td colspan="5" class="footer" style="border: 0px !important;">GST Amount:</td>
+                <td>qwerty123</td>
             </tr>
             <tr>
                 <td colspan="5" class="footer" style="border: 0px !important;">Grand Total:</td>
-                <td class="text-right">{{numberFormate($quotation->total_price + calculateTax($quotation->tax, $quotation->total_price))}}</td>
+                <td>qwerty123</td>
             </tr>
-        </tfoot>
+        </tfoot> --}}
     </table>
     <br>
     <div>
-        <h3 style="text-decoration: underline;">Terms and Conditions:</h3>
-        <p><strong>Mode of Payment:</strong> {{$quotation->tender->mop->name}}</p>
-        <p><strong>Rate Basis</strong> {{$quotation->tender->rate_basis}}</p>
-        @foreach (breakString($quotation->terms_and_conditions) as $term)
-            <p>{{$term}}</p>
-        @endforeach
+        <p class="text-center">Remarks: <strong>{{$deliveryChallan->description}}</strong></p>
+        <p class="text-center pt-20"><strong>Yours Truly</strong></p> 
     </div>
-    <footer>
-        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Head Quarter: Office # 18, 3<sup>rd</sup> Floor, Gulberg Trade Center, Business Park, Gulberg Greens, Islamabad.</p>
-        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Regional Office: Plot No 117 Shaheed Millat Road, Defence View Phase II, Karachi. Mobile: 0333-2814609</p>
-    </footer>
 </body>
 </html>

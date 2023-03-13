@@ -60,3 +60,7 @@ function breakString($str) {
     }, $sentences);
     return $sentences; // return the array of sentences
 }
+
+function addDaysToDate($date, $days) {
+    return Carbon::parse($date)->addDays($days)->format('F j, Y');
+}
