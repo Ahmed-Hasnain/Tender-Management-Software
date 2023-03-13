@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\SupplyOrder;
 use App\Models\SupplyOrderItem;
 use Illuminate\Support\Facades\Log;
 
@@ -45,9 +46,17 @@ class SupplyOrderItemObserver
                 $supplyOrderItem->saveQuietly();
                 if ($supplyOrderItem->supplyOrder) {
                     $supplyOrderItem->supplyOrder->total_price =  0;
-                    $supplyOrderItem->supplyOrder->total_price = $supplyOrderItem->supplyOrder->items->sum('total');  
+                    $supplyOrderItem->supplyOrder->total_price = $supplyOrderItem->supplyOrder->items->sum('total');
+                    $supplyOrderHasAllItemsWithZeroQty  = $supplyOrderItem->supplyOrder->items->where('qty_left', 0)->count();
+                    $allItemsQty = $supplyOrderItem->supplyOrder->items->count();
+                    if ($supplyOrderHasAllItemsWithZeroQty == $allItemsQty) {
+                        $supplyOrderItem->supplyOrder->delivered = 1;
+                    } else {
+                        $supplyOrderItem->supplyOrder->delivered = 0;
+                    }
                     $supplyOrderItem->supplyOrder->save();
                 }
+                
             }
         } catch (\Throwable $th) {
             Log::info($th->getMessage());

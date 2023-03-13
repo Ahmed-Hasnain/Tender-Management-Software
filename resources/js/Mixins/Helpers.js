@@ -66,6 +66,11 @@ export default {
         
         removeDashes(str) {
             return str.replace(/_/g, " ");
-        }
+        },
+
+         // number of days added date
+        addDays(dateString, days) {
+            return moment(dateString).add(days, 'days').format("Do MMM YYYY").toDate();
+        },
     }
 }

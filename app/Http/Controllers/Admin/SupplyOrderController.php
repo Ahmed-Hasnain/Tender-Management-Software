@@ -85,6 +85,7 @@ class SupplyOrderController extends Controller
                             'quotation_item_id' => $supplyOrderItem['quotation_item_id'],
                             'unit_price' => $supplyOrderItem['unit_price'],
                             'qty' => $supplyOrderItem['qty'],
+                            'qty_left' => $supplyOrderItem['qty'],
                         ]);
                     }
                 }
@@ -152,6 +153,7 @@ class SupplyOrderController extends Controller
                             'quotation_item_id' => $supplyOrderItem['quotation_item_id'],
                             'unit_price' => $supplyOrderItem['unit_price'],
                             'qty' => $supplyOrderItem['qty'],
+                            'qty_left' => $supplyOrderItem['qty'],
                         ]);
                     }
                 }

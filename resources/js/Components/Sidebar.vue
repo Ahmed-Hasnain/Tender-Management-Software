@@ -141,6 +141,14 @@
                         <span class="title" :class="{ 'text-white': supplyOrderFlag }">Supply Order</span>
                     </Link>
                 </li>
+                <li class="nav-item dropdown" :class="{ 'active': deliveryChallanFlag }">
+                    <Link :href="route('dashboard.delivery-challan.index')" class="custom-menuitem-padding">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-audit" :class="{ 'text-white': deliveryChallanFlag }"></i>
+                        </span>
+                        <span class="title" :class="{ 'text-white': deliveryChallanFlag }">Delivery Challan</span>
+                    </Link>
+                </li>
             </ul>
         </div>
     </div>
@@ -198,6 +206,9 @@ export default {
         },
         supplyOrderFlag() {
             return this.$page.component === 'SupplyOrder/Index' || this.$page.component === 'SupplyOrder/Create' || this.$page.component === 'SupplyOrder/Edit' || this.$page.component === 'SupplyOrder/Show' ? true : false
+        },
+        deliveryChallanFlag() {
+            return this.$page.component === 'DeliveryChallan/Index' || this.$page.component === 'DeliveryChallan/Create' || this.$page.component === 'DeliveryChallan/Edit' || this.$page.component === 'DeliveryChallan/Show' ? true : false
         },
     }
 }

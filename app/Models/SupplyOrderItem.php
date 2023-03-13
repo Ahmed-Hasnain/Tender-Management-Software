@@ -13,6 +13,7 @@ class SupplyOrderItem extends Model
         'supply_order_id',
         'quotation_item_id',
         'qty',
+        'qty_left',
         'unit_price',
     ];
 

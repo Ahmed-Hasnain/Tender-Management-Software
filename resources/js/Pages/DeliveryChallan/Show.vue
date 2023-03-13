@@ -1,10 +1,10 @@
 <template>
 
-    <Head title="Supply Order Details" />
+    <Head title="Delivery Challan Details" />
     <AuthenticatedLayout>
         <div class="card">
             <div class="card-body">
-                <div id="invoice" class="p-h-30">
+                <div class="p-h-30">
                     <div class="m-t-15 lh-2">
                         <div class="inline-block">
                             <img :src="getImage(this.$page.props.settings.logo)" alt="Logo" height="60" width="60">
@@ -20,7 +20,7 @@
                             </address>
                         </div>
                         <div class="float-right">
-                            <h2>Supply Order</h2>
+                            <h2>Delivery Challan</h2>
                             <div class="m-t-20">
                                 <div class="text-dark text-capitalize d-inline-block">
                                     <span class="font-weight-semibold text-dark">Our Reference: </span>
@@ -87,13 +87,13 @@
                                         <th style="width: 150px;">Total</th>
                                     </tr>
                                 </thead>
-                                <tbody v-if="supplyOrder.items.length > 0">
-                                    <tr v-for="(item, index) in supplyOrder.items" :key="index">
+                                <tbody v-if="deliveryChallan.items.length > 0">
+                                    <tr v-for="(item, index) in deliveryChallan.items" :key="index">
                                         <th>{{ index+1 }}</th>
-                                        <td>{{ item.quotation_item?.tender_item?.item?.name }}<br><small>{{ item.quotation_item?.tender_item?.description }}</small></td>
+                                        <td>{{ item.supply_order_item?.quotation_item?.tender_item?.item?.name }}<br><small>{{ item.supply_order_item?.quotation_item?.tender_item?.description }}</small></td>
                                         <td>{{ item.qty }}</td>
-                                        <td>{{ supplyOrder.quotation?.currency }} {{ formatNumber(item.unit_price) }} </td>
-                                        <td>{{ supplyOrder.quotation?.currency }} {{ formatNumber(item.total) }} </td>
+                                        <td>{{ deliveryChallan.supply_order?.quotation?.currency }} {{ formatNumber(item.unit_price) }} </td>
+                                        <td>{{ deliveryChallan.supply_order?.quotation?.currency }} {{ formatNumber(item.total_price) }} </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -101,10 +101,10 @@
                         <div class="row m-t-30 lh-1-8">
                             <div class="col-sm-12">
                                 <div class="float-right text-right">
-                                    <p>Total amount: {{ supplyOrder.quotation.currency }} {{ formatNumber(supplyOrder.total_price) }}</p>
-                                    <p>GST ({{ supplyOrder.quotation?.tax }}%) : {{ supplyOrder.quotation?.currency }} {{formatNumber(calculateTax(supplyOrder.total_price, supplyOrder.quotation?.tax))}}  </p>
+                                    <p>Total amount: {{ supplyOrder.quotation.currency }} {{ formatNumber(deliveryChallan.total) }}</p>
+                                    <p>GST ({{ supplyOrder.quotation?.tax }}%) : {{ supplyOrder.quotation?.currency }} {{formatNumber(calculateTax(deliveryChallan.total, supplyOrder.quotation?.tax))}}  </p>
                                     <hr>
-                                    <h3><span class="font-weight-semibold text-dark">Total :</span> {{ supplyOrder.quotation?.currency }} {{ getTotal(supplyOrder.total_price, calculateTax(supplyOrder.total_price, supplyOrder.quotation?.tax)) }} </h3>
+                                    <h3><span class="font-weight-semibold text-dark">Total :</span> {{ supplyOrder.quotation?.currency }} {{ getTotal(deliveryChallan.total, calculateTax(deliveryChallan.total, supplyOrder.quotation?.tax)) }} </h3>
                                 </div>
                             </div>
                         </div>
@@ -130,7 +130,7 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="card">
+        <div class="card">
             <div class="card-body">
                 <div class="form-row">
                     <div class="form-group col-md-10">
@@ -141,11 +141,11 @@
                         </select>
                     </div>
                     <div class="form-group col-md-2 text-right">
-                        <a :href="route('dashboard.downloadQuotation', [quotation.id, company])" class="btn btn-primary btn-">Download Pdf</a>
+                        <a :href="route('dashboard.downloadDeliveryChallan', [deliveryChallan.id, company])" class="btn btn-primary btn-">Download Pdf</a>
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
     </AuthenticatedLayout>
 </template>
 
@@ -156,7 +156,7 @@ import Error from "@/Components/InputError.vue";
 import Helpers from '@/Mixins/Helpers';
 
 export default {
-    props: ["supplyOrder"],
+    props: ["supplyOrder", "deliveryChallan"],
     components: {
         AuthenticatedLayout,
         Head,
@@ -170,7 +170,7 @@ export default {
     methods: {
     },
     mounted() {
-        console.log(this.supplyOrder);
+        console.log(this.supplyOrder, this.deliveryChallan);
     },
     mixins: [Helpers]
 };
