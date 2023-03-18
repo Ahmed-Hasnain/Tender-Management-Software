@@ -2,12 +2,13 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Ascent DC</title>
+    <title>Ondre Ticaret DC</title>
     <style>
         /* Define your CSS styles here */
         body {
             font-family: Arial, sans-serif;
             font-size: 12px;
+            padding: 20px !important;
         }
         table {
             width: 100%;
@@ -15,7 +16,7 @@
         }
         th, td {
             padding: 5px;
-            border: 1px solid #ddd;
+            border: 2px solid black;
         }
         th {
             background-color: #f2f2f2;
@@ -58,7 +59,7 @@
             width: 30% !important;
         }
         table thead tr th{
-            border: 0px !important;
+            /* border: 0px !important; */
             background-color: white;
         }
         .text-left {
@@ -200,24 +201,26 @@
         <table style="padding-top: 20px;">
             <tbody>
                 <tr>
-                    <td style="border: 0px !important; width: 60%;" class="w-70">
-                        <strong>Customer Name:</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->client?->name}} <br><br>
-                        <strong>Customer Reference:</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->reference_no}}<br>
+                    <td style="border: 0px !important; width: 60% !important;" class="w-70">
+                        {{-- <strong>Customer Name:</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->client?->name}} <br><br>
+                        <strong>Customer Reference:</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->reference_no}} - {{dateFormate($deliveryChallan->supplyOrder?->quotation?->tender?->rfq_date)}}<br> --}}
                     </td>
-                    <td style="border: 0px !important; width: 40%;" class="w-30 text-right">  
+                    <td style="border: 0px !important; width: 40% !important;" class="w-30 text-right">  
                         <table style="margin-top: 10px;"> 
                             <tbody>
                                 <tr>
-                                    <td class="w-50 text-right" style="border: 0px !important"><strong>Date</strong></td>
-                                    <td class="w-50 bg-secondary">{{dateFormate($deliveryChallan->supplyOrder?->quotation?->applied_date)}}</td>
+                                    <td class="w-50" style="text-align: center; font-weight: bold;">{{$deliveryChallan->reference_no}}</td>
+                                    <td class="w-50" style="text-align: center; font-weight: bold;">{{dateFormate($deliveryChallan->supplyOrder?->quotation?->applied_date)}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="w-50 text-right" style="border: 0px !important"><strong>No#</strong></td>
-                                    <td class="w-50 bg-secondary">{{$deliveryChallan->reference_no}}</td>
+                                    <td colspan="2" style="text-align: center;">
+                                        Our Reference
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td class="w-50 text-right" style="border: 0px !important"><strong>Our Reference</strong></td>
-                                    <td class="w-50 bg-secondary">{{$deliveryChallan->supplyOrder?->quotation?->reference_no}}</td>
+                                    <td colspan="2" style="text-align: center; font-weight: bold;">
+                                        {{$deliveryChallan->supplyOrder?->quotation?->reference_no}}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -225,6 +228,12 @@
                 </tr>
             </tbody>
         </table>
+        <div>
+            <span>Customer Name</span><br>
+            <span><strong>{{$deliveryChallan->supplyOrder?->quotation?->tender?->client?->name}}</strong></span><br><br>
+            <span>Customer Reference</span><br>
+            <span><strong>Ref. No.</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->reference_no}}, <strong>Dated: </strong>{{dateFormate($deliveryChallan->supplyOrder?->quotation?->tender?->rfq_date)}} </span><br>
+        </div>
     </div>
     <br>
     <table>
@@ -232,10 +241,10 @@
             <tr>
                 <th class="w-5 text-center">Sr.</th>
                 <th class="w-50 text-center">Description</th>
-                <th class="w-5 text-center">Qty</th>
                 <th class="w-5 text-center">A/U</th>
-                <th class="text-center">Unit Price ({{$deliveryChallan->supplyOrder->quotation->currency}})</th>
-                <th class="text-center">Total Amount ({{$deliveryChallan->supplyOrder->quotation->currency}})</th>
+                <th class="w-5 text-center">Qty</th>
+                {{-- <th class="text-center">Unit Price ({{$deliveryChallan->supplyOrder->quotation->currency}})</th>
+                <th class="text-center">Total Amount ({{$deliveryChallan->supplyOrder->quotation->currency}})</th> --}}
             </tr>
         </thead>
         <tbody>
@@ -244,10 +253,10 @@
                     <tr>
                         <td  class="text-center">{{$key+1}}</td>
                         <td class="w-50">{{$item->supplyOrderItem?->quotationItem?->tenderItem?->item?->name}}<br><small> {{$item->supplyOrderItem?->quotationItem?->tenderItem?->description}}</small></td>
-                        <td class="w-5 text-center">{{$item->qty}}</td>
                         <td class="w-5 text-center">{{$item->supplyOrderItem?->quotationItem?->tenderItem?->unit?->short_name}}</td>
-                        <td class="text-right">{{numberFormate($item->unit_price)}}</td>
-                        <td class="text-right bg-secondary">{{numberFormate($item->unit_price)}}</td>
+                        <td class="w-5 text-center">{{$item->qty}}</td>
+                        {{-- <td class="text-right">{{numberFormate($item->unit_price)}}</td>
+                        <td class="text-right bg-secondary">{{numberFormate($item->unit_price)}}</td> --}}
                     </tr>
                 @endforeach
             @endif
@@ -273,8 +282,8 @@
     </table>
     <br>
     <div>
-        <p class="text-center">Remarks: <strong>{{$deliveryChallan->description}}</strong></p>
-        <p class="text-center pt-20"><strong>Yours Truly</strong></p> 
+        {{-- <p class="text-center">Remarks: <strong>{{$deliveryChallan->description}}</strong></p> --}}
+        <p class="text-right pt-20"><strong>Yours Truly</strong></p> 
     </div>
 </body>
 </html>

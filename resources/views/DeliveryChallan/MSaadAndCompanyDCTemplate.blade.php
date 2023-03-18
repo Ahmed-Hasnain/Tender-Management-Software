@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>M Saad and Company DC</title>
+    <title>Ondre Ticaret DC</title>
     <style>
         /* Define your CSS styles here */
         body {
@@ -200,11 +200,11 @@
         <table style="padding-top: 20px;">
             <tbody>
                 <tr>
-                    <td style="border: 0px !important; width: 60%;" class="w-70">
+                    <td style="border: 0px !important; width: 65% !important;" class="w-70">
                         <strong>Customer Name:</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->client?->name}} <br><br>
-                        <strong>Customer Reference:</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->reference_no}}<br>
+                        <strong>Customer Reference:</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->reference_no}} - {{dateFormate($deliveryChallan->supplyOrder?->quotation?->tender?->rfq_date)}}<br>
                     </td>
-                    <td style="border: 0px !important; width: 40%;" class="w-30 text-right">  
+                    <td style="border: 0px !important; width: 35% !important;" class="w-30 text-right">  
                         <table style="margin-top: 10px;"> 
                             <tbody>
                                 <tr>
