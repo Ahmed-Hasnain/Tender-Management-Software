@@ -8,6 +8,7 @@
         body {
             font-family: Arial, sans-serif;
             font-size: 12px;
+            padding: 20px !important;
         }
         table {
             width: 100%;
@@ -196,7 +197,7 @@
 </head>
 <body>
     <div class="header">
-        <h2 class="text-center">Delivery Challan</h2>
+        <h2 class="text-center">DELIVERY CHALLAN</h2>
         <table style="padding-top: 20px;">
             <tbody>
                 <tr>

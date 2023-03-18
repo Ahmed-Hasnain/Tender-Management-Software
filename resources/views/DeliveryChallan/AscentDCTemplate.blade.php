@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Ondre Ticaret DC</title>
+    <title>Ascent Tech</title>
     <style>
         /* Define your CSS styles here */
         body {
@@ -197,7 +197,7 @@
 </head>
 <body>
     <div class="header">
-        <h2 class="text-center">Delivery Challan</h2>
+        <h2 class="text-center">DELIVERY CHALLAN</h2>
         <table style="padding-top: 20px;">
             <tbody>
                 <tr>
