@@ -40,7 +40,7 @@
                                             <td class="text-capitalize">{{ supplyOrder.quotation?.tender?.reference_no }}</td>
                                             <td class="text-capitalize">{{ supplyOrder.quotation?.currency }} {{ formatNumber(supplyOrder.total_price) }}</td>
                                             <td class="text-right">
-                                                <button @click="false ? showDeliveryChallan(supplyOrder.delivery_challan.id) : addDeliveryChallan(supplyOrder.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('add_delivery_challan')">
+                                                <button @click="supplyOrder.delivered ? showDeliveryChallan(supplyOrder.id) : addDeliveryChallan(supplyOrder.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('add_delivery_challan')">
                                                     <i class="anticon anticon-reconciliation"></i>
                                                 </button>
                                                 <button @click="show(supplyOrder.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('view_supply_order')">
@@ -140,6 +140,9 @@ export default {
             },
             deep: true,
         },
+    },
+    mounted(){
+        console.log(this.supplyOrder);
     },
     mixins: [Helpers]
 }

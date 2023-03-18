@@ -6,7 +6,9 @@ use Inertia\Inertia;
 use App\Models\Quotation;
 use App\Models\SupplyOrder;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SupplyOrderRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -186,6 +188,51 @@ class SupplyOrderController extends Controller
         } catch (\Exception $e) {
             flash($e->getMessage(), 'danger');
             return \redirect()->back();
+        }
+    }
+
+    public function downloadSupplyOrder($supplyOrderId, $company, $type)
+    {
+        try {
+            $supplyOrder = SupplyOrder::with('items.quotationItem.tenderItem.item', 'items.quotationItem.tenderItem.unit', 'quotation.tender.items.item', 'quotation.tender.items.unit', 'quotation.tender.client')->findOrFail($supplyOrderId);
+            $data = [
+                'supplyOrder' => $supplyOrder,
+            ];
+            if ($type === 'sale_tax_invoice') {
+                switch ($company) {
+                    case 'OndreTicaretTemplate':
+                        $data['logo'] = "assets/images/logo/onder-logo.png";
+                        $pdf = Pdf::loadView('SaleTaxInvoice/OndreTicaretDCTemplate', $data);
+                        break;
+                    case 'MSaadAndCompanyTemplate':
+                        $data['logo'] = "assets/images/logo/saad&co.png";
+                        $pdf = Pdf::loadView('SaleTaxInvoice/MSaadAndCompanyDCTemplate', $data);
+                        break;
+                    case 'AscentTemplate':
+                        $data['logo'] = "assets/images/logo/ascent.png";
+                        $pdf = Pdf::loadView('SaleTaxInvoice/AscentDCTemplate', $data);
+                        break;
+                }
+            } else {
+                switch ($company) {
+                    case 'OndreTicaretTemplate':
+                        $data['logo'] = "assets/images/logo/onder-logo.png";
+                        $pdf = Pdf::loadView('CommercialInvoice/OndreTicaretDCTemplate', $data);
+                        break;
+                    case 'MSaadAndCompanyTemplate':
+                        $data['logo'] = "assets/images/logo/saad&co.png";
+                        $pdf = Pdf::loadView('CommercialInvoice/MSaadAndCompanyDCTemplate', $data);
+                        break;
+                    case 'AscentTemplate':
+                        $data['logo'] = "assets/images/logo/ascent.png";
+                        $pdf = Pdf::loadView('CommercialInvoice/AscentDCTemplate', $data);
+                        break;
+                }
+            }
+            // return view($company, $data);
+            return $pdf->download('quotation.pdf');
+        } catch (\Throwable $th) {
+            Log::info($th->getMessage());
         }
     }
 }

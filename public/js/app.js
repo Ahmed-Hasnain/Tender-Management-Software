@@ -23444,6 +23444,9 @@ __webpack_require__.r(__webpack_exports__);
       deep: true
     }
   },
+  mounted: function mounted() {
+    console.log(this.supplyOrder);
+  },
   mixins: [_Mixins_Helpers__WEBPACK_IMPORTED_MODULE_2__["default"]]
 });
 
@@ -33699,7 +33702,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(supplyOrder.id), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_supplyOrder$quotatio = supplyOrder.quotation) === null || _supplyOrder$quotatio === void 0 ? void 0 : _supplyOrder$quotatio.reference_no), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_supplyOrder$quotatio2 = supplyOrder.quotation) === null || _supplyOrder$quotatio2 === void 0 ? void 0 : (_supplyOrder$quotatio3 = _supplyOrder$quotatio2.tender) === null || _supplyOrder$quotatio3 === void 0 ? void 0 : _supplyOrder$quotatio3.reference_no), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_supplyOrder$quotatio4 = supplyOrder.quotation) === null || _supplyOrder$quotatio4 === void 0 ? void 0 : _supplyOrder$quotatio4.currency) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.formatNumber(supplyOrder.total_price)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_17, [_ctx.checkUserPermissions('add_delivery_challan') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
           key: 0,
           onClick: function onClick($event) {
-            return  false ? 0 : $options.addDeliveryChallan(supplyOrder.id);
+            return supplyOrder.delivered ? $options.showDeliveryChallan(supplyOrder.id) : $options.addDeliveryChallan(supplyOrder.id);
           },
           "class": "btn btn-icon btn-hover btn-sm btn-rounded pull-right"
         }, _hoisted_20, 8 /* PROPS */, _hoisted_18)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.checkUserPermissions('view_supply_order') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
@@ -33889,7 +33892,64 @@ var _hoisted_36 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "font-weight-semibold text-dark"
 }, "Phone:"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 0318-3788114")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", null, "support@ondreticaret.co")])], -1 /* HOISTED */);
-
+var _hoisted_37 = {
+  key: 0,
+  "class": "card"
+};
+var _hoisted_38 = {
+  "class": "card-body"
+};
+var _hoisted_39 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Sale Tax Invoice", -1 /* HOISTED */);
+var _hoisted_40 = {
+  "class": "form-row"
+};
+var _hoisted_41 = {
+  "class": "form-group col-md-10"
+};
+var _hoisted_42 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "OndreTicaretTemplate",
+  "class": "text-capitalize"
+}, "Ondre Ticaret", -1 /* HOISTED */);
+var _hoisted_43 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "MSaadAndCompanyTemplate",
+  "class": "text-capitalize"
+}, "M Saad and Company", -1 /* HOISTED */);
+var _hoisted_44 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "AscentTemplate",
+  "class": "text-capitalize"
+}, "Ascent", -1 /* HOISTED */);
+var _hoisted_45 = [_hoisted_42, _hoisted_43, _hoisted_44];
+var _hoisted_46 = {
+  "class": "form-group col-md-2 text-right"
+};
+var _hoisted_47 = ["href"];
+var _hoisted_48 = {
+  "class": "card-body"
+};
+var _hoisted_49 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Commercial Invoice", -1 /* HOISTED */);
+var _hoisted_50 = {
+  "class": "form-row"
+};
+var _hoisted_51 = {
+  "class": "form-group col-md-10"
+};
+var _hoisted_52 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "OndreTicaretTemplate",
+  "class": "text-capitalize"
+}, "Ondre Ticaret", -1 /* HOISTED */);
+var _hoisted_53 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "MSaadAndCompanyTemplate",
+  "class": "text-capitalize"
+}, "M Saad and Company", -1 /* HOISTED */);
+var _hoisted_54 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "AscentTemplate",
+  "class": "text-capitalize"
+}, "Ascent", -1 /* HOISTED */);
+var _hoisted_55 = [_hoisted_52, _hoisted_53, _hoisted_54];
+var _hoisted_56 = {
+  "class": "form-group col-md-2 text-right"
+};
+var _hoisted_57 = ["href"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _this = this;
   var _component_Head = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Head");
@@ -33909,7 +33969,23 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
           key: index
         }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(index + 1), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_item$quotation_item = item.quotation_item) === null || _item$quotation_item === void 0 ? void 0 : (_item$quotation_item$ = _item$quotation_item.tender_item) === null || _item$quotation_item$ === void 0 ? void 0 : (_item$quotation_item$2 = _item$quotation_item$.item) === null || _item$quotation_item$2 === void 0 ? void 0 : _item$quotation_item$2.name), 1 /* TEXT */), _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_item$quotation_item2 = item.quotation_item) === null || _item$quotation_item2 === void 0 ? void 0 : (_item$quotation_item3 = _item$quotation_item2.tender_item) === null || _item$quotation_item3 === void 0 ? void 0 : _item$quotation_item3.description), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.qty), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$props$supplyOrder$q6 = $props.supplyOrder.quotation) === null || _$props$supplyOrder$q6 === void 0 ? void 0 : _$props$supplyOrder$q6.currency) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.formatNumber(item.unit_price)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$props$supplyOrder$q7 = $props.supplyOrder.quotation) === null || _$props$supplyOrder$q7 === void 0 ? void 0 : _$props$supplyOrder$q7.currency) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.formatNumber(item.total)), 1 /* TEXT */)]);
-      }), 128 /* KEYED_FRAGMENT */))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Total amount: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.supplyOrder.quotation.currency) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.formatNumber($props.supplyOrder.total_price)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "GST (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$props$supplyOrder$q8 = $props.supplyOrder.quotation) === null || _$props$supplyOrder$q8 === void 0 ? void 0 : _$props$supplyOrder$q8.tax) + "%) : " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$props$supplyOrder$q9 = $props.supplyOrder.quotation) === null || _$props$supplyOrder$q9 === void 0 ? void 0 : _$props$supplyOrder$q9.currency) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.formatNumber(_ctx.calculateTax($props.supplyOrder.total_price, (_$props$supplyOrder$q10 = $props.supplyOrder.quotation) === null || _$props$supplyOrder$q10 === void 0 ? void 0 : _$props$supplyOrder$q10.tax))), 1 /* TEXT */), _hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, [_hoisted_31, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$props$supplyOrder$q11 = $props.supplyOrder.quotation) === null || _$props$supplyOrder$q11 === void 0 ? void 0 : _$props$supplyOrder$q11.currency) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.getTotal($props.supplyOrder.total_price, _ctx.calculateTax($props.supplyOrder.total_price, (_$props$supplyOrder$q12 = $props.supplyOrder.quotation) === null || _$props$supplyOrder$q12 === void 0 ? void 0 : _$props$supplyOrder$q12.tax))), 1 /* TEXT */)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_34, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$props$supplyOrder$q13 = $props.supplyOrder.quotation) === null || _$props$supplyOrder$q13 === void 0 ? void 0 : _$props$supplyOrder$q13.terms_and_conditions), 1 /* TEXT */)])])])]), _hoisted_36])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"card\">\r\n            <div class=\"card-body\">\r\n                <div class=\"form-row\">\r\n                    <div class=\"form-group col-md-10\">\r\n                        <select class=\"form-control\" v-model=\"company\">\r\n                            <option value=\"OndreTicaretTemplate\" class=\"text-capitalize\">Ondre Ticaret</option>\r\n                            <option value=\"MSaadAndCompanyTemplate\" class=\"text-capitalize\">M Saad and Company</option>\r\n                            <option value=\"AscentTemplate\" class=\"text-capitalize\">Ascent</option>\r\n                        </select>\r\n                    </div>\r\n                    <div class=\"form-group col-md-2 text-right\">\r\n                        <a :href=\"route('dashboard.downloadQuotation', [quotation.id, company])\" class=\"btn btn-primary btn-\">Download Pdf</a>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div> ")];
+      }), 128 /* KEYED_FRAGMENT */))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Total amount: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.supplyOrder.quotation.currency) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.formatNumber($props.supplyOrder.total_price)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "GST (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$props$supplyOrder$q8 = $props.supplyOrder.quotation) === null || _$props$supplyOrder$q8 === void 0 ? void 0 : _$props$supplyOrder$q8.tax) + "%) : " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$props$supplyOrder$q9 = $props.supplyOrder.quotation) === null || _$props$supplyOrder$q9 === void 0 ? void 0 : _$props$supplyOrder$q9.currency) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.formatNumber(_ctx.calculateTax($props.supplyOrder.total_price, (_$props$supplyOrder$q10 = $props.supplyOrder.quotation) === null || _$props$supplyOrder$q10 === void 0 ? void 0 : _$props$supplyOrder$q10.tax))), 1 /* TEXT */), _hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, [_hoisted_31, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$props$supplyOrder$q11 = $props.supplyOrder.quotation) === null || _$props$supplyOrder$q11 === void 0 ? void 0 : _$props$supplyOrder$q11.currency) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.getTotal($props.supplyOrder.total_price, _ctx.calculateTax($props.supplyOrder.total_price, (_$props$supplyOrder$q12 = $props.supplyOrder.quotation) === null || _$props$supplyOrder$q12 === void 0 ? void 0 : _$props$supplyOrder$q12.tax))), 1 /* TEXT */)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_34, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$props$supplyOrder$q13 = $props.supplyOrder.quotation) === null || _$props$supplyOrder$q13 === void 0 ? void 0 : _$props$supplyOrder$q13.terms_and_conditions), 1 /* TEXT */)])])])]), _hoisted_36])])])]), $props.supplyOrder.delivered ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, [_hoisted_39, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+        "class": "form-control",
+        "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+          return $data.company = $event;
+        })
+      }, _hoisted_45, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.company]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_46, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+        href: _ctx.route('dashboard.downloadSupplyOrder', [$props.supplyOrder.id, $data.company, 'sale_tax_invoice']),
+        "class": "btn btn-primary btn-"
+      }, "Download Pdf", 8 /* PROPS */, _hoisted_47)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_48, [_hoisted_49, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_50, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_51, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+        "class": "form-control",
+        "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+          return $data.company = $event;
+        })
+      }, _hoisted_55, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.company]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_56, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+        href: _ctx.route('dashboard.downloadSupplyOrder', [$props.supplyOrder.id, $data.company, 'commercial_invoice']),
+        "class": "btn btn-primary btn-"
+      }, "Download Pdf", 8 /* PROPS */, _hoisted_57)])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
     }),
     _: 1 /* STABLE */
   })], 64 /* STABLE_FRAGMENT */);
