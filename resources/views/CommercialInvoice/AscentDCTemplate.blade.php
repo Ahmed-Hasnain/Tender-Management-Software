@@ -250,7 +250,7 @@
                                     <td class="w-50 text-center"><strong>Date</strong></td>
                                 </tr>
                                 <tr>
-                                    <td class="w-50 text-center">Invc # {{$supplyOrder->id}}</td>
+                                    <td class="w-50 text-center">C-Invc # {{$supplyOrder->id}}</td>
                                     <td class="w-50 text-center">{{currentDate()}}</td>
                                 </tr>
                             </tbody>
