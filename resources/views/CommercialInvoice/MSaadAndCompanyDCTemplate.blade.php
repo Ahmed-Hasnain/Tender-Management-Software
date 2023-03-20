@@ -222,7 +222,7 @@
                                 </tr>
                                 <tr>
                                     <td class="w-30" style="border: 0px !important; color: gray !important;"><strong>No #</strong></td>
-                                    <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">ST-Invc # {{$supplyOrder->id}}</td>
+                                    <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">C-Invc # {{$supplyOrder->id}}</td>
                                 </tr>
                                 <tr>
                                     <td class="w-30" style="border: 0px !important; color: gray !important;"><strong>Reference:</strong></td>
