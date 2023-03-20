@@ -233,12 +233,6 @@
                                 <tr>
                                     <td class=" text-center">{{$supplyOrder?->quotation?->reference_no}} - Dated: {{dateFormate($supplyOrder?->quotation?->applied_date)}}</td>
                                 </tr>
-                                {{-- <tr>
-                                    <td style="border: 0px !important; padding-top: 10px;" class="pt-3">Customer Name</td>
-                                </tr>
-                                <tr>
-                                    <td style="border: 0px !important; font-weight: bold;">{{$supplyOrder?->quotation?->tender?->client?->name}}</td>
-                                </tr> --}}
                                 <tr>
                                     <td style="border: 0px !important;">Customer Reference</td>
                                 </tr>
@@ -256,18 +250,8 @@
                                     <td class="w-50 text-center"><strong>Date</strong></td>
                                 </tr>
                                 <tr>
-                                    <td class="w-50 text-center">1234#</td>
-                                    <td class="w-50 text-center">{{dateFormate($supplyOrder?->quotation?->applied_date)}}</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" style="text-align: center; font-weight: bold;">
-                                        Customer ID
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" style="text-align: center;">
-                                        12345
-                                    </td>
+                                    <td class="w-50 text-center">Invc # {{$supplyOrder->id}}</td>
+                                    <td class="w-50 text-center">{{currentDate()}}</td>
                                 </tr>
                             </tbody>
                         </table>
