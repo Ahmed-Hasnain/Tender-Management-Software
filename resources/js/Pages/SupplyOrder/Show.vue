@@ -130,7 +130,7 @@
                 </div>
             </div>
         </div>
-        <div class="card" v-if="supplyOrder.delivered">
+        <div class="card" v-if="supplyOrder.delivered == 1">
             <div class="card-body">
                 <h4>Sale Tax Invoice</h4>
                 <div class="form-row">
