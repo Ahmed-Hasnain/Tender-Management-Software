@@ -130,8 +130,9 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="card">
+        <div class="card" v-if="supplyOrder.delivered">
             <div class="card-body">
+                <h4>Sale Tax Invoice</h4>
                 <div class="form-row">
                     <div class="form-group col-md-10">
                         <select class="form-control" v-model="company">
@@ -141,11 +142,26 @@
                         </select>
                     </div>
                     <div class="form-group col-md-2 text-right">
-                        <a :href="route('dashboard.downloadQuotation', [quotation.id, company])" class="btn btn-primary btn-">Download Pdf</a>
+                        <a :href="route('dashboard.downloadSupplyOrder', [supplyOrder.id, company, 'sale_tax_invoice'])" class="btn btn-primary btn-">Download Pdf</a>
                     </div>
                 </div>
             </div>
-        </div> -->
+            <div class="card-body">
+                <h4>Commercial Invoice</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-10">
+                        <select class="form-control" v-model="company">
+                            <option value="OndreTicaretTemplate" class="text-capitalize">Ondre Ticaret</option>
+                            <option value="MSaadAndCompanyTemplate" class="text-capitalize">M Saad and Company</option>
+                            <option value="AscentTemplate" class="text-capitalize">Ascent</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2 text-right">
+                        <a :href="route('dashboard.downloadSupplyOrder', [supplyOrder.id, company, 'commercial_invoice'])" class="btn btn-primary btn-">Download Pdf</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </AuthenticatedLayout>
 </template>
 

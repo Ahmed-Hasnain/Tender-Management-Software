@@ -8,6 +8,7 @@
         body {
             font-family: Arial, sans-serif;
             font-size: 12px;
+            padding: 20px !important;
         }
         table {
             width: 100%;
@@ -196,15 +197,15 @@
 </head>
 <body>
     <div class="header">
-        <h2 class="text-center">Delivery Challan</h2>
+        <h2 class="text-center">DELIVERY CHALLAN</h2>
         <table style="padding-top: 20px;">
             <tbody>
                 <tr>
-                    <td style="border: 0px !important; width: 60%;" class="w-70">
+                    <td style="border: 0px !important; width: 65% !important;" class="w-70">
                         <strong>Customer Name:</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->client?->name}} <br><br>
-                        <strong>Customer Reference:</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->reference_no}}<br>
+                        <strong>Customer Reference:</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->reference_no}} - {{dateFormate($deliveryChallan->supplyOrder?->quotation?->tender?->rfq_date)}}<br>
                     </td>
-                    <td style="border: 0px !important; width: 40%;" class="w-30 text-right">  
+                    <td style="border: 0px !important; width: 35% !important;" class="w-30 text-right">  
                         <table style="margin-top: 10px;"> 
                             <tbody>
                                 <tr>

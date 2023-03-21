@@ -51,7 +51,8 @@ function dateFormate($date)
     return $date->format('F j, Y');
 }
 
-function breakString($str) {
+function breakString($str)
+{
     $sentences = explode(".", $str); // split the string into an array of sentences
     $sentences = array_map('trim', $sentences); // remove whitespace from each sentence
     $sentences = array_filter($sentences); // remove empty sentences
@@ -61,6 +62,12 @@ function breakString($str) {
     return $sentences; // return the array of sentences
 }
 
-function addDaysToDate($date, $days) {
+function addDaysToDate($date, $days) 
+{
     return Carbon::parse($date)->addDays($days)->format('F j, Y');
+}
+
+function currentDate() 
+{
+    return Carbon::today()->format('F j, Y');
 }

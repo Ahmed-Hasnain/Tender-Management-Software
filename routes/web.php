@@ -95,6 +95,7 @@ Route::middleware(['auth', 'verified'])
         //supply Order
         Route::group(['middleware' => ['can:view_supply_order']], function () {
             Route::resource('/supply-order', Admin\SupplyOrderController::class);
+            Route::get('/downloadSupplyOrder/{supplyOrderId}/{company}/{type}', [Admin\SupplyOrderController::class, 'downloadSupplyOrder'])->name('downloadSupplyOrder');
         });
         //Delivery Challan
         Route::group(['middleware' => ['can:view_delivery_challan']], function () {
