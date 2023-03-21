@@ -2,13 +2,13 @@
     <div class="header">
         <div class="logo logo-dark">
             <Link :href="route('dashboard')" class="pt-1">
-                <img :src="getImage(this.$page.props.settings.logo)" alt="Logo" height="60" width="60">
-                <img class="logo-fold" :src="getImage(this.$page.props.settings.logo)" alt="Logo" height="30" width="90">
+                <img :src="getImage(this.$page.props.logo)" alt="Logo" height="60" width="60">
+                <img class="logo-fold" :src="getImage(this.$page.props.logo)" alt="Logo" height="30" width="90">
             </Link>
         </div>
         <div class="logo logo-white">
             <a href="#">
-                <img :src="getImage(this.$page.props.settings.logo)" alt="Logo">
+                <img :src="getImage(this.$page.props.logo)" alt="Logo">
                 <!-- <img class="logo-fold" src="assets/images/logo/logo-fold-white.png" alt="Logo"> -->
             </a>
         </div>
