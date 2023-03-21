@@ -8,7 +8,6 @@
         body {
             font-family: Arial, sans-serif;
             font-size: 12px;
-            padding: 20px !important;
         }
         table {
             width: 100%;
@@ -16,7 +15,7 @@
         }
         th, td {
             padding: 5px;
-            border: 1px solid #2a2121;
+            border: 1px solid #ddd;
         }
         th {
             background-color: #f2f2f2;
@@ -52,14 +51,8 @@
         .w-33 {
             width: 33%;
         }
-        .w-70 {
-            width: 70% !important;
-        }
-        .w-30 {
-            width: 30% !important;
-        }
         table thead tr th{
-            /* border: 0px !important; */
+            border: 0px !important;
             background-color: white;
         }
         .text-left {
@@ -70,6 +63,13 @@
         }
         .text-center {
             text-align: center !important;
+        }
+        footer {
+            position: fixed;
+            bottom: 0cm;
+            left: 0cm;
+            right: 0cm;
+            border-top: 2px solid #5598cc !important;"
         }
         .p-0 { padding: 0px; }
         .p-1 { padding: 1px; }
@@ -197,57 +197,49 @@
 </head>
 <body>
     <div class="header">
-        <h2 class="text-center">Commercial Invoice</h2>
-        <table style="padding-top: 20px;">
+        <table>
             <tbody>
                 <tr>
-                    <td style="border: 0px !important; width: 60% !important;" class="w-30 text-right">  
-                        <table style="margin-top: 10px;"> 
-                            <tbody>
-                                <tr>
-                                    <td class="w-30" style="border: 0px !important; color: gray !important;"><strong>Date:</strong></td>
-                                    <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">{{ dateFormate($supplyOrder?->date_of_supply_order) }}</td>
-                                </tr>
-                                {{-- <tr>
-                                    <td class="w-30" style="border: 0px !important; color: gray !important;"><strong>No#</strong></td>
-                                    <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">{{$deliveryChallan->reference_no}}</td>
-                                </tr> --}}
-                                <tr>
-                                    <td class="w-30" style="border: 0px !important; color: gray !important;"><strong>Reference:</strong></td>
-                                    <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">{{ $supplyOrder->quotation?->reference_no }} - Dated: {{dateFormate($supplyOrder?->quotation?->applied_date)}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="w-30" style="border: 0px !important; color: gray !important;"><strong>Cust.Name:</strong></td>
-                                    <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">{{$supplyOrder?->quotation?->tender?->client?->name}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="w-30" style="border: 0px !important; color: gray !important;"><strong>Customer Ref:</strong></td>
-                                    <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">{{$supplyOrder?->quotation?->tender?->reference_no}} - Dated: {{dateFormate($supplyOrder?->quotation?->tender?->rfq_date)}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="w-30" style="border: 0px !important; color: gray !important;"><strong>Sale Tax #:</strong></td>
-                                    <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">123456789</td>
-                                </tr>
-                                <tr>
-                                    <td class="w-30" style="border: 0px !important; color: gray !important;"><strong>NTN:</strong></td>
-                                    <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">123456789</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <td style="border: 0px !important; width: 75%;">
+                        <img src="{{public_path($logo)}}" alt="Logo" height="100" width="520"><br><br>
                     </td>
-                    <td style="border: 0px !important; width: 40% !important;" class="w-70">
-                        {{-- <strong>Customer Name:</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->client?->name}} <br><br>
-                        <strong>Customer Reference:</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->reference_no}} - {{dateFormate($deliveryChallan->supplyOrder?->quotation?->tender?->rfq_date)}}<br> --}}
+                    <td style=" border: 0px !important; width: 35%;">
+                        <span style="color:#c9cc77">Tel: +92 51 2813153</span><br>
+                        <span style="color:#c9cc77">Fax: +92 51 8444066</span><br><br>
                     </td>
                 </tr>
             </tbody>
         </table>
-        {{-- <div>
-            <span>Customer Name</span><br>
-            <span><strong>{{$deliveryChallan->supplyOrder?->quotation?->tender?->client?->name}}</strong></span><br><br>
-            <span>Customer Reference</span><br>
-            <span><strong>Ref. No.</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->reference_no}}, <strong>Dated: </strong>{{dateFormate($deliveryChallan->supplyOrder?->quotation?->tender?->rfq_date)}} </span><br>
-        </div> --}}
+        <h2 class="text-center">Commercial Invoice</h2>
+        <table style="padding-top: 20px;">
+            <tbody>
+                <tr>
+                    <td style="border: 0px !important; width: 65% !important;" class="w-70">
+                        <strong>Customer Name:</strong> {{$supplyOrder?->quotation?->tender?->client?->name}} <br><br>
+                        <strong>Customer Reference:</strong> {{$supplyOrder?->quotation?->tender?->reference_no}} - Dated: {{dateFormate($supplyOrder?->quotation?->tender?->rfq_date)}}<br><br>
+                        <strong>Sale Tax #</strong> 3277876132361, <strong>NTN#</strong> 7354447-7
+                    </td>
+                    <td style="border: 0px !important; width: 35% !important;" class="w-30 text-right">  
+                        <table style="margin-top: 10px;"> 
+                            <tbody>
+                                <tr>
+                                    <td class="w-50 text-right" style="border: 0px !important"><strong>Date</strong></td>
+                                    <td class="w-50">{{currentDate()}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="w-50 text-right" style="border: 0px !important"><strong>No#</strong></td>
+                                    <td class="w-50">C-Invc # {{$supplyOrder->id}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="w-50 text-right" style="border: 0px !important"><strong>Our Reference</strong></td>
+                                    <td class="w-50">{{ $supplyOrder->quotation?->reference_no }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <br>
     <table>
@@ -292,8 +284,10 @@
     </table>
     <br>
     <div>
-        {{-- <p class="text-center">Remarks: <strong>{{$deliveryChallan->description}}</strong></p> --}}
         <p class="text-center pt-20"><strong>Yours Truly</strong></p> 
     </div>
+    <footer>
+        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Head Quarter: Office No. 1102, 11<sup>th</sup> Floor, Green Tower Trust, Jinnah Avenue, Blue Area, Islamabad, Pakistan.</p>
+    </footer>
 </body>
 </html>
