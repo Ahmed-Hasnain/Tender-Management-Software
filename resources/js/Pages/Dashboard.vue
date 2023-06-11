@@ -11,7 +11,7 @@
                             </div>
                             <div class="m-l-15">
                                 <h2 class="m-b-0">{{total_companies}}</h2>
-                                <p class="m-b-0 text-muted">Total Companies</p>
+                                <p class="m-b-0 text-muted">Total Companies Test</p>
                             </div>
                         </div>
                     </div>
