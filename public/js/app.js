@@ -27709,7 +27709,7 @@ var _hoisted_8 = {
 };
 var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
   "class": "m-b-0 text-muted"
-}, "Total Companies Test", -1 /* HOISTED */);
+}, "Total Companies", -1 /* HOISTED */);
 var _hoisted_10 = {
   "class": "col-md-6 col-lg-3"
 };
