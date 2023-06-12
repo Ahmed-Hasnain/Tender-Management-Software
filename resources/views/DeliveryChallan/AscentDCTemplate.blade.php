@@ -123,6 +123,8 @@
         .pt-15 { padding-top: 15px; }
         .pt-20 { padding-top: 20px; }
         .pt-25 { padding-top: 25px; }
+        .pt-50 { padding-top: 50px; }
+        .pt-70 { padding-top: 70px; }
         
         .m-0 { margin: 0px; }
         .m-1 { margin: 1px; }
@@ -283,7 +285,7 @@
     <br>
     <div>
         {{-- <p class="text-center">Remarks: <strong>{{$deliveryChallan->description}}</strong></p> --}}
-        <p class="text-right pt-20"><strong>Yours Truly</strong></p> 
+        <p class="text-right pt-70"><strong>Yours Truly</strong></p> 
     </div>
 </body>
 </html>

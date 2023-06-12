@@ -123,6 +123,8 @@
         .pt-15 { padding-top: 15px; }
         .pt-20 { padding-top: 20px; }
         .pt-25 { padding-top: 25px; }
+        .pt-50 { padding-top: 50px; }
+        .pt-70 { padding-top: 70px; }
         
         .m-0 { margin: 0px; }
         .m-1 { margin: 1px; }
@@ -165,6 +167,7 @@
         .my-30 { margin-top: 30px; margin-bottom: 30px; }
         .my-40 { margin-top: 40px; margin-bottom: 40px; }
         .my-50 { margin-top: 50px; margin-bottom: 50px; }
+        .my-70 { margin-top: 50px; margin-bottom: 70px; }
         
         .mt-0 { margin-top: 0px; }
         .mt-1 { margin-top: 1px; }
@@ -275,7 +278,7 @@
     <br>
     <div>
         <p class="text-center">Remarks: <strong>{{$deliveryChallan->description}}</strong></p>
-        <p class="text-center pt-20"><strong>Yours Truly</strong></p> 
+        <p class="text-center pt-70"><strong>Yours Truly</strong></p> 
     </div>
 </body>
 </html>
