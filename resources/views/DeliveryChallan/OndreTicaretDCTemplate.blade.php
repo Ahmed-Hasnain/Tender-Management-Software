@@ -71,6 +71,13 @@
         .text-center {
             text-align: center !important;
         }
+        footer {
+            position: fixed;
+            bottom: 0cm;
+            left: 0cm;
+            right: 0cm;
+            border-top: 2px solid #5598cc !important;
+        }
         .p-0 { padding: 0px; }
         .p-1 { padding: 1px; }
         .p-2 { padding: 2px; }
@@ -200,6 +207,19 @@
 </head>
 <body>
     <div class="header">
+        <table>
+            <tbody>
+                <tr>
+                    <td style="border: 0px !important; width: 75%;">
+                        <img src="{{public_path($logo)}}" alt="Logo" height="100" width="520"><br><br>
+                    </td>
+                    <td style=" border: 0px !important; width: 35%;">
+                        <span style="color:#c9cc77">Tel: +92 51 2813153</span><br>
+                        <span style="color:#c9cc77">Fax: +92 51 8444066</span><br><br>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         <h2 class="text-center">DELIVERY CHALLAN</h2>
         <table style="padding-top: 20px;">
             <tbody>
@@ -280,5 +300,8 @@
         <p class="text-center">Remarks: <strong>{{$deliveryChallan->description}}</strong></p>
         <p class="text-center pt-70"><strong>Yours Truly</strong></p> 
     </div>
+    <footer>
+        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Head Quarter: Office No. 1102, 11<sup>th</sup> Floor, Green Tower Trust, Jinnah Avenue, Blue Area, Islamabad, Pakistan.</p>
+    </footer>
 </body>
 </html>

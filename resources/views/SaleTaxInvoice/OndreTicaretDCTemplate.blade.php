@@ -69,7 +69,7 @@
             bottom: 0cm;
             left: 0cm;
             right: 0cm;
-            border-top: 2px solid #5598cc !important;"
+            border-top: 2px solid #5598cc !important;
         }
         .p-0 { padding: 0px; }
         .p-1 { padding: 1px; }

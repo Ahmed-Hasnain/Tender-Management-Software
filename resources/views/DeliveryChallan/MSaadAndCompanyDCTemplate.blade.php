@@ -71,6 +71,13 @@
         .text-center {
             text-align: center !important;
         }
+        footer {
+            position: fixed;
+            bottom: 0cm;
+            left: 0cm;
+            right: 0cm;
+            border-top: 2px solid #bd483b !important;
+        }
         .p-0 { padding: 0px; }
         .p-1 { padding: 1px; }
         .p-2 { padding: 2px; }
@@ -199,6 +206,24 @@
 </head>
 <body>
     <div class="header">
+        <table>
+            <tbody>
+                <tr>
+                    <td style="border: 0px !important; width: 72%;">
+                        <img src="{{public_path($logo)}}" alt="Logo" height="100" width="200"><br><br>
+                        NTN: 7881680-2<br>
+                    </td>
+                    <td style="width: 28%; border: 0px !important">
+                        <div>
+                            <span style="color:#323653">Tel: +92 51 2745668</span><br>
+                            <span style="color:#323653">Fax: +92 51 2745778</span><br>
+                            <span style="color:#323653">Email: msaadandcom@gmail.com</span><br><br><br>
+                            STRN: 3277876141811<br>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         <h2 class="text-center">DELIVERY CHALLAN</h2>
         <table style="padding-top: 20px;">
             <tbody>
@@ -293,5 +318,8 @@
         <p class="text-center">Remarks: <strong>{{$deliveryChallan->description}}</strong></p>
         <p class="text-center pt-70"><strong>Yours Truly</strong></p> 
     </div>
+    <footer>
+        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Head Quarter: Office # 18, 3<sup>rd</sup> Floor, Gulberg Trade Center, Business Park, Gulberg Greens, Islamabad.</p>
+    </footer>
 </body>
 </html>
