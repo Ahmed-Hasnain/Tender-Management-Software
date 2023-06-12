@@ -220,7 +220,7 @@ class QuotationController extends Controller
                     break;
             }
             // return view($company, $data);
-            return $pdf->download('quotation.pdf');
+            return $pdf->download('Quotation-' . $quotation->reference_no . '.pdf');
         } catch (\Throwable $th) {
             Log::info($th->getMessage());
         }

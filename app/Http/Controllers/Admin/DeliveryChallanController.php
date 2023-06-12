@@ -188,7 +188,7 @@ class DeliveryChallanController extends Controller
                     break;
             }
             // return view('DeliveryChallan/OndreTicaretDCTemplate', $data);
-            return $pdf->download('DeliveryChallan.pdf');
+            return $pdf->download('Delivery-Challan-' . $deliveryChallan->supplyOrder->quotation->reference_no . '.pdf');
         } catch (\Throwable $th) {
             Log::info($th->getMessage());
         }

@@ -230,7 +230,7 @@ class SupplyOrderController extends Controller
                 }
             }
             // return view($company, $data);
-            return $pdf->download('quotation.pdf');
+            return $pdf->download('Supply-Order-' . $supplyOrder->quotation->reference_no . '.pdf');
         } catch (\Throwable $th) {
             Log::info($th->getMessage());
         }
