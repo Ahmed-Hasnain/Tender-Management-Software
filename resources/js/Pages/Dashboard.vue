@@ -140,6 +140,23 @@
                     </div>
                 </Link>
             </div>
+            <div class="col-md-6 col-lg-3">
+                <Link :href="route('dashboard.supply-order.index')">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="media align-items-center">
+                                <div class="avatar avatar-icon avatar-lg avatar-gold">
+                                    <i class="anticon anticon-file-text"></i>
+                                </div>
+                                <div class="m-l-15">
+                                    <h2 class="m-b-0">{{ total_supply_orders }}</h2>
+                                    <p class="m-b-0 text-muted">Total Supply Orders</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </Link>
+            </div>
         </div>
     </AuthenticatedLayout>
 </template>
@@ -157,6 +174,7 @@ export default {
             'total_quotations',
             'total_items',
             'total_users',
+            'total_supply_orders',
         ],
     components: {
         AuthenticatedLayout,
