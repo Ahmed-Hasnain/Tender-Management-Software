@@ -29,6 +29,7 @@ class Tender extends Model
         'mode_of_payment_id',
         'company_id',
         'demand_id',
+        'status'
     ];
 
     protected function rfqDate(): Attribute

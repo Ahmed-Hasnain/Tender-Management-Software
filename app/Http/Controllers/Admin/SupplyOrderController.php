@@ -78,6 +78,7 @@ class SupplyOrderController extends Controller
                 'date_of_supply_order' => $request->input('date_of_supply_order'),
                 'delivery_date' => $request->input('delivery_date'),
                 'quotation_id' => $request->input('quotation_id'),
+                'status' => $request->input('status'),
             ]);
             $supplyOrderItems = $request->input('items');
             if (count($supplyOrderItems) > 0) {
@@ -143,6 +144,7 @@ class SupplyOrderController extends Controller
             $supplyOrder->update([
                 'date_of_supply_order' => $request->input('date_of_supply_order'),
                 'delivery_date' => $request->input('delivery_date'),
+                'status' => $request->input('status'),
             ]);
             if ($supplyOrder->items()->count() > 0) {
                 $supplyOrder->items()->delete();

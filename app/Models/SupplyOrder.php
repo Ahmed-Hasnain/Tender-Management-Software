@@ -14,6 +14,7 @@ class SupplyOrder extends Model
         'quotation_id',
         'date_of_supply_order',
         'delivery_date',
+        'status',
     ];
 
     protected function dateOfSupplyOrder(): Attribute
