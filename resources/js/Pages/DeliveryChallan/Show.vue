@@ -133,15 +133,18 @@
         <div class="card">
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-md-10">
+                    <div class="form-group col-md-5">
                         <select class="form-control" v-model="company">
                             <option value="OndreTicaretTemplate" class="text-capitalize">Ondre Ticaret</option>
                             <option value="MSaadAndCompanyTemplate" class="text-capitalize">M Saad and Company</option>
                             <option value="AscentTemplate" class="text-capitalize">Ascent</option>
                         </select>
                     </div>
+                    <div class="form-group col-md-5">
+                        <Datepicker v-model="pdf_date" :enable-time-picker="false"></Datepicker>
+                    </div>
                     <div class="form-group col-md-2 text-right">
-                        <a :href="route('dashboard.downloadDeliveryChallan', [deliveryChallan.id, company])" class="btn btn-primary btn-">Download Pdf</a>
+                        <a :href="route('dashboard.downloadDeliveryChallan', [deliveryChallan.id, company, formatDate(pdf_date)])" class="btn btn-primary btn-">Download Pdf</a>
                     </div>
                 </div>
             </div>
@@ -154,6 +157,9 @@ import AuthenticatedLayout from "@/Layouts/Authenticated.vue";
 import { Head, useForm } from "@inertiajs/inertia-vue3";
 import Error from "@/Components/InputError.vue";
 import Helpers from '@/Mixins/Helpers';
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+import moment from 'moment';
 
 export default {
     props: ["supplyOrder", "deliveryChallan"],
@@ -161,13 +167,20 @@ export default {
         AuthenticatedLayout,
         Head,
         Error,
+        Datepicker
     },
     data() {
         return {
             company: 'OndreTicaretTemplate',
+            pdf_date: null,
         };
     },
     methods: {
+        formatDate(dateString) {
+            var momentDate = moment(dateString);
+            var formattedDate = momentDate.format('D-M-YYYY');
+            return formattedDate;
+        }
     },
     mounted() {
         console.log(this.supplyOrder, this.deliveryChallan);

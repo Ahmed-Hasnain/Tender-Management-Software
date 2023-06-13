@@ -233,7 +233,7 @@
                             <tbody>
                                 <tr>
                                     <td class="w-50 text-right" style="border: 0px !important"><strong>Date</strong></td>
-                                    <td class="w-50 bg-secondary">{{dateFormate($deliveryChallan->supplyOrder?->quotation?->applied_date)}}</td>
+                                    <td class="w-50 bg-secondary">{{dateFormate($date)}}</td>
                                 </tr>
                                 <tr>
                                     <td class="w-50 text-right" style="border: 0px !important"><strong>No#</strong></td>

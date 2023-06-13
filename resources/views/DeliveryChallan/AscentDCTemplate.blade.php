@@ -238,7 +238,7 @@
                             <tbody>
                                 <tr>
                                     <td class="w-50" style="text-align: center; font-weight: bold;">{{$deliveryChallan->reference_no}}</td>
-                                    <td class="w-50" style="text-align: center; font-weight: bold;">{{dateFormate($deliveryChallan->supplyOrder?->quotation?->applied_date)}}</td>
+                                    <td class="w-50" style="text-align: center; font-weight: bold;">{{dateFormate($date)}}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="2" style="text-align: center;">

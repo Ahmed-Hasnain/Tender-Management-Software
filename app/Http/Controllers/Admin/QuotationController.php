@@ -198,12 +198,13 @@ class QuotationController extends Controller
         }
     }
 
-    public function downloadQuotation($quotationId, $company) 
+    public function downloadQuotation($quotationId, $company, $date = null) 
     {
         try {
             $quotation = Quotation::with('tender.client', 'tender.mop', 'items.tenderItem.item', 'items.tenderItem.unit')->findOrFail($quotationId);
             $data = [
                 'quotation' => $quotation,
+                'date' => $date
             ];
             switch ($company) {
                 case 'OndreTicaretTemplate':

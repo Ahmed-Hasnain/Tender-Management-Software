@@ -82,7 +82,7 @@ Route::middleware(['auth', 'verified'])
         //quotation
         Route::group(['middleware' => ['can:view_quotation']], function () {
             Route::resource('/quotation', Admin\QuotationController::class);
-            Route::get('/downloadQuotation/{quotationId}/{company}', [Admin\QuotationController::class, 'downloadQuotation'])->name('downloadQuotation');
+            Route::get('/downloadQuotation/{quotationId}/{company}/{pdf_date?}', [Admin\QuotationController::class, 'downloadQuotation'])->name('downloadQuotation');
         });
         //company
         Route::group(['middleware' => ['can:view_company']], function () {
@@ -100,7 +100,7 @@ Route::middleware(['auth', 'verified'])
         //Delivery Challan
         Route::group(['middleware' => ['can:view_delivery_challan']], function () {
             Route::resource('/delivery-challan', Admin\DeliveryChallanController::class);
-            Route::get('/downloadDC/{deliveryChallanId}/{company}', [Admin\DeliveryChallanController::class, 'downloadDeliveryChallan'])->name('downloadDeliveryChallan');
+            Route::get('/downloadDC/{deliveryChallanId}/{company}/{date?}', [Admin\DeliveryChallanController::class, 'downloadDeliveryChallan'])->name('downloadDeliveryChallan');
         });
 });
 

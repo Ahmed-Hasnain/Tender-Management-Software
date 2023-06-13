@@ -233,7 +233,7 @@
                             <tbody>
                                 <tr>
                                     <td class="w-30" style="border: 0px !important; color: gray !important;"><strong>Date:</strong></td>
-                                    <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">{{dateFormate($deliveryChallan->supplyOrder?->quotation?->applied_date)}}</td>
+                                    <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">{{dateFormate($date)}}</td>
                                 </tr>
                                 <tr>
                                     <td class="w-30" style="border: 0px !important; color: gray !important;"><strong>No#</strong></td>
@@ -241,7 +241,7 @@
                                 </tr>
                                 <tr>
                                     <td class="w-30" style="border: 0px !important; color: gray !important;"><strong>Reference:</strong></td>
-                                    <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">{{$deliveryChallan->supplyOrder?->quotation?->reference_no}} - Dated: {{dateFormate($deliveryChallan->supplyOrder?->quotation?->applied_date)}}</td>
+                                    <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">{{$deliveryChallan->supplyOrder?->quotation?->reference_no}} - Dated: {{dateFormate($date)}}</td>
                                 </tr>
                                 <tr>
                                     <td class="w-30" style="border: 0px !important; color: gray !important;"><strong>Cust.Name:</strong></td>
