@@ -102,6 +102,10 @@ Route::middleware(['auth', 'verified'])
             Route::resource('/delivery-challan', Admin\DeliveryChallanController::class);
             Route::get('/downloadDC/{deliveryChallanId}/{company}/{date?}', [Admin\DeliveryChallanController::class, 'downloadDeliveryChallan'])->name('downloadDeliveryChallan');
         });
+        //Payment Recieving 
+        Route::group(['middleware' => ['can:view_payment_recieving']], function () {
+            Route::resource('/payment-recieving', Admin\PaymentRecievingController::class);
+        });
 });
 
 require __DIR__.'/auth.php';
