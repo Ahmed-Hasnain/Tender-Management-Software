@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\PaymentRecieving;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PaymentRecievingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:edit_item')->only('edit','update');
+        $this->middleware('can:add_item')->only('create', 'store');
+        $this->middleware('can:delete_item')->only('destroy'); 
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +23,33 @@ class PaymentRecievingController extends Controller
      */
     public function index()
     {
-        return "hello payment recieving";
+        try{
+            $limit = \config()->get('settings.pagination_limit');
+            $paymentRecieving = PaymentRecieving::where(function ($query) {
+                $keyword = request()->input('keyword');
+                $query->when($keyword, function ($subQuery) use ($keyword){
+                    $subQuery->where('cheque_no', 'like', '%' . $keyword . '%')
+                    ->orWhere('bank_name', 'like', '%' . $keyword . '%')
+                    ->orWhere('cheque_amount', 'like', '%' . $keyword . '%')
+                    ->orWhere('income_tax_amount', 'like', '%' . $keyword . '%')
+                    ->orWhere('gst_withhold_amount', 'like', '%' . $keyword . '%')
+                    ->orWhere('serial_no', 'like', '%' . $keyword . '%')
+                    ->orWhereHas('supplyOrder', function($query) use ($keyword){
+                        // $query->where('quotation_id', 'like', '%' . $keyword . '%');
+                    });
+                });
+            })->orderBy('id', 'desc')->paginate($limit);
+            return Inertia::render('PaymentRecieving/Index', [
+                'paymentRecieving' => $paymentRecieving,
+                'searchedKeyword' => request()->input('keyword'),
+            ]);
+        } catch (ModelNotFoundException $e) {
+            flash('Unable to find this Payment recieving.', 'danger');
+            return \redirect()->back();
+        } catch (\Exception $e) {
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 
     /**

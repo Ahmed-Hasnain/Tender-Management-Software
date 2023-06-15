@@ -26,4 +26,9 @@ class PaymentRecieving extends Model
         'serial_no',
         'status',
     ];
+
+    public function supplyOrder()
+    {
+        return $this->belongsTo(SupplyOrder::class, 'supply_order_id');
+    }
 }

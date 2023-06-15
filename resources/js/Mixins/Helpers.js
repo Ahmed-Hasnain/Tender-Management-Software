@@ -65,6 +65,7 @@ export default {
         },
         
         removeDashes(str) {
+            console.log(str);
             return str.replace(/_/g, " ");
         },
 
