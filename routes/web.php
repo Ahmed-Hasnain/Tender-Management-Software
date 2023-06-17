@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\Admin as Admin;
+use App\Http\Controllers\Admin\SupplyOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,15 +94,16 @@ Route::middleware(['auth', 'verified'])
             Route::resource('/currency', Admin\CurrencyController::class);
         });
         //supply Order
-        Route::group(['middleware' => ['can:view_supply_order']], function () {
+        Route::group(['middleware' => ['can:view_supply_order,view_invoices']], function () {
             Route::resource('/supply-order', Admin\SupplyOrderController::class);
             Route::get('/downloadSupplyOrder/{supplyOrderId}/{company}/{type}', [Admin\SupplyOrderController::class, 'downloadSupplyOrder'])->name('downloadSupplyOrder');
+            Route::get('invoices', [Admin\SupplyOrderController::class, 'getInvoices'])->name('invoices');
         });
         //Delivery Challan
         Route::group(['middleware' => ['can:view_delivery_challan']], function () {
             Route::resource('/delivery-challan', Admin\DeliveryChallanController::class);
             Route::get('/downloadDC/{deliveryChallanId}/{company}/{date?}', [Admin\DeliveryChallanController::class, 'downloadDeliveryChallan'])->name('downloadDeliveryChallan');
-        });
+        }); 
         //Payment Recieving 
         Route::group(['middleware' => ['can:view_payment_recieving']], function () {
             Route::resource('/payment-recieving', Admin\PaymentRecievingController::class);

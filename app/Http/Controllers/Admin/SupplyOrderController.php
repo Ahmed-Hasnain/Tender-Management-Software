@@ -237,4 +237,30 @@ class SupplyOrderController extends Controller
             Log::info($th->getMessage());
         }
     }
+
+    public function getInvoices()
+    {
+        try{
+            $limit = \config()->get('settings.pagination_limit');
+            $supplyOrder = SupplyOrder::with('quotation.tender', 'items')->where(function ($query) {
+                $keyword = request()->input('keyword');
+                $query->whereDelivered(1);
+                $query->when($keyword, function ($subQuery) use ($keyword){
+                    $subQuery->WhereHas('quotation', function($query) use ($keyword){
+                        $query->where('reference_no', 'like', '%' . $keyword . '%')
+                        ->orWhereHas('tender', function ($query) use ($keyword) {
+                            $query->where('reference_no', 'like', '%' . $keyword . '%');
+                        });
+                    });
+                });
+            })->orderBy('id', 'desc')->paginate($limit);
+            return Inertia::render('Invoices/Index', [
+                'supplyOrder' => $supplyOrder,
+                'searchedKeyword' => request()->input('keyword'),
+            ]);
+        } catch (\Exception $e) {
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
+    }
 }

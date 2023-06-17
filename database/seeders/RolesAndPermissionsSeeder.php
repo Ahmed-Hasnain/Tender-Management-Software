@@ -130,6 +130,11 @@ class RolesAndPermissionsSeeder extends Seeder
             ['group' => 'delivery challan', 'name' => 'edit_delivery_challan', 'title' => 'Edit delivery challan', 'guard_name' => 'web'],
             ['group' => 'delivery challan', 'name' => 'delete_delivery_challan', 'title' => 'Delete delivery challan', 'guard_name' => 'web'],
 
+            // Invoices
+            ['group' => 'invoices', 'name' => 'view_invoices', 'title' => 'View invoices', 'guard_name' => 'web'],
+            ['group' => 'invoices', 'name' => 'download_sale_tax_invoice', 'title' => 'Download sale tax invoice', 'guard_name' => 'web'],
+            ['group' => 'invoices', 'name' => 'download_commercial_invoice', 'title' => 'Download commercial invoice', 'guard_name' => 'web'],
+
             // Payment Recieving
             ['group' => 'payment recieving', 'name' => 'view_payment_recieving', 'title' => 'View payment recieving', 'guard_name' => 'web'],
             ['group' => 'payment recieving', 'name' => 'add_payment_recieving', 'title' => 'Add payment recieving', 'guard_name' => 'web'],
@@ -161,7 +166,8 @@ class RolesAndPermissionsSeeder extends Seeder
             'view_currency',
             'view_supply_order',
             'view_delivery_challan',
-            'view_payment_recieving'
+            'view_payment_recieving',
+            'view_invoices'
             ])->get();
         $manager->permissions()->sync($managerPermissions);
     }
