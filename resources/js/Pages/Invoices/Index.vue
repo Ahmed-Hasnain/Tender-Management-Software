@@ -14,6 +14,13 @@
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                    <label class="px-2">
+                                        <select class="form-control form-control-sm" v-model="company">
+                                            <option value="OndreTicaretTemplate" class="text-capitalize">Ondre Ticaret</option>
+                                            <option value="MSaadAndCompanyTemplate" class="text-capitalize">M Saad and Company</option>
+                                            <option value="AscentTemplate" class="text-capitalize">Ascent Tech</option>
+                                        </select>
+                                    </label>
                                     <label>Search:
                                         <search :url="'dashboard.invoices'" :searchedKeyword="searchedKeyword"></search>
                                     </label>
@@ -44,15 +51,12 @@
                                             <td class="text-capitalize">{{ supplyOrder.quotation?.currency }} {{ getTotal(supplyOrder.total_price, calculateTax(supplyOrder.total_price, supplyOrder.quotation?.tax)) }}</td>
                                             <td class="text-capitalize">{{ supplyOrder.status }}</td>
                                             <td class="text-right">
-                                                <a :href="route('dashboard.downloadSupplyOrder', [supplyOrder.id, company, 'sale_tax_invoice'])" class="btn btn-primary btn-"><i class="anticon anticon-reconciliation"></i></a>
-                                                <button @click="test()" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">D
-                                                </button>
-                                                <button @click="supplyOrder.delivered == 1 ? showDeliveryChallan(supplyOrder.id) : addDeliveryChallan(supplyOrder.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('add_delivery_challan')">
+                                                <a v-if="company" :href="route('dashboard.downloadSupplyOrder', [supplyOrder.id, company, 'sale_tax_invoice'])" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
                                                     <i class="anticon anticon-reconciliation"></i>
-                                                </button>
-                                                <button @click="show(supplyOrder.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('view_supply_order')">
-                                                    <i class="anticon anticon-eye"></i>
-                                                </button>
+                                                </a>
+                                                <a v-if="company" :href="route('dashboard.downloadSupplyOrder', [supplyOrder.id, company, 'commercial_invoice'])" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
+                                                    <i class="anticon anticon-reconciliation"></i>
+                                                </a>
                                                 <button @click="edit(supplyOrder.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('edit_supply_order')">
                                                     <i class="anticon anticon-edit"></i>
                                                 </button>
@@ -90,11 +94,11 @@ export default {
     data() {
         return{
             allSupplyOrder: this.supplyOrder,
-            company: null
+            company: 'AscentTemplate'
         }
     },
     methods: {
-        test() {
+        selectCompany() {
             this.swal.fire({
                 title: '<strong>Select Company</strong>',
                 icon: 'info',
@@ -108,15 +112,13 @@ export default {
                 cancelButtonAriaLabel: 'Thumbs down',
                 input: 'select',
                 inputOptions: {
-                    option1: 'OndreTicaretTemplate',
-                    option2: 'MSaadAndCompanyTemplate',
-                    option3: 'AscentTemplate'
+                    OndreTicaretTemplate: 'Ondre Ticaret',
+                    MSaadAndCompanyTemplate: 'M Saad And Company',
+                    AscentTemplate: 'Ascent Tech'
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
                     const selectedOption = result.value;
-                    // Do something with the selected option
-                    console.log('Selected Option:', selectedOption);
                     this.company = selectedOption
                 }
             });
