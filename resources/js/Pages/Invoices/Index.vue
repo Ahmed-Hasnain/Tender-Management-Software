@@ -57,7 +57,7 @@
                                                 <a v-if="company" :href="route('dashboard.downloadSupplyOrder', [supplyOrder.id, company, 'commercial_invoice'])" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" :class="[supplyOrder.ci_downloaded ? 'bg-success text-white' : '']">
                                                     <i class="anticon anticon-copyright"></i>
                                                 </a>
-                                                <button @click="edit(supplyOrder.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right mx-1" v-if="checkUserPermissions('edit_supply_order')">
+                                                <button @click="addPaymentRecieving(supplyOrder.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right mx-1" v-if="checkUserPermissions('add_payment_recieving')">
                                                     <i class="anticon anticon-edit"></i>
                                                 </button>
                                             </td>
@@ -104,7 +104,14 @@ export default {
                 onError: errors => {console.log(errors);}
             })
         },
-        
+
+        addPaymentRecieving(supplyOrderId){
+            this.$inertia.get(route('dashboard.payment-recieving.create'), {supplyOrder: supplyOrderId}, {
+                onSuccess: () => {},
+                onError: errors => {console.log(errors);}
+            })
+        },
+
         selectCompany() {
             this.swal.fire({
                 title: '<strong>Select Company</strong>',
@@ -130,7 +137,6 @@ export default {
                 }
             });
         },
-
     },
     watch: {
         supplyOrder:{

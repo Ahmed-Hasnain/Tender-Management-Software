@@ -12,9 +12,9 @@ class PaymentRecievingController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:edit_item')->only('edit','update');
-        $this->middleware('can:add_item')->only('create', 'store');
-        $this->middleware('can:delete_item')->only('destroy'); 
+        $this->middleware('can:edit_payment_recieving')->only('edit','update');
+        $this->middleware('can:add_payment_recieving')->only('create', 'store');
+        $this->middleware('can:delete_payment_recieving')->only('destroy'); 
     }
     /**
      * Display a listing of the resource.
@@ -59,7 +59,9 @@ class PaymentRecievingController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('PaymentRecieving/Create', [
+            'supplyOrderId' => request()->input('supplyOrder') ?? null,
+        ]);
     }
 
     /**
@@ -70,7 +72,6 @@ class PaymentRecievingController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**

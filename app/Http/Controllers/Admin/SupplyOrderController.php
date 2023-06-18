@@ -270,8 +270,7 @@ class SupplyOrderController extends Controller
                     $subQuery->whereHas('quotation', function($query) use ($keyword, $company){
                         $query->where('reference_no', 'like', '%' . $keyword . '%')
                         ->orWhereHas('tender', function ($query) use ($keyword, $company) {
-                            $query->where('reference_no', 'like', '%' . $keyword . '%')
-                            ->whereRelation('company', 'name', $company);
+                            $query->where('reference_no', 'like', '%' . $keyword . '%');
                         });
                     });
                 })
