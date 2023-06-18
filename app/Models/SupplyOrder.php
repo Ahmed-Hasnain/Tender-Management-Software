@@ -50,4 +50,9 @@ class SupplyOrder extends Model
     {
         return $this->hasManyThrough(DeliveryChallanItem::class, DeliveryChallan::class);
     }
+
+    public function paymentRecieving()
+    {
+        return $this->hasOne(PaymentRecieving::class, 'supply_order_id');
+    }
 }

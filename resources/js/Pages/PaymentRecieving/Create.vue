@@ -70,6 +70,13 @@
                                 <Datepicker v-model="form.cheque_date" :enable-time-picker="false"></Datepicker>
                                 <error :message="form.errors?.cheque_date"></error>
                             </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-11">
+                            </div>
+                            <div class="form-group col-md-1 text-left">
+                                <button class="btn btn-primary m-t-30 " :disabled="form.processing" :classes="form.processing ? 'btn btn-primary is-loading m-r-5' : 'btn btn-primary m-t-30'">Submit</button>
+                            </div>
                         </div>                
                     </div>
                 </div>

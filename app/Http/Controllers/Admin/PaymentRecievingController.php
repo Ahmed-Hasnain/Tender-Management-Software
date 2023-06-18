@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\PaymentRecieving;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PaymentRecievingRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PaymentRecievingController extends Controller
@@ -35,7 +37,7 @@ class PaymentRecievingController extends Controller
                     ->orWhere('gst_withhold_amount', 'like', '%' . $keyword . '%')
                     ->orWhere('serial_no', 'like', '%' . $keyword . '%')
                     ->orWhereHas('supplyOrder', function($query) use ($keyword){
-                        // $query->where('quotation_id', 'like', '%' . $keyword . '%');
+                        $query->where('quotation_id', 'like', '%' . $keyword . '%');
                     });
                 });
             })->orderBy('id', 'desc')->paginate($limit);
@@ -70,8 +72,19 @@ class PaymentRecievingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PaymentRecievingRequest $request)
     {
+        try{
+            DB::beginTransaction();
+            $payment = PaymentRecieving::create($request->all());
+            DB::commit();
+            flash('Payment Recieving Added Sucessfully!', 'success');
+            return \redirect(route('dashboard.payment-recieving.index'));          
+        }catch (\Exception $e) {
+            DB::rollBack();
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 
     /**
@@ -103,7 +116,7 @@ class PaymentRecievingController extends Controller
      * @param  \App\Models\PaymentRecieving  $paymentRecieving
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PaymentRecieving $paymentRecieving)
+    public function update(PaymentRecievingRequest $request, PaymentRecieving $paymentRecieving)
     {
         //
     }
