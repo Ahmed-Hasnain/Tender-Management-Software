@@ -22004,14 +22004,24 @@ __webpack_require__.r(__webpack_exports__);
     pagination: _Components_Pagination_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     search: _Components_Search_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
-  props: ['supplyOrder', 'searchedKeyword'],
+  props: ['supplyOrder', 'searchedKeyword', 'selectedCompany'],
   data: function data() {
     return {
       allSupplyOrder: this.supplyOrder,
-      company: 'AscentTemplate'
+      company: this.selectedCompany
     };
   },
   methods: {
+    getInvoices: function getInvoices() {
+      this.$inertia.get(route('dashboard.invoices'), {
+        company: this.company
+      }, {
+        onSuccess: function onSuccess() {},
+        onError: function onError(errors) {
+          console.log(errors);
+        }
+      });
+    },
     selectCompany: function selectCompany() {
       var _this = this;
       this.swal.fire({
@@ -29960,12 +29970,12 @@ var _hoisted_25 = {
 };
 var _hoisted_26 = ["href"];
 var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
-  "class": "anticon anticon-reconciliation"
+  "class": "anticon anticon-dollar"
 }, null, -1 /* HOISTED */);
 var _hoisted_28 = [_hoisted_27];
 var _hoisted_29 = ["href"];
 var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
-  "class": "anticon anticon-reconciliation"
+  "class": "anticon anticon-copyright"
 }, null, -1 /* HOISTED */);
 var _hoisted_31 = [_hoisted_30];
 var _hoisted_32 = ["onClick"];
@@ -29987,15 +29997,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_AuthenticatedLayout, null, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       var _$data$allSupplyOrder;
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Search: "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_search, {
+        url: 'dashboard.invoices',
+        searchedKeyword: $props.searchedKeyword
+      }, null, 8 /* PROPS */, ["url", "searchedKeyword"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
         "class": "form-control form-control-sm",
         "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
           return $data.company = $event;
+        }),
+        onChange: _cache[1] || (_cache[1] = function ($event) {
+          return $options.getInvoices();
         })
-      }, _hoisted_14, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.company]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Search: "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_search, {
-        url: 'dashboard.invoices',
-        searchedKeyword: $props.searchedKeyword
-      }, null, 8 /* PROPS */, ["url", "searchedKeyword"])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [((_$data$allSupplyOrder = $data.allSupplyOrder) === null || _$data$allSupplyOrder === void 0 ? void 0 : _$data$allSupplyOrder.data.length) > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("table", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.allSupplyOrder.data, function (supplyOrder, index) {
+      }, _hoisted_14, 544 /* HYDRATE_EVENTS, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.company]])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [((_$data$allSupplyOrder = $data.allSupplyOrder) === null || _$data$allSupplyOrder === void 0 ? void 0 : _$data$allSupplyOrder.data.length) > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("table", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.allSupplyOrder.data, function (supplyOrder, index) {
         var _supplyOrder$quotatio, _supplyOrder$quotatio2, _supplyOrder$quotatio3, _supplyOrder$quotatio4, _supplyOrder$quotatio5, _supplyOrder$quotatio6, _supplyOrder$quotatio7, _supplyOrder$quotatio8;
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
           role: "row",
@@ -30004,17 +30017,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_supplyOrder$quotatio = supplyOrder.quotation) === null || _supplyOrder$quotatio === void 0 ? void 0 : _supplyOrder$quotatio.reference_no), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_supplyOrder$quotatio2 = supplyOrder.quotation) === null || _supplyOrder$quotatio2 === void 0 ? void 0 : (_supplyOrder$quotatio3 = _supplyOrder$quotatio2.tender) === null || _supplyOrder$quotatio3 === void 0 ? void 0 : _supplyOrder$quotatio3.reference_no), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_supplyOrder$quotatio4 = supplyOrder.quotation) === null || _supplyOrder$quotatio4 === void 0 ? void 0 : (_supplyOrder$quotatio5 = _supplyOrder$quotatio4.tender) === null || _supplyOrder$quotatio5 === void 0 ? void 0 : _supplyOrder$quotatio5.file_name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_supplyOrder$quotatio6 = supplyOrder.quotation) === null || _supplyOrder$quotatio6 === void 0 ? void 0 : _supplyOrder$quotatio6.currency) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.formatNumber(supplyOrder.total_price)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_supplyOrder$quotatio7 = supplyOrder.quotation) === null || _supplyOrder$quotatio7 === void 0 ? void 0 : _supplyOrder$quotatio7.currency) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.getTotal(supplyOrder.total_price, _ctx.calculateTax(supplyOrder.total_price, (_supplyOrder$quotatio8 = supplyOrder.quotation) === null || _supplyOrder$quotatio8 === void 0 ? void 0 : _supplyOrder$quotatio8.tax))), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(supplyOrder.status), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_25, [$data.company ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
           key: 0,
           href: _ctx.route('dashboard.downloadSupplyOrder', [supplyOrder.id, $data.company, 'sale_tax_invoice']),
-          "class": "btn btn-icon btn-hover btn-sm btn-rounded pull-right"
-        }, _hoisted_28, 8 /* PROPS */, _hoisted_26)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.company ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
+          "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["btn btn-icon btn-hover btn-sm btn-rounded pull-right mx-1", [supplyOrder.sti_downloaded ? 'bg-success text-white' : '']])
+        }, _hoisted_28, 10 /* CLASS, PROPS */, _hoisted_26)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.company ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
           key: 1,
           href: _ctx.route('dashboard.downloadSupplyOrder', [supplyOrder.id, $data.company, 'commercial_invoice']),
-          "class": "btn btn-icon btn-hover btn-sm btn-rounded pull-right"
-        }, _hoisted_31, 8 /* PROPS */, _hoisted_29)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.checkUserPermissions('edit_supply_order') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+          "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["btn btn-icon btn-hover btn-sm btn-rounded pull-right", [supplyOrder.ci_downloaded ? 'bg-success text-white' : '']])
+        }, _hoisted_31, 10 /* CLASS, PROPS */, _hoisted_29)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.checkUserPermissions('edit_supply_order') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
           key: 2,
           onClick: function onClick($event) {
             return _ctx.edit(supplyOrder.id);
           },
-          "class": "btn btn-icon btn-hover btn-sm btn-rounded pull-right"
+          "class": "btn btn-icon btn-hover btn-sm btn-rounded pull-right mx-1"
         }, _hoisted_34, 8 /* PROPS */, _hoisted_32)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
       }), 128 /* KEYED_FRAGMENT */))])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_35, "No Data Found."))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_pagination, {
         meta: $data.allSupplyOrder,

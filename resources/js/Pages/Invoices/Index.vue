@@ -14,15 +14,15 @@
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                    <label>Search:
+                                        <search :url="'dashboard.invoices'" :searchedKeyword="searchedKeyword"></search>
+                                    </label>
                                     <label class="px-2">
-                                        <select class="form-control form-control-sm" v-model="company">
+                                        <select class="form-control form-control-sm" v-model="company" @change="getInvoices()">
                                             <option value="OndreTicaretTemplate" class="text-capitalize">Ondre Ticaret</option>
                                             <option value="MSaadAndCompanyTemplate" class="text-capitalize">M Saad and Company</option>
                                             <option value="AscentTemplate" class="text-capitalize">Ascent Tech</option>
                                         </select>
-                                    </label>
-                                    <label>Search:
-                                        <search :url="'dashboard.invoices'" :searchedKeyword="searchedKeyword"></search>
                                     </label>
                                 </div>
                             </div>
@@ -51,13 +51,13 @@
                                             <td class="text-capitalize">{{ supplyOrder.quotation?.currency }} {{ getTotal(supplyOrder.total_price, calculateTax(supplyOrder.total_price, supplyOrder.quotation?.tax)) }}</td>
                                             <td class="text-capitalize">{{ supplyOrder.status }}</td>
                                             <td class="text-right">
-                                                <a v-if="company" :href="route('dashboard.downloadSupplyOrder', [supplyOrder.id, company, 'sale_tax_invoice'])" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
-                                                    <i class="anticon anticon-reconciliation"></i>
+                                                <a v-if="company" :href="route('dashboard.downloadSupplyOrder', [supplyOrder.id, company, 'sale_tax_invoice'])" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right mx-1" :class="[supplyOrder.sti_downloaded ? 'bg-success text-white' : '']">
+                                                    <i class="anticon anticon-dollar"></i>
                                                 </a>
-                                                <a v-if="company" :href="route('dashboard.downloadSupplyOrder', [supplyOrder.id, company, 'commercial_invoice'])" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
-                                                    <i class="anticon anticon-reconciliation"></i>
+                                                <a v-if="company" :href="route('dashboard.downloadSupplyOrder', [supplyOrder.id, company, 'commercial_invoice'])" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" :class="[supplyOrder.ci_downloaded ? 'bg-success text-white' : '']">
+                                                    <i class="anticon anticon-copyright"></i>
                                                 </a>
-                                                <button @click="edit(supplyOrder.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('edit_supply_order')">
+                                                <button @click="edit(supplyOrder.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right mx-1" v-if="checkUserPermissions('edit_supply_order')">
                                                     <i class="anticon anticon-edit"></i>
                                                 </button>
                                             </td>
@@ -90,14 +90,21 @@ export default {
         pagination,
         search
     },
-    props: ['supplyOrder', 'searchedKeyword'],
+    props: ['supplyOrder', 'searchedKeyword', 'selectedCompany'],
     data() {
         return{
             allSupplyOrder: this.supplyOrder,
-            company: 'AscentTemplate'
+            company: this.selectedCompany,
         }
     },
     methods: {
+        getInvoices(){
+            this.$inertia.get(route('dashboard.invoices'), {company: this.company}, {
+                onSuccess: () => {},
+                onError: errors => {console.log(errors);}
+            })
+        },
+        
         selectCompany() {
             this.swal.fire({
                 title: '<strong>Select Company</strong>',
@@ -122,7 +129,8 @@ export default {
                     this.company = selectedOption
                 }
             });
-        }
+        },
+
     },
     watch: {
         supplyOrder:{

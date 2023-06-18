@@ -231,6 +231,16 @@ class SupplyOrderController extends Controller
                         break;
                 }
             }
+            //updating invoice download flags
+            switch ($type) {
+                case 'sale_tax_invoice':
+                    $supplyOrder->sti_downloaded = $supplyOrder->sti_downloaded ? $supplyOrder->sti_downloaded : true; 
+                    break;
+                case 'commercial_invoice':
+                    $supplyOrder->ci_downloaded = $supplyOrder->ci_downloaded ? $supplyOrder->ci_downloaded : true; 
+                    break;
+            }
+            $supplyOrder->saveQuietly();
             // return view($company, $data);
             return $pdf->download('Supply-Order-' . $supplyOrder->quotation->reference_no . '.pdf');
         } catch (\Throwable $th) {
@@ -241,22 +251,40 @@ class SupplyOrderController extends Controller
     public function getInvoices()
     {
         try{
+            switch (request()->input('company')) {
+                case 'OndreTicaretTemplate':
+                    $company = 'Onder Ticaret (Private) Limited';
+                    break;
+                case 'MSaadAndCompanyTemplate':
+                    $company = 'Muhammad Saad and Company';
+                    break;
+                default:
+                    $company = 'Ascent Tech Trade Solution';
+                    break;
+            }
             $limit = \config()->get('settings.pagination_limit');
-            $supplyOrder = SupplyOrder::with('quotation.tender', 'items')->where(function ($query) {
+            $supplyOrder = SupplyOrder::with('quotation.tender', 'items')->where(function ($query) use ($company){
                 $keyword = request()->input('keyword');
                 $query->whereDelivered(1);
-                $query->when($keyword, function ($subQuery) use ($keyword){
-                    $subQuery->WhereHas('quotation', function($query) use ($keyword){
+                $query->when($keyword, function ($subQuery) use ($keyword, $company){
+                    $subQuery->whereHas('quotation', function($query) use ($keyword, $company){
                         $query->where('reference_no', 'like', '%' . $keyword . '%')
-                        ->orWhereHas('tender', function ($query) use ($keyword) {
-                            $query->where('reference_no', 'like', '%' . $keyword . '%');
+                        ->orWhereHas('tender', function ($query) use ($keyword, $company) {
+                            $query->where('reference_no', 'like', '%' . $keyword . '%')
+                            ->whereRelation('company', 'name', $company);
                         });
+                    });
+                })
+                ->whereHas('quotation', function($query) use ($company){
+                    $query->whereHas('tender', function ($query) use ($company) {
+                        $query->whereRelation('company', 'name', $company);
                     });
                 });
             })->orderBy('id', 'desc')->paginate($limit);
             return Inertia::render('Invoices/Index', [
                 'supplyOrder' => $supplyOrder,
                 'searchedKeyword' => request()->input('keyword'),
+                'selectedCompany' => request()->input('company') ?? 'AscentTemplate' 
             ]);
         } catch (\Exception $e) {
             flash($e->getMessage(), 'danger');
