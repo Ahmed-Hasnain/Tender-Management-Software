@@ -44,6 +44,6 @@ class PaymentRecieving extends Model
 
     public function supplyOrder()
     {
-        return $this->belongsTo(SupplyOrder::class, 'supply_order_id');
+        return $this->belongsTo(SupplyOrder::class);
     }
 }

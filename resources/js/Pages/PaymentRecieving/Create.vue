@@ -132,7 +132,7 @@ export default {
         submit(){
             this.form.supply_order_id = this.supplyOrderId
             this.form.post(route('dashboard.payment-recieving.store'), {
-                errorBag: 'tender',
+                errorBag: 'paymentRecieving',
                 preserveScroll: true,
                 onSuccess: () => {},
                 onError: errors => {console.log(errors);}

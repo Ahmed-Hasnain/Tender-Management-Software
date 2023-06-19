@@ -48,6 +48,8 @@ class CreatePaymentRecievingsTable extends Migration
             $table->string('serial_no')->nullable();
             $table->enum('status', ['pending', 'processing', 'completed' ])->default('pending')->nullable();
             $table->timestamps();
+            
+            $table->foreign('supply_order_id')->references('id')->on('supply_orders');
         });
     }
 

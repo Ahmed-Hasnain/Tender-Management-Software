@@ -263,7 +263,7 @@ class SupplyOrderController extends Controller
                     break;
             }
             $limit = \config()->get('settings.pagination_limit');
-            $supplyOrder = SupplyOrder::with('quotation.tender', 'items')->where(function ($query) use ($company){
+            $supplyOrder = SupplyOrder::with('quotation.tender', 'items', 'paymentRecieving')->where(function ($query) use ($company){
                 $keyword = request()->input('keyword');
                 $query->whereDelivered(1);
                 $query->when($keyword, function ($subQuery) use ($keyword, $company){

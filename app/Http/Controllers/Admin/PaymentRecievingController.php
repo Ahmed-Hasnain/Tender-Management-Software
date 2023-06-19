@@ -27,17 +27,24 @@ class PaymentRecievingController extends Controller
     {
         try{
             $limit = \config()->get('settings.pagination_limit');
-            $paymentRecieving = PaymentRecieving::where(function ($query) {
+            $paymentRecieving = PaymentRecieving::with('supplyOrder.quotation.tender.company')->where(function ($query) {
                 $keyword = request()->input('keyword');
                 $query->when($keyword, function ($subQuery) use ($keyword){
                     $subQuery->where('cheque_no', 'like', '%' . $keyword . '%')
-                    ->orWhere('bank_name', 'like', '%' . $keyword . '%')
+                    ->orWhere('bank_name', 'like', '%' . lowerCaseAndAddDashes($keyword) . '%')
                     ->orWhere('cheque_amount', 'like', '%' . $keyword . '%')
                     ->orWhere('income_tax_amount', 'like', '%' . $keyword . '%')
                     ->orWhere('gst_withhold_amount', 'like', '%' . $keyword . '%')
                     ->orWhere('serial_no', 'like', '%' . $keyword . '%')
                     ->orWhereHas('supplyOrder', function($query) use ($keyword){
-                        $query->where('quotation_id', 'like', '%' . $keyword . '%');
+                        $query->whereHas('quotation', function ($query) use ($keyword){
+                            $query->where('reference_no', 'like', '%' . $keyword . '%')
+                            ->orWhereHas('tender', function ($query) use ($keyword){
+                                $query->whereHas('company', function ($query) use ($keyword){
+                                    $query->where('name', 'like', '%' . $keyword . '%');
+                                });
+                            });
+                        });
                     });
                 });
             })->orderBy('id', 'desc')->paginate($limit);
@@ -95,7 +102,9 @@ class PaymentRecievingController extends Controller
      */
     public function show(PaymentRecieving $paymentRecieving)
     {
-        //
+        return Inertia::render('PaymentRecieving/Show', [
+            'paymentRecieving' => $paymentRecieving->load('supplyOrder.quotation.tender.company', 'supplyOrder.quotation.tender.client'),
+        ]);
     }
 
     /**
@@ -106,7 +115,9 @@ class PaymentRecievingController extends Controller
      */
     public function edit(PaymentRecieving $paymentRecieving)
     {
-        //
+        return Inertia::render('PaymentRecieving/Edit', [
+            'paymentRecieving' => $paymentRecieving,
+        ]);
     }
 
     /**
@@ -118,7 +129,17 @@ class PaymentRecievingController extends Controller
      */
     public function update(PaymentRecievingRequest $request, PaymentRecieving $paymentRecieving)
     {
-        //
+        try{
+            DB::beginTransaction();
+            $paymentRecieving->update($request->all());
+            DB::commit();
+            flash('Payment Recieving Updated Sucessfully!', 'success');
+            return \redirect(route('dashboard.payment-recieving.index'));          
+        }catch (\Exception $e) {
+            DB::rollBack();
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 
     /**
@@ -129,6 +150,16 @@ class PaymentRecievingController extends Controller
      */
     public function destroy(PaymentRecieving $paymentRecieving)
     {
-        //
+        try {           
+            $paymentRecieving->delete();
+            flash('Payment Recieving deleted succesfully', 'success');
+            return \redirect()->back();
+        } catch (ModelNotFoundException $e) {
+            flash('Unable to find this payment recieving', 'danger');
+            return \redirect()->back();
+        } catch (\Exception $e) {
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 }

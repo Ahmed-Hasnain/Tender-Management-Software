@@ -10,10 +10,10 @@
                     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
-                                <button class="btn btn-primary btn-sm" @click="add()" v-if="checkUserPermissions('add_payment_recieving')">
+                                <!-- <button class="btn btn-primary btn-sm" @click="add()" v-if="checkUserPermissions('add_payment_recieving')">
                                     <i class="anticon anticon-file-protect"></i>
                                     <span>Add Payment Recievings</span>
-                                </button> 
+                                </button>  -->
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <div id="DataTables_Table_0_filter" class="dataTables_filter">
@@ -26,35 +26,32 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="table table-hover e-commerce-table dataTable no-footer"
-                                    id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" v-if="allTenders?.data.length > 0">
+                                    id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" v-if="allPayments?.data.length > 0">
                                     <thead>
                                         <tr role="row">
-                                            <th style="width: 225.188px;">Id #</th>
-                                            <th style="width: 225.188px;">cheque No.</th>
+                                            <th style="width: 225.188px;">Quotation Ref</th>
+                                            <th style="width: 225.188px;">Serial no.</th>
                                             <th style="width: 225.188px;">Bank Name</th>
+                                            <th style="width: 225.188px;">Cheque Amount</th>
                                             <th style="width: 225.188px;">Company</th>
-                                            <th style="width: 225.188px;">Status</th>
                                             <th class="text-right" style="width: 255.188px;">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr role="row" class="odd" v-for="(tender,index) in allTenders.data" :key="index">
-                                            <td class="text-capitalize">{{ tender.reference_no }}</td>
-                                            <td class="text-capitalize">{{ tender.client?.name }}</td>
-                                            <td class="text-capitalize">{{ formatDate(tender.last_date_of_submission) }}</td>
-                                            <td class="text-capitalize">{{ tender.company?.name }}</td>
-                                            <td class="text-capitalize">{{ removeDashes(tender.status) }}</td>
+                                        <tr role="row" class="odd" v-for="(payment,index) in allPayments.data" :key="index">
+                                            <td class="text-capitalize">{{ payment.supply_order?.quotation?.reference_no }}</td>
+                                            <td class="text-capitalize">{{ payment.serial_no }}</td>
+                                            <td class="text-capitalize">{{ removeDashes(payment.bank_name) }}</td>
+                                            <td class="text-capitalize">{{ payment.supply_order?.quotation?.currency }} {{ formatNumber(payment.cheque_amount) }}</td>
+                                            <td class="text-capitalize">{{ payment.supply_order?.quotation?.tender?.company?.name }}</td>
                                             <td class="text-right">
-                                                <button @click="tender.quotation ? showTender(tender.quotation.id) : addTender(tender.id) " class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('add_quotation')">
-                                                    <i class="anticon anticon-file-text"></i>
-                                                </button>
-                                                <button @click="show(tender.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('view_tender')">
+                                                <button @click="show(payment.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('view_payment_recieving')">
                                                     <i class="anticon anticon-eye"></i>
                                                 </button>
-                                                <button @click="edit(tender.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('edit_tender')">
+                                                <button @click="edit(payment.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('edit_payment_recieving')">
                                                     <i class="anticon anticon-edit"></i>
                                                 </button>
-                                                <button @click="onDelete(tender.id)" class="btn btn-icon btn-hover btn-sm btn-rounded" v-if="checkUserPermissions('delete_tender')">
+                                                <button @click="onDelete(payment.id)" class="btn btn-icon btn-hover btn-sm btn-rounded" v-if="checkUserPermissions('delete_payment_recieving')">
                                                     <i class="anticon anticon-delete"></i>
                                                 </button>
                                             </td>
@@ -64,7 +61,7 @@
                                 <div v-else class="pt-3 pl-3">No Data Found.</div>
                             </div>
                         </div>
-                        <pagination :meta="allTenders" :keyword="searchedKeyword"></pagination>
+                        <pagination :meta="allPayments" :keyword="searchedKeyword"></pagination>
                     </div>
                 </div>
             </div>
@@ -86,27 +83,21 @@ export default {
         pagination,
         search
     },
-    props: ['tenders', 'searchedKeyword'],
+    props: ['paymentRecieving', 'searchedKeyword'],
     data() {
         return{
-            allTenders: this.tenders
+            allPayments: this.paymentRecieving
         }
     },
     methods: {
-        add(){
-            this.$inertia.get(route('dashboard.tender.create'), {
-                onSuccess: () => {},
-                onError: errors => {console.log(errors);}
-            })
-        },
         edit($id){
-            this.$inertia.get(route('dashboard.tender.edit', $id), {
+            this.$inertia.get(route('dashboard.payment-recieving.edit', $id), {
                 onSuccess: () => {},
                 onError: errors => {console.log(errors);}
             })
         },
         show($id){
-            this.$inertia.get(route('dashboard.tender.show', $id), {
+            this.$inertia.get(route('dashboard.payment-recieving.show', $id), {
                 onSuccess: () => {},
                 onError: errors => {console.log(errors);}
             })
@@ -123,7 +114,7 @@ export default {
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    this.$inertia.delete(route('dashboard.tender.destroy', $id), {
+                    this.$inertia.delete(route('dashboard.payment-recieving.destroy', $id), {
                         preserveScroll: false,
                         onSuccess: () => {},
                         onError: errors => {console.log(errors);}
@@ -131,26 +122,17 @@ export default {
                 }
             })
         },
-        addTender(id) {
-            this.$inertia.get(route('dashboard.quotation.create'), {tender_id: id}, {
-                onSuccess: () => {},
-                onError: errors => {console.log(errors);}
-            })
-        },
-        showTender(id) {
-            this.$inertia.get(route('dashboard.quotation.show', id), {
-                onSuccess: () => {},
-                onError: errors => {console.log(errors);}
-            })
-        }
     },
     watch: {
-        tenders:{
-            handler(tenders) {
-                this.allTenders = tenders
+        paymentRecieving:{
+            handler(paymentRecieving) {
+                this.allPayments = paymentRecieving
             },
             deep: true,
         },
+    },
+    mounted() {
+        console.log(this.paymentRecieving);
     },
     mixins: [Helpers]
 }

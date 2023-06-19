@@ -1,6 +1,5 @@
 <template>
-
-    <Head title="Edit Tender" />
+    <Head title="Add Payment" />
     <AuthenticatedLayout>
         <form v-if="form" @submit.prevent="submit">
             <div class="card">
@@ -11,173 +10,74 @@
                     <div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Name">Reference No:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Reference Number"
-                                    v-model="form.reference_no" :class="{ 'is-invalid': form.errors?.reference_no }">
-                                <error :message="form.errors?.reference_no"></error>
+                                <label class="font-weight-semibold" for="Cheque No">Cheque No:</label>
+                                <input type="text" class="form-control" placeholder="Enter Cheque No" v-model="form.cheque_no" :class="{'is-invalid' : form.errors?.cheque_no}">
+                                <error :message="form.errors?.cheque_no"></error>
                             </div>
                             <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="file_name">File Name:</label>
-                                <input type="text" class="form-control" id="file_name" placeholder="File Name"
-                                    v-model="form.file_name" :class="{ 'is-invalid': form.errors?.file_name }">
-                                <error :message="form.errors?.file_name"></error>
+                                <label class="font-weight-semibold" for="cheque_amount">Cheque Amount</label>
+                                <input type="text" class="form-control" id="cheque_amount" placeholder="Enter Cheque Amount" v-model="form.cheque_amount" :class="{'is-invalid' : form.errors?.cheque_amount}">
+                                <error :message="form.errors?.cheque_amount"></error>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Category">Company:</label>
-                                <select id="language" class="form-control" v-model="form.company_id"
-                                    :class="{ 'is-invalid': form.errors?.company_id }">
-                                    <option v-for="(company, index) in companies" :key="index" :value="company.id"
-                                        class="text-capitalize">{{ company.name }}</option>
+                                <label class="font-weight-semibold" for="Income Tax Amount">Income Tax Amount:</label>
+                                <input type="text" class="form-control" placeholder="Enter Income Tax Amount" v-model="form.income_tax_amount" :class="{'is-invalid' : form.errors?.income_tax_amount}">
+                                <error :message="form.errors?.income_tax_amount"></error>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-semibold" for="gst_withhold_amount">GST Withhold Amount</label>
+                                <input type="text" class="form-control" id="gst_withhold_amount" placeholder="Enter GST Withhold Amount" v-model="form.gst_withhold_amount" :class="{'is-invalid' : form.errors?.gst_withhold_amount}">
+                                <error :message="form.errors?.gst_withhold_amount"></error>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label class="font-weight-semibold" for="serial_no">Serial Number</label>
+                                <input type="text" class="form-control" id="serial_no" placeholder="Enter Serial Number" v-model="form.serial_no" :class="{'is-invalid' : form.errors?.serial_no}">
+                                <error :message="form.errors?.serial_no"></error>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-semibold" for="bank">Bank Name:</label>
+                                <select id="language" class="form-control" v-model="form.bank_name" :class="{'is-invalid' : form.errors?.bank_name}">
+                                    <option v-for="(bank, index) in banks" :value="bank" :key="index" class="text-capitalize">
+                                        {{ removeDashesAndcapitalize(bank) }}
+                                    </option>
                                 </select>
-                                <error :message="form.errors?.company_id"></error>
+                                <error :message="form.errors?.bank_name"></error>
                             </div>
                             <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Category">Type Of Demand:</label>
-                                <select id="language" class="form-control" v-model="form.demand_id"
-                                    :class="{ 'is-invalid': form.errors?.demand_id }">
-                                    <option v-for="(demand, index) in demands" :key="index" :value="demand.id"
-                                        class="text-capitalize">{{ demand.name }}</option>
+                                <label class="font-weight-semibold" for="Category">Status</label>
+                                <select id="language" class="form-control" v-model="form.status" :class="{'is-invalid' : form.errors?.status}">
+                                    <option value="pending" class="text-capitalize">Pending</option>
+                                    <option value="processing" class="text-capitalize">Processing</option>
+                                    <option value="completed" class="text-capitalize">Completed</option>
                                 </select>
-                                <error :message="form.errors?.demand_id"></error>
+                                <error :message="form.errors?.status"></error>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Category">Clients:</label>
-                                <select id="language" class="form-control" v-model="form.client_id"
-                                    :class="{ 'is-invalid': form.errors?.client_id }">
-                                    <option v-for="(client, index) in clients" :key="index" :value="client.id"
-                                        class="text-capitalize">{{ client.name }}</option>
-                                </select>
-                                <error :message="form.errors?.client_id"></error>
+                                <label class="font-weight-semibold" for="payment_date">Payment Date:</label>
+                                <Datepicker v-model="form.payment_date" :enable-time-picker="false"></Datepicker>
+                                <error :message="form.errors?.payment_date"></error>
                             </div>
                             <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="Category">Mode Of Payment:</label>
-                                <select id="language" class="form-control" v-model="form.mode_of_payment_id"
-                                    :class="{ 'is-invalid': form.errors?.mode_of_payment_id }">
-                                    <option v-for="(mop, index) in mode_of_payment" :key="index" :value="mop.id"
-                                        class="text-capitalize">{{ mop.name }}</option>
-                                </select>
-                                <error :message="form.errors?.mode_of_payment_id"></error>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="rfq_date">RFQ Date:</label>
-                                <Datepicker v-model="form.rfq_date" :enable-time-picker="false"></Datepicker>
-                                <error :message="form.errors?.rfq_date"></error>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="last_date_of_submission">Last Date of
-                                    Submission:</label>
-                                <Datepicker v-model="form.last_date_of_submission" :enable-time-picker="false">
-                                </Datepicker>
-                                <error :message="form.errors?.last_date_of_submission"></error>
-                            </div>
-                            <!-- <div class="form-group col-md-4">
-                                <label class="font-weight-semibold" for="validity_of_quotation">Validity of
-                                    Quotation:</label>
-                                <Datepicker v-model="form.validity_of_quotation" :enable-time-picker="false">
-                                </Datepicker>
-                                <error :message="form.errors?.validity_of_quotation"></error>
-                            </div> -->
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="rate_basis">Rate Basis:</label>
-                                <input type="text" class="form-control" id="rate_basis" placeholder="Rate Basis"
-                                    v-model="form.rate_basis" :class="{ 'is-invalid': form.errors?.rate_basis }">
-                                <error :message="form.errors?.rate_basis"></error>
-                            </div>
-                            <!-- <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="delivery_time">Delivery Time:</label>
-                                <input type="text" class="form-control" id="delivery_time" placeholder="Delivery Time"
-                                    v-model="form.delivery_time" :class="{ 'is-invalid': form.errors?.delivery_time }">
-                                <error :message="form.errors?.delivery_time"></error>
-                            </div> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Add Item</h4>
-                </div>
-                <div class="card-body">
-                    <div>
-                        <div v-for="(tenderItem, index) in form.items" :key="index">
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label class="font-weight-semibold" for="Bank Name">Item</label>
-                                    <select id="language" class="form-control" v-model="tenderItem.item_id">
-                                        <option v-for="(item, index) in items" :key="index" :value="item.id"
-                                            class="text-capitalize">{{ item.name }}</option>
-                                    </select>
-                                    <error :message="form.errors[`items.${index}.item_id`]"></error>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="font-weight-semibold" for="Account Title">Unit</label>
-                                    <select id="language" class="form-control" v-model="tenderItem.unit_id">
-                                        <option v-for="(unit, index) in units" :key="index" :value="unit.id"
-                                            class="text-capitalize">{{ unit.full_name }}</option>
-                                    </select>
-                                    <error :message="form.errors[`items.${index}.unit_id`]"></error>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label class="font-weight-semibold" for="Account Title">Quantity</label>
-                                    <input type="number" class="form-control" placeholder="Quantity"
-                                        v-model="tenderItem.qty">
-                                    <error :message="form.errors[`items.${index}.qty`]"></error>
-                                </div>
-                                <div class="form-group col-md-2" style="align-self: center; padding-top: 49px;">
-                                    <i class="anticon anticon-plus-square" style="font-size: 50px;"
-                                        @click="addItem()"></i>
-                                    <i class="anticon anticon-minus-square" style="font-size: 50px;"
-                                        @click="removeItem(index)" v-if="form.items.length > 1 && index > 0"></i>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-10">
-                                    <label class="font-weight-semibold" for="description">Item Description:</label>
-                                    <textarea class="form-control" rows="1"
-                                        v-model="tenderItem.description"></textarea>
-                                    <error :message="form.errors[`items.${index}.description`]"></error>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Others Details</h4>
-                </div>
-                <div class="card-body">
-                    <div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="description">Tender Description:</label>
-                                <textarea class="form-control" rows="4" v-model="form.description"
-                                    :class="{ 'is-invalid': form.errors.description }"></textarea>
-                                <error :message="form.errors?.description"></error>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="special_terms">Special Terms:</label>
-                                <textarea class="form-control" rows="4" v-model="form.special_terms"
-                                    :class="{ 'is-invalid': form.errors.special_terms }"></textarea>
-                                <error :message="form.errors?.special_terms"></error>
+                                <label class="font-weight-semibold" for="cheque_date">Cheque Date:</label>
+                                <Datepicker v-model="form.cheque_date" :enable-time-picker="false"></Datepicker>
+                                <error :message="form.errors?.cheque_date"></error>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-11">
                             </div>
                             <div class="form-group col-md-1 text-left">
-                                <button class="btn btn-primary m-t-30 " :disabled="form.processing"
-                                    :classes="form.processing ? 'btn btn-primary is-loading m-r-5' : 'btn btn-primary m-t-30'">Submit</button>
+                                <button class="btn btn-primary m-t-30 " :disabled="form.processing" :classes="form.processing ? 'btn btn-primary is-loading m-r-5' : 'btn btn-primary m-t-30'">Submit</button>
                             </div>
-                        </div>
+                        </div>                
                     </div>
                 </div>
             </div>
@@ -191,9 +91,10 @@ import { Head, useForm } from '@inertiajs/inertia-vue3';
 import Error from '@/Components/InputError.vue';
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+import Helpers from '@/Mixins/Helpers';
 
 export default {
-    props: ['mode_of_payment', 'clients', 'items', 'units', 'companies', 'demands', 'tender'],
+    props:['paymentRecieving'],
     components: {
         AuthenticatedLayout,
         Head,
@@ -203,48 +104,56 @@ export default {
     data() {
         return {
             form: null,
+            banks: [
+                'state_bank_of_pakistan',
+                'national_bank_of_pakistan',
+                'habib_bank_limited_(hbl)',
+                'united_bank_limited_(ubl)',
+                'mcb_bank_limited',
+                'allied_bank_limited_(abl)',
+                'bank_alfalah_limited',
+                'sindh_bank_limited',
+                'askari_bank_limited',
+                'faysal_bank_limited',
+                'bank_of_punjab_(bop)',
+                'habib_metropolitan_bank',
+                'soneri_bank_limited',
+                'bank_al-habib_limited',
+                'standard_chartered_bank_(pakistan)',
+                'js_bank_limited',
+                'summit_bank_limited',
+                'bankislami_pakistan_limited',
+                'silk_bank_limited',
+                'meezan_bank_limited'
+            ],
         }
     },
     methods: {
-        submit() {
-            this.form.put(route('dashboard.tender.update', this.form.id), {
-                errorBag: 'tender',
+        submit(){
+            this.form.put(route('dashboard.payment-recieving.update', this.form.id), {
+                errorBag: 'paymentRecieving',
                 preserveScroll: true,
-                onSuccess: () => { },
-                onError: errors => { console.log(errors); }
+                onSuccess: () => {},
+                onError: errors => {console.log(errors);}
             })
-        },
-        addItem() {
-            this.form.items.push({
-                item_id: null,
-                unit_id: null,
-                qty: null,
-                description: null
-            })
-        },
-        removeItem(index) {
-            this.form.items.splice(index, 1)
-        }
+        },  
     },
     mounted() {
         this.form = useForm({
-            id: this.tender ? this.tender.id : null,
-            reference_no: this.tender ? this.tender.reference_no : null,
-            file_name: this.tender ? this.tender.file_name : null,
-            rate_basis: this.tender ? this.tender.rate_basis : null,
-            delivery_time: this.tender ? this.tender.delivery_time : null,
-            description: this.tender ? this.tender.description : null,
-            special_terms: this.tender ? this.tender.special_terms : null,
-            rfq_date: this.tender ? this.tender.rfq_date : null,
-            last_date_of_submission: this.tender ? this.tender.last_date_of_submission : null,
-            validity_of_quotation: this.tender ? this.tender.validity_of_quotation : null,
-            client_id: this.tender ? this.tender.client_id : null,
-            mode_of_payment_id: this.tender ? this.tender.mode_of_payment_id : null,
-            company_id: this.tender ? this.tender.company_id : null,
-            demand_id: this.tender ? this.tender.demand_id : null,
-            items: this.tender ? this.tender.items : null,
+            id: this.paymentRecieving ? this.paymentRecieving.id : null,
+            supply_order_id: this.paymentRecieving ? this.paymentRecieving.supply_order_id : null,
+            payment_date: this.paymentRecieving ? this.paymentRecieving.payment_date : null,
+            cheque_no: this.paymentRecieving ? this.paymentRecieving.cheque_no : null,
+            bank_name: this.paymentRecieving ? this.paymentRecieving.bank_name : 'habib_bank_limited_(hbl)',
+            cheque_amount: this.paymentRecieving ? this.paymentRecieving.cheque_amount : null,
+            income_tax_amount: this.paymentRecieving ? this.paymentRecieving.income_tax_amount : null,
+            gst_withhold_amount: this.paymentRecieving ? this.paymentRecieving.gst_withhold_amount : null,
+            cheque_date: this.paymentRecieving ? this.paymentRecieving.cheque_date : null,
+            serial_no: this.paymentRecieving ? this.paymentRecieving.serial_no : null,
+            status : this.paymentRecieving ? this.paymentRecieving.status : 'pending',
         })
     },
+    mixins: [Helpers]
 }
 </script>
 

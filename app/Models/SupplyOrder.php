@@ -53,6 +53,6 @@ class SupplyOrder extends Model
 
     public function paymentRecieving()
     {
-        return $this->hasOne(PaymentRecieving::class, 'supply_order_id');
+        return $this->hasOne(PaymentRecieving::class);
     }
 }
