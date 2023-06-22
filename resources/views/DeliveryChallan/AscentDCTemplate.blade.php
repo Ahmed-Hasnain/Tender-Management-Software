@@ -71,6 +71,13 @@
         .text-center {
             text-align: center !important;
         }
+        footer {
+            position: fixed;
+            bottom: 0cm;
+            left: 0cm;
+            right: 0cm;
+            border-top: 4px solid #894e3c !important;
+        }
         .p-0 { padding: 0px; }
         .p-1 { padding: 1px; }
         .p-2 { padding: 2px; }
@@ -123,6 +130,8 @@
         .pt-15 { padding-top: 15px; }
         .pt-20 { padding-top: 20px; }
         .pt-25 { padding-top: 25px; }
+        .pt-50 { padding-top: 50px; }
+        .pt-70 { padding-top: 70px; }
         
         .m-0 { margin: 0px; }
         .m-1 { margin: 1px; }
@@ -197,7 +206,26 @@
 </head>
 <body>
     <div class="header">
-        <h2 class="text-center">DELIVERY CHALLAN</h2>
+        <table>
+            <tbody>
+                <tr style="border-bottom: 4px solid #894e3c !important;">
+                    <td style="border: 0px !important; width: 40%;">
+                        <img src="{{public_path($logo)}}" alt="Logo" height="100" width="150">
+                        <p><strong style="text-align: left;">NTN # 5599160-8</strong></p>
+                    </td>
+                    <td style="border: 0px !important; width: 30%; vertical-align: middle; text-align: left; font-size: 20px">
+                        Delivery Challan
+                    </td>
+                    <td style="text-align: justify; width: 30%; margin-right: -80px !important; border: 0px !important">
+                        <div style="border-left: 3px solid #323653 !important; padding-left: 8px !important">
+                            <span style="color:#323653">Tel: +92 318 3788114</span><br>
+                            <span style="color:#323653">Fax: +92 51 8772576</span><br>
+                            <span style="color:#323653">E-mail: ascent.tts@gmail.com</span><br>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         <table style="padding-top: 20px;">
             <tbody>
                 <tr>
@@ -210,7 +238,7 @@
                             <tbody>
                                 <tr>
                                     <td class="w-50" style="text-align: center; font-weight: bold;">{{$deliveryChallan->reference_no}}</td>
-                                    <td class="w-50" style="text-align: center; font-weight: bold;">{{dateFormate($deliveryChallan->supplyOrder?->quotation?->applied_date)}}</td>
+                                    <td class="w-50" style="text-align: center; font-weight: bold;">{{dateFormate($date)}}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="2" style="text-align: center;">
@@ -283,7 +311,11 @@
     <br>
     <div>
         {{-- <p class="text-center">Remarks: <strong>{{$deliveryChallan->description}}</strong></p> --}}
-        <p class="text-right pt-20"><strong>Yours Truly</strong></p> 
+        <p class="text-right pt-70"><strong>Yours Truly</strong></p> 
     </div>
+    <footer>
+        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Head Quarter: Office # 18, 3<sup>rd</sup> Floor, Gulberg Trade Center, Business Park, Gulberg Greens, Islamabad.</p>
+        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Regional Office: Plot No 117 Shaheed Millat Road, Defence View Phase II, Karachi. Mobile: 0333-2814609</p>
+    </footer>
 </body>
 </html>

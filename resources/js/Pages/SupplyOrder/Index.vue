@@ -30,6 +30,7 @@
                                             <th style="width: 225.188px;">Quotaion Reference#</th>
                                             <th style="width: 225.188px;">Tender Reference#</th>
                                             <th style="width: 225.188px;">Total Price</th>
+                                            <th style="width: 225.188px;">Status</th>
                                             <th class="text-right" style="width: 150px;">Action</th>
                                         </tr>
                                     </thead>
@@ -39,6 +40,7 @@
                                             <td class="text-capitalize">{{ supplyOrder.quotation?.reference_no }}</td>
                                             <td class="text-capitalize">{{ supplyOrder.quotation?.tender?.reference_no }}</td>
                                             <td class="text-capitalize">{{ supplyOrder.quotation?.currency }} {{ formatNumber(supplyOrder.total_price) }}</td>
+                                            <td class="text-capitalize">{{ supplyOrder.status }}</td>
                                             <td class="text-right">
                                                 <button @click="supplyOrder.delivered == 1 ? showDeliveryChallan(supplyOrder.id) : addDeliveryChallan(supplyOrder.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('add_delivery_challan')">
                                                     <i class="anticon anticon-reconciliation"></i>

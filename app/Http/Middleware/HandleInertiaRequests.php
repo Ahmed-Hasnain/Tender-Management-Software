@@ -51,7 +51,7 @@ class HandleInertiaRequests extends Middleware
             'current_route' => Route::current(),
             'flash' => session()->get('flash'),
             'settings' => \config()->get('settings'),
-            'logo' => asset('assets/images/logo/logo.png')
+            'logo' => asset('assets/images/logo/ascent.png')
         ]);
     }
 }

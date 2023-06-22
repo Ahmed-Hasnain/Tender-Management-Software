@@ -78,6 +78,7 @@ class SupplyOrderController extends Controller
                 'date_of_supply_order' => $request->input('date_of_supply_order'),
                 'delivery_date' => $request->input('delivery_date'),
                 'quotation_id' => $request->input('quotation_id'),
+                'status' => $request->input('status'),
             ]);
             $supplyOrderItems = $request->input('items');
             if (count($supplyOrderItems) > 0) {
@@ -143,6 +144,7 @@ class SupplyOrderController extends Controller
             $supplyOrder->update([
                 'date_of_supply_order' => $request->input('date_of_supply_order'),
                 'delivery_date' => $request->input('delivery_date'),
+                'status' => $request->input('status'),
             ]);
             if ($supplyOrder->items()->count() > 0) {
                 $supplyOrder->items()->delete();
@@ -229,10 +231,63 @@ class SupplyOrderController extends Controller
                         break;
                 }
             }
+            //updating invoice download flags
+            switch ($type) {
+                case 'sale_tax_invoice':
+                    $supplyOrder->sti_downloaded = $supplyOrder->sti_downloaded ? $supplyOrder->sti_downloaded : true; 
+                    break;
+                case 'commercial_invoice':
+                    $supplyOrder->ci_downloaded = $supplyOrder->ci_downloaded ? $supplyOrder->ci_downloaded : true; 
+                    break;
+            }
+            $supplyOrder->saveQuietly();
             // return view($company, $data);
-            return $pdf->download('quotation.pdf');
+            return $pdf->download('Supply-Order-' . $supplyOrder->quotation->reference_no . '.pdf');
         } catch (\Throwable $th) {
             Log::info($th->getMessage());
+        }
+    }
+
+    public function getInvoices()
+    {
+        try{
+            switch (request()->input('company')) {
+                case 'OndreTicaretTemplate':
+                    $company = 'Onder Ticaret (Private) Limited';
+                    break;
+                case 'MSaadAndCompanyTemplate':
+                    $company = 'Muhammad Saad and Company';
+                    break;
+                default:
+                    $company = 'Ascent Tech Trade Solution';
+                    break;
+            }
+            $limit = \config()->get('settings.pagination_limit');
+            $supplyOrder = SupplyOrder::with('quotation.tender', 'items', 'paymentRecieving')->where(function ($query) use ($company){
+                $keyword = request()->input('keyword');
+                $query->whereDelivered(1);
+                $query->when($keyword, function ($subQuery) use ($keyword, $company){
+                    $subQuery->whereHas('quotation', function($query) use ($keyword, $company){
+                        $query->where('reference_no', 'like', '%' . $keyword . '%')
+                        ->orWhereHas('tender', function ($query) use ($keyword, $company) {
+                            $query->where('reference_no', 'like', '%' . $keyword . '%');
+                        });
+                    });
+                })
+                ->whereHas('quotation', function($query) use ($company){
+                    $query->whereHas('tender', function ($query) use ($company) {
+                        $query->whereRelation('company', 'name', $company);
+                    });
+                });
+            })->orderBy('id', 'desc')->paginate($limit);
+            return Inertia::render('Invoices/Index', [
+                'supplyOrder' => $supplyOrder,
+                'searchedKeyword' => request()->input('keyword'),
+                'selectedCompany' => request()->input('company') ?? 'AscentTemplate' 
+            ]);
+        } catch (\Exception $e) {
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
         }
     }
 }

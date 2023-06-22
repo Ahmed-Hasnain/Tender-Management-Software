@@ -63,7 +63,7 @@
             bottom: 0cm;
             left: 0cm;
             right: 0cm;
-            border-top: 2px solid #bd483b !important;"
+            border-top: 2px solid #bd483b !important;
         }
         .p-0 { padding: 0px; }
         .p-1 { padding: 1px; }
@@ -226,7 +226,7 @@
                     </td>
                     <td style="text-align: right; border: 0px !important;">
                         STRN: 3277876141811<br><br>
-                        <strong>Dated:</strong> {{dateFormate($quotation->applied_date)}}<br>
+                        <strong>Dated:</strong> {{dateFormate($date)}}<br>
                         <strong>Dated:</strong> {{dateFormate($quotation->tender->rfq_date)}}<br>
                         <strong>Validity:</strong> {{addDaysToDate($quotation->applied_date, $quotation->validity_of_quotation)}}
                     </td>

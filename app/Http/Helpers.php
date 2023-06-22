@@ -71,3 +71,8 @@ function currentDate()
 {
     return Carbon::today()->format('F j, Y');
 }
+
+function lowerCaseAndAddDashes($str)
+{
+    return strtolower(str_replace(' ', '_', $str));
+}

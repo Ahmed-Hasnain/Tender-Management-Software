@@ -144,9 +144,25 @@
                 <li class="nav-item dropdown" :class="{ 'active': deliveryChallanFlag }">
                     <Link :href="route('dashboard.delivery-challan.index')" class="custom-menuitem-padding">
                         <span class="icon-holder">
-                            <i class="anticon anticon-audit" :class="{ 'text-white': deliveryChallanFlag }"></i>
+                            <i class="anticon anticon-file-protect" :class="{ 'text-white': deliveryChallanFlag }"></i>
                         </span>
                         <span class="title" :class="{ 'text-white': deliveryChallanFlag }">Delivery Challan</span>
+                    </Link>
+                </li>
+                <li class="nav-item dropdown" :class="{ 'active': invoiceFlag }">
+                    <Link :href="route('dashboard.invoices')" class="custom-menuitem-padding">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-audit" :class="{ 'text-white': invoiceFlag }"></i>
+                        </span>
+                        <span class="title" :class="{ 'text-white': invoiceFlag }">Invoice</span>
+                    </Link>
+                </li>
+                <li class="nav-item dropdown" :class="{ 'active': paymentRecievingFlag }">
+                    <Link :href="route('dashboard.payment-recieving.index')" class="custom-menuitem-padding">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-dollar" :class="{ 'text-white': paymentRecievingFlag }"></i>
+                        </span>
+                        <span class="title" :class="{ 'text-white': paymentRecievingFlag }">Payment Recieving</span>
                     </Link>
                 </li>
             </ul>
@@ -210,6 +226,12 @@ export default {
         deliveryChallanFlag() {
             return this.$page.component === 'DeliveryChallan/Index' || this.$page.component === 'DeliveryChallan/Create' || this.$page.component === 'DeliveryChallan/Edit' || this.$page.component === 'DeliveryChallan/Show' ? true : false
         },
+        paymentRecievingFlag() {
+            return this.$page.component === 'PaymentRecieving/Index' || this.$page.component === 'PaymentRecieving/Create' || this.$page.component === 'PaymentRecieving/Edit' || this.$page.component === 'PaymentRecieving/Show' ? true : false
+        },
+        invoiceFlag() {
+            return this.$page.component === 'Invoices/Index' ? true : false
+        }
     }
 }
 </script>

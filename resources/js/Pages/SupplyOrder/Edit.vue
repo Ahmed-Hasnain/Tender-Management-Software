@@ -20,6 +20,17 @@
                                 <error :message="form.errors?.delivery_date"></error>
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label class="font-weight-semibold" for="status">Status:</label>
+                                <select class="form-control" v-model="form.status">
+                                    <option value="pending" class="text-capitalize">Pending</option>
+                                    <option value="processing" class="text-capitalize">Processing</option>
+                                    <option value="completed" class="text-capitalize">Completed</option>
+                                </select>
+                                <error :message="form.errors?.status"></error>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -123,6 +134,7 @@ export default {
             id: this.supplyOrder ? this.supplyOrder.id : null,
             date_of_supply_order: this.supplyOrder ? this.supplyOrder.date_of_supply_order : null,
             delivery_date: this.supplyOrder ? this.supplyOrder.delivery_date : null,
+            status: this.supplyOrder ? this.supplyOrder.status : 'pending',
             items: [],
         })
         this.addItems()
