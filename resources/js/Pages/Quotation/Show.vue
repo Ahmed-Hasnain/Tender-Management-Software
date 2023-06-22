@@ -9,10 +9,10 @@
                         <div class="inline-block">
                             <img :src="getImage(this.$page.props.settings.logo)" alt="Logo" height="60" width="60">
                             <address class="p-l-10">
-                                <span class="font-weight-semibold text-dark">Ondre Ticaret, Inc.</span><br>
+                                <span class="font-weight-semibold text-dark">Ascent Tech Trade Solutions, Inc.</span><br>
                                 <span>Office # 1102, 11th Floor, Green Trust Tower,</span><br>
                                 <span>Jinnah Avenue, Blue Area, Islamabad</span><br>
-                                <abbr class="text-dark" title="Phone">Phone#</abbr>
+                                <abbr class="text-dark" title="Phone">Fax#</abbr>
                                 <span> 051-2813153</span>
                                 <br>
                                 <abbr class="text-dark" title="Mobile">Mobile#</abbr>

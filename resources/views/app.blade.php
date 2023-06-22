@@ -4,13 +4,13 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title inertia>Ondre Ticaret Tijarah</title>
+        <title inertia>Ascent Tech Trade Solutions</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Favicon -->
-        <link rel="shortcut icon" href="{{asset('assets/images/logo/logo.png')}}">
+        <link rel="shortcut icon" href="{{asset('assets/images/logo/ascent.jpg')}}">
 
         <link href="{{asset('assets/css/app.min.css')}}" rel="stylesheet">
         <link href="{{asset('assets/vendors/datatables/dataTables.bootstrap.min.css')}}" rel="stylesheet">
