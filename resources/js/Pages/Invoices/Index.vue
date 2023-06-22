@@ -51,13 +51,13 @@
                                             <td class="text-capitalize">{{ supplyOrder.quotation?.currency }} {{ getTotal(supplyOrder.total_price, calculateTax(supplyOrder.total_price, supplyOrder.quotation?.tax)) }}</td>
                                             <td class="text-capitalize">{{ supplyOrder.status }}</td>
                                             <td class="text-right">
-                                                <a v-if="company" :href="route('dashboard.downloadSupplyOrder', [supplyOrder.id, company, 'sale_tax_invoice'])" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right mx-1" :class="[supplyOrder.sti_downloaded ? 'bg-success text-white' : '']">
+                                                <a v-if="company" :href="route('dashboard.downloadSupplyOrder', [supplyOrder.id, company, 'sale_tax_invoice'])" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right mx-1" :class="[supplyOrder.sti_downloaded == 1 ? 'bg-success text-white' : '']">
                                                     <i class="anticon anticon-dollar"></i>
                                                 </a>
                                                 <a v-if="company" :href="route('dashboard.downloadSupplyOrder', [supplyOrder.id, company, 'commercial_invoice'])" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" :class="[supplyOrder.ci_downloaded == 1 ? 'bg-success text-white' : '']">
                                                     <i class="anticon anticon-copyright"></i>
                                                 </a>
-                                                <button @click="supplyOrder.payment_recieving ? showPaymentRecieving(supplyOrder.payment_recieving.id) : addPaymentRecieving(supplyOrder.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right mx-1" v-if="checkUserPermissions('add_payment_recieving')" :class="[supplyOrder.payment_recieving == 1 ? 'bg-success text-white' : '']">
+                                                <button @click="supplyOrder.payment_recieving ? showPaymentRecieving(supplyOrder.payment_recieving.id) : addPaymentRecieving(supplyOrder.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right mx-1" v-if="checkUserPermissions('add_payment_recieving')" :class="[supplyOrder.payment_recieving ? 'bg-success text-white' : '']">
                                                     <i class="anticon anticon-edit"></i>
                                                 </button>
                                             </td>
