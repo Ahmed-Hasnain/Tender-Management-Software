@@ -65,7 +65,13 @@ export default {
         },
         
         removeDashes(str) {
+            console.log(str);
             return str.replace(/_/g, " ");
+        },
+
+        //removing dashes and capitalize
+        removeDashesAndcapitalize(str) {
+            return  str.replace(/_/g, ' ').replace(/(\w+)/g, (match) => match.charAt(0).toUpperCase() + match.slice(1))
         },
 
          // number of days added date

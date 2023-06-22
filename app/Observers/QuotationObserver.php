@@ -15,9 +15,9 @@ class QuotationObserver
      */
     public function creating(Quotation $quotation)
     {
-        
+        //
     }
-
+    
     /**
      * Handle the Quotation "created" event.
      *
@@ -26,7 +26,10 @@ class QuotationObserver
      */
     public function created(Quotation $quotation)
     {
-        
+        if ($quotation->tender) {
+            $quotation->tender->status = $quotation->status;
+            $quotation->tender->saveQuietly();
+        }
     }
 
     /**
@@ -37,7 +40,10 @@ class QuotationObserver
      */
     public function updated(Quotation $quotation)
     {
-        //
+        if ($quotation->tender) {
+            $quotation->tender->status = $quotation->status;
+            $quotation->tender->saveQuietly();
+        }
     }
 
     /**

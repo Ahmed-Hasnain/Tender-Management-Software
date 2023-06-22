@@ -9,7 +9,7 @@
                         <div class="card shadow-lg">
                             <div class="card-body">
                                 <div class="d-flex align-items-center justify-content-between m-b-30">
-                                    <h2 class="m-b-0">Ondre Ticaret Tijarah</h2>
+                                    <h3 class="m-b-0">Ascent Tech Trade Solutions</h3>
                                     <img :src="getImage(this.$page.props.settings.logo)" alt="Logo" height="60" width="60">
                                 </div>
                                 <form @submit.prevent="submit">

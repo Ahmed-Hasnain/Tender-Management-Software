@@ -64,7 +64,7 @@
                 bottom: 0cm;
                 left: 0cm;
                 right: 0cm;
-                border-top: 4px solid #894e3c !important;"
+                border-top: 4px solid #894e3c !important;
         }
         .text-left {
             text-align: left !important;
@@ -270,7 +270,7 @@
                                 </tr>
                                 <tr>
                                     <td class="w-33"><strong>Date</strong></td>
-                                    <td class="w-77">{{dateFormate($quotation->applied_date)}}</td>
+                                    <td class="w-77">{{dateFormate($date)}}</td>
                                 </tr>
                                 <tr>
                                     <td class="w-33"><strong>Delivery Time</strong></td>

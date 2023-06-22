@@ -14,6 +14,7 @@ class SupplyOrder extends Model
         'quotation_id',
         'date_of_supply_order',
         'delivery_date',
+        'status',
     ];
 
     protected function dateOfSupplyOrder(): Attribute
@@ -48,5 +49,10 @@ class SupplyOrder extends Model
     public function deliveryChallanItems()
     {
         return $this->hasManyThrough(DeliveryChallanItem::class, DeliveryChallan::class);
+    }
+
+    public function paymentRecieving()
+    {
+        return $this->hasOne(PaymentRecieving::class);
     }
 }

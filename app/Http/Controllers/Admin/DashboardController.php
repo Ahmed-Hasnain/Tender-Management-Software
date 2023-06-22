@@ -13,6 +13,7 @@ use App\Models\Supplier;
 use App\Models\Quotation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\SupplyOrder;
 
 class DashboardController extends Controller
 {
@@ -32,6 +33,7 @@ class DashboardController extends Controller
             'total_quotations' => Quotation::count(),
             'total_items' => Item::count(),
             'total_users' => User::count(),
+            'total_supply_orders' => SupplyOrder::count(),
         ]);
     }
 

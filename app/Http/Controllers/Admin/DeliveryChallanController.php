@@ -166,12 +166,13 @@ class DeliveryChallanController extends Controller
         }
     }
 
-    public function downloadDeliveryChallan($deliveryChallanId, $company)
+    public function downloadDeliveryChallan($deliveryChallanId, $company, $date = null)
     {
         try {
             $deliveryChallan = DeliveryChallan::with( 'supplyOrder.quotation.tender.client','items.supplyOrderItem.quotationItem.tenderItem.item', 'items.supplyOrderItem.quotationItem.tenderItem.unit')->findOrFail($deliveryChallanId);
             $data = [
                 'deliveryChallan' => $deliveryChallan,
+                'date' => $date
             ];
             switch ($company) {
                 case 'OndreTicaretTemplate':
@@ -188,7 +189,7 @@ class DeliveryChallanController extends Controller
                     break;
             }
             // return view('DeliveryChallan/OndreTicaretDCTemplate', $data);
-            return $pdf->download('DeliveryChallan.pdf');
+            return $pdf->download('Delivery-Challan-' . $deliveryChallan->supplyOrder->quotation->reference_no . '.pdf');
         } catch (\Throwable $th) {
             Log::info($th->getMessage());
         }

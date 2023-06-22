@@ -28,12 +28,14 @@ class SupplyOrderRequest extends FormRequest
                 return [
                     'date_of_supply_order' => 'required',
                     'delivery_date' => 'required',
+                    'status' => 'required',
                 ];
                 break;
             case 'PUT':
                 return [
                     'date_of_supply_order' => 'required',
                     'delivery_date' => 'required',
+                    'status' => 'required',
                 ];
                 break;   
         }
