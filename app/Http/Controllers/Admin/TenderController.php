@@ -34,9 +34,29 @@ class TenderController extends Controller
     public function index()
     {
         try{
+            // if (request()->input('params')) {
+            //     dd(request()->input('params')['company']);
+            // }
+            $companyParam = request()->input('params') ? request()->input('params')['company'] : null;
+            $statusParam = request()->input('params') ? request()->input('params')['status'] : null;
+            switch ($companyParam) {
+                case 'OndreTicaretTemplate':
+                    $company = 'Onder Ticaret (Private) Limited';
+                    break;
+                case 'MSaadAndCompanyTemplate':
+                    $company = 'Muhammad Saad and Company';
+                    break;
+                case 'AscentTemplate':
+                    $company = 'Ascent Tech Trade Solution';
+                    break;
+                default:
+                    $company = null;
+                    break;
+            }
             $limit = \config()->get('settings.pagination_limit');
-            $tenders = Tender::with('client', 'quotation', 'company')->where(function ($query) {
+            $tenders = Tender::with('client', 'quotation', 'company')->where(function ($query) use ($company, $statusParam){
                 $keyword = request()->input('keyword');
+                //search 
                 $query->when($keyword, function ($subQuery) use ($keyword){
                     $subQuery->where('reference_no', 'like', '%' . $keyword . '%')
                     ->orWhere('file_name', 'like', '%' . $keyword . '%')
@@ -44,15 +64,22 @@ class TenderController extends Controller
                     ->orWhere('description', 'like', '%' . $keyword . '%')
                     ->orWhereHas('client', function($query) use ($keyword){
                         $query->where('name', 'like', '%' . $keyword . '%');
-                    })
-                    ->orWhereHas('company', function($query) use ($keyword){
-                        $query->where('name', 'like', '%' . $keyword . '%');
                     });
+                });
+                //company filter
+                $query->when($company, function ($subQuery) use ($company){
+                    $subQuery->whereRelation('company', 'name', $company);
+                });
+                //status filter
+                $query->when($statusParam && $statusParam != 'null', function ($subQuery) use ($statusParam) {
+                    $subQuery->where('status', $statusParam);
                 });
             })->orderBy('id', 'desc')->paginate($limit);
             return Inertia::render('Tender/Index', [
                 'tenders' => $tenders,
                 'searchedKeyword' => request()->input('keyword'),
+                'selectedCompany' => $companyParam,
+                'selectedStatus' => $statusParam
             ]);
         } catch (ModelNotFoundException $e) {
             flash('Unable to find this tender.', 'danger');
