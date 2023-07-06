@@ -35,10 +35,12 @@ class TenderController extends Controller
     {
         try{
             // if (request()->input('params')) {
-            //     dd(request()->input('params')['company']);
+            //     dd(request()->all(), setDateValues(request()->input('params')['startDate']));
             // }
             $companyParam = request()->input('params') ? request()->input('params')['company'] : null;
             $statusParam = request()->input('params') ? request()->input('params')['status'] : null;
+            $startDate = request()->input('params') ? setDateValues(request()->input('params')['startDate']) : null;
+            $endDate = request()->input('params') ? setDateValues(request()->input('params')['endDate']) : null;
             switch ($companyParam) {
                 case 'OndreTicaretTemplate':
                     $company = 'Onder Ticaret (Private) Limited';
@@ -54,7 +56,7 @@ class TenderController extends Controller
                     break;
             }
             $limit = \config()->get('settings.pagination_limit');
-            $tenders = Tender::with('client', 'quotation', 'company')->where(function ($query) use ($company, $statusParam){
+            $tenders = Tender::with('client', 'quotation', 'company')->where(function ($query) use ($company, $statusParam, $startDate, $endDate){
                 $keyword = request()->input('keyword');
                 //search 
                 $query->when($keyword, function ($subQuery) use ($keyword){
@@ -67,19 +69,25 @@ class TenderController extends Controller
                     });
                 });
                 //company filter
-                $query->when($company, function ($subQuery) use ($company){
+                $query->when($company && $company != 'null', function ($subQuery) use ($company){
                     $subQuery->whereRelation('company', 'name', $company);
                 });
                 //status filter
                 $query->when($statusParam && $statusParam != 'null', function ($subQuery) use ($statusParam) {
                     $subQuery->where('status', $statusParam);
                 });
+                //last date of submission filter
+                $query->when($startDate && $endDate, function ($subQuery) use ($startDate, $endDate) {
+                    $subQuery->whereBetween('last_date_of_submission', [$startDate, $endDate]);
+                });
             })->orderBy('id', 'desc')->paginate($limit);
             return Inertia::render('Tender/Index', [
                 'tenders' => $tenders,
                 'searchedKeyword' => request()->input('keyword'),
                 'selectedCompany' => $companyParam,
-                'selectedStatus' => $statusParam
+                'selectedStatus' => $statusParam,
+                'selectedStartDate' => $startDate,
+                'selectedEndDate' => $endDate
             ]);
         } catch (ModelNotFoundException $e) {
             flash('Unable to find this tender.', 'danger');

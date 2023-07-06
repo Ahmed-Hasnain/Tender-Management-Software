@@ -9,19 +9,26 @@
                 <div class="table-responsive">
                     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <div class="row">
-                            <div class="col-sm-12 col-md-2">
+                            <div class="col-sm-12 col-md-6">
                                 <button class="btn btn-primary btn-sm" @click="add()" v-if="checkUserPermissions('add_tender')">
                                     <i class="anticon anticon-file-protect"></i>
                                     <span>Add Tender</span>
                                 </button>
                             </div>
-                            <div class="col-sm-12 col-md-10">
-                                <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                            <div class="col-sm-12 col-md-6">
+                                <div id="DataTables_Table_0_filter" class="dataTables_filter" >
                                     <label>
                                         <search :url="'dashboard.tender.index'" :searchedKeyword="searchedKeyword" :params="params"></search>
                                     </label>
-                                    <label class="px-2">
-                                        <select class="form-control form-control-sm" v-model="company" @change="applyFilter()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pt-3 px-3 pb-3 border mt-3 mb-3" >
+                            <div class="col-sm-12 col-md-12">
+                                <div id="DataTables_Table_0_filter" class="dataTables_filter" style="text-align: left;">
+                                    <label>
+                                        <span class="px-2">Company</span> 
+                                        <select class="form-control form-control-sm mt-1" v-model="company" @change="applyFilter()">
                                             <option value="null" class="text-capitalize">Select Company</option>
                                             <option value="OndreTicaretTemplate" class="text-capitalize">Ondre Ticaret</option>
                                             <option value="MSaadAndCompanyTemplate" class="text-capitalize">M Saad and Company</option>
@@ -29,7 +36,8 @@
                                         </select>
                                     </label>
                                     <label class="px-2">
-                                        <select class="form-control form-control-sm" v-model="status" @change="applyFilter()">
+                                        <span class="px-2">Status</span> 
+                                        <select class="form-control form-control-sm mt-1" v-model="status" @change="applyFilter()">
                                             <option value="null" class="text-capitalize">Select Status</option>
                                             <option value="pending" class="text-capitalize">pending</option>
                                             <option value="quotation_in_process" class="text-capitalize">quotation in process</option>
@@ -46,6 +54,14 @@
                                             <option value="payment_received" class="text-capitalize">payment received</option>
                                             <option value="supply_regretted" class="text-capitalize">supply regretted</option>
                                         </select>
+                                    </label>
+                                    <label class="px-2">
+                                        <span class="px-2 pb-5">Start Date</span> 
+                                        <Datepicker v-model="startDate" :enable-time-picker="false" class="pt-1"  @update:model-value="applyFilter()"></Datepicker>
+                                    </label>
+                                    <label class="px-2">
+                                        <span class="px-2 pb-5">End Date</span> 
+                                        <Datepicker v-model="endDate" :enable-time-picker="false" class="pt-1" @update:model-value="applyFilter()"></Datepicker>
                                     </label>
                                 </div>
                             </div>
@@ -93,7 +109,7 @@
                                 <div v-else class="pt-3 pl-3">No Data Found.</div>
                             </div>
                         </div>
-                        <pagination :meta="allTenders" :keyword="searchedKeyword"></pagination>
+                        <pagination :meta="allTenders" :keyword="searchedKeyword" :params="params"></pagination>
                     </div>
                 </div>
             </div>
@@ -107,23 +123,30 @@ import { Head } from '@inertiajs/inertia-vue3';
 import Helpers from '@/Mixins/Helpers';
 import pagination from '@/Components/Pagination.vue';
 import search from '@/Components/Search.vue';
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
 export default {
     components: {
         AuthenticatedLayout,
         Head,
         pagination,
-        search
+        search,
+        Datepicker
     },
-    props: ['tenders', 'searchedKeyword', 'selectedCompany', 'selectedStatus'],
+    props: ['tenders', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate'],
     data() {
         return{
             allTenders: this.tenders,
             company: this.selectedCompany,
             status: this.selectedStatus,
+            startDate: this.selectedStartDate,
+            endDate: this.selectedEndDate,
             params: {
                 company: this.selectedCompany,
                 status: this.selectedStatus,
+                startDate: this.selectedStartDate,
+                endDate: this.selectedEndDate,
             }
         }
     },
@@ -181,6 +204,8 @@ export default {
         applyFilter(){
             this.params.company = this.company
             this.params.status = this.status
+            this.params.startDate = this.startDate
+            this.params.endDate = this.endDate
             this.$inertia.get(route('dashboard.tender.index'), {params: this.params}, {
                 onSuccess: () => {},
                 onError: errors => {console.log(errors);}
