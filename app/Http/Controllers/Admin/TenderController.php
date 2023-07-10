@@ -34,13 +34,11 @@ class TenderController extends Controller
     public function index()
     {
         try{
-            // if (request()->input('params')) {
-            //     dd(request()->all(), setDateValues(request()->input('params')['startDate']));
-            // }
-            $companyParam = request()->input('params') ? request()->input('params')['company'] : null;
-            $statusParam = request()->input('params') ? request()->input('params')['status'] : null;
-            $startDate = request()->input('params') ? setDateValues(request()->input('params')['startDate']) : null;
-            $endDate = request()->input('params') ? setDateValues(request()->input('params')['endDate']) : null;
+            $companyParam = request()->input('params') && request()->input('params')['company'] ? request()->input('params')['company'] : null;
+            $statusParam = request()->input('params') && request()->input('params')['status'] ? request()->input('params')['status'] : null;
+            $startDate = request()->input('params') && setDateValues(request()->input('params')['startDate']) ? setDateValues(request()->input('params')['startDate']) : '';
+            $endDate = request()->input('params') && setDateValues(request()->input('params')['endDate']) ? setDateValues(request()->input('params')['endDate']) : '';
+            $limit = request()->input('params') && request()->input('params')['limit'] ? request()->input('params')['limit'] : \config()->get('settings.pagination_limit');
             switch ($companyParam) {
                 case 'OndreTicaretTemplate':
                     $company = 'Onder Ticaret (Private) Limited';
@@ -55,7 +53,6 @@ class TenderController extends Controller
                     $company = null;
                     break;
             }
-            $limit = \config()->get('settings.pagination_limit');
             $tenders = Tender::with('client', 'quotation', 'company')->where(function ($query) use ($company, $statusParam, $startDate, $endDate){
                 $keyword = request()->input('keyword');
                 //search 
@@ -87,7 +84,9 @@ class TenderController extends Controller
                 'selectedCompany' => $companyParam,
                 'selectedStatus' => $statusParam,
                 'selectedStartDate' => $startDate,
-                'selectedEndDate' => $endDate
+                'selectedEndDate' => $endDate,
+                'selectedLimit' => $limit,
+                'totalTenders' => Tender::count()
             ]);
         } catch (ModelNotFoundException $e) {
             flash('Unable to find this tender.', 'danger');

@@ -40,7 +40,8 @@ export default {
             let company = this.allParams ? '&params[company]=' + this.allParams.company : ''
             let startDate = this.allParams ? '&params[startDate]=' + this.allParams.startDate : ''
             let endDate = this.allParams ? '&params[endDate]=' + this.allParams.endDate : ''
-            return url + searchedKeyword + company + status + startDate + endDate   
+            let limit = this.allParams ? '&params[limit]=' + this.allParams.limit : ''
+            return url + searchedKeyword + company + status + startDate + endDate + limit  
         }
     },
 }
