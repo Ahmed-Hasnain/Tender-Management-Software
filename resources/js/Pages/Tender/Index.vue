@@ -80,10 +80,7 @@
                                     </div>
                                 </div>
                                 <div class="row pt-2">
-                                    <button class="btn btn-primary btn-sm" @click="add()" v-if="checkUserPermissions('add_tender')" style="width:100%;">
-                                        <i class="anticon anticon-file-protect px-1"></i>
-                                        <span>Generate Tender Reports</span>
-                                    </button>
+                                    <a :href="route('dashboard.getTenderReports', [tenderIds, company, status, startDate, endDate, limit])" class="btn btn-primary btn-sm" style="width:100%;">Generate Tender Reports</a>
                                 </div>
                             </div>
                         </div>
@@ -155,7 +152,7 @@ export default {
         search,
         Datepicker
     },
-    props: ['tenders', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalTenders'],
+    props: ['tenders', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalTenders', 'tenderIds'],
     data() {
         return{
             allTenders: this.tenders,
@@ -243,6 +240,9 @@ export default {
             },
             deep: true,
         },
+    },
+    mounted(){
+        console.log(this.tenderIds, 'tender ids');
     },
     mixins: [Helpers]
 }

@@ -33,7 +33,6 @@ export default {
     },
     methods: {
         pageUrl(url) {
-            console.log(this.allParams, 'pagination');
             let searchedKeyword = this.keyword ? '&keyword=' + this.keyword : ''
             searchedKeyword = this.company_id ? searchedKeyword + '&company_id=' + this.company_id : searchedKeyword
             let status = this.allParams ? '&params[status]=' + this.allParams.status : ''

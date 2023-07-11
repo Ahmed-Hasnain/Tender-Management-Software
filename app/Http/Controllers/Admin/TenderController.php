@@ -86,7 +86,8 @@ class TenderController extends Controller
                 'selectedStartDate' => $startDate,
                 'selectedEndDate' => $endDate,
                 'selectedLimit' => $limit,
-                'totalTenders' => Tender::count()
+                'totalTenders' => Tender::count(),
+                'tenderIds' => $tenders->pluck('id')->toArray(),
             ]);
         } catch (ModelNotFoundException $e) {
             flash('Unable to find this tender.', 'danger');
@@ -245,5 +246,37 @@ class TenderController extends Controller
             flash($e->getMessage(), 'danger');
             return \redirect()->back();
         }
+    }
+
+    public function tenderReports($company = null, $status = null, $startDate = null, $endDate = null, $limit = null) 
+    {
+        $arr = [$company, $status, $startDate, $endDate, $limit];
+        Log::info($arr);
+        return $arr;
+        // try {
+        //     $quotation = Quotation::with('tender.client', 'tender.mop', 'items.tenderItem.item', 'items.tenderItem.unit')->findOrFail($quotationId);
+        //     $data = [
+        //         'quotation' => $quotation,
+        //         'date' => $date
+        //     ];
+        //     switch ($company) {
+        //         case 'OndreTicaretTemplate':
+        //             $data['logo'] = "assets/images/logo/onder-logo.png";
+        //             $pdf = Pdf::loadView('OndreTicaretTemplate', $data);
+        //             break;
+        //         case 'MSaadAndCompanyTemplate':
+        //             $data['logo'] = "assets/images/logo/saad&co.png";
+        //             $pdf = Pdf::loadView('MSaadAndCompanyTemplate', $data);
+        //             break;
+        //         case 'AscentTemplate':
+        //             $data['logo'] = "assets/images/logo/ascent.png";
+        //             $pdf = Pdf::loadView('AscentTemplate', $data);
+        //             break;
+        //     }
+        //     // return view($company, $data);
+        //     return $pdf->download('Quotation-' . $quotation->reference_no . '.pdf');
+        // } catch (\Throwable $th) {
+        //     Log::info($th->getMessage());
+        // }
     }
 }

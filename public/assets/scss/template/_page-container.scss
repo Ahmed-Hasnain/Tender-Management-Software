@@ -17,6 +17,7 @@
 	.main-content {
 		padding: calc(#{$header-height} + #{$layout-content-gutter}) $layout-content-gutter $layout-content-gutter;
 		min-height: calc(100vh - #{$header-height});
+		background-color: #e6e7e8 !important;
 
 		&.full-container {
 			padding: 0px;
