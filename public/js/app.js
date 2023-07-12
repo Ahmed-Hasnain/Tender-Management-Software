@@ -24227,6 +24227,19 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     console.log(this.tenderIds, 'tender ids');
   },
+  computed: {
+    reportParams: function reportParams() {
+      var param = {
+        ids: this.tenderIds,
+        company: this.company,
+        status: this.status,
+        start_date: this.startDate,
+        end_date: this.endDate,
+        limit: this.limit
+      };
+      return JSON.stringify(param);
+    }
+  },
   mixins: [_Mixins_Helpers__WEBPACK_IMPORTED_MODULE_2__["default"]]
 });
 
@@ -37074,7 +37087,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         value: $props.totalTenders,
         "class": "text-capitalize"
       }, "All", 8 /* PROPS */, _hoisted_48), _hoisted_49, _hoisted_50, _hoisted_51, _hoisted_52, _hoisted_53, _hoisted_54], 544 /* HYDRATE_EVENTS, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.limit]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_55, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-        href: _ctx.route('dashboard.getTenderReports', [$props.tenderIds, $data.company, $data.status, $data.startDate, $data.endDate, $data.limit]),
+        href: _ctx.route('dashboard.getTenderReports', $options.reportParams),
         "class": "btn btn-primary btn-sm",
         style: {
           "width": "100%"

@@ -79,9 +79,7 @@ Route::middleware(['auth', 'verified'])
         //tender
         Route::group(['middleware' => ['can:view_tender']], function () {
             Route::resource('/tender', Admin\TenderController::class);
-            Route::get('/get-tender-reports/{tenderIds}/{company?}/{status?}/{startDate?}/{endDate?}/{limit?}', function ($tenderIds, $company = null, $status = null, $startDate = null, $endDate = null, $limit = null) {
-                return [$tenderIds, $company, $status, $startDate, $endDate, $limit];
-            })->name('getTenderReports');
+            Route::get('/get-tender-reports/{reportParams?}', [Admin\TenderController::class, 'tenderReports'])->name('getTenderReports');
         });
         //quotation
         Route::group(['middleware' => ['can:view_quotation']], function () {

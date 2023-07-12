@@ -12,6 +12,7 @@ use App\Models\Company;
 use App\Models\TenderItem;
 use Illuminate\Http\Request;
 use App\Models\ModeOfPayment;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
@@ -248,35 +249,50 @@ class TenderController extends Controller
         }
     }
 
-    public function tenderReports($company = null, $status = null, $startDate = null, $endDate = null, $limit = null) 
+    public function tenderReports($reportParams) 
     {
-        $arr = [$company, $status, $startDate, $endDate, $limit];
-        Log::info($arr);
-        return $arr;
-        // try {
-        //     $quotation = Quotation::with('tender.client', 'tender.mop', 'items.tenderItem.item', 'items.tenderItem.unit')->findOrFail($quotationId);
-        //     $data = [
-        //         'quotation' => $quotation,
-        //         'date' => $date
-        //     ];
-        //     switch ($company) {
-        //         case 'OndreTicaretTemplate':
-        //             $data['logo'] = "assets/images/logo/onder-logo.png";
-        //             $pdf = Pdf::loadView('OndreTicaretTemplate', $data);
-        //             break;
-        //         case 'MSaadAndCompanyTemplate':
-        //             $data['logo'] = "assets/images/logo/saad&co.png";
-        //             $pdf = Pdf::loadView('MSaadAndCompanyTemplate', $data);
-        //             break;
-        //         case 'AscentTemplate':
-        //             $data['logo'] = "assets/images/logo/ascent.png";
-        //             $pdf = Pdf::loadView('AscentTemplate', $data);
-        //             break;
-        //     }
-        //     // return view($company, $data);
-        //     return $pdf->download('Quotation-' . $quotation->reference_no . '.pdf');
-        // } catch (\Throwable $th) {
-        //     Log::info($th->getMessage());
-        // }
+        try {
+            $params = json_decode($reportParams, true);
+            $ids = $params['ids'];
+            $company = $params['company'];
+            $status = $params['status'];
+            $startDate = $params['start_date'];
+            $endDate = $params['end_date'];
+            $limit = $params['limit'];
+            $tenders = Tender::whereIn('id', $ids)->with('client', 'quotation', 'company')->get();
+            $data = [
+                'tenders' =>  $tenders,
+                'company' => $company,
+                'status' => $status,
+                'startDate' => $startDate,
+                'endDate' => $endDate,
+                'limit' => $limit,
+            ];
+            switch ($company) {
+                case 'OndreTicaretTemplate':
+                    $data['logo'] = "assets/images/logo/onder-logo.png";
+                    $pdf = Pdf::loadView('OndreTicaretTemplate', $data);
+                    break;
+                case 'MSaadAndCompanyTemplate':
+                    $data['logo'] = "assets/images/logo/saad&co.png";
+                    $pdf = Pdf::loadView('MSaadAndCompanyTemplate', $data);
+                    break;
+                case 'AscentTemplate':
+                    $data['logo'] = "assets/images/logo/ascent.png";
+                    $pdf = Pdf::loadView('AscentTemplate', $data);
+                    break;
+                default:
+                    $data['logo'] = "assets/images/logo/ascent.png";
+                    $pdf = Pdf::loadView('Reports/Tender', $data); 
+                    break; 
+            }
+            return $pdf->download('Tender-Report.pdf');
+        } catch (\Throwable $th) {
+            Log::error([
+                'message' => $th->getMessage(),
+                'line' => $th->getLine(),
+                'file' => $th->getFile(),
+            ]);
+        }
     }
 }

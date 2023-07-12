@@ -80,7 +80,7 @@
                                     </div>
                                 </div>
                                 <div class="row pt-2">
-                                    <a :href="route('dashboard.getTenderReports', [tenderIds, company, status, startDate, endDate, limit])" class="btn btn-primary btn-sm" style="width:100%;">Generate Tender Reports</a>
+                                    <a :href="route('dashboard.getTenderReports', reportParams)" class="btn btn-primary btn-sm" style="width:100%;">Generate Tender Reports</a>
                                 </div>
                             </div>
                         </div>
@@ -243,6 +243,19 @@ export default {
     },
     mounted(){
         console.log(this.tenderIds, 'tender ids');
+    },
+    computed: {
+        reportParams() {
+            let param =  {
+                ids: this.tenderIds,
+                company: this.company,
+                status: this.status,
+                start_date: this.startDate,
+                end_date: this.endDate,
+                limit: this.limit,
+            }
+            return JSON.stringify(param)
+        }
     },
     mixins: [Helpers]
 }
