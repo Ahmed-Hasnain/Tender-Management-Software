@@ -259,7 +259,7 @@ class TenderController extends Controller
             $startDate = $params['start_date'];
             $endDate = $params['end_date'];
             $limit = $params['limit'];
-            $tenders = Tender::whereIn('id', $ids)->with('client', 'quotation', 'company')->get();
+            $tenders = Tender::whereIn('id', $ids)->with('client')->get();
             $data = [
                 'tenders' =>  $tenders,
                 'company' => $company,
@@ -271,15 +271,15 @@ class TenderController extends Controller
             switch ($company) {
                 case 'OndreTicaretTemplate':
                     $data['logo'] = "assets/images/logo/onder-logo.png";
-                    $pdf = Pdf::loadView('OndreTicaretTemplate', $data);
+                    $pdf = Pdf::loadView('Reports/Tender', $data); 
                     break;
                 case 'MSaadAndCompanyTemplate':
                     $data['logo'] = "assets/images/logo/saad&co.png";
-                    $pdf = Pdf::loadView('MSaadAndCompanyTemplate', $data);
+                    $pdf = Pdf::loadView('Reports/Tender', $data); 
                     break;
                 case 'AscentTemplate':
                     $data['logo'] = "assets/images/logo/ascent.png";
-                    $pdf = Pdf::loadView('AscentTemplate', $data);
+                    $pdf = Pdf::loadView('Reports/Tender', $data); 
                     break;
                 default:
                     $data['logo'] = "assets/images/logo/ascent.png";

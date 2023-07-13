@@ -210,7 +210,7 @@
                         <p><strong style="text-align: left;">NTN # 5599160-8</strong></p>
                     </td>
                     <td style="border: 0px !important; width: 30%; vertical-align: middle; text-align: left; font-size: 20px">
-                        Tenders
+                        Tender Report
                     </td>
                     <td style="text-align: justify; width: 30%; margin-right: -80px !important; border: 0px !important">
                         <div style="border-left: 3px solid #323653 !important; padding-left: 8px !important">
@@ -222,26 +222,72 @@
                 </tr>
             </tbody>
         </table>
+        <table style="padding-top: 20px;">
+            <tbody>
+                <tr>
+                    <td style="border: 0px !important;" class="w-50">
+                        <table style="margin-top: 10px;"> 
+                            <tbody>
+                                <tr>
+                                    <td colspan="2" style="text-align: center; font-weight: bold;">
+                                        Applied Filter
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="w-50"><strong>Company</strong></td>
+                                    <td class="w-50">{{$company ?? 'All'}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="w-50"><strong>Status</strong></td>
+                                    <td class="w-50">{{$status ?? 'None'}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="w-50"><strong>LDoS Start Date</strong></td>
+                                    <td class="w-50">{{$startDate && $startDate != '' ? dateFormate($startDate) : 'None'}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="w-50"><strong>LDoS End Date</strong></td>
+                                    <td class="w-50">{{$endDate && $endDate != '' ? dateFormate($endDate) : 'None'}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="w-50"><strong>Limit</strong></td>
+                                    <td class="w-50">{{$limit ?? 'None'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <br>
     <table>
         <thead>
             <tr>
-                <th class="text-center">Sr.</th>
-                <th class="text-center">Description</th>
+                <th class="">Sr#</th>
+                <th class="">File Name</th>
+                <th class="">RFQ Date</th>
+                <th class="">LDoS Date</th>
+                <th class="">Client</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td class="text-center">1</td>
-                <td class="">{{$tenders}}</td>
-            </tr>
+            @foreach ($tenders as $key => $tender)
+                <tr>
+                    <td class="">{{$tender->reference_no}}</td>
+                    <td class="">{{$tender->file_name}}</td>
+                    <td class="">{{dateFormate($tender->rfq_date)}}</td>
+                    <td class="">{{dateFormate($tender->last_date_of_submission)}}</td>
+                    <td class="">{{$tender->client?->name}}</td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
     <br>
-    <footer>
+    <br>
+    <!-- <footer>
         <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Head Quarter: Office # 18, 3<sup>rd</sup> Floor, Gulberg Trade Center, Business Park, Gulberg Greens, Islamabad.</p>
         <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Regional Office: Plot No 117 Shaheed Millat Road, Defence View Phase II, Karachi. Mobile: 0333-2814609</p>
-    </footer>
+    </footer> -->
 </body>
 </html>
