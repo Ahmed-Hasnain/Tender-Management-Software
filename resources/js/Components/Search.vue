@@ -1,5 +1,5 @@
 <template>
-    <input type="search" class="form-control form-control-sm" placeholder="Type here..." v-model="keyword"
+    <input type="search" class="form-control form-control-sm" placeholder="Search here..." v-model="keyword"
         @keyup="search">
 </template>
 

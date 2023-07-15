@@ -12,6 +12,7 @@ use App\Models\Company;
 use App\Models\TenderItem;
 use Illuminate\Http\Request;
 use App\Models\ModeOfPayment;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
@@ -34,9 +35,28 @@ class TenderController extends Controller
     public function index()
     {
         try{
-            $limit = \config()->get('settings.pagination_limit');
-            $tenders = Tender::with('client', 'quotation', 'company')->where(function ($query) {
+            $companyParam = request()->input('params') && request()->input('params')['company'] ? request()->input('params')['company'] : null;
+            $statusParam = request()->input('params') && request()->input('params')['status'] ? request()->input('params')['status'] : null;
+            $startDate = request()->input('params') && setDateValues(request()->input('params')['startDate']) ? setDateValues(request()->input('params')['startDate']) : '';
+            $endDate = request()->input('params') && setDateValues(request()->input('params')['endDate']) ? setDateValues(request()->input('params')['endDate']) : '';
+            $limit = request()->input('params') && request()->input('params')['limit'] ? request()->input('params')['limit'] : \config()->get('settings.pagination_limit');
+            switch ($companyParam) {
+                case 'OndreTicaretTemplate':
+                    $company = 'Onder Ticaret (Private) Limited';
+                    break;
+                case 'MSaadAndCompanyTemplate':
+                    $company = 'Muhammad Saad and Company';
+                    break;
+                case 'AscentTemplate':
+                    $company = 'Ascent Tech Trade Solution';
+                    break;
+                default:
+                    $company = null;
+                    break;
+            }
+            $tenders = Tender::with('client', 'quotation', 'company')->where(function ($query) use ($company, $statusParam, $startDate, $endDate){
                 $keyword = request()->input('keyword');
+                //search 
                 $query->when($keyword, function ($subQuery) use ($keyword){
                     $subQuery->where('reference_no', 'like', '%' . $keyword . '%')
                     ->orWhere('file_name', 'like', '%' . $keyword . '%')
@@ -44,15 +64,31 @@ class TenderController extends Controller
                     ->orWhere('description', 'like', '%' . $keyword . '%')
                     ->orWhereHas('client', function($query) use ($keyword){
                         $query->where('name', 'like', '%' . $keyword . '%');
-                    })
-                    ->orWhereHas('company', function($query) use ($keyword){
-                        $query->where('name', 'like', '%' . $keyword . '%');
                     });
+                });
+                //company filter
+                $query->when($company && $company != 'null', function ($subQuery) use ($company){
+                    $subQuery->whereRelation('company', 'name', $company);
+                });
+                //status filter
+                $query->when($statusParam && $statusParam != 'null', function ($subQuery) use ($statusParam) {
+                    $subQuery->where('status', $statusParam);
+                });
+                //last date of submission filter
+                $query->when($startDate && $endDate, function ($subQuery) use ($startDate, $endDate) {
+                    $subQuery->whereBetween('last_date_of_submission', [$startDate, $endDate]);
                 });
             })->orderBy('id', 'desc')->paginate($limit);
             return Inertia::render('Tender/Index', [
                 'tenders' => $tenders,
                 'searchedKeyword' => request()->input('keyword'),
+                'selectedCompany' => $companyParam,
+                'selectedStatus' => $statusParam,
+                'selectedStartDate' => $startDate,
+                'selectedEndDate' => $endDate,
+                'selectedLimit' => $limit,
+                'totalTenders' => Tender::count(),
+                'tenderIds' => $tenders->pluck('id')->toArray(),
             ]);
         } catch (ModelNotFoundException $e) {
             flash('Unable to find this tender.', 'danger');
@@ -210,6 +246,56 @@ class TenderController extends Controller
         } catch (\Exception $e) {
             flash($e->getMessage(), 'danger');
             return \redirect()->back();
+        }
+    }
+
+    public function tenderReports($reportParams) 
+    {
+        try {
+            $params = json_decode($reportParams, true);
+            $ids = $params['ids'];
+            $company = $params['company'];
+            $status = $params['status'];
+            $startDate = $params['start_date'];
+            $endDate = $params['end_date'];
+            $limit = $params['limit'];
+            $tenders = Tender::whereIn('id', $ids)->with('client')->get();
+            $data = [
+                'tenders' =>  $tenders,
+                'status' => $status,
+                'startDate' => $startDate,
+                'endDate' => $endDate,
+                'limit' => $limit,
+            ];
+            switch ($company) {
+                case 'OndreTicaretTemplate':
+                    $data['logo'] = "assets/images/logo/onder-logo.png";
+                    $data['company'] = "Onder Ticaret";
+                    $pdf = Pdf::loadView('Reports/OnderTicaret', $data); 
+                    break;
+                case 'MSaadAndCompanyTemplate':
+                    $data['logo'] = "assets/images/logo/saad&co.png";
+                    $data['company'] = "Muhammad Saad And Company";
+                    $pdf = Pdf::loadView('Reports/MSaadAndCompany', $data); 
+                    break;
+                case 'AscentTemplate':
+                    $data['logo'] = "assets/images/logo/ascent.png";
+                    $data['company'] = "Ascent Tech";
+                    $pdf = Pdf::loadView('Reports/AscentTech', $data); 
+                    break;
+                default:
+                    $data['logo'] = "assets/images/logo/ascent.png";
+                    $data['company'] = "None";
+                    $pdf = Pdf::loadView('Reports/Tender', $data); 
+                    break; 
+            }
+            return $pdf->download('Tender-Report.pdf');
+        } catch (\Throwable $th) {
+            Log::error([
+                'message' => $th->getMessage(),
+                'line' => $th->getLine(),
+                'file' => $th->getFile(),
+            ]);
         }
     }
 }
