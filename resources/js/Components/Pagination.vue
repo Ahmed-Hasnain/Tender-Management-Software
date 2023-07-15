@@ -25,12 +25,22 @@ export default {
     components: {
         Link,
     },
-    props: ['meta', 'keyword', 'company_id'],
+    props: ['meta', 'keyword', 'company_id', 'params'],
+    data(){
+        return {
+            allParams : this.params,
+        }
+    },
     methods: {
         pageUrl(url) {
             let searchedKeyword = this.keyword ? '&keyword=' + this.keyword : ''
             searchedKeyword = this.company_id ? searchedKeyword + '&company_id=' + this.company_id : searchedKeyword
-            return url + searchedKeyword
+            let status = this.allParams ? '&params[status]=' + this.allParams.status : ''
+            let company = this.allParams ? '&params[company]=' + this.allParams.company : ''
+            let startDate = this.allParams ? '&params[startDate]=' + this.allParams.startDate : ''
+            let endDate = this.allParams ? '&params[endDate]=' + this.allParams.endDate : ''
+            let limit = this.allParams ? '&params[limit]=' + this.allParams.limit : ''
+            return url + searchedKeyword + company + status + startDate + endDate + limit  
         }
     },
 }

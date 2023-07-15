@@ -217,5 +217,7 @@ export default {
 </script>
 
 <style>
-
+    .main-content {
+        background-color: #e6e7e8 !important;
+    }
 </style>
