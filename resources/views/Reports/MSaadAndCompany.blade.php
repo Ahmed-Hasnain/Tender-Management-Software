@@ -202,6 +202,25 @@
 </head>
 <body>
     <div class="header">
+        <table>
+            <tbody>
+                <tr>
+                    <td style="border: 0px !important; width: 72%;">
+                        <img src="{{public_path($logo)}}" alt="Logo" height="100" width="200"><br><br>
+                        NTN: 7881680-2<br>
+                    </td>
+                    <td style="width: 28%; border: 0px !important">
+                        <div>
+                            <span style="color:#323653">Tel: +92 51 2745668</span><br>
+                            <span style="color:#323653">Fax: +92 51 2745778</span><br>
+                            <span style="color:#323653">Email: msaadandcom@gmail.com</span><br><br><br>
+                            STRN: 3277876141811<br>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 class="text-center">Tender Reports</h2>
         <table style="padding-top: 20px;">
             <tbody>
                 <tr>

@@ -202,6 +202,20 @@
 </head>
 <body>
     <div class="header">
+        <table>
+            <tbody>
+                <tr>
+                    <td style="border: 0px !important; width: 75%;">
+                        <img src="{{public_path($logo)}}" alt="Logo" height="100" width="520"><br><br>
+                    </td>
+                    <td style=" border: 0px !important; width: 35%;">
+                        <span style="color:#c9cc77">Tel: +92 51 2813153</span><br>
+                        <span style="color:#c9cc77">Fax: +92 51 8444066</span><br><br>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 class="text-center">Tender Reports</h2>
         <table style="padding-top: 20px;">
             <tbody>
                 <tr>

@@ -202,6 +202,26 @@
 </head>
 <body>
     <div class="header">
+        <table>
+            <tbody>
+                <tr style="border-bottom: 4px solid #894e3c !important;">
+                    <td style="border: 0px !important; width: 40%;">
+                        <img src="{{public_path($logo)}}" alt="Logo" height="100" width="150">
+                        <p><strong style="text-align: left;">NTN # 5599160-8</strong></p>
+                    </td>
+                    <td style="border: 0px !important; width: 30%; vertical-align: middle; text-align: left; font-size: 20px">
+                        Tender Report
+                    </td>
+                    <td style="text-align: justify; width: 30%; margin-right: -80px !important; border: 0px !important">
+                        <div style="border-left: 3px solid #323653 !important; padding-left: 8px !important">
+                            <span style="color:#323653">Tel: +92 318 3788114</span><br>
+                            <span style="color:#323653">Fax: +92 51 8772576</span><br>
+                            <span style="color:#323653">E-mail: ascent.tts@gmail.com</span><br>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         <table style="padding-top: 20px;">
             <tbody>
                 <tr>
