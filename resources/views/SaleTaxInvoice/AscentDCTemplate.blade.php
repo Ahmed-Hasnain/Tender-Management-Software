@@ -9,6 +9,7 @@
             font-family: "Arial Narrow", Arial, sans-serif !important;
             font-size: 12px;
             margin: 0px 8px !important; 
+            padding-top: 100px !important;
         }
         table {
             width: 100%;
@@ -58,13 +59,6 @@
         table thead tr th{
             background-color: white;
         }
-        footer {
-                position: fixed;
-                bottom: 0cm;
-                left: 0cm;
-                right: 0cm;
-                border-top: 4px solid #894e3c !important;
-        }
         .text-left {
             text-align: left !important;
         }
@@ -73,6 +67,22 @@
         }
         .text-center {
             text-align: center !important;
+        }
+        @page { margin: 85px 50px; }
+        header { 
+            position: fixed;
+            top: -60px;
+            left: 0px;
+            right: 0px;
+            text-align: left;
+            padding-bottom: 20px;
+        }
+        footer { 
+            position: fixed;
+            bottom: -60px;
+            left: 0px;
+            right: 0px;
+            border-top: 2px solid #894e3c !important;
         }
 
         .p-0 { padding: 0px; }
@@ -200,7 +210,7 @@
     </style>
 </head>
 <body>
-    <div class="header">
+    <header>
         <table>
             <tbody>
                 <tr style="border-bottom: 4px solid #894e3c !important;">
@@ -221,6 +231,12 @@
                 </tr>
             </tbody>
         </table>
+    </header>
+    <footer>
+        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Head Quarter: Office # 18, 3<sup>rd</sup> Floor, Gulberg Trade Center, Business Park, Gulberg Greens, Islamabad.</p>
+        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Regional Office: Plot No 117 Shaheed Millat Road, Defence View Phase II, Karachi. Mobile: 0333-2814609</p>
+    </footer>
+    <main>
         <table style="padding-top: 20px;">
             <tbody>
                 <tr style="vertical-align: top !important;">
@@ -283,55 +299,52 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-    <br>
-    <table>
-        <thead>
-            <tr>
-                <th class="w-5 text-center">Sr.</th>
-                <th class="w-50 text-center">Description</th>
-                <th class="w-5 text-center">Qty</th>
-                <th class="w-5 text-center">A/U</th>
-                <th class="text-center">Unit Price ({{$supplyOrder->quotation?->currency}})</th>
-                <th class="text-center">Total Amount ({{$supplyOrder->quotation?->currency}})</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if ($supplyOrder->items->count() > 0)  
-                @foreach ($supplyOrder->items as $key => $item)
-                    <tr>
-                        <td  class="text-center">{{$key+1}}</td>
-                        <td class="w-50">{{$item->quotationItem?->tenderItem?->item?->name}}<br><small> {{$item->quotationItem?->tenderItem?->description}}</small></td>
-                        <td class="w-5 text-center">{{$item->qty}}</td>
-                        <td class="w-5 text-center">{{$item->quotationItem?->tenderItem?->unit?->short_name}}</td>
-                        <td class="text-right">{{numberFormate($item->unit_price)}}</td>
-                        <td class="text-right">{{numberFormate($item->total)}}</td>
-                    </tr>
-                @endforeach
-            @endif
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="5" class="footer" style="border: 0px !important;">Subtotal:</td>
-                <td class="text-right">{{numberFormate($supplyOrder->total_price)}}</td>
-            </tr>
-            <tr>
-                <td colspan="5" class="footer" style="border: 0px !important;">GST({{$supplyOrder?->quotation?->tax}}%):</td>
-                <td class="text-right">{{numberFormate(calculateTax($supplyOrder?->quotation?->tax, $supplyOrder->total_price))}}</td>
-            </tr>
-            <tr>
-                <td colspan="5" class="footer" style="border: 0px !important;">Grand Total:</td>
-                <td class="text-right">{{numberFormate($supplyOrder->total_price + calculateTax($supplyOrder?->quotation?->tax, $supplyOrder->total_price))}}</td>
-            </tr>
-        </tfoot>
-    </table>
-    <br>
-    <div>
-        <p class="text-right pt-20"><strong>Yours Truly</strong></p> 
-    </div>
-    <footer>
-        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Head Quarter: Office # 18, 3<sup>rd</sup> Floor, Gulberg Trade Center, Business Park, Gulberg Greens, Islamabad.</p>
-        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Regional Office: Plot No 117 Shaheed Millat Road, Defence View Phase II, Karachi. Mobile: 0333-2814609</p>
-    </footer>
+        <br>
+        <br>
+        <table>
+            <thead>
+                <tr>
+                    <th class="w-5 text-center">Sr.</th>
+                    <th class="w-50 text-center">Description</th>
+                    <th class="w-5 text-center">Qty</th>
+                    <th class="w-5 text-center">A/U</th>
+                    <th class="text-center">Unit Price ({{$supplyOrder->quotation?->currency}})</th>
+                    <th class="text-center">Total Amount ({{$supplyOrder->quotation?->currency}})</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if ($supplyOrder->items->count() > 0)  
+                    @foreach ($supplyOrder->items as $key => $item)
+                        <tr>
+                            <td  class="text-center">{{$key+1}}</td>
+                            <td class="w-50">{{$item->quotationItem?->tenderItem?->item?->name}}<br><small> {{$item->quotationItem?->tenderItem?->description}}</small></td>
+                            <td class="w-5 text-center">{{$item->qty}}</td>
+                            <td class="w-5 text-center">{{$item->quotationItem?->tenderItem?->unit?->short_name}}</td>
+                            <td class="text-right">{{numberFormate($item->unit_price)}}</td>
+                            <td class="text-right">{{numberFormate($item->total)}}</td>
+                        </tr>
+                    @endforeach
+                @endif
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" class="footer" style="border: 0px !important;">Subtotal:</td>
+                    <td class="text-right">{{numberFormate($supplyOrder->total_price)}}</td>
+                </tr>
+                <tr>
+                    <td colspan="5" class="footer" style="border: 0px !important;">GST({{$supplyOrder?->quotation?->tax}}%):</td>
+                    <td class="text-right">{{numberFormate(calculateTax($supplyOrder?->quotation?->tax, $supplyOrder->total_price))}}</td>
+                </tr>
+                <tr>
+                    <td colspan="5" class="footer" style="border: 0px !important;">Grand Total:</td>
+                    <td class="text-right">{{numberFormate($supplyOrder->total_price + calculateTax($supplyOrder?->quotation?->tax, $supplyOrder->total_price))}}</td>
+                </tr>
+            </tfoot>
+        </table>
+        <br>
+        <div>
+            <p class="text-right pt-20"><strong>Yours Truly</strong></p> 
+        </div>
+    </main>
 </body>
 </html>

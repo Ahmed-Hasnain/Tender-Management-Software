@@ -2,12 +2,13 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Quotation</title>
+    <title>Sale Tax Invoice</title>
     <style>
         /* Define your CSS styles here */
         body {
             font-family: "Courier New", Courier, monospace !important;
             font-size: 12px;
+            padding-top: 60px !important;
         }
         table {
             width: 100%;
@@ -58,11 +59,20 @@
         .text-center {
             text-align: center !important;
         }
-        footer {
+        @page { margin: 85px 50px; }
+        header { 
             position: fixed;
-            bottom: 0cm;
-            left: 0cm;
-            right: 0cm;
+            top: -60px;
+            left: 0px;
+            right: 0px;
+            text-align: left;
+            padding-bottom: 20px;
+        }
+        footer { 
+            position: fixed;
+            bottom: -60px;
+            left: 0px;
+            right: 0px;
             border-top: 2px solid #bd483b !important;
         }
         .p-0 { padding: 0px; }
@@ -190,7 +200,7 @@
     </style>
 </head>
 <body>
-    <div class="header">
+    <header>
         <table>
             <tbody>
                 <tr>
@@ -209,6 +219,11 @@
                 </tr>
             </tbody>
         </table>
+    </header>
+    <footer>
+        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Head Quarter: Office # 18, 3<sup>rd</sup> Floor, Gulberg Trade Center, Business Park, Gulberg Greens, Islamabad.</p>
+    </footer>
+    <main>
         <h2 class="text-center">Sale Tax Invoice</h2>
         <table style="padding-top: 20px;">
             <tbody>
@@ -236,14 +251,6 @@
                                     <td class="w-30" style="border: 0px !important; color: gray !important;"><strong>Customer Ref:</strong></td>
                                     <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">{{$supplyOrder?->quotation?->tender?->reference_no}} - Dated: {{dateFormate($supplyOrder?->quotation?->tender?->rfq_date)}}</td>
                                 </tr>
-                                <tr>
-                                    <td class="w-30" style="border: 0px !important; color: gray !important;"><strong>Sale Tax #:</strong></td>
-                                    <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">3277876141811</td>
-                                </tr>
-                                <tr>
-                                    <td class="w-30" style="border: 0px !important; color: gray !important;"><strong>NTN #</strong></td>
-                                    <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">7881680-2</td>
-                                </tr>
                             </tbody>
                         </table>
                     </td>
@@ -254,55 +261,53 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-    <br>
-    <table>
-        <thead>
-            <tr>
-                <th class="w-5 text-center">Sr.</th>
-                <th class="w-50 text-center">Description</th>
-                <th class="w-5 text-center">Qty</th>
-                <th class="w-5 text-center">A/U</th>
-                <th class="text-center">Unit Price ({{$supplyOrder->quotation?->currency}})</th>
-                <th class="text-center">Total Amount ({{$supplyOrder->quotation?->currency}})</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if ($supplyOrder->items->count() > 0)  
-                @foreach ($supplyOrder->items as $key => $item)
-                    <tr>
-                        <td  class="text-center">{{$key+1}}</td>
-                        <td class="w-50">{{$item->quotationItem?->tenderItem?->item?->name}}<br><small> {{$item->quotationItem?->tenderItem?->description}}</small></td>
-                        <td class="w-5 text-center">{{$item->qty}}</td>
-                        <td class="w-5 text-center">{{$item->quotationItem?->tenderItem?->unit?->short_name}}</td>
-                        <td class="text-right">{{numberFormate($item->unit_price)}}</td>
-                        <td class="text-right">{{numberFormate($item->total)}}</td>
-                    </tr>
-                @endforeach
-            @endif
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="5" class="footer" style="border: 0px !important;">Subtotal:</td>
-                <td class="text-right">{{numberFormate($supplyOrder->total_price)}}</td>
-            </tr>
-            <tr>
-                <td colspan="5" class="footer" style="border: 0px !important;">GST({{$supplyOrder?->quotation?->tax}}%):</td>
-                <td class="text-right">{{numberFormate(calculateTax($supplyOrder?->quotation?->tax, $supplyOrder->total_price))}}</td>
-            </tr>
-            <tr>
-                <td colspan="5" class="footer" style="border: 0px !important;">Grand Total:</td>
-                <td class="text-right">{{numberFormate($supplyOrder->total_price + calculateTax($supplyOrder?->quotation?->tax, $supplyOrder->total_price))}}</td>
-            </tr>
-        </tfoot>
-    </table>
-    <br>
-    <div>
-        {{-- <p class="text-center">Remarks: <strong>{{$deliveryChallan->description}}</strong></p> --}}
-        <p class="text-center pt-20"><strong>Yours Truly</strong></p> 
-    </div>
-    <footer>
-        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Head Quarter: Office # 18, 3<sup>rd</sup> Floor, Gulberg Trade Center, Business Park, Gulberg Greens, Islamabad.</p>
-    </footer>
+        <br>
+        <br>
+        <table>
+            <thead>
+                <tr>
+                    <th class="w-5 text-center">Sr.</th>
+                    <th class="w-50 text-center">Description</th>
+                    <th class="w-5 text-center">Qty</th>
+                    <th class="w-5 text-center">A/U</th>
+                    <th class="text-center">Unit Price ({{$supplyOrder->quotation?->currency}})</th>
+                    <th class="text-center">Total Amount ({{$supplyOrder->quotation?->currency}})</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if ($supplyOrder->items->count() > 0)  
+                    @foreach ($supplyOrder->items as $key => $item)
+                        <tr>
+                            <td  class="text-center">{{$key+1}}</td>
+                            <td class="w-50">{{$item->quotationItem?->tenderItem?->item?->name}}<br><small> {{$item->quotationItem?->tenderItem?->description}}</small></td>
+                            <td class="w-5 text-center">{{$item->qty}}</td>
+                            <td class="w-5 text-center">{{$item->quotationItem?->tenderItem?->unit?->short_name}}</td>
+                            <td class="text-right">{{numberFormate($item->unit_price)}}</td>
+                            <td class="text-right">{{numberFormate($item->total)}}</td>
+                        </tr>
+                    @endforeach
+                @endif
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" class="footer" style="border: 0px !important;">Subtotal:</td>
+                    <td class="text-right">{{numberFormate($supplyOrder->total_price)}}</td>
+                </tr>
+                <tr>
+                    <td colspan="5" class="footer" style="border: 0px !important;">GST({{$supplyOrder?->quotation?->tax}}%):</td>
+                    <td class="text-right">{{numberFormate(calculateTax($supplyOrder?->quotation?->tax, $supplyOrder->total_price))}}</td>
+                </tr>
+                <tr>
+                    <td colspan="5" class="footer" style="border: 0px !important;">Grand Total:</td>
+                    <td class="text-right">{{numberFormate($supplyOrder->total_price + calculateTax($supplyOrder?->quotation?->tax, $supplyOrder->total_price))}}</td>
+                </tr>
+            </tfoot>
+        </table>
+        <br>
+        <div>
+            {{-- <p class="text-center">Remarks: <strong>{{$deliveryChallan->description}}</strong></p> --}}
+            <p class="text-center pt-20"><strong>Yours Truly</strong></p> 
+        </div>
+    </main>
 </body>
 </html>

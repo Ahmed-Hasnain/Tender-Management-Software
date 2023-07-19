@@ -8,6 +8,7 @@
         body {
             font-family: "Courier New", Courier, monospace !important;
             font-size: 12px;
+            padding-top: 60px !important;
         }
         table {
             width: 100%;
@@ -58,11 +59,20 @@
         .text-center {
             text-align: center !important;
         }
-        footer {
+        @page { margin: 85px 50px; }
+        header { 
             position: fixed;
-            bottom: 0cm;
-            left: 0cm;
-            right: 0cm;
+            top: -60px;
+            left: 0px;
+            right: 0px;
+            text-align: left;
+            padding-bottom: 20px;
+        }
+        footer { 
+            position: fixed;
+            bottom: -60px;
+            left: 0px;
+            right: 0px;
             border-top: 2px solid #bd483b !important;
         }
         .p-0 { padding: 0px; }
@@ -190,7 +200,7 @@
     </style>
 </head>
 <body>
-    <div class="header">
+    <header>
         <table>
             <tbody>
                 <tr>
@@ -211,7 +221,11 @@
                 </tr>
             </tbody>
         </table>
-        {{-- <img src="{{public_path($logo)}}" alt="Logo" height="100" width="200"> --}}
+    </header>
+    <footer>
+        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Head Quarter: Office # 18, 3<sup>rd</sup> Floor, Gulberg Trade Center, Business Park, Gulberg Greens, Islamabad.</p>
+    </footer>
+    <main>
         <table style="padding-top: 20px;">
             <tbody>
                 <tr>
@@ -233,76 +247,74 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-    <br>
-    <table>
-        <thead>
-            <tr>
-                <th class="w-5 text-center">Sr.</th>
-                <th class="w-50 text-center">Description</th>
-                <th class="w-5 text-center">UOM</th>
-                <th class="w-5 text-center">Qty</th>
-                <th class="text-center">Unit Price ({{$quotation->currency}})</th>
-                <th class="text-center">Total Amount ({{$quotation->currency}})</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if ($quotation->items->count() > 0)  
-                @foreach ($quotation->items as $key => $item)
-                    <tr>
-                        <td class="text-center">{{$key+1}}</td>
-                        <td class="w-50 ">{{$item->tenderItem?->item?->name}}<br> <small> {{$item->tenderItem?->description}}</small></td>
-                        <td class="w-5 text-center">{{$item->tenderItem?->unit?->short_name}}</td>
-                        <td class="w-5 text-center">{{$item->tenderItem?->qty}}</td>
-                        <td class="text-right">{{numberFormate($item->unit_price)}}</td>
-                        <td class="text-right">{{numberFormate($item->total_price)}}</td>
-                    </tr>
-                @endforeach
-            @endif
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="5" class="footer" style="border: 0px !important;">Subtotal:</td>
-                <td class="text-right">{{numberFormate($quotation->total_price)}}</td>
-            </tr>
-            <tr>
-                <td colspan="5" class="footer" style="border: 0px !important;">GST({{$quotation->tax}}%):</td>
-                <td class="text-right">{{numberFormate(calculateTax($quotation->tax, $quotation->total_price))}}</td>
-            </tr>
-            <tr>
-                <td colspan="5" class="footer" style="border: 0px !important;">Grand Total:</td>
-                <td class="text-right">{{numberFormate($quotation->total_price + calculateTax($quotation->tax, $quotation->total_price))}}</td>
-            </tr>
-        </tfoot>
-    </table>
-    <br>
-    <div>
-        <p class="text-center pt-20"><strong>Yours Truly</strong></p> 
-    </div>
-    <br>
-    <table style="margin-top: 30px;"> 
-        <tbody>
-            <tr>
-                <td colspan="2" style="text-align: center; font-weight: bold;">
-                    Terms and Conditions
-                </td>
-            </tr>
-            <tr>
-                <td class="w-50">Mode of Payment</td>
-                <td class="w-50">{{$quotation->tender->mop->name}}</td>
-            </tr>
-            <tr>
-                <td class="w-50">Rate Basis</td>
-                <td class="w-50">{{$quotation->tender->rate_basis}}</td>
-            </tr>
-            <tr>
-                <td class="w-50">Delivery Period</td>
-                <td class="w-50">{{$quotation->delivery_time}} Days</td>
-            </tr>
-        </tbody>
-    </table>
-    <footer>
-        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Head Quarter: Office # 18, 3<sup>rd</sup> Floor, Gulberg Trade Center, Business Park, Gulberg Greens, Islamabad.</p>
-    </footer>
+        <br>
+        <br>
+        <table>
+            <thead>
+                <tr>
+                    <th class="w-5 text-center">Sr.</th>
+                    <th class="w-50 text-center">Description</th>
+                    <th class="w-5 text-center">UOM</th>
+                    <th class="w-5 text-center">Qty</th>
+                    <th class="text-center">Unit Price ({{$quotation->currency}})</th>
+                    <th class="text-center">Total Amount ({{$quotation->currency}})</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if ($quotation->items->count() > 0)  
+                    @foreach ($quotation->items as $key => $item)
+                        <tr>
+                            <td class="text-center">{{$key+1}}</td>
+                            <td class="w-50 ">{{$item->tenderItem?->item?->name}}<br> <small> {{$item->tenderItem?->description}}</small></td>
+                            <td class="w-5 text-center">{{$item->tenderItem?->unit?->short_name}}</td>
+                            <td class="w-5 text-center">{{$item->tenderItem?->qty}}</td>
+                            <td class="text-right">{{numberFormate($item->unit_price)}}</td>
+                            <td class="text-right">{{numberFormate($item->total_price)}}</td>
+                        </tr>
+                    @endforeach
+                @endif
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" class="footer" style="border: 0px !important;">Subtotal:</td>
+                    <td class="text-right">{{numberFormate($quotation->total_price)}}</td>
+                </tr>
+                <tr>
+                    <td colspan="5" class="footer" style="border: 0px !important;">GST({{$quotation->tax}}%):</td>
+                    <td class="text-right">{{numberFormate(calculateTax($quotation->tax, $quotation->total_price))}}</td>
+                </tr>
+                <tr>
+                    <td colspan="5" class="footer" style="border: 0px !important;">Grand Total:</td>
+                    <td class="text-right">{{numberFormate($quotation->total_price + calculateTax($quotation->tax, $quotation->total_price))}}</td>
+                </tr>
+            </tfoot>
+        </table>
+        <br>
+        <div>
+            <p class="text-center pt-20"><strong>Yours Truly</strong></p> 
+        </div>
+        <br>
+        <table style="margin-top: 30px;"> 
+            <tbody>
+                <tr>
+                    <td colspan="2" style="text-align: center; font-weight: bold;">
+                        Terms and Conditions
+                    </td>
+                </tr>
+                <tr>
+                    <td class="w-50">Mode of Payment</td>
+                    <td class="w-50">{{$quotation->tender->mop->name}}</td>
+                </tr>
+                <tr>
+                    <td class="w-50">Rate Basis</td>
+                    <td class="w-50">{{$quotation->tender->rate_basis}}</td>
+                </tr>
+                <tr>
+                    <td class="w-50">Delivery Period</td>
+                    <td class="w-50">{{$quotation->delivery_time}} Days</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
 </body>
 </html>
