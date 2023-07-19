@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Ascent</title>
+    <title>All Tenders</title>
     <style>
         /* Define your CSS styles here */
         body {
@@ -229,10 +229,6 @@
                                     <td class="w-50"><strong>LDoS End Date</strong></td>
                                     <td class="w-50">{{$endDate && $endDate != '' ? dateFormate($endDate) : 'None'}}</td>
                                 </tr>
-                                <tr>
-                                    <td class="w-50"><strong>Limit</strong></td>
-                                    <td class="w-50">{{$limit ?? 'None'}}</td>
-                                </tr>
                             </tbody>
                         </table>
                     </td>
@@ -250,6 +246,7 @@
                 <th class="w-20">File Name</th>
                 <th class="w-20">RFQ Date</th>
                 <th class="w-20">LDoS Date</th>
+                <th class="w-20">Company</th>
             </tr>
         </thead>
         <tbody>
@@ -261,6 +258,7 @@
                     <td class="">{{$tender->file_name}}</td>
                     <td class="">{{dateFormate($tender->rfq_date)}}</td>
                     <td class="">{{dateFormate($tender->last_date_of_submission)}}</td>
+                    <td class="">{{$tender->company?->name}}</td>
                 </tr>
             @endforeach
         </tbody>
