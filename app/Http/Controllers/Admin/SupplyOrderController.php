@@ -242,7 +242,7 @@ class SupplyOrderController extends Controller
             }
             $supplyOrder->saveQuietly();
             // return view($company, $data);
-            return $pdf->download('Supply-Order-' . $supplyOrder->quotation->reference_no . '.pdf');
+            return $pdf->download( replaceUnderscoreWithDash($type) . '-' . $supplyOrder->quotation->reference_no . '.pdf');
         } catch (\Throwable $th) {
             Log::info($th->getMessage());
         }

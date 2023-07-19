@@ -76,3 +76,8 @@ function lowerCaseAndAddDashes($str)
 {
     return strtolower(str_replace(' ', '_', $str));
 }
+
+function replaceUnderscoreWithDash($str)
+{
+    return ucfirst(str_replace('_', '-', $str));
+}

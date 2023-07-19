@@ -39,7 +39,7 @@ class TenderController extends Controller
             $statusParam = request()->input('params') && request()->input('params')['status'] ? request()->input('params')['status'] : null;
             $startDate = request()->input('params') && setDateValues(request()->input('params')['startDate']) ? setDateValues(request()->input('params')['startDate']) : '';
             $endDate = request()->input('params') && setDateValues(request()->input('params')['endDate']) ? setDateValues(request()->input('params')['endDate']) : '';
-            $limit = request()->input('params') && request()->input('params')['limit'] ? request()->input('params')['limit'] : \config()->get('settings.pagination_limit');
+            $limit = request()->input('params') && request()->input('params')['limit'] ? request()->input('params')['limit'] : Tender::count();
             switch ($companyParam) {
                 case 'OndreTicaretTemplate':
                     $company = 'Onder Ticaret (Private) Limited';
@@ -259,7 +259,7 @@ class TenderController extends Controller
             $startDate = $params['start_date'];
             $endDate = $params['end_date'];
             $limit = $params['limit'];
-            $tenders = Tender::whereIn('id', $ids)->with('client')->get();
+            $tenders = Tender::whereIn('id', $ids)->with('client', 'company')->get();
             $data = [
                 'tenders' =>  $tenders,
                 'status' => $status,
