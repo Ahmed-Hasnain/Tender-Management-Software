@@ -2,13 +2,14 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Ascent</title>
+    <title>Onder Ticaret Tender Report</title>
     <style>
         /* Define your CSS styles here */
         body {
             font-family: "Arial Narrow", Arial, sans-serif !important;
             font-size: 12px;
             margin: 0px 8px !important; 
+            padding-top: 80px !important;
         }
         table {
             width: 100%;
@@ -59,13 +60,6 @@
             border: 0px !important;
             background-color: white;
         }
-        footer {
-                position: fixed;
-                bottom: 0cm;
-                left: 0cm;
-                right: 0cm;
-                border-top: 4px solid #894e3c !important;
-        }
         .text-left {
             text-align: left !important;
         }
@@ -74,6 +68,22 @@
         }
         .text-center {
             text-align: center !important;
+        }
+        @page { margin: 85px 50px; }
+        header { 
+            position: fixed;
+            top: -60px;
+            left: 0px;
+            right: 0px;
+            text-align: left;
+            padding-bottom: 20px;
+        }
+        footer { 
+            position: fixed;
+            bottom: -60px;
+            left: 0px;
+            right: 0px;
+            border-top: 2px solid #5598cc !important;
         }
 
         .p-0 { padding: 0px; }
@@ -201,7 +211,7 @@
     </style>
 </head>
 <body>
-    <div class="header">
+    <header>
         <table>
             <tbody>
                 <tr>
@@ -215,8 +225,14 @@
                 </tr>
             </tbody>
         </table>
-        <h2 class="text-center">Tender Reports</h2>
-        <table style="padding-top: 20px;">
+    </header>
+    <footer>
+        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Head Quarter: Office # 18, 3<sup>rd</sup> Floor, Gulberg Trade Center, Business Park, Gulberg Greens, Islamabad.</p>
+        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Regional Office: Plot No 117 Shaheed Millat Road, Defence View Phase II, Karachi. Mobile: 0333-2814609</p>
+    </footer>
+    <main>
+        <h2 class="text-center">Tender Report</h2>
+        <table style="padding-top: 5px;">
             <tbody>
                 <tr>
                     <td style="border: 0px !important;" class="w-50">
@@ -243,47 +259,38 @@
                                     <td class="w-50"><strong>LDoS End Date</strong></td>
                                     <td class="w-50">{{$endDate && $endDate != '' ? dateFormate($endDate) : 'None'}}</td>
                                 </tr>
-                                <tr>
-                                    <td class="w-50"><strong>Limit</strong></td>
-                                    <td class="w-50">{{$limit ?? 'None'}}</td>
-                                </tr>
                             </tbody>
                         </table>
                     </td>
                 </tr>
             </tbody>
         </table>
-    </div>
-    <br>
-    <table>
-        <thead>
-            <tr>
-                <th class="">Sr#</th>
-                <th class="w-20">Dept Ref#</th>
-                <th class="w-20">Dept Name</th>
-                <th class="w-20">File Name</th>
-                <th class="w-20">RFQ Date</th>
-                <th class="w-20">LDoS Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($tenders as $key => $tender)
+        <br>
+        <br>
+        <table>
+            <thead>
                 <tr>
-                    <td class="">{{$key+1}}</td>
-                    <td class="">{{$tender->reference_no}}</td>
-                    <td class="">{{$tender->client?->name}}</td>
-                    <td class="">{{$tender->file_name}}</td>
-                    <td class="">{{dateFormate($tender->rfq_date)}}</td>
-                    <td class="">{{dateFormate($tender->last_date_of_submission)}}</td>
+                    <th class="">Sr#</th>
+                    <th class="w-20">Dept Ref#</th>
+                    <th class="w-20">Dept Name</th>
+                    <th class="w-20">File Name</th>
+                    <th class="w-20">RFQ Date</th>
+                    <th class="w-20">LDoS Date</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
-    <br>
-    <br>
-    <!-- <footer>
-        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Head Quarter: Office # 18, 3<sup>rd</sup> Floor, Gulberg Trade Center, Business Park, Gulberg Greens, Islamabad.</p>
-        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Regional Office: Plot No 117 Shaheed Millat Road, Defence View Phase II, Karachi. Mobile: 0333-2814609</p>
-    </footer> -->
+            </thead>
+            <tbody>
+                @foreach ($tenders as $key => $tender)
+                    <tr>
+                        <td class="">{{$key+1}}</td>
+                        <td class="">{{$tender->reference_no}}</td>
+                        <td class="">{{$tender->client?->name}}</td>
+                        <td class="">{{$tender->file_name}}</td>
+                        <td class="">{{dateFormate($tender->rfq_date)}}</td>
+                        <td class="">{{dateFormate($tender->last_date_of_submission)}}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </main>
 </body>
 </html>

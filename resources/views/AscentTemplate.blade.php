@@ -9,6 +9,7 @@
             font-family: "Arial Narrow", Arial, sans-serif !important;
             font-size: 12px;
             margin: 0px 8px !important; 
+            padding-top: 100px !important;
         }
         table {
             width: 100%;
@@ -59,12 +60,21 @@
             border: 0px !important;
             background-color: white;
         }
-        footer {
-                position: fixed;
-                bottom: 0cm;
-                left: 0cm;
-                right: 0cm;
-                border-top: 4px solid #894e3c !important;
+        @page { margin: 85px 50px; }
+        header { 
+            position: fixed;
+            top: -60px;
+            left: 0px;
+            right: 0px;
+            text-align: left;
+            padding-bottom: 20px;
+        }
+        footer { 
+            position: fixed;
+            bottom: -60px;
+            left: 0px;
+            right: 0px;
+            border-top: 2px solid #894e3c !important;
         }
         .text-left {
             text-align: left !important;
@@ -201,7 +211,7 @@
     </style>
 </head>
 <body>
-    <div class="header">
+    <header>
         <table>
             <tbody>
                 <tr style="border-bottom: 4px solid #894e3c !important;">
@@ -222,6 +232,12 @@
                 </tr>
             </tbody>
         </table>
+    </header>
+    <footer>
+        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Head Quarter: Office # 18, 3<sup>rd</sup> Floor, Gulberg Trade Center, Business Park, Gulberg Greens, Islamabad.</p>
+        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Regional Office: Plot No 117 Shaheed Millat Road, Defence View Phase II, Karachi. Mobile: 0333-2814609</p>
+    </footer>
+    <main>
         <table style="padding-top: 20px;">
             <tbody>
                 <tr>
@@ -282,60 +298,61 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-    <br>
-    <table>
-        <thead>
-            <tr>
-                <th class="w-5 text-center">Sr.</th>
-                <th class="w-50 text-center">Description</th>
-                <th class="w-5 text-center">UOM</th>
-                <th class="w-5 text-center">Qty</th>
-                <th class="text-center">Unit Price ({{$quotation->currency}})</th>
-                <th class="text-center">Total Amount ({{$quotation->currency}})</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if ($quotation->items->count() > 0)  
-                @foreach ($quotation->items as $key => $item)
-                    <tr>
-                        <td class="text-center">{{$key+1}}</td>
-                        <td class="w-50 ">{{$item->tenderItem?->item?->name}}<br> <small> {{$item->tenderItem?->description}}</small></td>
-                        <td class="w-5 text-center">{{$item->tenderItem?->unit?->short_name}}</td>
-                        <td class="w-5 text-center">{{$item->tenderItem?->qty}}</td>
-                        <td class="text-right">{{numberFormate($item->unit_price)}}</td>
-                        <td class="text-right">{{numberFormate($item->total_price)}}</td>
-                    </tr>
-                @endforeach
-            @endif
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="5" class="footer" style="border: 0px !important;">Subtotal:</td>
-                <td class="text-right">{{numberFormate($quotation->total_price)}}</td>
-            </tr>
-            <tr>
-                <td colspan="5" class="footer" style="border: 0px !important;">GST({{$quotation->tax}}%):</td>
-                <td class="text-right">{{numberFormate(calculateTax($quotation->tax, $quotation->total_price))}}</td>
-            </tr>
-            <tr>
-                <td colspan="5" class="footer" style="border: 0px !important;">Grand Total:</td>
-                <td class="text-right">{{numberFormate($quotation->total_price + calculateTax($quotation->tax, $quotation->total_price))}}</td>
-            </tr>
-        </tfoot>
-    </table>
-    <br>
-    <div>
-        <h3 style="text-decoration: underline;">Terms and Conditions:</h3>
-        <p><strong>Mode of Payment:</strong> {{$quotation->tender->mop->name}}</p>
-        <p><strong>Rate Basis</strong> {{$quotation->tender->rate_basis}}</p>
-        @foreach (breakString($quotation->terms_and_conditions) as $term)
-            <p>{{$term}}</p>
-        @endforeach
-    </div>
-    <footer>
-        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Head Quarter: Office # 18, 3<sup>rd</sup> Floor, Gulberg Trade Center, Business Park, Gulberg Greens, Islamabad.</p>
-        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Regional Office: Plot No 117 Shaheed Millat Road, Defence View Phase II, Karachi. Mobile: 0333-2814609</p>
-    </footer>
+        <br>
+        <br>
+        <table>
+            <thead>
+                <tr>
+                    <th class="w-5 text-center">Sr.</th>
+                    <th class="w-50 text-center">Description</th>
+                    <th class="w-5 text-center">UOM</th>
+                    <th class="w-5 text-center">Qty</th>
+                    <th class="text-center">Unit Price ({{$quotation->currency}})</th>
+                    <th class="text-center">Total Amount ({{$quotation->currency}})</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if ($quotation->items->count() > 0)  
+                    @foreach ($quotation->items as $key => $item)
+                        <tr>
+                            <td class="text-center">{{$key+1}}</td>
+                            <td class="w-50 ">{{$item->tenderItem?->item?->name}}<br> <small> {{$item->tenderItem?->description}}</small></td>
+                            <td class="w-5 text-center">{{$item->tenderItem?->unit?->short_name}}</td>
+                            <td class="w-5 text-center">{{$item->tenderItem?->qty}}</td>
+                            <td class="text-right">{{numberFormate($item->unit_price)}}</td>
+                            <td class="text-right">{{numberFormate($item->total_price)}}</td>
+                        </tr>
+                    @endforeach
+                @endif
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" class="footer" style="border: 0px !important;">Subtotal:</td>
+                    <td class="text-right">{{numberFormate($quotation->total_price)}}</td>
+                </tr>
+                <tr>
+                    <td colspan="5" class="footer" style="border: 0px !important;">GST({{$quotation->tax}}%):</td>
+                    <td class="text-right">{{numberFormate(calculateTax($quotation->tax, $quotation->total_price))}}</td>
+                </tr>
+                <tr>
+                    <td colspan="5" class="footer" style="border: 0px !important;">Grand Total:</td>
+                    <td class="text-right">{{numberFormate($quotation->total_price + calculateTax($quotation->tax, $quotation->total_price))}}</td>
+                </tr>
+            </tfoot>
+        </table>
+        <br>
+        <div>
+            <p class="text-center pt-20"><strong>Yours Truly</strong></p> 
+        </div>
+        <br>
+        <div>
+            <h3 style="text-decoration: underline;">Terms and Conditions:</h3>
+            <p><strong>Mode of Payment:</strong> {{$quotation->tender->mop->name}}</p>
+            <p><strong>Rate Basis</strong> {{$quotation->tender->rate_basis}}</p>
+            @foreach (breakString($quotation->terms_and_conditions) as $term)
+                <p>{{$term}}</p>
+            @endforeach
+        </div>
+    </main>
 </body>
 </html>
