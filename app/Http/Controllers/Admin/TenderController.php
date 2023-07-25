@@ -35,11 +35,12 @@ class TenderController extends Controller
     public function index()
     {
         try{
-            $companyParam = request()->input('params') && request()->input('params')['company'] ? request()->input('params')['company'] : null;
-            $statusParam = request()->input('params') && request()->input('params')['status'] ? request()->input('params')['status'] : null;
-            $startDate = request()->input('params') && setDateValues(request()->input('params')['startDate']) ? setDateValues(request()->input('params')['startDate']) : '';
-            $endDate = request()->input('params') && setDateValues(request()->input('params')['endDate']) ? setDateValues(request()->input('params')['endDate']) : '';
-            $limit = request()->input('params') && request()->input('params')['limit'] ? request()->input('params')['limit'] : Tender::count();
+            $companyParam = request()->input('params') && request()->input('params')['company'] ? request()->input('params')['company'] : "";
+            $statusParam = request()->input('params') && request()->input('params')['status'] ? request()->input('params')['status'] : "";
+            $departmentParam = request()->input('params') && request()->input('params')['department'] ? request()->input('params')['department'] : "";
+            $startDate = request()->input('params') && setDateValues(request()->input('params')['startDate']) ? setDateValues(request()->input('params')['startDate']) : "";
+            $endDate = request()->input('params') && setDateValues(request()->input('params')['endDate']) ? setDateValues(request()->input('params')['endDate']) : "";
+            $limit = request()->input('params') && request()->input('params')['limit'] ? request()->input('params')['limit'] : 10;
             switch ($companyParam) {
                 case 'OndreTicaretTemplate':
                     $company = 'Onder Ticaret (Private) Limited';
@@ -54,7 +55,7 @@ class TenderController extends Controller
                     $company = null;
                     break;
             }
-            $tenders = Tender::with('client', 'quotation', 'company')->where(function ($query) use ($company, $statusParam, $startDate, $endDate){
+            $tenders = Tender::with('client', 'quotation', 'company')->where(function ($query) use ($company, $statusParam, $startDate, $endDate, $departmentParam){
                 $keyword = request()->input('keyword');
                 //search 
                 $query->when($keyword, function ($subQuery) use ($keyword){
@@ -67,12 +68,16 @@ class TenderController extends Controller
                     });
                 });
                 //company filter
-                $query->when($company && $company != 'null', function ($subQuery) use ($company){
+                $query->when($company, function ($subQuery) use ($company){
                     $subQuery->whereRelation('company', 'name', $company);
                 });
                 //status filter
-                $query->when($statusParam && $statusParam != 'null', function ($subQuery) use ($statusParam) {
+                $query->when($statusParam, function ($subQuery) use ($statusParam) {
                     $subQuery->where('status', $statusParam);
+                });
+                //department filter
+                $query->when($departmentParam, function ($subQuery) use ($departmentParam) {
+                    $subQuery->whereRelation('client', 'name', $departmentParam);
                 });
                 //last date of submission filter
                 $query->when($startDate && $endDate, function ($subQuery) use ($startDate, $endDate) {
@@ -84,11 +89,13 @@ class TenderController extends Controller
                 'searchedKeyword' => request()->input('keyword'),
                 'selectedCompany' => $companyParam,
                 'selectedStatus' => $statusParam,
+                'selectedDepartment' => $departmentParam,
                 'selectedStartDate' => $startDate,
                 'selectedEndDate' => $endDate,
                 'selectedLimit' => $limit,
                 'totalTenders' => Tender::count(),
                 'tenderIds' => $tenders->pluck('id')->toArray(),
+                'allDepartments' => Client::select('name')->get(),
             ]);
         } catch (ModelNotFoundException $e) {
             flash('Unable to find this tender.', 'danger');

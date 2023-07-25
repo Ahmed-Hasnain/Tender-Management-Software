@@ -18,7 +18,7 @@
                             <div class="col-sm-12 col-md-6">
                                 <div id="DataTables_Table_0_filter" class="dataTables_filter" >
                                     <label>
-                                        <search :url="'dashboard.tender.index'" :searchedKeyword="searchedKeyword" :params="params"></search>
+                                        <search :url="'dashboard.tender.index'" :searchedKeyword="keyword" :params="params"></search>
                                     </label>
                                 </div>
                             </div>
@@ -29,8 +29,8 @@
                                     <div id="DataTables_Table_0_filter" class="dataTables_filter" style="text-align: left;">
                                         <label>
                                             <span class="px-2">Company</span> 
-                                            <select class="form-control form-control-sm mt-1" v-model="company" @change="applyFilter()">
-                                                <option value="null" class="text-capitalize">Select Company</option>
+                                            <select class="form-control form-control-sm mt-1 custom-select-new" v-model="company" @change="applyFilter()">
+                                                <option value="" class="text-capitalize">Select Company</option>
                                                 <option value="OndreTicaretTemplate" class="text-capitalize">Ondre Ticaret</option>
                                                 <option value="MSaadAndCompanyTemplate" class="text-capitalize">M Saad and Company</option>
                                                 <option value="AscentTemplate" class="text-capitalize">Ascent Tech</option>
@@ -38,8 +38,8 @@
                                         </label>
                                         <label class="px-2">
                                             <span class="px-2">Status</span> 
-                                            <select class="form-control form-control-sm mt-1" v-model="status" @change="applyFilter()">
-                                                <option value="null" class="text-capitalize">Select Status</option>
+                                            <select class="form-control form-control-sm mt-1 custom-select-new" v-model="status" @change="applyFilter()">
+                                                <option value="" class="text-capitalize">Select Status</option>
                                                 <option value="pending" class="text-capitalize">pending</option>
                                                 <option value="quotation_in_process" class="text-capitalize">quotation in process</option>
                                                 <option value="quotation_applied" class="text-capitalize">quotation applied</option>
@@ -58,16 +58,23 @@
                                         </label>
                                         <label class="">
                                             <span class="px-2 pb-5">Start Date</span> 
-                                            <Datepicker v-model="startDate" :enable-time-picker="false" class="pt-1"  @update:model-value="applyFilter()"></Datepicker>
+                                            <Datepicker v-model="startDate" :enable-time-picker="false" class="pt-1 custom-datepicker"  @update:model-value="applyFilter()"></Datepicker>
                                         </label>
                                         <label class="">
                                             <span class="px-2 pb-5">End Date</span> 
-                                            <Datepicker v-model="endDate" :enable-time-picker="false" class="pt-1" @update:model-value="applyFilter()"></Datepicker>
+                                            <Datepicker v-model="endDate" :enable-time-picker="false" class="pt-1 custom-datepicker" @update:model-value="applyFilter()"></Datepicker>
+                                        </label>
+                                        <label class="px-2">
+                                            <span class="px-2">Department</span> 
+                                            <select class="form-control form-control-sm mt-1 custom-select-new" v-model="department" @change="applyFilter()">
+                                                <option value="" class="text-capitalize">Select Department</option>
+                                                <option :value="dept.name" class="text-capitalize" v-for="(dept, index) in allDepartments" :key="index">{{ dept.name }}</option>
+                                            </select>
                                         </label>
                                         <label class="px-2">
                                             <span class="px-2">Limit</span> 
-                                            <select class="form-control form-control-sm mt-1" v-model="limit" @change="applyFilter()">
-                                                <option value="null" class="text-capitalize">Limit</option>
+                                            <select class="form-control form-control-sm mt-1 custom-select-new" v-model="limit" @change="applyFilter()">
+                                                <option value="" class="text-capitalize">Limit</option>
                                                 <option :value="totalTenders" class="text-capitalize">All</option>
                                                 <option value="10" class="text-capitalize">10</option>
                                                 <option value="20" class="text-capitalize">20</option>
@@ -127,7 +134,7 @@
                                 <div v-else class="pt-3 pl-3">No Data Found.</div>
                             </div>
                         </div>
-                        <pagination :meta="allTenders" :keyword="searchedKeyword" :params="params"></pagination>
+                        <pagination :meta="allTenders" :keyword="keyword" :params="params"></pagination>
                     </div>
                 </div>
             </div>
@@ -152,7 +159,7 @@ export default {
         search,
         Datepicker
     },
-    props: ['tenders', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalTenders', 'tenderIds'],
+    props: ['tenders', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalTenders', 'tenderIds', 'selectedDepartment', 'allDepartments'],
     data() {
         return{
             allTenders: this.tenders,
@@ -161,12 +168,15 @@ export default {
             startDate: this.selectedStartDate,
             endDate: this.selectedEndDate,
             limit: this.selectedLimit,
+            department: this.selectedDepartment,
+            keyword: this.searchedKeyword,
             params: {
                 company: this.selectedCompany,
                 status: this.selectedStatus,
                 startDate: this.selectedStartDate,
                 endDate: this.selectedEndDate,
                 limit: this.selectedLimit,
+                department: this.selectedDepartment,
             }
         }
     },
@@ -227,7 +237,10 @@ export default {
             this.params.startDate = this.startDate
             this.params.endDate = this.endDate
             this.params.limit = this.limit
-            this.$inertia.get(route('dashboard.tender.index'), {params: this.params}, {
+            this.params.department = this.department
+            this.$inertia.get(route('dashboard.tender.index'), {
+                params: this.params,
+            }, {
                 onSuccess: () => {},
                 onError: errors => {console.log(errors);}
             })
@@ -242,7 +255,6 @@ export default {
         },
     },
     mounted(){
-        console.log(this.tenderIds, 'tender ids');
     },
     computed: {
         reportParams() {
@@ -253,6 +265,7 @@ export default {
                 start_date: this.startDate,
                 end_date: this.endDate,
                 limit: this.limit,
+                department: this.department,
             }
             return JSON.stringify(param)
         }
@@ -262,5 +275,13 @@ export default {
 </script>
 
 <style>
-
+.custom-select-new{
+    max-width: 180px !important;
+}
+.custom-datepicker{
+    max-width: 2000px !important;
+}
+.custom-datepicker input{
+    max-width: 180px !important;
+}
 </style>

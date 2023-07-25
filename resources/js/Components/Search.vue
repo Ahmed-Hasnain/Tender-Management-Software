@@ -9,6 +9,7 @@ export default {
     data() {
         return {
             keyword: this.searchedKeyword,
+            allParams: this.params,
         }
     },
     methods: {
@@ -16,7 +17,7 @@ export default {
             this.$inertia.replace(route(this.url, {
                     company_id: this.id ? this.id : null,
                     keyword: this.keyword,
-                    params: this.params,
+                    params: this.allParams,
                 })
             );
         }

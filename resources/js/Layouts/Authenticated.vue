@@ -220,4 +220,8 @@ export default {
     .main-content {
         background-color: #e6e7e8 !important;
     }
+
+    select,input{
+        border : 2px solid #e6e7e8 !important;
+    }
 </style>
