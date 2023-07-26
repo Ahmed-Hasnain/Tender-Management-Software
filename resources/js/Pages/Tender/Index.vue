@@ -238,12 +238,11 @@ export default {
             this.params.endDate = this.endDate
             this.params.limit = this.limit
             this.params.department = this.department
-            this.$inertia.get(route('dashboard.tender.index'), {
-                params: this.params,
-            }, {
-                onSuccess: () => {},
-                onError: errors => {console.log(errors);}
-            })
+            this.$inertia.replace(route('dashboard.tender.index', {
+                    keyword: this.keyword,
+                    params: this.params,
+                })
+            );
         },
     },
     watch: {
@@ -253,8 +252,12 @@ export default {
             },
             deep: true,
         },
-    },
-    mounted(){
+        searchedKeyword:{
+            handler(val){
+                this.keyword = val;
+            },
+            deep: true
+        }
     },
     computed: {
         reportParams() {

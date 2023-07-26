@@ -86,7 +86,7 @@ class TenderController extends Controller
             })->orderBy('id', 'desc')->paginate($limit);
             return Inertia::render('Tender/Index', [
                 'tenders' => $tenders,
-                'searchedKeyword' => request()->input('keyword'),
+                'searchedKeyword' => request()->input('keyword') ?? '',
                 'selectedCompany' => $companyParam,
                 'selectedStatus' => $statusParam,
                 'selectedDepartment' => $departmentParam,
