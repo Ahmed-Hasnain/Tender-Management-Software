@@ -1,10 +1,10 @@
 require('./bootstrap');
 // import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
+import mitt from 'mitt';
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Ondre Ticaret';
 
@@ -28,6 +28,7 @@ createInertiaApp({
             .use(plugin)
             .mixin({ methods: { route } });
             appVue.config.globalProperties.swal = window.swal;
+            appVue.config.globalProperties.emitter = mitt()
             appVue.mount(el);
     },
 });

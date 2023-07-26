@@ -35,11 +35,12 @@ class TenderController extends Controller
     public function index()
     {
         try{
+
             $companyParam = request()->input('params') && request()->input('params')['company'] ? request()->input('params')['company'] : "";
             $statusParam = request()->input('params') && request()->input('params')['status'] ? request()->input('params')['status'] : "";
             $departmentParam = request()->input('params') && request()->input('params')['department'] ? request()->input('params')['department'] : "";
-            $startDate = request()->input('params') && setDateValues(request()->input('params')['startDate']) ? setDateValues(request()->input('params')['startDate']) : "";
-            $endDate = request()->input('params') && setDateValues(request()->input('params')['endDate']) ? setDateValues(request()->input('params')['endDate']) : "";
+            $startDate = request()->input('params') && request()->input('params')['startDate'] ? setDateValues(request()->input('params')['startDate']) : "";
+            $endDate = request()->input('params') && request()->input('params')['endDate'] ? setDateValues(request()->input('params')['endDate']) : "";
             $limit = request()->input('params') && request()->input('params')['limit'] ? request()->input('params')['limit'] : 10;
             switch ($companyParam) {
                 case 'OndreTicaretTemplate':
