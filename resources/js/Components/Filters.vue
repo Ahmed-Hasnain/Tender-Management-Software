@@ -60,7 +60,7 @@
                         <select class="form-control form-control-sm mt-1 custom-select-new" v-model="limit"
                             @change="applyFilter()">
                             <option value="" class="text-capitalize">Limit</option>
-                            <option :value="totalTenders" class="text-capitalize">All</option>
+                            <option :value="totalItems" class="text-capitalize">All</option>
                             <option value="10" class="text-capitalize">10</option>
                             <option value="20" class="text-capitalize">20</option>
                             <option value="50" class="text-capitalize">50</option>
@@ -87,7 +87,7 @@ export default {
     components: {
         Datepicker,
     },
-    props: ['searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalTenders', 'selectedDepartment', 'allDepartments', 'url', 'reportUrl', 'tenderIds', 'reportName'],
+    props: ['searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalItems', 'selectedDepartment', 'allDepartments', 'url', 'reportUrl', 'ids', 'reportName'],
     data() {
         return{
             allTenders: this.tenders,
@@ -120,7 +120,7 @@ export default {
             this.emitter.emit('get_filters', {
                 params: this.params,
             });
-            this.$inertia.replace(route('dashboard.tender.index', {
+            this.$inertia.replace(route(this.url, {
                     keyword: this.keyword,
                     params: this.params,
                 })
@@ -130,7 +130,7 @@ export default {
     computed: {
         reportParams() {
             let param =  {
-                ids: this.tenderIds,
+                ids: this.ids,
                 company: this.company,
                 status: this.status,
                 start_date: this.startDate,

@@ -19716,7 +19716,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     Datepicker: _vuepic_vue_datepicker__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  props: ['searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalTenders', 'selectedDepartment', 'allDepartments', 'url', 'reportUrl', 'tenderIds', 'reportName'],
+  props: ['searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalItems', 'selectedDepartment', 'allDepartments', 'url', 'reportUrl', 'ids', 'reportName'],
   data: function data() {
     return {
       allTenders: this.tenders,
@@ -19750,7 +19750,7 @@ __webpack_require__.r(__webpack_exports__);
       this.emitter.emit('get_filters', {
         params: this.params
       });
-      this.$inertia.replace(route('dashboard.tender.index', {
+      this.$inertia.replace(route(this.url, {
         keyword: this.keyword,
         params: this.params
       }));
@@ -19759,7 +19759,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     reportParams: function reportParams() {
       var param = {
-        ids: this.tenderIds,
+        ids: this.ids,
         company: this.company,
         status: this.status,
         start_date: this.startDate,
@@ -23251,6 +23251,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Mixins_Helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Mixins/Helpers */ "./resources/js/Mixins/Helpers.js");
 /* harmony import */ var _Components_Pagination_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/Pagination.vue */ "./resources/js/Components/Pagination.vue");
 /* harmony import */ var _Components_Search_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Components/Search.vue */ "./resources/js/Components/Search.vue");
+/* harmony import */ var _Components_Filters_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Components/Filters.vue */ "./resources/js/Components/Filters.vue");
+
 
 
 
@@ -23261,12 +23263,31 @@ __webpack_require__.r(__webpack_exports__);
     AuthenticatedLayout: _Layouts_Authenticated_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.Head,
     pagination: _Components_Pagination_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    search: _Components_Search_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    search: _Components_Search_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    filters: _Components_Filters_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
-  props: ['quotations', 'searchedKeyword'],
+  props: ['quotations', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalQuotations', 'quotationIds', 'selectedDepartment', 'allDepartments'],
   data: function data() {
     return {
-      allQuotations: this.quotations
+      allQuotations: this.quotations,
+      company: this.selectedCompany,
+      status: this.selectedStatus,
+      startDate: this.selectedStartDate,
+      endDate: this.selectedEndDate,
+      limit: this.selectedLimit,
+      department: this.selectedDepartment,
+      keyword: this.searchedKeyword,
+      url: 'dashboard.quotation.index',
+      reportUrl: 'dashboard.getQuotationReports',
+      reportName: 'Generate Quotation Reports',
+      params: {
+        company: this.selectedCompany,
+        status: this.selectedStatus,
+        startDate: this.selectedStartDate,
+        endDate: this.selectedEndDate,
+        limit: this.selectedLimit,
+        department: this.selectedDepartment
+      }
     };
   },
   methods: {
@@ -23334,10 +23355,26 @@ __webpack_require__.r(__webpack_exports__);
         this.allQuotations = quotations;
       },
       deep: true
+    },
+    searchedKeyword: {
+      handler: function handler(val) {
+        this.keyword = val;
+      },
+      deep: true
     }
   },
   mounted: function mounted() {
-    console.log(this.quotations);
+    var _this2 = this;
+    this.emitter.on('get_filters', function (args) {
+      if (args.params) {
+        _this2.params.company = args.params.company;
+        _this2.params.status = args.params.status;
+        _this2.params.startDate = args.params.startDate;
+        _this2.params.endDate = args.params.endDate;
+        _this2.params.limit = args.params.limit;
+        _this2.params.department = args.params.department;
+      }
+    });
   },
   mixins: [_Mixins_Helpers__WEBPACK_IMPORTED_MODULE_2__["default"]]
 });
@@ -24936,7 +24973,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $options.applyFilter();
     })
   }, [_hoisted_39, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
-    value: $props.totalTenders,
+    value: $props.totalItems,
     "class": "text-capitalize"
   }, "All", 8 /* PROPS */, _hoisted_40), _hoisted_41], 544 /* HYDRATE_EVENTS, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.limit]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     href: _ctx.route($props.reportUrl, $options.reportParams),
@@ -33651,6 +33688,7 @@ var _hoisted_31 = {
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Head = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Head");
   var _component_search = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("search");
+  var _component_filters = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("filters");
   var _component_pagination = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("pagination");
   var _component_AuthenticatedLayout = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AuthenticatedLayout");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Head, {
@@ -33660,8 +33698,23 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       var _$data$allQuotations;
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Search: "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_search, {
         url: 'dashboard.quotation.index',
-        searchedKeyword: $props.searchedKeyword
-      }, null, 8 /* PROPS */, ["url", "searchedKeyword"])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [((_$data$allQuotations = $data.allQuotations) === null || _$data$allQuotations === void 0 ? void 0 : _$data$allQuotations.data.length) > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("table", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.allQuotations.data, function (quotation, index) {
+        searchedKeyword: $data.keyword,
+        params: $data.params
+      }, null, 8 /* PROPS */, ["url", "searchedKeyword", "params"])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_filters, {
+        searchedKeyword: $data.keyword,
+        selectedCompany: $data.company,
+        selectedStatus: $data.status,
+        selectedStartDate: $data.startDate,
+        selectedEndDate: $data.endDate,
+        selectedLimit: $data.limit,
+        totalItems: $props.totalQuotations,
+        selectedDepartment: $data.department,
+        allDepartments: $props.allDepartments,
+        url: $data.url,
+        reportUrl: $data.reportUrl,
+        ids: $props.quotationIds,
+        reportName: $data.reportName
+      }, null, 8 /* PROPS */, ["searchedKeyword", "selectedCompany", "selectedStatus", "selectedStartDate", "selectedEndDate", "selectedLimit", "totalItems", "selectedDepartment", "allDepartments", "url", "reportUrl", "ids", "reportName"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [((_$data$allQuotations = $data.allQuotations) === null || _$data$allQuotations === void 0 ? void 0 : _$data$allQuotations.data.length) > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("table", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.allQuotations.data, function (quotation, index) {
         var _quotation$tender;
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
           role: "row",
@@ -33694,8 +33747,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }, _hoisted_30, 8 /* PROPS */, _hoisted_28)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
       }), 128 /* KEYED_FRAGMENT */))])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_31, "No Data Found."))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_pagination, {
         meta: $data.allQuotations,
-        keyword: $props.searchedKeyword
-      }, null, 8 /* PROPS */, ["meta", "keyword"])])])])])];
+        keyword: $data.keyword,
+        params: $data.params
+      }, null, 8 /* PROPS */, ["meta", "keyword", "params"])])])])])];
     }),
     _: 1 /* STABLE */
   })], 64 /* STABLE_FRAGMENT */);
@@ -37144,14 +37198,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         selectedStartDate: $data.startDate,
         selectedEndDate: $data.endDate,
         selectedLimit: $data.limit,
-        totalTenders: $props.totalTenders,
+        totalItems: $props.totalTenders,
         selectedDepartment: $data.department,
         allDepartments: $props.allDepartments,
         url: $data.url,
         reportUrl: $data.reportUrl,
-        tenderIds: $props.tenderIds,
+        ids: $props.tenderIds,
         reportName: $data.reportName
-      }, null, 8 /* PROPS */, ["searchedKeyword", "selectedCompany", "selectedStatus", "selectedStartDate", "selectedEndDate", "selectedLimit", "totalTenders", "selectedDepartment", "allDepartments", "url", "reportUrl", "tenderIds", "reportName"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [((_$data$allTenders = $data.allTenders) === null || _$data$allTenders === void 0 ? void 0 : _$data$allTenders.data.length) > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("table", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.allTenders.data, function (tender, index) {
+      }, null, 8 /* PROPS */, ["searchedKeyword", "selectedCompany", "selectedStatus", "selectedStartDate", "selectedEndDate", "selectedLimit", "totalItems", "selectedDepartment", "allDepartments", "url", "reportUrl", "ids", "reportName"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [((_$data$allTenders = $data.allTenders) === null || _$data$allTenders === void 0 ? void 0 : _$data$allTenders.data.length) > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("table", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.allTenders.data, function (tender, index) {
         var _tender$client, _tender$company;
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
           role: "row",

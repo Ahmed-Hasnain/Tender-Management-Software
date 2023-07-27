@@ -30,12 +30,12 @@
                             :selectedStartDate="startDate" 
                             :selectedEndDate="endDate" 
                             :selectedLimit="limit" 
-                            :totalTenders="totalTenders" 
+                            :totalItems="totalTenders" 
                             :selectedDepartment="department" 
                             :allDepartments="allDepartments" 
                             :url="url"
                             :reportUrl="reportUrl" 
-                            :tenderIds="tenderIds"
+                            :ids="tenderIds"
                             :reportName="reportName"
                         />
                         <div class="row">
