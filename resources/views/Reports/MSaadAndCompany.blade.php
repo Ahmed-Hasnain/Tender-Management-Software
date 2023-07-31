@@ -298,7 +298,6 @@
             </tbody>
         </table>
         @endif
-
         @if ($report_type == 'quotation')
         <table>
             <thead>

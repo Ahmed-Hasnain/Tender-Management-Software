@@ -290,10 +290,6 @@
             </tfoot>
         </table>
         <br>
-        <div>
-            <p class="text-center pt-20"><strong>Yours Truly</strong></p> 
-        </div>
-        <br>
         <table style="margin-top: 30px;"> 
             <tbody>
                 <tr>
@@ -315,6 +311,10 @@
                 </tr>
             </tbody>
         </table>
+        <br>
+        <div>
+            <p class="text-center pt-20"><strong>Yours Truly</strong></p> 
+        </div>
     </main>
 </body>
 </html>
