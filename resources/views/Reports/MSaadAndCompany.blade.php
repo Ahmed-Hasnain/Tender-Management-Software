@@ -254,14 +254,14 @@
                                 </tr>
                                 <tr>
                                     <td class="w-50"><strong>Status</strong></td>
-                                    <td class="w-50">{{$status ?? 'None'}}</td>
+                                    <td class="w-50">{{upperCaseAndRemoveUnderscore($status) ?? 'None'}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="w-50"><strong>LDoS Start Date</strong></td>
+                                    <td class="w-50"><strong>Start Date</strong></td>
                                     <td class="w-50">{{$startDate && $startDate != '' ? dateFormate($startDate) : 'None'}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="w-50"><strong>LDoS End Date</strong></td>
+                                    <td class="w-50"><strong>End Date</strong></td>
                                     <td class="w-50">{{$endDate && $endDate != '' ? dateFormate($endDate) : 'None'}}</td>
                                 </tr>
                             </tbody>
@@ -272,6 +272,7 @@
         </table>
         <br>
         <br>
+        @if ($report_type == 'tender')
         <table>
             <thead>
                 <tr>
@@ -296,6 +297,38 @@
                 @endforeach
             </tbody>
         </table>
+        @endif
+
+        @if ($report_type == 'quotation')
+        <table>
+            <thead>
+                <tr>
+                    <th class="">Sr#</th>
+                    <th class="w-20">Dept Ref#</th>
+                    <th class="w-20">Dept Name</th>
+                    <th class="w-20">File Name</th>
+                    <th class="w-20">Total Amount</th>
+                    <th class="w-20">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($quotations as $key => $quotation)
+                    <tr>
+                        <td class="">{{$key+1}}</td>
+                        <td class="">{{$quotation->reference_no}} <br><small>{{dateFormate($quotation->applied_date)}}</small></td>
+                        <td class="">{{$quotation->tender?->client?->name}}</td>
+                        <td class="">{{$quotation->tender?->file_name}}</td>
+                        <td class="">{{$quotation->currency}} {{numberFormate($quotation->total_price)}}</td>
+                        <td class="">{{upperCaseAndRemoveUnderscore($quotation->status)}}</td>
+                    </tr>
+                @endforeach
+                    <tr>
+                        <td colspan="5" class="footer" style="border: 0px !important;">Grand Total:</td>
+                        <td class="text-right">{{numberFormate($totalAmount)}}</td>
+                    </tr>
+            </tbody>
+        </table>
+        @endif
     </main>
 </body>
 </html>

@@ -293,6 +293,8 @@ class QuotationController extends Controller
                 'startDate' => $startDate,
                 'endDate' => $endDate,
                 'limit' => $limit,
+                'totalAmount' => $quotations->sum('total_price'),
+                'report_type' => 'quotation',
             ];
             switch ($company) {
                 case 'OndreTicaretTemplate':
@@ -316,7 +318,7 @@ class QuotationController extends Controller
                     $pdf = Pdf::loadView('Reports/Tender', $data); 
                     break; 
             }
-            return $pdf->download('Tender-Report.pdf');
+            return $pdf->download('Quotation-Report.pdf');
         } catch (\Throwable $th) {
             Log::error([
                 'message' => $th->getMessage(),
