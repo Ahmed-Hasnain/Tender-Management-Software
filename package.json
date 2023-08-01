@@ -28,6 +28,7 @@
         "@vuepic/vue-datepicker": "^3.6.5",
         "bootstrap": "^5.2.3",
         "bootstrap-vue": "^2.23.1",
+        "mitt": "^3.0.1",
         "moment": "^2.29.4",
         "sweetalert2": "^11.6.16",
         "vue3-datepicker": "^0.3.4"

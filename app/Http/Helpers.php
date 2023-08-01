@@ -81,3 +81,8 @@ function replaceUnderscoreWithDash($str)
 {
     return ucfirst(str_replace('_', '-', $str));
 }
+
+function upperCaseAndRemoveUnderscore($str)
+{
+    return ucwords(str_replace('_', ' ', $str));
+}

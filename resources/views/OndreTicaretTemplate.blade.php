@@ -298,14 +298,14 @@
             </tfoot>
         </table>
         <br>
-        <div>   
-            <p class="text-center pt-20"><strong>Yours Truly</strong></p> 
-        </div>
-        <br>
         <div>
             <h3 style="text-decoration: underline;">Terms and Conditions:</h3>
             <p><strong>Mode of Payment:</strong>  {{$quotation->tender->mop->name}}</p> 
             <p><strong>Rate Basis:</strong>  {{$quotation->tender->rate_basis}}</p> 
+        </div>
+        <br>
+        <div>   
+            <p class="text-center pt-20"><strong>Yours Truly</strong></p> 
         </div>
     </main>
 </body>

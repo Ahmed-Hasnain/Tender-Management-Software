@@ -85,6 +85,7 @@ Route::middleware(['auth', 'verified'])
         Route::group(['middleware' => ['can:view_quotation']], function () {
             Route::resource('/quotation', Admin\QuotationController::class);
             Route::get('/downloadQuotation/{quotationId}/{company}/{pdf_date?}', [Admin\QuotationController::class, 'downloadQuotation'])->name('downloadQuotation');
+            Route::get('/get-quotation-reports/{reportParams?}', [Admin\QuotationController::class, 'quotationReports'])->name('getQuotationReports');
         });
         //company
         Route::group(['middleware' => ['can:view_company']], function () {

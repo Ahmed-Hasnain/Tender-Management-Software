@@ -37,10 +37,11 @@ export default {
             searchedKeyword = this.company_id ? searchedKeyword + '&company_id=' + this.company_id : searchedKeyword
             let status = this.allParams ? '&params[status]=' + this.allParams.status : ''
             let company = this.allParams ? '&params[company]=' + this.allParams.company : ''
+            let department = this.allParams ? '&params[department]=' + this.allParams.department : ''
             let startDate = this.allParams ? '&params[startDate]=' + this.allParams.startDate : ''
             let endDate = this.allParams ? '&params[endDate]=' + this.allParams.endDate : ''
             let limit = this.allParams ? '&params[limit]=' + this.allParams.limit : ''
-            return url + searchedKeyword + company + status + startDate + endDate + limit  
+            return url + searchedKeyword + company + status + department + startDate + endDate + limit  
         }
     },
 }
