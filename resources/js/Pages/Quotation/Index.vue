@@ -15,11 +15,26 @@
                             <div class="col-sm-12 col-md-6">
                                 <div id="DataTables_Table_0_filter" class="dataTables_filter">
                                     <label>Search:
-                                        <search :url="'dashboard.quotation.index'" :searchedKeyword="searchedKeyword"></search>
+                                        <search :url="'dashboard.quotation.index'" :searchedKeyword="keyword" :params="params"></search>
                                     </label>
                                 </div>
                             </div>
                         </div>
+                        <filters 
+                            :searchedKeyword="keyword" 
+                            :selectedCompany="company" 
+                            :selectedStatus="status" 
+                            :selectedStartDate="startDate" 
+                            :selectedEndDate="endDate" 
+                            :selectedLimit="limit" 
+                            :totalItems="totalQuotations" 
+                            :selectedDepartment="department" 
+                            :allDepartments="allDepartments" 
+                            :url="url"
+                            :reportUrl="reportUrl" 
+                            :ids="quotationIds"
+                            :reportName="reportName"
+                        />
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="table table-hover e-commerce-table dataTable no-footer"
@@ -61,7 +76,7 @@
                                 <div v-else class="pt-3 pl-3">No Data Found.</div>
                             </div>
                         </div>
-                        <pagination :meta="allQuotations" :keyword="searchedKeyword"></pagination>
+                        <pagination :meta="allQuotations" :keyword="keyword" :params="params"></pagination>
                     </div>
                 </div>
             </div>
@@ -75,18 +90,38 @@ import { Head } from '@inertiajs/inertia-vue3';
 import Helpers from '@/Mixins/Helpers';
 import pagination from '@/Components/Pagination.vue';
 import search from '@/Components/Search.vue';
+import filters from '@/Components/Filters.vue';
 
 export default {
     components: {
         AuthenticatedLayout,
         Head,
         pagination,
-        search
+        search,
+        filters
     },
-    props: ['quotations', 'searchedKeyword'],
+    props: ['quotations', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalQuotations', 'quotationIds', 'selectedDepartment', 'allDepartments'],
     data() {
         return{
-            allQuotations: this.quotations
+            allQuotations: this.quotations,
+            company: this.selectedCompany,
+            status: this.selectedStatus,
+            startDate: this.selectedStartDate,
+            endDate: this.selectedEndDate,
+            limit: this.selectedLimit,
+            department: this.selectedDepartment,
+            keyword: this.searchedKeyword,
+            url: 'dashboard.quotation.index',
+            reportUrl: 'dashboard.getQuotationReports',
+            reportName: 'Generate Quotation Reports',
+            params: {
+                company: this.selectedCompany,
+                status: this.selectedStatus,
+                startDate: this.selectedStartDate,
+                endDate: this.selectedEndDate,
+                limit: this.selectedLimit,
+                department: this.selectedDepartment,
+            }
         }
     },
     methods: {
@@ -142,9 +177,24 @@ export default {
             },
             deep: true,
         },
+        searchedKeyword:{
+            handler(val){
+                this.keyword = val;
+            },
+            deep: true
+        }
     },
     mounted() {
-        console.log(this.quotations);
+        this.emitter.on('get_filters', (args) => {
+            if (args.params) {
+                this.params.company = args.params.company
+                this.params.status = args.params.status
+                this.params.startDate = args.params.startDate
+                this.params.endDate = args.params.endDate
+                this.params.limit = args.params.limit
+                this.params.department = args.params.department
+            }
+        })
     },
     mixins: [Helpers]
 }

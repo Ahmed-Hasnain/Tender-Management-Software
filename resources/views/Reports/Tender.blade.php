@@ -219,14 +219,14 @@
                                 </tr>
                                 <tr>
                                     <td class="w-50"><strong>Status</strong></td>
-                                    <td class="w-50">{{$status ?? 'None'}}</td>
+                                    <td class="w-50">{{upperCaseAndRemoveUnderscore($status) ?? 'None'}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="w-50"><strong>LDoS Start Date</strong></td>
+                                    <td class="w-50"><strong>Start Date</strong></td>
                                     <td class="w-50">{{$startDate && $startDate != '' ? dateFormate($startDate) : 'None'}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="w-50"><strong>LDoS End Date</strong></td>
+                                    <td class="w-50"><strong>End Date</strong></td>
                                     <td class="w-50">{{$endDate && $endDate != '' ? dateFormate($endDate) : 'None'}}</td>
                                 </tr>
                             </tbody>
@@ -237,37 +237,63 @@
         </table>
     </div>
     <br>
-    <table>
-        <thead>
-            <tr>
-                <th class="">Sr#</th>
-                <th class="w-20">Dept Ref#</th>
-                <th class="w-20">Dept Name</th>
-                <th class="w-20">File Name</th>
-                <th class="w-20">RFQ Date</th>
-                <th class="w-20">LDoS Date</th>
-                <th class="w-20">Company</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($tenders as $key => $tender)
+        @if ($report_type == 'tender')
+        <table>
+            <thead>
                 <tr>
-                    <td class="">{{$key+1}}</td>
-                    <td class="">{{$tender->reference_no}}</td>
-                    <td class="">{{$tender->client?->name}}</td>
-                    <td class="">{{$tender->file_name}}</td>
-                    <td class="">{{dateFormate($tender->rfq_date)}}</td>
-                    <td class="">{{dateFormate($tender->last_date_of_submission)}}</td>
-                    <td class="">{{$tender->company?->name}}</td>
+                    <th class="">Sr#</th>
+                    <th class="w-20">Dept Ref#</th>
+                    <th class="w-20">Dept Name</th>
+                    <th class="w-20">File Name</th>
+                    <th class="w-20">RFQ Date</th>
+                    <th class="w-20">LDoS Date</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach ($tenders as $key => $tender)
+                    <tr>
+                        <td class="">{{$key+1}}</td>
+                        <td class="">{{$tender->reference_no}}</td>
+                        <td class="">{{$tender->client?->name}}</td>
+                        <td class="">{{$tender->file_name}}</td>
+                        <td class="">{{dateFormate($tender->rfq_date)}}</td>
+                        <td class="">{{dateFormate($tender->last_date_of_submission)}}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        @endif
+
+        @if ($report_type == 'quotation')
+        <table>
+            <thead>
+                <tr>
+                    <th class="">Sr#</th>
+                    <th class="w-20">Dept Ref#</th>
+                    <th class="w-20">Dept Name</th>
+                    <th class="w-20">File Name</th>
+                    <th class="w-20">Total Amount</th>
+                    <th class="w-20">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($quotations as $key => $quotation)
+                    <tr>
+                        <td class="">{{$key+1}}</td>
+                        <td class="">{{$quotation->reference_no}} <br><small>{{dateFormate($quotation->applied_date)}}</small></td>
+                        <td class="">{{$quotation->tender?->client?->name}}</td>
+                        <td class="">{{$quotation->tender?->file_name}}</td>
+                        <td class="">{{$quotation->currency}} {{numberFormate($quotation->total_price)}}</td>
+                        <td class="">{{upperCaseAndRemoveUnderscore($quotation->status)}}</td>
+                    </tr>
+                @endforeach
+                    <tr>
+                        <td colspan="5" class="footer" style="border: 0px !important;">Grand Total:</td>
+                        <td class="text-right">{{numberFormate($totalAmount)}}</td>
+                    </tr>
+            </tbody>
+        </table>
+        @endif
     <br>
-    <br>
-    <!-- <footer>
-        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Head Quarter: Office # 18, 3<sup>rd</sup> Floor, Gulberg Trade Center, Business Park, Gulberg Greens, Islamabad.</p>
-        <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Regional Office: Plot No 117 Shaheed Millat Road, Defence View Phase II, Karachi. Mobile: 0333-2814609</p>
-    </footer> -->
 </body>
 </html>
