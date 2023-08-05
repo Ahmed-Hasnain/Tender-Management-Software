@@ -18,7 +18,7 @@
                             <div class="col-sm-12 col-md-6">
                                 <div id="DataTables_Table_0_filter" class="dataTables_filter" >
                                     <label>
-                                        <search :url="'dashboard.tender.index'" :searchedKeyword="keyword" :params="params"></search>
+                                        <search :url="url" :searchedKeyword="keyword" :params="params"></search>
                                     </label>
                                 </div>
                             </div>
@@ -37,6 +37,7 @@
                             :reportUrl="reportUrl" 
                             :ids="tenderIds"
                             :reportName="reportName"
+                            :type="'tender'"
                         />
                         <div class="row">
                             <div class="col-sm-12">

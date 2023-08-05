@@ -15,7 +15,7 @@
                             <div class="col-sm-12 col-md-6">
                                 <div id="DataTables_Table_0_filter" class="dataTables_filter">
                                     <label>Search:
-                                        <search :url="'dashboard.quotation.index'" :searchedKeyword="keyword" :params="params"></search>
+                                        <search :url="url" :searchedKeyword="keyword" :params="params"></search>
                                     </label>
                                 </div>
                             </div>
@@ -34,6 +34,7 @@
                             :reportUrl="reportUrl" 
                             :ids="quotationIds"
                             :reportName="reportName"
+                            :type="'quotation'"
                         />
                         <div class="row">
                             <div class="col-sm-12">

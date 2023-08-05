@@ -16,7 +16,7 @@
                     <label class="px-2">
                         <span class="px-2">Status</span>
                         <select class="form-control form-control-sm mt-1 custom-select-new" v-model="status"
-                            @change="applyFilter()">
+                            @change="applyFilter()" v-if="type == 'tender' || type == 'quotation'">
                             <option value="" class="text-capitalize">Select Status</option>
                             <option value="pending" class="text-capitalize">pending</option>
                             <option value="quotation_in_process" class="text-capitalize">quotation in process</option>
@@ -34,6 +34,13 @@
                             <option value="store_delivered" class="text-capitalize">store delivered</option>
                             <option value="payment_received" class="text-capitalize">payment received</option>
                             <option value="supply_regretted" class="text-capitalize">supply regretted</option>
+                        </select>
+                        <select class="form-control form-control-sm mt-1 custom-select-new" v-model="status"
+                            @change="applyFilter()" v-if="type == 'supplyOrder'">
+                            <option value="" class="text-capitalize">Select Status</option>
+                            <option value="pending" class="text-capitalize">Pending</option>
+                            <option value="processing" class="text-capitalize">Processing</option>
+                            <option value="completed" class="text-capitalize">Completed</option>
                         </select>
                     </label>
                     <label class="">
@@ -87,7 +94,7 @@ export default {
     components: {
         Datepicker,
     },
-    props: ['searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalItems', 'selectedDepartment', 'allDepartments', 'url', 'reportUrl', 'ids', 'reportName'],
+    props: ['searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalItems', 'selectedDepartment', 'allDepartments', 'url', 'reportUrl', 'ids', 'reportName', 'type'],
     data() {
         return{
             allTenders: this.tenders,
