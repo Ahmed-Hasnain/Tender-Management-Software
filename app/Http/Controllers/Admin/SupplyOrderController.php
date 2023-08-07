@@ -352,7 +352,6 @@ class SupplyOrderController extends Controller
             $startDate = $params['start_date'];
             $endDate = $params['end_date'];
             $limit = $params['limit'];
-            dd($params);
             $quotations = Quotation::whereIn('id', $ids)->with('tender.client', 'tender.company')->get();
             $data = [
                 'quotations' =>  $quotations,

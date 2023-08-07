@@ -15,11 +15,27 @@
                             <div class="col-sm-12 col-md-6">
                                 <div id="DataTables_Table_0_filter" class="dataTables_filter">
                                     <label>Search:
-                                        <search :url="'dashboard.delivery-challan.index'" :searchedKeyword="searchedKeyword"></search>
+                                        <search :url="url" :searchedKeyword="keyword" :params="params"></search>
                                     </label>
                                 </div>
                             </div>
                         </div>
+                        <filters 
+                            :searchedKeyword="keyword" 
+                            :selectedCompany="company" 
+                            :selectedStatus="status" 
+                            :selectedStartDate="startDate" 
+                            :selectedEndDate="endDate" 
+                            :selectedLimit="limit" 
+                            :totalItems="totalDeliveryChallans" 
+                            :selectedDepartment="department" 
+                            :allDepartments="allDepartments" 
+                            :url="url"
+                            :reportUrl="reportUrl" 
+                            :ids="deliveryChallanIds"
+                            :reportName="reportName"
+                            :type="'deliveryChallan'"
+                        />
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="table table-hover e-commerce-table dataTable no-footer"
@@ -55,7 +71,7 @@
                                 <div v-else class="pt-3 pl-3">No Data Found.</div>
                             </div>
                         </div>
-                        <pagination :meta="allDeliveryChallan" :keyword="searchedKeyword"></pagination>
+                        <pagination :meta="deliveryChallan" :keyword="keyword" :params="params"></pagination>
                     </div>
                 </div>
             </div>
@@ -69,18 +85,38 @@ import { Head } from '@inertiajs/inertia-vue3';
 import Helpers from '@/Mixins/Helpers';
 import pagination from '@/Components/Pagination.vue';
 import search from '@/Components/Search.vue';
+import filters from '@/Components/Filters.vue';
 
 export default {
     components: {
         AuthenticatedLayout,
         Head,
         pagination,
-        search
+        search,
+        filters
     },
-    props: ['deliveryChallan', 'searchedKeyword'],
+    props: ['deliveryChallan', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalDeliveryChallans', 'deliveryChallanIds', 'selectedDepartment', 'allDepartments'],
     data() {
         return{
-            allDeliveryChallan: this.deliveryChallan
+            allDeliveryChallan: this.deliveryChallan,
+            company: this.selectedCompany,
+            status: this.selectedStatus,
+            startDate: this.selectedStartDate,
+            endDate: this.selectedEndDate,
+            limit: this.selectedLimit,
+            department: this.selectedDepartment,
+            keyword: this.searchedKeyword,
+            url: 'dashboard.delivery-challan.index',
+            reportUrl: 'dashboard.getDeliveryChallanReports',
+            reportName: 'Generate Delivery Challan Reports',
+            params: {
+                company: this.selectedCompany,
+                status: this.selectedStatus,
+                startDate: this.selectedStartDate,
+                endDate: this.selectedEndDate,
+                limit: this.selectedLimit,
+                department: this.selectedDepartment,
+            }
         }
     },
     methods: {
@@ -124,6 +160,24 @@ export default {
             },
             deep: true,
         },
+        searchedKeyword:{
+            handler(val){
+                this.keyword = val;
+            },
+            deep: true
+        }
+    },
+    mounted(){
+        this.emitter.on('get_filters', (args) => {
+            if (args.params) {
+                this.params.company = args.params.company
+                this.params.status = args.params.status
+                this.params.startDate = args.params.startDate
+                this.params.endDate = args.params.endDate
+                this.params.limit = args.params.limit
+                this.params.department = args.params.department
+            }
+        })
     },
     mixins: [Helpers]
 }

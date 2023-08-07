@@ -106,6 +106,7 @@ Route::middleware(['auth', 'verified'])
         Route::group(['middleware' => ['can:view_delivery_challan']], function () {
             Route::resource('/delivery-challan', Admin\DeliveryChallanController::class);
             Route::get('/downloadDC/{deliveryChallanId}/{company}/{date?}', [Admin\DeliveryChallanController::class, 'downloadDeliveryChallan'])->name('downloadDeliveryChallan');
+            Route::get('/get-delivery-challan-reports/{reportParams?}', [Admin\DeliveryChallanController::class, 'deliveryChallanReports'])->name('getDeliveryChallanReports');
         }); 
         //Payment Recieving 
         Route::group(['middleware' => ['can:view_payment_recieving']], function () {

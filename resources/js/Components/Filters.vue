@@ -36,7 +36,7 @@
                             <option value="supply_regretted" class="text-capitalize">supply regretted</option>
                         </select>
                         <select class="form-control form-control-sm mt-1 custom-select-new" v-model="status"
-                            @change="applyFilter()" v-if="type == 'supplyOrder'">
+                            @change="applyFilter()" v-if="type == 'supplyOrder' || type == 'deliveryChallan'">
                             <option value="" class="text-capitalize">Select Status</option>
                             <option value="pending" class="text-capitalize">Pending</option>
                             <option value="processing" class="text-capitalize">Processing</option>

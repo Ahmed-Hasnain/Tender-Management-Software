@@ -93,7 +93,6 @@ import pagination from '@/Components/Pagination.vue';
 import search from '@/Components/Search.vue';
 import filters from '@/Components/Filters.vue';
 
-
 export default {
     components: {
         AuthenticatedLayout,
