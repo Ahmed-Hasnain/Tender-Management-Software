@@ -237,7 +237,7 @@
         </table>
     </div>
     <br>
-        @if ($report_type == 'tender')
+    @if ($report_type == 'Tender')
         <table>
             <thead>
                 <tr>
@@ -264,7 +264,7 @@
         </table>
         @endif
 
-        @if ($report_type == 'quotation')
+        @if ($report_type == 'Quotation')
         <table>
             <thead>
                 <tr>
@@ -272,8 +272,8 @@
                     <th class="w-20">Dept Ref#</th>
                     <th class="w-20">Dept Name</th>
                     <th class="w-20">File Name</th>
-                    <th class="w-20">Total Amount</th>
                     <th class="w-20">Status</th>
+                    <th class="w-20">Total Amount</th>
                 </tr>
             </thead>
             <tbody>
@@ -283,12 +283,78 @@
                         <td class="">{{$quotation->reference_no}} <br><small>{{dateFormate($quotation->applied_date)}}</small></td>
                         <td class="">{{$quotation->tender?->client?->name}}</td>
                         <td class="">{{$quotation->tender?->file_name}}</td>
-                        <td class="">{{$quotation->currency}} {{numberFormate($quotation->total_price)}}</td>
                         <td class="">{{upperCaseAndRemoveUnderscore($quotation->status)}}</td>
+                        <td class="">{{$quotation->currency}} {{numberFormate($quotation->total_price)}}</td>
                     </tr>
                 @endforeach
                     <tr>
                         <td colspan="5" class="footer" style="border: 0px !important;">Grand Total:</td>
+                        <td class="text-right">{{numberFormate($totalAmount)}}</td>
+                    </tr>
+            </tbody>
+        </table>
+        @endif
+
+        @if ($report_type == 'Supply Order')
+        <table>
+            <thead>
+                <tr>
+                    <th class="">Sr#</th>
+                    <th class="w-20">Dept Ref#</th>
+                    <th class="w-20">Our Ref#</th>
+                    <th class="w-20">Dept Name</th>
+                    <th class="w-20">File Name</th>
+                    <th class="w-20">Status</th>
+                    <th class="w-20">Total Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($supplyOrders as $key => $supplyOrder)
+                    <tr>
+                        <td class="">{{$key+1}}</td>
+                        <td class="">{{$supplyOrder->quotation->reference_no}} <br><small>{{dateFormate($supplyOrder->date_of_supply_order)}}</small></td>
+                        <td class="">{{$supplyOrder->quotation?->tender?->reference_no}}</td>
+                        <td class="">{{$supplyOrder->quotation?->tender?->client?->name}}</td>
+                        <td class="">{{$supplyOrder->quotation?->tender?->file_name}}</td>
+                        <td class="">{{upperCaseAndRemoveUnderscore($supplyOrder->status)}}</td>
+                        <td class="">{{$supplyOrder->quotation?->currency}} {{numberFormate($supplyOrder->total_price)}}</td>
+                    </tr>
+                @endforeach
+                    <tr>
+                        <td colspan="6" class="footer" style="border: 0px !important;">Grand Total:</td>
+                        <td class="text-right">{{numberFormate($totalAmount)}}</td>
+                    </tr>
+            </tbody>
+        </table>
+        @endif
+
+        @if ($report_type == 'Delivery Challan')
+        <table>
+            <thead>
+                <tr>
+                    <th class="">Sr#</th>
+                    <th class="w-20">Ref#</th>
+                    <th class="w-20">Dept Ref#</th>
+                    <th class="w-20">Dept Name</th>
+                    <th class="w-20">File Name</th>
+                    <th class="w-20">Status</th>
+                    <th class="w-20">Total Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($deliveryChallans as $key => $deliveryChallan)
+                    <tr>
+                        <td class="">{{$key+1}}</td>
+                        <td class="">{{$deliveryChallan->reference_no}}</td>
+                        <td class="">{{$deliveryChallan->supplyOrder?->quotation?->reference_no}} <br><small>{{dateFormate($deliveryChallan->supplyOrder?->date_of_supply_order)}}</small></td>
+                        <td class="">{{$deliveryChallan->supplyOrder?->quotation?->tender?->client?->name}}</td>
+                        <td class="">{{$deliveryChallan->supplyOrder?->quotation?->tender?->file_name}}</td>
+                        <td class="">{{upperCaseAndRemoveUnderscore($deliveryChallan->supplyOrder?->status)}}</td>
+                        <td class="">{{$deliveryChallan->supplyOrder->quotation?->currency}} {{numberFormate($deliveryChallan->total)}}</td>
+                    </tr>
+                @endforeach
+                    <tr>
+                        <td colspan="6" class="footer" style="border: 0px !important;">Grand Total:</td>
                         <td class="text-right">{{numberFormate($totalAmount)}}</td>
                     </tr>
             </tbody>

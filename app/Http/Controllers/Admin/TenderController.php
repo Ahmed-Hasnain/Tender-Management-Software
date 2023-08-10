@@ -274,7 +274,7 @@ class TenderController extends Controller
                 'startDate' => $startDate,
                 'endDate' => $endDate,
                 'limit' => $limit,
-                'report_type' => 'tender',
+                'report_type' => 'Tender',
             ];
             switch ($company) {
                 case 'OndreTicaretTemplate':

@@ -352,15 +352,15 @@ class SupplyOrderController extends Controller
             $startDate = $params['start_date'];
             $endDate = $params['end_date'];
             $limit = $params['limit'];
-            $quotations = Quotation::whereIn('id', $ids)->with('tender.client', 'tender.company')->get();
+            $supplyOrders = SupplyOrder::whereIn('id', $ids)->with('quotation.tender.client', 'quotation.tender.company')->get();
             $data = [
-                'quotations' =>  $quotations,
+                'supplyOrders' =>  $supplyOrders,
                 'status' => $status,
                 'startDate' => $startDate,
                 'endDate' => $endDate,
                 'limit' => $limit,
-                'totalAmount' => $quotations->sum('total_price'),
-                'report_type' => 'quotation',
+                'totalAmount' => $supplyOrders->sum('total_price'),
+                'report_type' => 'Supply Order',
             ];
             switch ($company) {
                 case 'OndreTicaretTemplate':
@@ -384,7 +384,7 @@ class SupplyOrderController extends Controller
                     $pdf = Pdf::loadView('Reports/Tender', $data); 
                     break; 
             }
-            return $pdf->download('Quotation-Report.pdf');
+            return $pdf->download('Supply-Order-Report.pdf');
         } catch (\Throwable $th) {
             Log::error([
                 'message' => $th->getMessage(),

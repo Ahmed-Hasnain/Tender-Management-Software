@@ -258,15 +258,15 @@ class DeliveryChallanController extends Controller
             $startDate = $params['start_date'];
             $endDate = $params['end_date'];
             $limit = $params['limit'];
-            $quotations = Quotation::whereIn('id', $ids)->with('tender.client', 'tender.company')->get();
+            $deliveryChallans = DeliveryChallan::whereIn('id', $ids)->with('supplyOrder.quotation.tender.client', 'supplyOrder.quotation.tender.company')->get();
             $data = [
-                'quotations' =>  $quotations,
+                'deliveryChallans' =>  $deliveryChallans,
                 'status' => $status,
                 'startDate' => $startDate,
                 'endDate' => $endDate,
                 'limit' => $limit,
-                'totalAmount' => $quotations->sum('total_price'),
-                'report_type' => 'quotation',
+                'totalAmount' => $deliveryChallans->sum('total'),
+                'report_type' => 'Delivery Challan',
             ];
             switch ($company) {
                 case 'OndreTicaretTemplate':
@@ -290,7 +290,7 @@ class DeliveryChallanController extends Controller
                     $pdf = Pdf::loadView('Reports/Tender', $data); 
                     break; 
             }
-            return $pdf->download('Quotation-Report.pdf');
+            return $pdf->download('Delivery-Challan-Report.pdf');
         } catch (\Throwable $th) {
             Log::error([
                 'message' => $th->getMessage(),

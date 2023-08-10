@@ -294,7 +294,7 @@ class QuotationController extends Controller
                 'endDate' => $endDate,
                 'limit' => $limit,
                 'totalAmount' => $quotations->sum('total_price'),
-                'report_type' => 'quotation',
+                'report_type' => 'Quotation',
             ];
             switch ($company) {
                 case 'OndreTicaretTemplate':
