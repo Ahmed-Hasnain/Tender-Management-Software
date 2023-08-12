@@ -293,7 +293,7 @@ class QuotationController extends Controller
                 'startDate' => $startDate,
                 'endDate' => $endDate,
                 'limit' => $limit,
-                'totalAmount' => $quotations->sum('total_price'),
+                'totalAmount' => calculateSum($quotations, 'quotation'),
                 'report_type' => 'Quotation',
             ];
             switch ($company) {

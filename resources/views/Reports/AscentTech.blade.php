@@ -320,7 +320,7 @@
                         <td class="">{{$quotation->tender?->client?->name}}</td>
                         <td class="">{{$quotation->tender?->file_name}}</td>
                         <td class="">{{upperCaseAndRemoveUnderscore($quotation->status)}}</td>
-                        <td class="">{{$quotation->currency}} {{numberFormate($quotation->total_price)}}</td>
+                        <td class="">{{$quotation->currency}} {{numberFormate(calculateTaxAndGetTotal($quotation->total_price, $quotation->tax))}}</td>
                     </tr>
                 @endforeach
                     <tr>
