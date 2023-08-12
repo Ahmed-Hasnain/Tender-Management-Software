@@ -40,6 +40,7 @@ class QuotationController extends Controller
             $startDate = request()->input('params') && request()->input('params')['startDate'] ? setDateValues(request()->input('params')['startDate']) : "";
             $endDate = request()->input('params') && request()->input('params')['endDate'] ? setDateValues(request()->input('params')['endDate']) : "";
             $limit = request()->input('params') && request()->input('params')['limit'] ? request()->input('params')['limit'] : 10;
+            $currency = request()->input('params') && request()->input('params')['currency'] ? request()->input('params')['currency'] : "";
             switch ($companyParam) {
                 case 'OndreTicaretTemplate':
                     $company = 'Onder Ticaret (Private) Limited';
@@ -54,7 +55,7 @@ class QuotationController extends Controller
                     $company = null;
                     break;
             }
-            $quotations = Quotation::with('tender.client','tender.company', 'supplyOrder')->where(function ($query) use ($company, $statusParam, $startDate, $endDate, $departmentParam) {
+            $quotations = Quotation::with('tender.client','tender.company', 'supplyOrder')->where(function ($query) use ($company, $statusParam, $startDate, $endDate, $departmentParam, $currency) {
                 //search filter
                 $keyword = request()->input('keyword');
                 $query->when($keyword, function ($subQuery) use ($keyword){
@@ -72,6 +73,13 @@ class QuotationController extends Controller
                 //last date of submission filter
                 $query->when($startDate && $endDate, function ($subQuery) use ($startDate, $endDate){
                     $subQuery->whereBetween('applied_date', [$startDate, $endDate]);
+                });
+                // currency filter
+                $query->when($currency && $currency == 'local', function ($query) {
+                    $query->where('currency', 'PKR');
+                });
+                $query->when($currency && $currency == 'foreign',  function ($query) {
+                    $query->where('currency', '!=', 'PKR');
                 });
                 //tender filters
                 $query->whereHas('tender', function ($query) use ($company, $departmentParam){
@@ -94,6 +102,7 @@ class QuotationController extends Controller
                 'selectedStartDate' => $startDate,
                 'selectedEndDate' => $endDate,
                 'selectedLimit' => $limit,
+                'selectedCurrency' => $currency,
                 'totalQuotations' => Quotation::count(),
                 'quotationIds' => $quotations->pluck('id')->toArray(),
                 'allDepartments' => Client::select('name')->get(),

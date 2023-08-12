@@ -76,6 +76,15 @@
                             <option value="500" class="text-capitalize">500</option>
                         </select>
                     </label>
+                    <label class="px-2" v-if="type == 'supplyOrder' || type == 'quotation'">
+                        <span class="px-2">Currency</span>
+                        <select class="form-control form-control-sm mt-1 custom-select-new" v-model="currency"
+                            @change="applyFilter()">
+                            <option value="" class="text-capitalize">All</option>
+                            <option value="local" class="text-capitalize">Local</option>
+                            <option value="foreign" class="text-capitalize">Foreign</option>
+                        </select>
+                    </label>
                 </div>
             </div>
             <div class="row pt-2">
@@ -94,7 +103,7 @@ export default {
     components: {
         Datepicker,
     },
-    props: ['searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalItems', 'selectedDepartment', 'allDepartments', 'url', 'reportUrl', 'ids', 'reportName', 'type'],
+    props: ['searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalItems', 'selectedDepartment', 'allDepartments', 'url', 'reportUrl', 'ids', 'reportName', 'type', 'selectedCurrency'],
     data() {
         return{
             allTenders: this.tenders,
@@ -104,6 +113,7 @@ export default {
             endDate: this.selectedEndDate,
             limit: this.selectedLimit,
             department: this.selectedDepartment,
+            currency: this.selectedCurrency,
             keyword: this.searchedKeyword,
             searchedUrl: this.url,
             params: {
@@ -113,6 +123,7 @@ export default {
                 endDate: this.selectedEndDate,
                 limit: this.selectedLimit,
                 department: this.selectedDepartment,
+                currency: this.selectedCurrency,
             }
         }
     },
@@ -124,6 +135,7 @@ export default {
             this.params.endDate = this.endDate ?? ""
             this.params.limit = this.limit
             this.params.department = this.department
+            this.params.currency = this.currency
             this.emitter.emit('get_filters', {
                 params: this.params,
             });
@@ -144,6 +156,7 @@ export default {
                 end_date: this.endDate,
                 limit: this.limit,
                 department: this.department,
+                currency: this.currency,
             }
             return JSON.stringify(param)
         }

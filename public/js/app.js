@@ -19716,7 +19716,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     Datepicker: _vuepic_vue_datepicker__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  props: ['searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalItems', 'selectedDepartment', 'allDepartments', 'url', 'reportUrl', 'ids', 'reportName', 'type'],
+  props: ['searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalItems', 'selectedDepartment', 'allDepartments', 'url', 'reportUrl', 'ids', 'reportName', 'type', 'selectedCurrency'],
   data: function data() {
     return {
       allTenders: this.tenders,
@@ -19726,6 +19726,7 @@ __webpack_require__.r(__webpack_exports__);
       endDate: this.selectedEndDate,
       limit: this.selectedLimit,
       department: this.selectedDepartment,
+      currency: this.selectedCurrency,
       keyword: this.searchedKeyword,
       searchedUrl: this.url,
       params: {
@@ -19734,7 +19735,8 @@ __webpack_require__.r(__webpack_exports__);
         startDate: this.selectedStartDate,
         endDate: this.selectedEndDate,
         limit: this.selectedLimit,
-        department: this.selectedDepartment
+        department: this.selectedDepartment,
+        currency: this.selectedCurrency
       }
     };
   },
@@ -19747,6 +19749,7 @@ __webpack_require__.r(__webpack_exports__);
       this.params.endDate = (_this$endDate = this.endDate) !== null && _this$endDate !== void 0 ? _this$endDate : "";
       this.params.limit = this.limit;
       this.params.department = this.department;
+      this.params.currency = this.currency;
       this.emitter.emit('get_filters', {
         params: this.params
       });
@@ -19765,7 +19768,8 @@ __webpack_require__.r(__webpack_exports__);
         start_date: this.startDate,
         end_date: this.endDate,
         limit: this.limit,
-        department: this.department
+        department: this.department,
+        currency: this.currency
       };
       return JSON.stringify(param);
     }
@@ -19935,7 +19939,8 @@ __webpack_require__.r(__webpack_exports__);
       var startDate = this.allParams ? '&params[startDate]=' + this.allParams.startDate : '';
       var endDate = this.allParams ? '&params[endDate]=' + this.allParams.endDate : '';
       var limit = this.allParams ? '&params[limit]=' + this.allParams.limit : '';
-      return url + searchedKeyword + company + status + department + startDate + endDate + limit;
+      var currency = this.allParams ? '&params[currency]=' + this.allParams.currency : '';
+      return url + searchedKeyword + company + status + department + startDate + endDate + limit + currency;
     }
   }
 });
@@ -23306,7 +23311,7 @@ __webpack_require__.r(__webpack_exports__);
     search: _Components_Search_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     filters: _Components_Filters_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
-  props: ['quotations', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalQuotations', 'quotationIds', 'selectedDepartment', 'allDepartments'],
+  props: ['quotations', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalQuotations', 'quotationIds', 'selectedDepartment', 'allDepartments', 'selectedCurrency'],
   data: function data() {
     return {
       allQuotations: this.quotations,
@@ -23316,6 +23321,7 @@ __webpack_require__.r(__webpack_exports__);
       endDate: this.selectedEndDate,
       limit: this.selectedLimit,
       department: this.selectedDepartment,
+      currency: this.selectedCurrency,
       keyword: this.searchedKeyword,
       url: 'dashboard.quotation.index',
       reportUrl: 'dashboard.getQuotationReports',
@@ -23326,7 +23332,8 @@ __webpack_require__.r(__webpack_exports__);
         startDate: this.selectedStartDate,
         endDate: this.selectedEndDate,
         limit: this.selectedLimit,
-        department: this.selectedDepartment
+        department: this.selectedDepartment,
+        currency: this.selectedCurrency
       }
     };
   },
@@ -23413,6 +23420,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.params.endDate = args.params.endDate;
         _this2.params.limit = args.params.limit;
         _this2.params.department = args.params.department;
+        _this2.params.currency = args.params.currency;
       }
     });
   },
@@ -23968,7 +23976,7 @@ __webpack_require__.r(__webpack_exports__);
     search: _Components_Search_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     filters: _Components_Filters_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
-  props: ['supplyOrder', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalSupplyOrders', 'supplyOrderIds', 'selectedDepartment', 'allDepartments'],
+  props: ['supplyOrder', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalSupplyOrders', 'supplyOrderIds', 'selectedDepartment', 'allDepartments', 'selectedCurrency'],
   data: function data() {
     return {
       allSupplyOrder: this.supplyOrder,
@@ -23978,6 +23986,7 @@ __webpack_require__.r(__webpack_exports__);
       endDate: this.selectedEndDate,
       limit: this.selectedLimit,
       department: this.selectedDepartment,
+      currency: this.selectedCurrency,
       keyword: this.searchedKeyword,
       url: 'dashboard.supply-order.index',
       reportUrl: 'dashboard.getSupplyOrderReports',
@@ -23988,7 +23997,8 @@ __webpack_require__.r(__webpack_exports__);
         startDate: this.selectedStartDate,
         endDate: this.selectedEndDate,
         limit: this.selectedLimit,
-        department: this.selectedDepartment
+        department: this.selectedDepartment,
+        currency: this.selectedCurrency
       }
     };
   },
@@ -24075,6 +24085,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.params.endDate = args.params.endDate;
         _this2.params.limit = args.params.limit;
         _this2.params.department = args.params.department;
+        _this2.params.currency = args.params.currency;
       }
     });
   },
@@ -25005,9 +25016,29 @@ var _hoisted_44 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 var _hoisted_45 = ["value"];
 var _hoisted_46 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option value=\"10\" class=\"text-capitalize\">10</option><option value=\"20\" class=\"text-capitalize\">20</option><option value=\"50\" class=\"text-capitalize\">50</option><option value=\"100\" class=\"text-capitalize\">100</option><option value=\"200\" class=\"text-capitalize\">200</option><option value=\"500\" class=\"text-capitalize\">500</option>", 6);
 var _hoisted_52 = {
+  key: 0,
+  "class": "px-2"
+};
+var _hoisted_53 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "px-2"
+}, "Currency", -1 /* HOISTED */);
+var _hoisted_54 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "",
+  "class": "text-capitalize"
+}, "All", -1 /* HOISTED */);
+var _hoisted_55 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "local",
+  "class": "text-capitalize"
+}, "Local", -1 /* HOISTED */);
+var _hoisted_56 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "foreign",
+  "class": "text-capitalize"
+}, "Foreign", -1 /* HOISTED */);
+var _hoisted_57 = [_hoisted_54, _hoisted_55, _hoisted_56];
+var _hoisted_58 = {
   "class": "row pt-2"
 };
-var _hoisted_53 = ["href"];
+var _hoisted_59 = ["href"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Datepicker = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Datepicker");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
@@ -25079,13 +25110,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, [_hoisted_44, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
     value: $props.totalItems,
     "class": "text-capitalize"
-  }, "All", 8 /* PROPS */, _hoisted_45), _hoisted_46], 544 /* HYDRATE_EVENTS, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.limit]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_52, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  }, "All", 8 /* PROPS */, _hoisted_45), _hoisted_46], 544 /* HYDRATE_EVENTS, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.limit]])]), $props.type == 'supplyOrder' || $props.type == 'quotation' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("label", _hoisted_52, [_hoisted_53, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "class": "form-control form-control-sm mt-1 custom-select-new",
+    "onUpdate:modelValue": _cache[14] || (_cache[14] = function ($event) {
+      return $data.currency = $event;
+    }),
+    onChange: _cache[15] || (_cache[15] = function ($event) {
+      return $options.applyFilter();
+    })
+  }, _hoisted_57, 544 /* HYDRATE_EVENTS, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.currency]])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_58, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     href: _ctx.route($props.reportUrl, $options.reportParams),
     "class": "btn btn-primary btn-sm",
     style: {
       "width": "100%"
     }
-  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.reportName), 9 /* TEXT, PROPS */, _hoisted_53)])])]);
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.reportName), 9 /* TEXT, PROPS */, _hoisted_59)])])]);
 }
 
 /***/ }),
@@ -33832,12 +33871,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         totalItems: $props.totalQuotations,
         selectedDepartment: $data.department,
         allDepartments: $props.allDepartments,
+        selectedCurrency: $props.selectedCurrency,
         url: $data.url,
         reportUrl: $data.reportUrl,
         ids: $props.quotationIds,
         reportName: $data.reportName,
         type: 'quotation'
-      }, null, 8 /* PROPS */, ["searchedKeyword", "selectedCompany", "selectedStatus", "selectedStartDate", "selectedEndDate", "selectedLimit", "totalItems", "selectedDepartment", "allDepartments", "url", "reportUrl", "ids", "reportName"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [((_$data$allQuotations = $data.allQuotations) === null || _$data$allQuotations === void 0 ? void 0 : _$data$allQuotations.data.length) > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("table", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.allQuotations.data, function (quotation, index) {
+      }, null, 8 /* PROPS */, ["searchedKeyword", "selectedCompany", "selectedStatus", "selectedStartDate", "selectedEndDate", "selectedLimit", "totalItems", "selectedDepartment", "allDepartments", "selectedCurrency", "url", "reportUrl", "ids", "reportName"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [((_$data$allQuotations = $data.allQuotations) === null || _$data$allQuotations === void 0 ? void 0 : _$data$allQuotations.data.length) > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("table", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.allQuotations.data, function (quotation, index) {
         var _quotation$tender;
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
           role: "row",
@@ -36009,12 +36049,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         totalItems: $props.totalSupplyOrders,
         selectedDepartment: $data.department,
         allDepartments: $props.allDepartments,
+        selectedCurrency: $props.selectedCurrency,
         url: $data.url,
         reportUrl: $data.reportUrl,
         ids: $props.supplyOrderIds,
         reportName: $data.reportName,
         type: 'supplyOrder'
-      }, null, 8 /* PROPS */, ["searchedKeyword", "selectedCompany", "selectedStatus", "selectedStartDate", "selectedEndDate", "selectedLimit", "totalItems", "selectedDepartment", "allDepartments", "url", "reportUrl", "ids", "reportName"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [((_$data$allSupplyOrder = $data.allSupplyOrder) === null || _$data$allSupplyOrder === void 0 ? void 0 : _$data$allSupplyOrder.data.length) > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("table", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.allSupplyOrder.data, function (supplyOrder, index) {
+      }, null, 8 /* PROPS */, ["searchedKeyword", "selectedCompany", "selectedStatus", "selectedStartDate", "selectedEndDate", "selectedLimit", "totalItems", "selectedDepartment", "allDepartments", "selectedCurrency", "url", "reportUrl", "ids", "reportName"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [((_$data$allSupplyOrder = $data.allSupplyOrder) === null || _$data$allSupplyOrder === void 0 ? void 0 : _$data$allSupplyOrder.data.length) > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("table", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.allSupplyOrder.data, function (supplyOrder, index) {
         var _supplyOrder$quotatio, _supplyOrder$quotatio2, _supplyOrder$quotatio3, _supplyOrder$quotatio4;
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
           role: "row",

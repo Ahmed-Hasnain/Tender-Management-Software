@@ -30,6 +30,7 @@
                             :totalItems="totalSupplyOrders" 
                             :selectedDepartment="department" 
                             :allDepartments="allDepartments" 
+                            :selectedCurrency="selectedCurrency" 
                             :url="url"
                             :reportUrl="reportUrl" 
                             :ids="supplyOrderIds"
@@ -101,7 +102,7 @@ export default {
         search,
         filters
     },
-    props: ['supplyOrder', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalSupplyOrders', 'supplyOrderIds', 'selectedDepartment', 'allDepartments'],
+    props: ['supplyOrder', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalSupplyOrders', 'supplyOrderIds', 'selectedDepartment', 'allDepartments', 'selectedCurrency'],
     data() {
         return{
             allSupplyOrder: this.supplyOrder,
@@ -111,6 +112,7 @@ export default {
             endDate: this.selectedEndDate,
             limit: this.selectedLimit,
             department: this.selectedDepartment,
+            currency: this.selectedCurrency,
             keyword: this.searchedKeyword,
             url: 'dashboard.supply-order.index',
             reportUrl: 'dashboard.getSupplyOrderReports',
@@ -122,6 +124,7 @@ export default {
                 endDate: this.selectedEndDate,
                 limit: this.selectedLimit,
                 department: this.selectedDepartment,
+                currency: this.selectedCurrency,
             }
         }
     },
@@ -194,6 +197,7 @@ export default {
                 this.params.endDate = args.params.endDate
                 this.params.limit = args.params.limit
                 this.params.department = args.params.department
+                this.params.currency = args.params.currency
             }
         })
     },

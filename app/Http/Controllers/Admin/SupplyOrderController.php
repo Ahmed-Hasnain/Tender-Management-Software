@@ -36,6 +36,7 @@ class SupplyOrderController extends Controller
             $startDate = request()->input('params') && request()->input('params')['startDate'] ? setDateValues(request()->input('params')['startDate']) : "";
             $endDate = request()->input('params') && request()->input('params')['endDate'] ? setDateValues(request()->input('params')['endDate']) : "";
             $limit = request()->input('params') && request()->input('params')['limit'] ? request()->input('params')['limit'] : 10;
+            $currency = request()->input('params') && request()->input('params')['currency'] ? request()->input('params')['currency'] : "";
             switch ($companyParam) {
                 case 'OndreTicaretTemplate':
                     $company = 'Onder Ticaret (Private) Limited';
@@ -50,7 +51,7 @@ class SupplyOrderController extends Controller
                     $company = null;
                     break;
             }
-            $supplyOrder = SupplyOrder::with('quotation.tender', 'items')->where(function ($query) use ($company, $statusParam, $startDate, $endDate, $departmentParam){
+            $supplyOrder = SupplyOrder::with('quotation.tender', 'items')->where(function ($query) use ($company, $statusParam, $startDate, $endDate, $departmentParam, $currency){
                 $keyword = request()->input('keyword');
                 $query->when($keyword, function ($subQuery) use ($keyword){
                     $subQuery->WhereHas('quotation', function($query) use ($keyword){
@@ -69,7 +70,14 @@ class SupplyOrderController extends Controller
                     $subQuery->whereBetween('date_of_supply_order', [$startDate, $endDate]);
                 });
                 //quotation filters
-                $query->whereHas('quotation', function ($query) use ($company, $departmentParam){
+                $query->whereHas('quotation', function ($query) use ($company, $departmentParam, $currency){
+                    // currency filter
+                    $query->when($currency && $currency == 'local', function ($query) {
+                        $query->where('currency', 'PKR');
+                    });
+                    $query->when($currency && $currency == 'foreign',  function ($query) {
+                        $query->where('currency', '!=', 'PKR');
+                    });
                     //tender filters
                     $query->whereHas('tender', function ($query) use ($company, $departmentParam){
                         //company filter
@@ -92,6 +100,7 @@ class SupplyOrderController extends Controller
                 'selectedStartDate' => $startDate,
                 'selectedEndDate' => $endDate,
                 'selectedLimit' => $limit,
+                'selectedCurrency' => $currency,
                 'totalSupplyOrders' => SupplyOrder::count(),
                 'supplyOrderIds' => $supplyOrder->pluck('id')->toArray(),
                 'allDepartments' => Client::select('name')->get(),

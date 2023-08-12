@@ -41,7 +41,8 @@ export default {
             let startDate = this.allParams ? '&params[startDate]=' + this.allParams.startDate : ''
             let endDate = this.allParams ? '&params[endDate]=' + this.allParams.endDate : ''
             let limit = this.allParams ? '&params[limit]=' + this.allParams.limit : ''
-            return url + searchedKeyword + company + status + department + startDate + endDate + limit  
+            let currency = this.allParams ? '&params[currency]=' + this.allParams.currency : ''
+            return url + searchedKeyword + company + status + department + startDate + endDate + limit  + currency
         }
     },
 }
