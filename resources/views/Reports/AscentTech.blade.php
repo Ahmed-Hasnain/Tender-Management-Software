@@ -353,7 +353,7 @@
                         <td class="">{{$supplyOrder->quotation?->tender?->client?->name}}</td>
                         <td class="">{{$supplyOrder->quotation?->tender?->file_name}}</td>
                         <td class="">{{upperCaseAndRemoveUnderscore($supplyOrder->status)}}</td>
-                        <td class="">{{$supplyOrder->quotation?->currency}} {{numberFormate($supplyOrder->total_price)}}</td>
+                        <td class="">{{$supplyOrder->quotation?->currency}} {{numberFormate(calculateTaxAndGetTotal($supplyOrder->total_price, $supplyOrder->quotation->tax))}}</td>
                     </tr>
                 @endforeach
                     <tr>

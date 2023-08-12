@@ -313,6 +313,10 @@
         </table>
         <br>
         <div>
+            <p>{{$quotation->terms_and_conditions}}</p>
+        </div>
+        <br>
+        <div>
             <p class="text-center pt-20"><strong>Yours Truly</strong></p> 
         </div>
     </main>

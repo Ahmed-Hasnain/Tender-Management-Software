@@ -359,7 +359,7 @@ class SupplyOrderController extends Controller
                 'startDate' => $startDate,
                 'endDate' => $endDate,
                 'limit' => $limit,
-                'totalAmount' => $supplyOrders->sum('total_price'),
+                'totalAmount' => calculateSum($supplyOrders, 'supplyOrder'),
                 'report_type' => 'Supply Order',
             ];
             switch ($company) {

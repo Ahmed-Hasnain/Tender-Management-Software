@@ -103,6 +103,17 @@ function calculateSum($data, $type)
                 }
             });
             break;
+        case 'supplyOrder':
+            $data->each(function ($item, $key) use (&$total_amount){
+                if ($item->quotation->tax) {
+                    $tax = ((float)$item->total_price / 100 ) * (float) $item->quotation->tax;
+                    $items_total = (float)$item->total_price + $tax;
+                    $total_amount += (float)$items_total;
+                } else {
+                    $total_amount += (float)$item->total_price;
+                }
+            });
+            break;
         
         default:
             # code...

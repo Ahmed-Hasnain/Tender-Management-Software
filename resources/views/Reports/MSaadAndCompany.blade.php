@@ -319,7 +319,7 @@
                         <td class="">{{$quotation->tender?->client?->name}}</td>
                         <td class="">{{$quotation->tender?->file_name}}</td>
                         <td class="">{{upperCaseAndRemoveUnderscore($quotation->status)}}</td>
-                        <td class="">{{$quotation->currency}} {{numberFormate($quotation->total_price)}}</td>
+                        <td class="">{{$quotation->currency}} {{numberFormate(calculateTaxAndGetTotal($quotation->total_price, $quotation->tax))}}</td>
                     </tr>
                 @endforeach
                     <tr>
@@ -352,7 +352,7 @@
                         <td class="">{{$supplyOrder->quotation?->tender?->client?->name}}</td>
                         <td class="">{{$supplyOrder->quotation?->tender?->file_name}}</td>
                         <td class="">{{upperCaseAndRemoveUnderscore($supplyOrder->status)}}</td>
-                        <td class="">{{$supplyOrder->quotation?->currency}} {{numberFormate($supplyOrder->total_price)}}</td>
+                        <td class="">{{$supplyOrder->quotation?->currency}} {{numberFormate(calculateTaxAndGetTotal($supplyOrder->total_price, $supplyOrder->quotation->tax))}}</td>
                     </tr>
                 @endforeach
                     <tr>
