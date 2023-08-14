@@ -36,7 +36,7 @@
                             <option value="supply_regretted" class="text-capitalize">supply regretted</option>
                         </select>
                         <select class="form-control form-control-sm mt-1 custom-select-new" v-model="status"
-                            @change="applyFilter()" v-if="type == 'supplyOrder' || type == 'deliveryChallan'">
+                            @change="applyFilter()" v-if="type == 'supplyOrder' || type == 'deliveryChallan' || type == 'invoices'">
                             <option value="" class="text-capitalize">Select Status</option>
                             <option value="pending" class="text-capitalize">Pending</option>
                             <option value="processing" class="text-capitalize">Processing</option>
@@ -76,13 +76,40 @@
                             <option value="500" class="text-capitalize">500</option>
                         </select>
                     </label>
-                    <label class="px-2" v-if="type == 'supplyOrder' || type == 'quotation'">
-                        <span class="px-2">Currency</span>
+                    <label class="px-2" v-if="type == 'supplyOrder' || type == 'quotation' || type == 'invoices'">
+                        <span class="px-2">Type of demand</span>
                         <select class="form-control form-control-sm mt-1 custom-select-new" v-model="currency"
                             @change="applyFilter()">
-                            <option value="" class="text-capitalize">All</option>
+                            <option value="" class="text-capitalize">Select Type of Demand</option>
                             <option value="local" class="text-capitalize">Local</option>
                             <option value="foreign" class="text-capitalize">Foreign</option>
+                        </select>
+                    </label>
+                    <label class="px-2" v-if="type == 'invoices'">
+                        <span class="px-2">STI Status</span>
+                        <select class="form-control form-control-sm mt-1 custom-select-new" v-model="sti_status"
+                            @change="applyFilter()">
+                            <option value="" class="text-capitalize">Select STI Status</option>
+                            <option value="downloaded" class="text-capitalize">Downloaded</option>
+                            <option value="not_downloaded" class="text-capitalize">Not Downloaded</option>
+                        </select>
+                    </label>
+                    <label class="px-2" v-if="type == 'invoices'">
+                        <span class="px-2">CI Status</span>
+                        <select class="form-control form-control-sm mt-1 custom-select-new" v-model="ci_status"
+                            @change="applyFilter()">
+                            <option value="" class="text-capitalize">Select CI Status</option>
+                            <option value="downloaded" class="text-capitalize">Downloaded</option>
+                            <option value="not_downloaded" class="text-capitalize">Not Downloaded</option>
+                        </select>
+                    </label>
+                    <label class="px-2" v-if="type == 'invoices'">
+                        <span class="px-2">PR Status</span>
+                        <select class="form-control form-control-sm mt-1 custom-select-new" v-model="pr_status"
+                            @change="applyFilter()">
+                            <option value="" class="text-capitalize">Select PR Status</option>
+                            <option value="recieved" class="text-capitalize">Recieved</option>
+                            <option value="pending" class="text-capitalize">Pending</option>
                         </select>
                     </label>
                 </div>
@@ -103,7 +130,7 @@ export default {
     components: {
         Datepicker,
     },
-    props: ['searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalItems', 'selectedDepartment', 'allDepartments', 'url', 'reportUrl', 'ids', 'reportName', 'type', 'selectedCurrency'],
+    props: ['searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalItems', 'selectedDepartment', 'allDepartments', 'url', 'reportUrl', 'ids', 'reportName', 'type', 'selectedCurrency', 'selectedStiStatus', 'selectedCiStatus', 'selectedPrStatus'],
     data() {
         return{
             allTenders: this.tenders,
@@ -114,6 +141,9 @@ export default {
             limit: this.selectedLimit,
             department: this.selectedDepartment,
             currency: this.selectedCurrency,
+            sti_status: this.selectedStiStatus,
+            ci_status: this.selectedCiStatus,
+            pr_status: this.selectedPrStatus,
             keyword: this.searchedKeyword,
             searchedUrl: this.url,
             params: {
@@ -124,6 +154,9 @@ export default {
                 limit: this.selectedLimit,
                 department: this.selectedDepartment,
                 currency: this.selectedCurrency,
+                sti_status: this.selectedStiStatus,
+                ci_status: this.selectedCiStatus,
+                pr_status: this.selectedPrStatus,
             }
         }
     },
@@ -136,6 +169,9 @@ export default {
             this.params.limit = this.limit
             this.params.department = this.department
             this.params.currency = this.currency
+            this.params.sti_status = this.sti_status
+            this.params.ci_status = this.ci_status
+            this.params.pr_status = this.pr_status
             this.emitter.emit('get_filters', {
                 params: this.params,
             });
@@ -157,6 +193,9 @@ export default {
                 limit: this.limit,
                 department: this.department,
                 currency: this.currency,
+                sti_status: this.sti_status,
+                ci_status: this.ci_status,
+                pr_status: this.pr_status,
             }
             return JSON.stringify(param)
         }
