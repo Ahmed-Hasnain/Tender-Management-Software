@@ -469,4 +469,56 @@ class SupplyOrderController extends Controller
             ]);
         }
     }
+
+    public function invoiceReports($reportParams) 
+    {
+        try {
+            $params = json_decode($reportParams, true);
+            $ids = $params['ids'];
+            $company = $params['company'];
+            $status = $params['status'];
+            $startDate = $params['start_date'];
+            $endDate = $params['end_date'];
+            $limit = $params['limit'];
+            $supplyOrders = SupplyOrder::whereIn('id', $ids)->with('quotation.tender.client', 'quotation.tender.company', 'paymentRecieving')->get();
+            $data = [
+                'supplyOrders' =>  $supplyOrders,
+                'status' => $status,
+                'startDate' => $startDate,
+                'endDate' => $endDate,
+                'limit' => $limit,
+                'totalAmount' => calculateSum($supplyOrders, 'supplyOrder'),
+                'report_type' => 'Invoice',
+            ];
+            switch ($company) {
+                case 'OndreTicaretTemplate':
+                    $data['logo'] = "assets/images/logo/onder-logo.png";
+                    $data['company'] = "Onder Ticaret";
+                    $pdf = Pdf::loadView('Reports/OnderTicaret', $data); 
+                    break;
+                case 'MSaadAndCompanyTemplate':
+                    $data['logo'] = "assets/images/logo/saad&co.png";
+                    $data['company'] = "Muhammad Saad And Company";
+                    $pdf = Pdf::loadView('Reports/MSaadAndCompany', $data); 
+                    break;
+                case 'AscentTemplate':
+                    $data['logo'] = "assets/images/logo/ascent.png";
+                    $data['company'] = "Ascent Tech";
+                    $pdf = Pdf::loadView('Reports/AscentTech', $data); 
+                    break;
+                default:
+                    $data['logo'] = "assets/images/logo/ascent.png";
+                    $data['company'] = "None";
+                    $pdf = Pdf::loadView('Reports/Tender', $data); 
+                    break; 
+            }
+            return $pdf->download('Invoice-Report.pdf');
+        } catch (\Throwable $th) {
+            Log::error([
+                'message' => $th->getMessage(),
+                'line' => $th->getLine(),
+                'file' => $th->getFile(),
+            ]);
+        }
+    }
 }

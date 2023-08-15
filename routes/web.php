@@ -101,6 +101,7 @@ Route::middleware(['auth', 'verified'])
             Route::get('/downloadSupplyOrder/{supplyOrderId}/{company}/{type}', [Admin\SupplyOrderController::class, 'downloadSupplyOrder'])->name('downloadSupplyOrder');
             Route::get('invoices', [Admin\SupplyOrderController::class, 'getInvoices'])->name('invoices');
             Route::get('/get-supply-order-reports/{reportParams?}', [Admin\SupplyOrderController::class, 'supplyOrderReports'])->name('getSupplyOrderReports');
+            Route::get('/get-invoice-reports/{reportParams?}', [Admin\SupplyOrderController::class, 'invoiceReports'])->name('getInvoiceReports');
         });
         //Delivery Challan
         Route::group(['middleware' => ['can:view_delivery_challan']], function () {

@@ -121,7 +121,7 @@ export default {
             pr_status: this.selectedPrStatus,
             keyword: this.searchedKeyword,
             url: 'dashboard.invoices',
-            reportUrl: 'dashboard.getSupplyOrderReports',
+            reportUrl: 'dashboard.getInvoiceReports',
             reportName: 'Generate Invoice Reports',
             params: {
                 company: this.selectedCompany,

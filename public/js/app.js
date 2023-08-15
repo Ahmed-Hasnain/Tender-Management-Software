@@ -22183,7 +22183,7 @@ __webpack_require__.r(__webpack_exports__);
       pr_status: this.selectedPrStatus,
       keyword: this.searchedKeyword,
       url: 'dashboard.invoices',
-      reportUrl: 'dashboard.getSupplyOrderReports',
+      reportUrl: 'dashboard.getInvoiceReports',
       reportName: 'Generate Invoice Reports',
       params: {
         company: this.selectedCompany,
