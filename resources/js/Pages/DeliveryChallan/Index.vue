@@ -30,6 +30,7 @@
                             :totalItems="totalDeliveryChallans" 
                             :selectedDepartment="department" 
                             :allDepartments="allDepartments" 
+                           
                             :url="url"
                             :reportUrl="reportUrl" 
                             :ids="deliveryChallanIds"
@@ -95,7 +96,7 @@ export default {
         search,
         filters
     },
-    props: ['deliveryChallan', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalDeliveryChallans', 'deliveryChallanIds', 'selectedDepartment', 'allDepartments'],
+    props: ['deliveryChallan', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalDeliveryChallans', 'deliveryChallanIds', 'selectedDepartment', 'allDepartments', 'selectedItemStatus', 'selectedAmountIncluded'],
     data() {
         return{
             allDeliveryChallan: this.deliveryChallan,
@@ -105,6 +106,8 @@ export default {
             endDate: this.selectedEndDate,
             limit: this.selectedLimit,
             department: this.selectedDepartment,
+            item_status: this.selectedItemStatus,
+            amount_included: this.selectedAmountIncluded,
             keyword: this.searchedKeyword,
             url: 'dashboard.delivery-challan.index',
             reportUrl: 'dashboard.getDeliveryChallanReports',
@@ -116,6 +119,8 @@ export default {
                 endDate: this.selectedEndDate,
                 limit: this.selectedLimit,
                 department: this.selectedDepartment,
+                item_status: this.selectedItemStatus,
+                amount_included: this.selectedAmountIncluded,
             }
         }
     },
@@ -176,6 +181,8 @@ export default {
                 this.params.endDate = args.params.endDate
                 this.params.limit = args.params.limit
                 this.params.department = args.params.department
+                this.params.item_status = args.params.item_status
+                this.params.amount_included = args.params.amount_included
             }
         })
     },

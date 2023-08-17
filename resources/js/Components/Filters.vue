@@ -3,7 +3,7 @@
         <div class="col-sm-12 col-md-12 px-3">
             <div class="row">
                 <div id="DataTables_Table_0_filter" class="dataTables_filter" style="text-align: left;">
-                    <label>
+                    <label class="px-2">
                         <span class="px-2">Company</span>
                         <select class="form-control form-control-sm mt-1 custom-select-new" v-model="company"
                             @change="applyFilter()">
@@ -112,6 +112,24 @@
                             <option value="pending" class="text-capitalize">Pending</option>
                         </select>
                     </label>
+                    <label class="px-2" v-if="type == 'deliveryChallan'">
+                        <span class="px-2">Item Status</span>
+                        <select class="form-control form-control-sm mt-1 custom-select-new" v-model="item_status"
+                            @change="applyFilter()">
+                            <option value="" class="text-capitalize">Select Item Status</option>
+                            <option value="delivered" class="text-capitalize">Delivered</option>
+                            <option value="pending" class="text-capitalize">Pending</option>
+                        </select>
+                    </label>
+                    <label class="px-2" v-if="type == 'deliveryChallan'">
+                        <span class="px-2">Amount Included</span>
+                        <select class="form-control form-control-sm mt-1 custom-select-new" v-model="amount_included"
+                            @change="applyFilter()">
+                            <option value="" class="text-capitalize">Select Amount Included</option>
+                            <option value="amount_included" class="text-capitalize">Amount Included</option>
+                            <option value="amount_not_included" class="text-capitalize">Amount Not Included</option>
+                        </select>
+                    </label>
                 </div>
             </div>
             <div class="row pt-2">
@@ -130,7 +148,7 @@ export default {
     components: {
         Datepicker,
     },
-    props: ['searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalItems', 'selectedDepartment', 'allDepartments', 'url', 'reportUrl', 'ids', 'reportName', 'type', 'selectedCurrency', 'selectedStiStatus', 'selectedCiStatus', 'selectedPrStatus'],
+    props: ['searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalItems', 'selectedDepartment', 'allDepartments', 'url', 'reportUrl', 'ids', 'reportName', 'type', 'selectedCurrency', 'selectedStiStatus', 'selectedCiStatus', 'selectedPrStatus', 'selectedItemStatus', 'selectedAmountIncluded'],
     data() {
         return{
             allTenders: this.tenders,
@@ -144,6 +162,8 @@ export default {
             sti_status: this.selectedStiStatus,
             ci_status: this.selectedCiStatus,
             pr_status: this.selectedPrStatus,
+            item_status: this.selectedItemStatus,
+            amount_included: this.selectedAmountIncluded,
             keyword: this.searchedKeyword,
             searchedUrl: this.url,
             params: {
@@ -157,6 +177,8 @@ export default {
                 sti_status: this.selectedStiStatus,
                 ci_status: this.selectedCiStatus,
                 pr_status: this.selectedPrStatus,
+                item_status: this.selectedItemStatus,
+                amount_included: this.selectedAmountIncluded,
             }
         }
     },
@@ -172,6 +194,8 @@ export default {
             this.params.sti_status = this.sti_status
             this.params.ci_status = this.ci_status
             this.params.pr_status = this.pr_status
+            this.params.item_status = this.item_status
+            this.params.amount_included = this.amount_included
             this.emitter.emit('get_filters', {
                 params: this.params,
             });
@@ -196,6 +220,8 @@ export default {
                 sti_status: this.sti_status,
                 ci_status: this.ci_status,
                 pr_status: this.pr_status,
+                item_status: this.item_status,
+                amount_included: this.amount_included,
             }
             return JSON.stringify(param)
         }
@@ -214,12 +240,14 @@ export default {
 
 <style>
 .custom-select-new{
-    max-width: 180px !important;
+    max-width: 200px !important;
+    min-width: 200px !important;
 }
 .custom-datepicker{
     max-width: 2000px !important;
 }
 .custom-datepicker input{
-    max-width: 180px !important;
+    max-width: 200px !important;
+    min-width: 200px !important;
 }
 </style>

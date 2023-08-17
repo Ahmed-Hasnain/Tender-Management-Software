@@ -36,7 +36,10 @@ class DeliveryChallanController extends Controller
             $departmentParam = request()->input('params') && request()->input('params')['department'] ? request()->input('params')['department'] : "";
             $startDate = request()->input('params') && request()->input('params')['startDate'] ? setDateValues(request()->input('params')['startDate']) : "";
             $endDate = request()->input('params') && request()->input('params')['endDate'] ? setDateValues(request()->input('params')['endDate']) : "";
+            $itemStatusParam = request()->input('params') && request()->input('params')['item_status'] ? request()->input('params')['item_status'] : "";
+            $amountIncludedParam = request()->input('params') && request()->input('params')['amount_included'] ? request()->input('params')['amount_included'] : "";
             $limit = request()->input('params') && request()->input('params')['limit'] ? request()->input('params')['limit'] : 10;
+
             switch ($companyParam) {
                 case 'OndreTicaretTemplate':
                     $company = 'Onder Ticaret (Private) Limited';
@@ -98,6 +101,8 @@ class DeliveryChallanController extends Controller
                 'selectedStartDate' => $startDate,
                 'selectedEndDate' => $endDate,
                 'selectedLimit' => $limit,
+                'selectedItemStatus' => $itemStatusParam,
+                'selectedAmountIncluded' => $amountIncludedParam,
                 'totalDeliveryChallans' => DeliveryChallan::count(),
                 'deliveryChallanIds' => $deliveryChallan->pluck('id')->toArray(),
                 'allDepartments' => Client::select('name')->get(),
