@@ -386,7 +386,7 @@
                         <td class="">{{$deliveryChallan->supplyOrder?->quotation?->tender?->client?->name}}</td>
                         <td class="">{{$deliveryChallan->supplyOrder?->quotation?->tender?->file_name}}</td>
                         <td class="">{{upperCaseAndRemoveUnderscore($deliveryChallan->supplyOrder?->status)}}</td>
-                        <td class="">{{$deliveryChallan->supplyOrder->quotation?->currency}} {{numberFormate($deliveryChallan->total)}}</td>
+                        <td class="">{{$deliveryChallan->supplyOrder->quotation?->currency}}  {{numberFormate(calculateTaxAndGetTotal($deliveryChallan->total, $deliveryChallan->supplyOrder->quotation->tax))}}</td>
                     </tr>
                 @endforeach
                     <tr>

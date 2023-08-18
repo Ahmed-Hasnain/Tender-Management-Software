@@ -114,7 +114,18 @@ function calculateSum($data, $type)
                 }
             });
             break;
-        
+        case 'deliveryChallan':
+            $data->each(function ($item, $key) use (&$total_amount){
+                if ($item->supplyOrder->quotation->tax) {
+                    $tax = ((float)$item->total / 100 ) * (float) $item->supplyOrder->quotation->tax;
+                    $items_total = (float)$item->total + $tax;
+                    $total_amount += (float)$items_total;
+                } else {
+                    $total_amount += (float)$item->total;
+                }
+            });
+            break;
+
         default:
             # code...
             break;

@@ -38,6 +38,7 @@
                             :ids="tenderIds"
                             :reportName="reportName"
                             :type="'tender'"
+                            :selectedFilters="selectedFilters"
                         />
                         <div class="row">
                             <div class="col-sm-12">
@@ -127,7 +128,15 @@ export default {
                 endDate: this.selectedEndDate,
                 limit: this.selectedLimit,
                 department: this.selectedDepartment,
-            }
+            },
+            selectedFilters: [
+                'company',
+                'status',
+                'start_date',
+                'end_date',
+                'limit',
+                'department'
+            ],
         }
     },
     methods: {

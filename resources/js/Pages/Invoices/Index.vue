@@ -39,6 +39,7 @@
                             :ids="supplyOrderIds"
                             :reportName="reportName"
                             :type="'invoices'"
+                            :selectedFilters="selectedFilters"
                         />
                         <div class="row">
                             <div class="col-sm-12">
@@ -134,7 +135,19 @@ export default {
                 sti_status: this.selectedStiStatus,
                 ci_status: this.selectedCiStatus,
                 pr_status: this.selectedPrStatus,
-            }
+            },
+            selectedFilters: [
+                'company',
+                'status',
+                'start_date',
+                'end_date',
+                'limit',
+                'department',
+                'currency',
+                'sti_status',
+                'ci_status',
+                'pr_status',
+            ],
         }
     },
     methods: {

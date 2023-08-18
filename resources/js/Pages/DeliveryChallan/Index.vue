@@ -29,13 +29,16 @@
                             :selectedLimit="limit" 
                             :totalItems="totalDeliveryChallans" 
                             :selectedDepartment="department" 
+                            :selectedItemStatus="selectedItemStatus" 
+                            :selectedAmountIncluded="selectedAmountIncluded"
+                            :selectedCurrency="selectedCurrency" 
                             :allDepartments="allDepartments" 
-                           
                             :url="url"
                             :reportUrl="reportUrl" 
                             :ids="deliveryChallanIds"
                             :reportName="reportName"
                             :type="'deliveryChallan'"
+                            :selectedFilters="selectedFilters"
                         />
                         <div class="row">
                             <div class="col-sm-12">
@@ -96,7 +99,7 @@ export default {
         search,
         filters
     },
-    props: ['deliveryChallan', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalDeliveryChallans', 'deliveryChallanIds', 'selectedDepartment', 'allDepartments', 'selectedItemStatus', 'selectedAmountIncluded'],
+    props: ['deliveryChallan', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalDeliveryChallans', 'deliveryChallanIds', 'selectedDepartment', 'allDepartments', 'selectedItemStatus', 'selectedAmountIncluded', 'selectedCurrency'],
     data() {
         return{
             allDeliveryChallan: this.deliveryChallan,
@@ -108,6 +111,7 @@ export default {
             department: this.selectedDepartment,
             item_status: this.selectedItemStatus,
             amount_included: this.selectedAmountIncluded,
+            currency: this.selectedCurrency,
             keyword: this.searchedKeyword,
             url: 'dashboard.delivery-challan.index',
             reportUrl: 'dashboard.getDeliveryChallanReports',
@@ -121,7 +125,17 @@ export default {
                 department: this.selectedDepartment,
                 item_status: this.selectedItemStatus,
                 amount_included: this.selectedAmountIncluded,
-            }
+                currency: this.selectedCurrency,
+            },
+            selectedFilters: [
+                'company',
+                'status',
+                'start_date',
+                'end_date',
+                'limit',
+                'department',
+                'currency'
+            ],
         }
     },
     methods: {
@@ -183,6 +197,7 @@ export default {
                 this.params.department = args.params.department
                 this.params.item_status = args.params.item_status
                 this.params.amount_included = args.params.amount_included
+                this.params.currency = args.params.currency
             }
         })
     },

@@ -39,6 +39,7 @@ class DeliveryChallanController extends Controller
             $itemStatusParam = request()->input('params') && request()->input('params')['item_status'] ? request()->input('params')['item_status'] : "";
             $amountIncludedParam = request()->input('params') && request()->input('params')['amount_included'] ? request()->input('params')['amount_included'] : "";
             $limit = request()->input('params') && request()->input('params')['limit'] ? request()->input('params')['limit'] : 10;
+            $currency = request()->input('params') && request()->input('params')['currency'] ? request()->input('params')['currency'] : "";
 
             switch ($companyParam) {
                 case 'OndreTicaretTemplate':
@@ -54,7 +55,7 @@ class DeliveryChallanController extends Controller
                     $company = null;
                     break;
             }
-            $deliveryChallan = DeliveryChallan::with('supplyOrder.quotation.tender')->where(function ($query) use ($company, $statusParam, $startDate, $endDate, $departmentParam){
+            $deliveryChallan = DeliveryChallan::with('supplyOrder.quotation.tender')->where(function ($query) use ($company, $statusParam, $startDate, $endDate, $departmentParam, $currency){
                 $keyword = request()->input('keyword');
                 $query->when($keyword, function ($subQuery) use ($keyword){
                     $subQuery->where('reference_no', 'like', '%' . $keyword . '%')
@@ -71,13 +72,20 @@ class DeliveryChallanController extends Controller
                 $query->when($startDate && $endDate, function ($subQuery) use ($startDate, $endDate){
                     $subQuery->whereBetween('created_at', [$startDate, $endDate]);
                 });
-                $query->whereHas('supplyOrder', function ($query) use ($company, $statusParam, $startDate, $endDate, $departmentParam) {
+                $query->whereHas('supplyOrder', function ($query) use ($company, $statusParam, $startDate, $endDate, $departmentParam, $currency) {
                     // status filter
                     $query->when($statusParam, function ($subQuery) use ($statusParam){
                         $subQuery->where('status', $statusParam);
                     });
                     //quotation filters
-                    $query->whereHas('quotation', function ($query) use ($company, $departmentParam){
+                    $query->whereHas('quotation', function ($query) use ($company, $departmentParam, $currency){
+                        // currency filter
+                        $query->when($currency && $currency == 'local', function ($query) {
+                            $query->where('currency', 'PKR');
+                        });
+                        $query->when($currency && $currency == 'foreign',  function ($query) {
+                            $query->where('currency', '!=', 'PKR');
+                        });
                         //tender filters
                         $query->whereHas('tender', function ($query) use ($company, $departmentParam){
                             //company filter
@@ -103,6 +111,7 @@ class DeliveryChallanController extends Controller
                 'selectedLimit' => $limit,
                 'selectedItemStatus' => $itemStatusParam,
                 'selectedAmountIncluded' => $amountIncludedParam,
+                'selectedCurrency' => $currency,
                 'totalDeliveryChallans' => DeliveryChallan::count(),
                 'deliveryChallanIds' => $deliveryChallan->pluck('id')->toArray(),
                 'allDepartments' => Client::select('name')->get(),
@@ -249,7 +258,11 @@ class DeliveryChallanController extends Controller
             // return view('DeliveryChallan/OndreTicaretDCTemplate', $data);
             return $pdf->download('Delivery-Challan-' . $deliveryChallan->supplyOrder->quotation->reference_no . '.pdf');
         } catch (\Throwable $th) {
-            Log::info($th->getMessage());
+            Log::error([
+                'message' => $th->getMessage(),
+                'line' => $th->getLine(),
+                'file' => $th->getFile(),
+            ]);
         }
     }
 
@@ -263,14 +276,14 @@ class DeliveryChallanController extends Controller
             $startDate = $params['start_date'];
             $endDate = $params['end_date'];
             $limit = $params['limit'];
-            $deliveryChallans = DeliveryChallan::whereIn('id', $ids)->with('supplyOrder.quotation.tender.client', 'supplyOrder.quotation.tender.company')->get();
+            $deliveryChallans = DeliveryChallan::whereIn('id', $ids)->with('supplyOrder.quotation.tender.client', 'supplyOrder.quotation.tender.company', 'supplyOrder.items.quotationItem.tenderItem.item')->get();
             $data = [
                 'deliveryChallans' =>  $deliveryChallans,
                 'status' => $status,
                 'startDate' => $startDate,
                 'endDate' => $endDate,
                 'limit' => $limit,
-                'totalAmount' => $deliveryChallans->sum('total'),
+                'totalAmount' => calculateSum($deliveryChallans, 'deliveryChallan'),
                 'report_type' => 'Delivery Challan',
             ];
             switch ($company) {

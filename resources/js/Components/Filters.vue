@@ -3,7 +3,7 @@
         <div class="col-sm-12 col-md-12 px-3">
             <div class="row">
                 <div id="DataTables_Table_0_filter" class="dataTables_filter" style="text-align: left;">
-                    <label class="px-2">
+                    <label class="px-2" v-if="selected_filters.includes('company')">
                         <span class="px-2">Company</span>
                         <select class="form-control form-control-sm mt-1 custom-select-new" v-model="company"
                             @change="applyFilter()">
@@ -13,7 +13,7 @@
                             <option value="AscentTemplate" class="text-capitalize">Ascent Tech</option>
                         </select>
                     </label>
-                    <label class="px-2">
+                    <label class="px-2" v-if="selected_filters.includes('status')">
                         <span class="px-2">Status</span>
                         <select class="form-control form-control-sm mt-1 custom-select-new" v-model="status"
                             @change="applyFilter()" v-if="type == 'tender' || type == 'quotation'">
@@ -43,17 +43,17 @@
                             <option value="completed" class="text-capitalize">Completed</option>
                         </select>
                     </label>
-                    <label class="">
+                    <label class="" v-if="selected_filters.includes('start_date')">
                         <span class="px-2 pb-5">Start Date</span>
                         <Datepicker v-model="startDate" :enable-time-picker="false" class="pt-1 custom-datepicker"
                             @update:model-value="applyFilter()"></Datepicker>
                     </label>
-                    <label class="">
+                    <label class="" v-if="selected_filters.includes('end_date')">
                         <span class="px-2 pb-5">End Date</span>
                         <Datepicker v-model="endDate" :enable-time-picker="false" class="pt-1 custom-datepicker"
                             @update:model-value="applyFilter()"></Datepicker>
                     </label>
-                    <label class="px-2">
+                    <label class="px-2" v-if="selected_filters.includes('department')">
                         <span class="px-2">Department</span>
                         <select class="form-control form-control-sm mt-1 custom-select-new" v-model="department"
                             @change="applyFilter()">
@@ -62,7 +62,7 @@
                                 :key="index">{{ dept.name }}</option>
                         </select>
                     </label>
-                    <label class="px-2">
+                    <label class="px-2" v-if="selected_filters.includes('limit')">
                         <span class="px-2">Limit</span>
                         <select class="form-control form-control-sm mt-1 custom-select-new" v-model="limit"
                             @change="applyFilter()">
@@ -76,7 +76,7 @@
                             <option value="500" class="text-capitalize">500</option>
                         </select>
                     </label>
-                    <label class="px-2" v-if="type == 'supplyOrder' || type == 'quotation' || type == 'invoices'">
+                    <label class="px-2" v-if="selected_filters.includes('currency')">
                         <span class="px-2">Type of demand</span>
                         <select class="form-control form-control-sm mt-1 custom-select-new" v-model="currency"
                             @change="applyFilter()">
@@ -85,7 +85,7 @@
                             <option value="foreign" class="text-capitalize">Foreign</option>
                         </select>
                     </label>
-                    <label class="px-2" v-if="type == 'invoices'">
+                    <label class="px-2" v-if="selected_filters.includes('sti_status')">
                         <span class="px-2">STI Status</span>
                         <select class="form-control form-control-sm mt-1 custom-select-new" v-model="sti_status"
                             @change="applyFilter()">
@@ -94,7 +94,7 @@
                             <option value="not_downloaded" class="text-capitalize">Not Downloaded</option>
                         </select>
                     </label>
-                    <label class="px-2" v-if="type == 'invoices'">
+                    <label class="px-2" v-if="selected_filters.includes('ci_status')">
                         <span class="px-2">CI Status</span>
                         <select class="form-control form-control-sm mt-1 custom-select-new" v-model="ci_status"
                             @change="applyFilter()">
@@ -103,7 +103,7 @@
                             <option value="not_downloaded" class="text-capitalize">Not Downloaded</option>
                         </select>
                     </label>
-                    <label class="px-2" v-if="type == 'invoices'">
+                    <label class="px-2" v-if="selected_filters.includes('pr_status')">
                         <span class="px-2">PR Status</span>
                         <select class="form-control form-control-sm mt-1 custom-select-new" v-model="pr_status"
                             @change="applyFilter()">
@@ -112,7 +112,7 @@
                             <option value="pending" class="text-capitalize">Pending</option>
                         </select>
                     </label>
-                    <label class="px-2" v-if="type == 'deliveryChallan'">
+                    <label class="px-2" v-if="selected_filters.includes('item_status')">
                         <span class="px-2">Item Status</span>
                         <select class="form-control form-control-sm mt-1 custom-select-new" v-model="item_status"
                             @change="applyFilter()">
@@ -121,7 +121,7 @@
                             <option value="pending" class="text-capitalize">Pending</option>
                         </select>
                     </label>
-                    <label class="px-2" v-if="type == 'deliveryChallan'">
+                    <label class="px-2" v-if="selected_filters.includes('amount_included')">
                         <span class="px-2">Amount Included</span>
                         <select class="form-control form-control-sm mt-1 custom-select-new" v-model="amount_included"
                             @change="applyFilter()">
@@ -148,7 +148,7 @@ export default {
     components: {
         Datepicker,
     },
-    props: ['searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalItems', 'selectedDepartment', 'allDepartments', 'url', 'reportUrl', 'ids', 'reportName', 'type', 'selectedCurrency', 'selectedStiStatus', 'selectedCiStatus', 'selectedPrStatus', 'selectedItemStatus', 'selectedAmountIncluded'],
+    props: ['searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalItems', 'selectedDepartment', 'allDepartments', 'url', 'reportUrl', 'ids', 'reportName', 'type', 'selectedCurrency', 'selectedStiStatus', 'selectedCiStatus', 'selectedPrStatus', 'selectedItemStatus', 'selectedAmountIncluded', 'selectedFilters'],
     data() {
         return{
             allTenders: this.tenders,
@@ -166,6 +166,7 @@ export default {
             amount_included: this.selectedAmountIncluded,
             keyword: this.searchedKeyword,
             searchedUrl: this.url,
+            selected_filters: this.selectedFilters,
             params: {
                 company: this.selectedCompany,
                 status: this.selectedStatus,
@@ -233,6 +234,9 @@ export default {
             },
             deep: true
         },
+    },
+    mounted(){
+        console.log(this.selected_filters, 'selected filters');
     },
     mixins: [Helpers]
 }

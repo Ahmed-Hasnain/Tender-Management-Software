@@ -36,6 +36,7 @@
                             :ids="supplyOrderIds"
                             :reportName="reportName"
                             :type="'supplyOrder'"
+                            :selectedFilters="selectedFilters"
                         />
                         <div class="row">
                             <div class="col-sm-12">
@@ -125,7 +126,16 @@ export default {
                 limit: this.selectedLimit,
                 department: this.selectedDepartment,
                 currency: this.selectedCurrency,
-            }
+            },
+            selectedFilters: [
+                'company',
+                'status',
+                'start_date',
+                'end_date',
+                'limit',
+                'department',
+                'currency'
+            ],
         }
     },
     methods: {
