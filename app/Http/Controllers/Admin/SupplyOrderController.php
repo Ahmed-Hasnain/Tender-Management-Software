@@ -37,6 +37,8 @@ class SupplyOrderController extends Controller
             $endDate = request()->input('params') && request()->input('params')['endDate'] ? setDateValues(request()->input('params')['endDate']) : "";
             $limit = request()->input('params') && request()->input('params')['limit'] ? request()->input('params')['limit'] : 10;
             $currency = request()->input('params') && request()->input('params')['currency'] ? request()->input('params')['currency'] : "";
+            $itemStatusParam = request()->input('params') && request()->input('params')['item_status'] ? request()->input('params')['item_status'] : "";
+            $amountIncludedParam = request()->input('params') && request()->input('params')['amount_included'] ? request()->input('params')['amount_included'] : "";
             switch ($companyParam) {
                 case 'OndreTicaretTemplate':
                     $company = 'Onder Ticaret (Private) Limited';
@@ -51,7 +53,7 @@ class SupplyOrderController extends Controller
                     $company = null;
                     break;
             }
-            $supplyOrder = SupplyOrder::with('quotation.tender', 'items')->where(function ($query) use ($company, $statusParam, $startDate, $endDate, $departmentParam, $currency){
+            $supplyOrder = SupplyOrder::with('quotation.tender', 'items')->where(function ($query) use ($company, $statusParam, $startDate, $endDate, $departmentParam, $currency, $itemStatusParam, $amountIncludedParam){
                 $keyword = request()->input('keyword');
                 $query->when($keyword, function ($subQuery) use ($keyword){
                     $subQuery->WhereHas('quotation', function($query) use ($keyword){
@@ -68,6 +70,13 @@ class SupplyOrderController extends Controller
                 //supply order date filter
                 $query->when($startDate && $endDate, function ($subQuery) use ($startDate, $endDate){
                     $subQuery->whereBetween('date_of_supply_order', [$startDate, $endDate]);
+                });
+                //item status filter
+                $query->when($itemStatusParam && $itemStatusParam == 'delivered' , function ($subQuery) use ($itemStatusParam){
+                    $subQuery->whereRelation('items', 'qty_left', 0 );
+                });
+                $query->when($itemStatusParam && $itemStatusParam == 'pending' , function ($subQuery) use ($itemStatusParam){
+                    $subQuery->whereRelation('items', 'qty_left', '!=' , 0 );
                 });
                 //quotation filters
                 $query->whereHas('quotation', function ($query) use ($company, $departmentParam, $currency){
@@ -91,6 +100,8 @@ class SupplyOrderController extends Controller
                     });
                 });
             })->orderBy('id', 'desc')->paginate($limit);
+
+            // dd($supplyOrder);
             return Inertia::render('SupplyOrder/Index', [
                 'supplyOrder' => $supplyOrder,
                 'searchedKeyword' => request()->input('keyword') ?? '',
@@ -101,6 +112,8 @@ class SupplyOrderController extends Controller
                 'selectedEndDate' => $endDate,
                 'selectedLimit' => $limit,
                 'selectedCurrency' => $currency,
+                'selectedItemStatus' => $itemStatusParam,
+                'selectedAmountIncluded' => $amountIncludedParam,
                 'totalSupplyOrders' => SupplyOrder::count(),
                 'supplyOrderIds' => $supplyOrder->pluck('id')->toArray(),
                 'allDepartments' => Client::select('name')->get(),
@@ -428,7 +441,9 @@ class SupplyOrderController extends Controller
             $startDate = $params['start_date'];
             $endDate = $params['end_date'];
             $limit = $params['limit'];
-            $supplyOrders = SupplyOrder::whereIn('id', $ids)->with('quotation.tender.client', 'quotation.tender.company')->get();
+            $itemStatus = $params['item_status'];
+            $amountIncluded = $params['amount_included'];
+            $supplyOrders = SupplyOrder::whereIn('id', $ids)->with('quotation.tender.client', 'quotation.tender.company', 'items.quotationItem.tenderItem.item')->get();
             $data = [
                 'supplyOrders' =>  $supplyOrders,
                 'status' => $status,
@@ -437,6 +452,8 @@ class SupplyOrderController extends Controller
                 'limit' => $limit,
                 'totalAmount' => calculateSum($supplyOrders, 'supplyOrder'),
                 'report_type' => 'Supply Order',
+                'itemStatus' => $itemStatus,
+                'amountIncluded' => $amountIncluded,
             ];
             switch ($company) {
                 case 'OndreTicaretTemplate':

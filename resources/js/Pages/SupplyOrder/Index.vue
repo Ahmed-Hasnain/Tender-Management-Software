@@ -30,7 +30,9 @@
                             :totalItems="totalSupplyOrders" 
                             :selectedDepartment="department" 
                             :allDepartments="allDepartments" 
-                            :selectedCurrency="selectedCurrency" 
+                            :selectedCurrency="selectedCurrency"
+                            :selectedItemStatus="selectedItemStatus" 
+                            :selectedAmountIncluded="selectedAmountIncluded" 
                             :url="url"
                             :reportUrl="reportUrl" 
                             :ids="supplyOrderIds"
@@ -103,7 +105,7 @@ export default {
         search,
         filters
     },
-    props: ['supplyOrder', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalSupplyOrders', 'supplyOrderIds', 'selectedDepartment', 'allDepartments', 'selectedCurrency'],
+    props: ['supplyOrder', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalSupplyOrders', 'supplyOrderIds', 'selectedDepartment', 'allDepartments', 'selectedCurrency', 'selectedItemStatus', 'selectedAmountIncluded'],
     data() {
         return{
             allSupplyOrder: this.supplyOrder,
@@ -114,6 +116,8 @@ export default {
             limit: this.selectedLimit,
             department: this.selectedDepartment,
             currency: this.selectedCurrency,
+            item_status: this.selectedItemStatus,
+            amount_included: this.selectedAmountIncluded,
             keyword: this.searchedKeyword,
             url: 'dashboard.supply-order.index',
             reportUrl: 'dashboard.getSupplyOrderReports',
@@ -126,6 +130,8 @@ export default {
                 limit: this.selectedLimit,
                 department: this.selectedDepartment,
                 currency: this.selectedCurrency,
+                item_status: this.selectedItemStatus,
+                amount_included: this.selectedAmountIncluded,
             },
             selectedFilters: [
                 'company',
@@ -134,7 +140,9 @@ export default {
                 'end_date',
                 'limit',
                 'department',
-                'currency'
+                'currency',
+                'item_status',
+                'amount_included'
             ],
         }
     },
@@ -208,6 +216,8 @@ export default {
                 this.params.limit = args.params.limit
                 this.params.department = args.params.department
                 this.params.currency = args.params.currency
+                this.params.item_status = args.params.item_status
+                this.params.amount_included = args.params.amount_included
             }
         })
     },

@@ -134,7 +134,7 @@ export default {
                 'end_date',
                 'limit',
                 'department',
-                'currency'
+                'currency',
             ],
         }
     },
