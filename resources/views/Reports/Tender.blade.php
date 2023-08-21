@@ -640,31 +640,65 @@
     </div>
     <br>
     @if ($report_type == 'Tender')
-    <table>
-        <thead>
-            <tr>
-                <th class="">Sr#</th>
-                <th class="w-20">Dept Ref#</th>
-                <th class="w-20">Dept Name</th>
-                <th class="w-20">File Name</th>
-                <th class="w-20">RFQ Date</th>
-                <th class="w-20">LDoS Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($tenders as $key => $tender)
-            <tr>
-                <td class="">{{$key+1}}</td>
-                <td class="">{{$tender->reference_no}}</td>
-                <td class="">{{$tender->client?->name}}</td>
-                <td class="">{{$tender->file_name}}</td>
-                <td class="">{{dateFormate($tender->rfq_date)}}</td>
-                <td class="">{{dateFormate($tender->last_date_of_submission)}}</td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-    @endif
+        @if ($status == 'pending')
+        <table>
+            <thead>
+                <tr>
+                    <th class="">Sr#</th>
+                    <th class="">Tender Ref#</th>
+                    <th class="">File Name</th>
+                    <th class="">Item Pending</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($tenders as $key => $tender)
+                <tr>
+                    <td class="">{{$key+1}}</td>
+                    <td class="">{{$tender?->reference_no}} <br><small>{{dateFormate($tender?->rfq_date)}}</small></td>
+                    <td class="">{{$tender?->file_name}}</td>
+                    <td class="">
+                        <table>
+                            <tbody>
+                                @foreach($tender->items as $item)
+                                <tr>
+                                    <td class="w-80">{{$item->item->name}}({{$item->description}}) Qty: {{$item->qty}}</td>
+                                    <td class="w-20"></td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        @else
+        <table>
+            <thead>
+                <tr>
+                    <th class="">Sr#</th>
+                    <th class="w-20">Dept Ref#</th>
+                    <th class="w-20">Dept Name</th>
+                    <th class="w-20">File Name</th>
+                    <th class="w-20">RFQ Date</th>
+                    <th class="w-20">LDoS Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($tenders as $key => $tender)
+                <tr>
+                    <td class="">{{$key+1}}</td>
+                    <td class="">{{$tender->reference_no}}</td>
+                    <td class="">{{$tender->client?->name}}</td>
+                    <td class="">{{$tender->file_name}}</td>
+                    <td class="">{{dateFormate($tender->rfq_date)}}</td>
+                    <td class="">{{dateFormate($tender->last_date_of_submission)}}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        @endif
+        @endif
 
     @if ($report_type == 'Quotation')
     <table>

@@ -267,7 +267,7 @@ class TenderController extends Controller
             $startDate = $params['start_date'];
             $endDate = $params['end_date'];
             $limit = $params['limit'];
-            $tenders = Tender::whereIn('id', $ids)->with('client', 'company')->get();
+            $tenders = Tender::whereIn('id', $ids)->with('client', 'company', 'items.item')->get();
             $data = [
                 'tenders' =>  $tenders,
                 'status' => $status,
