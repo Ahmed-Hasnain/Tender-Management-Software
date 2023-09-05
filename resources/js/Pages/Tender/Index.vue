@@ -32,7 +32,8 @@
                             :selectedLimit="limit" 
                             :totalItems="totalTenders" 
                             :selectedDepartment="department" 
-                            :allDepartments="allDepartments" 
+                            :allDepartments="allDepartments"
+                            :selectedReportType="reportType" 
                             :url="url"
                             :reportUrl="reportUrl" 
                             :ids="tenderIds"
@@ -107,7 +108,7 @@ export default {
         search,
         filters
     },
-    props: ['tenders', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalTenders', 'tenderIds', 'selectedDepartment', 'allDepartments'],
+    props: ['tenders', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalTenders', 'tenderIds', 'selectedDepartment', 'allDepartments', 'selectedReportType'],
     data() {
         return{
             allTenders: this.tenders,
@@ -117,6 +118,7 @@ export default {
             endDate: this.selectedEndDate,
             limit: this.selectedLimit,
             department: this.selectedDepartment,
+            reportType: this.selectedReportType,
             keyword: this.searchedKeyword,
             url: 'dashboard.tender.index',
             reportUrl: 'dashboard.getTenderReports',
@@ -128,6 +130,7 @@ export default {
                 endDate: this.selectedEndDate,
                 limit: this.selectedLimit,
                 department: this.selectedDepartment,
+                reportType: this.selectedReportType,
             },
             selectedFilters: [
                 'company',
@@ -135,7 +138,8 @@ export default {
                 'start_date',
                 'end_date',
                 'limit',
-                'department'
+                'department',
+                'report_type'
             ],
         }
     },
@@ -214,6 +218,7 @@ export default {
                 this.params.endDate = args.params.endDate
                 this.params.limit = args.params.limit
                 this.params.department = args.params.department
+                this.params.reportType = args.params.reportType
             }
         })
     },

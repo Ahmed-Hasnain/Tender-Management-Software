@@ -45,7 +45,9 @@ export default {
             let sti_status = this.allParams ? '&params[sti_status]=' + this.allParams.sti_status : ''
             let ci_status = this.allParams ? '&params[ci_status]=' + this.allParams.ci_status : ''
             let pr_status = this.allParams ? '&params[pr_status]=' + this.allParams.pr_status : ''
-            return url + searchedKeyword + company + status + department + startDate + endDate + limit  + currency + sti_status + ci_status + pr_status
+            let report_type = this.allParams ? '&params[reportType]=' + this.allParams.reportType : ''
+            
+            return url + searchedKeyword + company + status + department + startDate + endDate + limit  + currency + sti_status + ci_status + pr_status + report_type
         }
     },
 }

@@ -130,6 +130,15 @@
                             <option value="amount_not_included" class="text-capitalize">Amount Not Included</option>
                         </select>
                     </label>
+                    <label class="px-2" v-if="selected_filters.includes('report_type')">
+                        <span class="px-2">Report Type</span>
+                        <select class="form-control form-control-sm mt-1 custom-select-new" v-model="reportType"
+                            @change="applyFilter()">
+                            <option value="" class="text-capitalize">Select Report Type</option>
+                            <option value="file" class="text-capitalize">File</option>
+                            <option value="item" class="text-capitalize">Item</option>
+                        </select>
+                    </label>
                 </div>
             </div>
             <div class="row pt-2">
@@ -148,7 +157,7 @@ export default {
     components: {
         Datepicker,
     },
-    props: ['searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalItems', 'selectedDepartment', 'allDepartments', 'url', 'reportUrl', 'ids', 'reportName', 'type', 'selectedCurrency', 'selectedStiStatus', 'selectedCiStatus', 'selectedPrStatus', 'selectedItemStatus', 'selectedAmountIncluded', 'selectedFilters'],
+    props: ['searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalItems', 'selectedDepartment', 'allDepartments', 'url', 'reportUrl', 'ids', 'reportName', 'type', 'selectedCurrency', 'selectedStiStatus', 'selectedCiStatus', 'selectedPrStatus', 'selectedItemStatus', 'selectedAmountIncluded', 'selectedFilters', 'selectedReportType'],
     data() {
         return{
             allTenders: this.tenders,
@@ -164,6 +173,7 @@ export default {
             pr_status: this.selectedPrStatus,
             item_status: this.selectedItemStatus,
             amount_included: this.selectedAmountIncluded,
+            reportType: this.selectedReportType,
             keyword: this.searchedKeyword,
             searchedUrl: this.url,
             selected_filters: this.selectedFilters,
@@ -180,6 +190,7 @@ export default {
                 pr_status: this.selectedPrStatus,
                 item_status: this.selectedItemStatus,
                 amount_included: this.selectedAmountIncluded,
+                reportType: this.selectedReportType,
             }
         }
     },
@@ -197,6 +208,7 @@ export default {
             this.params.pr_status = this.pr_status
             this.params.item_status = this.item_status
             this.params.amount_included = this.amount_included
+            this.params.reportType = this.reportType
             this.emitter.emit('get_filters', {
                 params: this.params,
             });
@@ -223,6 +235,7 @@ export default {
                 pr_status: this.pr_status,
                 item_status: this.item_status,
                 amount_included: this.amount_included,
+                reportType: this.reportType,
             }
             return JSON.stringify(param)
         }
@@ -236,7 +249,6 @@ export default {
         },
     },
     mounted(){
-        console.log(this.selected_filters, 'selected filters');
     },
     mixins: [Helpers]
 }

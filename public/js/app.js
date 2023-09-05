@@ -19716,7 +19716,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     Datepicker: _vuepic_vue_datepicker__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  props: ['searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalItems', 'selectedDepartment', 'allDepartments', 'url', 'reportUrl', 'ids', 'reportName', 'type', 'selectedCurrency', 'selectedStiStatus', 'selectedCiStatus', 'selectedPrStatus', 'selectedItemStatus', 'selectedAmountIncluded', 'selectedFilters'],
+  props: ['searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalItems', 'selectedDepartment', 'allDepartments', 'url', 'reportUrl', 'ids', 'reportName', 'type', 'selectedCurrency', 'selectedStiStatus', 'selectedCiStatus', 'selectedPrStatus', 'selectedItemStatus', 'selectedAmountIncluded', 'selectedFilters', 'selectedReportType'],
   data: function data() {
     return {
       allTenders: this.tenders,
@@ -19732,6 +19732,7 @@ __webpack_require__.r(__webpack_exports__);
       pr_status: this.selectedPrStatus,
       item_status: this.selectedItemStatus,
       amount_included: this.selectedAmountIncluded,
+      reportType: this.selectedReportType,
       keyword: this.searchedKeyword,
       searchedUrl: this.url,
       selected_filters: this.selectedFilters,
@@ -19747,7 +19748,8 @@ __webpack_require__.r(__webpack_exports__);
         ci_status: this.selectedCiStatus,
         pr_status: this.selectedPrStatus,
         item_status: this.selectedItemStatus,
-        amount_included: this.selectedAmountIncluded
+        amount_included: this.selectedAmountIncluded,
+        reportType: this.selectedReportType
       }
     };
   },
@@ -19766,6 +19768,7 @@ __webpack_require__.r(__webpack_exports__);
       this.params.pr_status = this.pr_status;
       this.params.item_status = this.item_status;
       this.params.amount_included = this.amount_included;
+      this.params.reportType = this.reportType;
       this.emitter.emit('get_filters', {
         params: this.params
       });
@@ -19790,7 +19793,8 @@ __webpack_require__.r(__webpack_exports__);
         ci_status: this.ci_status,
         pr_status: this.pr_status,
         item_status: this.item_status,
-        amount_included: this.amount_included
+        amount_included: this.amount_included,
+        reportType: this.reportType
       };
       return JSON.stringify(param);
     }
@@ -19803,9 +19807,7 @@ __webpack_require__.r(__webpack_exports__);
       deep: true
     }
   },
-  mounted: function mounted() {
-    console.log(this.selected_filters, 'selected filters');
-  },
+  mounted: function mounted() {},
   mixins: [_Mixins_Helpers__WEBPACK_IMPORTED_MODULE_0__["default"]]
 });
 
@@ -19967,7 +19969,8 @@ __webpack_require__.r(__webpack_exports__);
       var sti_status = this.allParams ? '&params[sti_status]=' + this.allParams.sti_status : '';
       var ci_status = this.allParams ? '&params[ci_status]=' + this.allParams.ci_status : '';
       var pr_status = this.allParams ? '&params[pr_status]=' + this.allParams.pr_status : '';
-      return url + searchedKeyword + company + status + department + startDate + endDate + limit + currency + sti_status + ci_status + pr_status;
+      var report_type = this.allParams ? '&params[reportType]=' + this.allParams.reportType : '';
+      return url + searchedKeyword + company + status + department + startDate + endDate + limit + currency + sti_status + ci_status + pr_status + report_type;
     }
   }
 });
@@ -24397,7 +24400,7 @@ __webpack_require__.r(__webpack_exports__);
     search: _Components_Search_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
     filters: _Components_Filters_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
-  props: ['tenders', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalTenders', 'tenderIds', 'selectedDepartment', 'allDepartments'],
+  props: ['tenders', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalTenders', 'tenderIds', 'selectedDepartment', 'allDepartments', 'selectedReportType'],
   data: function data() {
     return {
       allTenders: this.tenders,
@@ -24407,6 +24410,7 @@ __webpack_require__.r(__webpack_exports__);
       endDate: this.selectedEndDate,
       limit: this.selectedLimit,
       department: this.selectedDepartment,
+      reportType: this.selectedReportType,
       keyword: this.searchedKeyword,
       url: 'dashboard.tender.index',
       reportUrl: 'dashboard.getTenderReports',
@@ -24417,9 +24421,10 @@ __webpack_require__.r(__webpack_exports__);
         startDate: this.selectedStartDate,
         endDate: this.selectedEndDate,
         limit: this.selectedLimit,
-        department: this.selectedDepartment
+        department: this.selectedDepartment,
+        reportType: this.selectedReportType
       },
-      selectedFilters: ['company', 'status', 'start_date', 'end_date', 'limit', 'department']
+      selectedFilters: ['company', 'status', 'start_date', 'end_date', 'limit', 'department', 'report_type']
     };
   },
   methods: {
@@ -24513,6 +24518,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.params.endDate = args.params.endDate;
         _this2.params.limit = args.params.limit;
         _this2.params.department = args.params.department;
+        _this2.params.reportType = args.params.reportType;
       }
     });
   },
@@ -25214,9 +25220,29 @@ var _hoisted_87 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 }, "Amount Not Included", -1 /* HOISTED */);
 var _hoisted_88 = [_hoisted_85, _hoisted_86, _hoisted_87];
 var _hoisted_89 = {
+  key: 12,
+  "class": "px-2"
+};
+var _hoisted_90 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "px-2"
+}, "Report Type", -1 /* HOISTED */);
+var _hoisted_91 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "",
+  "class": "text-capitalize"
+}, "Select Report Type", -1 /* HOISTED */);
+var _hoisted_92 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "file",
+  "class": "text-capitalize"
+}, "File", -1 /* HOISTED */);
+var _hoisted_93 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "item",
+  "class": "text-capitalize"
+}, "Item", -1 /* HOISTED */);
+var _hoisted_94 = [_hoisted_91, _hoisted_92, _hoisted_93];
+var _hoisted_95 = {
   "class": "row pt-2"
 };
-var _hoisted_90 = ["href"];
+var _hoisted_96 = ["href"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Datepicker = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Datepicker");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [$data.selected_filters.includes('company') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("label", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
@@ -25336,13 +25362,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onChange: _cache[25] || (_cache[25] = function ($event) {
       return $options.applyFilter();
     })
-  }, _hoisted_88, 544 /* HYDRATE_EVENTS, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.amount_included]])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_89, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  }, _hoisted_88, 544 /* HYDRATE_EVENTS, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.amount_included]])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.selected_filters.includes('report_type') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("label", _hoisted_89, [_hoisted_90, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "class": "form-control form-control-sm mt-1 custom-select-new",
+    "onUpdate:modelValue": _cache[26] || (_cache[26] = function ($event) {
+      return $data.reportType = $event;
+    }),
+    onChange: _cache[27] || (_cache[27] = function ($event) {
+      return $options.applyFilter();
+    })
+  }, _hoisted_94, 544 /* HYDRATE_EVENTS, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.reportType]])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_95, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     href: _ctx.route($props.reportUrl, $options.reportParams),
     "class": "btn btn-primary btn-sm",
     style: {
       "width": "100%"
     }
-  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.reportName), 9 /* TEXT, PROPS */, _hoisted_90)])])]);
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.reportName), 9 /* TEXT, PROPS */, _hoisted_96)])])]);
 }
 
 /***/ }),
@@ -37608,13 +37642,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         totalItems: $props.totalTenders,
         selectedDepartment: $data.department,
         allDepartments: $props.allDepartments,
+        selectedReportType: $data.reportType,
         url: $data.url,
         reportUrl: $data.reportUrl,
         ids: $props.tenderIds,
         reportName: $data.reportName,
         type: 'tender',
         selectedFilters: $data.selectedFilters
-      }, null, 8 /* PROPS */, ["searchedKeyword", "selectedCompany", "selectedStatus", "selectedStartDate", "selectedEndDate", "selectedLimit", "totalItems", "selectedDepartment", "allDepartments", "url", "reportUrl", "ids", "reportName", "selectedFilters"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [((_$data$allTenders = $data.allTenders) === null || _$data$allTenders === void 0 ? void 0 : _$data$allTenders.data.length) > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("table", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.allTenders.data, function (tender, index) {
+      }, null, 8 /* PROPS */, ["searchedKeyword", "selectedCompany", "selectedStatus", "selectedStartDate", "selectedEndDate", "selectedLimit", "totalItems", "selectedDepartment", "allDepartments", "selectedReportType", "url", "reportUrl", "ids", "reportName", "selectedFilters"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [((_$data$allTenders = $data.allTenders) === null || _$data$allTenders === void 0 ? void 0 : _$data$allTenders.data.length) > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("table", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.allTenders.data, function (tender, index) {
         var _tender$client, _tender$company;
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
           role: "row",

@@ -42,6 +42,8 @@ class TenderController extends Controller
             $startDate = request()->input('params') && request()->input('params')['startDate'] ? setDateValues(request()->input('params')['startDate']) : "";
             $endDate = request()->input('params') && request()->input('params')['endDate'] ? setDateValues(request()->input('params')['endDate']) : "";
             $limit = request()->input('params') && request()->input('params')['limit'] ? request()->input('params')['limit'] : 10;
+            $selectedReportType = request()->input('params') && request()->input('params')['reportType'] ? request()->input('params')['reportType'] : "";
+
             switch ($companyParam) {
                 case 'OndreTicaretTemplate':
                     $company = 'Onder Ticaret (Private) Limited';
@@ -94,6 +96,7 @@ class TenderController extends Controller
                 'selectedStartDate' => $startDate,
                 'selectedEndDate' => $endDate,
                 'selectedLimit' => $limit,
+                'selectedReportType' => $selectedReportType,
                 'totalTenders' => Tender::count(),
                 'tenderIds' => $tenders->pluck('id')->toArray(),
                 'allDepartments' => Client::select('name')->get(),
@@ -267,6 +270,7 @@ class TenderController extends Controller
             $startDate = $params['start_date'];
             $endDate = $params['end_date'];
             $limit = $params['limit'];
+            $reportType = $params['reportType'];
             $tenders = Tender::whereIn('id', $ids)->with('client', 'company', 'items.item')->get();
             $data = [
                 'tenders' =>  $tenders,
@@ -274,6 +278,7 @@ class TenderController extends Controller
                 'startDate' => $startDate,
                 'endDate' => $endDate,
                 'limit' => $limit,
+                'reportType' => $reportType,
                 'report_type' => 'Tender',
             ];
             switch ($company) {
