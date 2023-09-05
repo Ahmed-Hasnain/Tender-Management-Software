@@ -674,7 +674,7 @@
         <br>
         <br>
         @if ($report_type == 'Tender')
-        @if ($status == 'pending')
+        @if ($reportType == 'item')
         <table>
             <thead>
                 <tr>
