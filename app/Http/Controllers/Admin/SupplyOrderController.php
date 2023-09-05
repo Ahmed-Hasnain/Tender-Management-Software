@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Inertia\Inertia;
+use App\Models\Client;
 use App\Models\Quotation;
 use App\Models\SupplyOrder;
 use Illuminate\Http\Request;
@@ -29,8 +30,30 @@ class SupplyOrderController extends Controller
     public function index()
     {
         try{
-            $limit = \config()->get('settings.pagination_limit');
-            $supplyOrder = SupplyOrder::with('quotation.tender', 'items')->where(function ($query) {
+            $companyParam = request()->input('params') && request()->input('params')['company'] ? request()->input('params')['company'] : "";
+            $statusParam = request()->input('params') && request()->input('params')['status'] ? request()->input('params')['status'] : "";
+            $departmentParam = request()->input('params') && request()->input('params')['department'] ? request()->input('params')['department'] : "";
+            $startDate = request()->input('params') && request()->input('params')['startDate'] ? setDateValues(request()->input('params')['startDate']) : "";
+            $endDate = request()->input('params') && request()->input('params')['endDate'] ? setDateValues(request()->input('params')['endDate']) : "";
+            $limit = request()->input('params') && request()->input('params')['limit'] ? request()->input('params')['limit'] : 10;
+            $currency = request()->input('params') && request()->input('params')['currency'] ? request()->input('params')['currency'] : "";
+            $itemStatusParam = request()->input('params') && request()->input('params')['item_status'] ? request()->input('params')['item_status'] : "";
+            $amountIncludedParam = request()->input('params') && request()->input('params')['amount_included'] ? request()->input('params')['amount_included'] : "";
+            switch ($companyParam) {
+                case 'OndreTicaretTemplate':
+                    $company = 'Onder Ticaret (Private) Limited';
+                    break;
+                case 'MSaadAndCompanyTemplate':
+                    $company = 'Muhammad Saad and Company';
+                    break;
+                case 'AscentTemplate':
+                    $company = 'Ascent Tech Trade Solution';
+                    break;
+                default:
+                    $company = null;
+                    break;
+            }
+            $supplyOrder = SupplyOrder::with('quotation.tender', 'items')->where(function ($query) use ($company, $statusParam, $startDate, $endDate, $departmentParam, $currency, $itemStatusParam, $amountIncludedParam){
                 $keyword = request()->input('keyword');
                 $query->when($keyword, function ($subQuery) use ($keyword){
                     $subQuery->WhereHas('quotation', function($query) use ($keyword){
@@ -40,10 +63,60 @@ class SupplyOrderController extends Controller
                         });
                     });
                 });
+                // status filter
+                $query->when($statusParam, function ($subQuery) use ($statusParam){
+                    $subQuery->where('status', $statusParam);
+                });
+                //supply order date filter
+                $query->when($startDate && $endDate, function ($subQuery) use ($startDate, $endDate){
+                    $subQuery->whereBetween('date_of_supply_order', [$startDate, $endDate]);
+                });
+                //item status filter
+                $query->when($itemStatusParam && $itemStatusParam == 'delivered' , function ($subQuery) use ($itemStatusParam){
+                    $subQuery->whereRelation('items', 'qty_left', 0 );
+                });
+                $query->when($itemStatusParam && $itemStatusParam == 'pending' , function ($subQuery) use ($itemStatusParam){
+                    $subQuery->whereRelation('items', 'qty_left', '!=' , 0 );
+                });
+                //quotation filters
+                $query->whereHas('quotation', function ($query) use ($company, $departmentParam, $currency){
+                    // currency filter
+                    $query->when($currency && $currency == 'local', function ($query) {
+                        $query->where('currency', 'PKR');
+                    });
+                    $query->when($currency && $currency == 'foreign',  function ($query) {
+                        $query->where('currency', '!=', 'PKR');
+                    });
+                    //tender filters
+                    $query->whereHas('tender', function ($query) use ($company, $departmentParam){
+                        //company filter
+                        $query->when($company, function ($subQuery) use ($company){
+                            $subQuery->whereRelation('company', 'name', $company);
+                        });
+                        //department filter
+                        $query->when($departmentParam, function ($subQuery) use ($departmentParam) {
+                            $subQuery->whereRelation('client', 'name', $departmentParam);
+                        });
+                    });
+                });
             })->orderBy('id', 'desc')->paginate($limit);
+
+            // dd($supplyOrder);
             return Inertia::render('SupplyOrder/Index', [
                 'supplyOrder' => $supplyOrder,
-                'searchedKeyword' => request()->input('keyword'),
+                'searchedKeyword' => request()->input('keyword') ?? '',
+                'selectedCompany' => $companyParam,
+                'selectedStatus' => $statusParam,
+                'selectedDepartment' => $departmentParam,
+                'selectedStartDate' => $startDate,
+                'selectedEndDate' => $endDate,
+                'selectedLimit' => $limit,
+                'selectedCurrency' => $currency,
+                'selectedItemStatus' => $itemStatusParam,
+                'selectedAmountIncluded' => $amountIncludedParam,
+                'totalSupplyOrders' => SupplyOrder::count(),
+                'supplyOrderIds' => $supplyOrder->pluck('id')->toArray(),
+                'allDepartments' => Client::select('name')->get(),
             ]);
         } catch (\Exception $e) {
             flash($e->getMessage(), 'danger');
@@ -251,7 +324,17 @@ class SupplyOrderController extends Controller
     public function getInvoices()
     {
         try{
-            switch (request()->input('company')) {
+            $companyParam = request()->input('params') && request()->input('params')['company'] ? request()->input('params')['company'] : "";
+            $statusParam = request()->input('params') && request()->input('params')['status'] ? request()->input('params')['status'] : "";
+            $departmentParam = request()->input('params') && request()->input('params')['department'] ? request()->input('params')['department'] : "";
+            $startDate = request()->input('params') && request()->input('params')['startDate'] ? setDateValues(request()->input('params')['startDate']) : "";
+            $endDate = request()->input('params') && request()->input('params')['endDate'] ? setDateValues(request()->input('params')['endDate']) : "";
+            $limit = request()->input('params') && request()->input('params')['limit'] ? request()->input('params')['limit'] : 10;
+            $currency = request()->input('params') && request()->input('params')['currency'] ? request()->input('params')['currency'] : "";
+            $sti_status = request()->input('params') && request()->input('params')['sti_status'] ? request()->input('params')['sti_status'] : "";
+            $ci_status = request()->input('params') && request()->input('params')['ci_status'] ? request()->input('params')['ci_status'] : "";
+            $pr_status = request()->input('params') && request()->input('params')['pr_status'] ? request()->input('params')['pr_status'] : "";
+            switch ($companyParam) {
                 case 'OndreTicaretTemplate':
                     $company = 'Onder Ticaret (Private) Limited';
                     break;
@@ -260,34 +343,199 @@ class SupplyOrderController extends Controller
                     break;
                 default:
                     $company = 'Ascent Tech Trade Solution';
+                    $companyParam = 'AscentTemplate';
                     break;
             }
-            $limit = \config()->get('settings.pagination_limit');
-            $supplyOrder = SupplyOrder::with('quotation.tender', 'items', 'paymentRecieving')->where(function ($query) use ($company){
+            $supplyOrder = SupplyOrder::with('quotation.tender', 'items', 'paymentRecieving')->where(function ($query) use ($company, $statusParam, $startDate, $endDate, $departmentParam, $currency, $sti_status, $ci_status, $pr_status){
                 $keyword = request()->input('keyword');
                 $query->whereDelivered(1);
-                $query->when($keyword, function ($subQuery) use ($keyword, $company){
-                    $subQuery->whereHas('quotation', function($query) use ($keyword, $company){
+                $query->when($keyword, function ($subQuery) use ($keyword){
+                    $subQuery->WhereHas('quotation', function($query) use ($keyword){
                         $query->where('reference_no', 'like', '%' . $keyword . '%')
-                        ->orWhereHas('tender', function ($query) use ($keyword, $company) {
+                        ->orWhereHas('tender', function ($query) use ($keyword) {
                             $query->where('reference_no', 'like', '%' . $keyword . '%');
                         });
                     });
-                })
-                ->whereHas('quotation', function($query) use ($company){
-                    $query->whereHas('tender', function ($query) use ($company) {
-                        $query->whereRelation('company', 'name', $company);
+                });
+                // status filter
+                $query->when($statusParam, function ($subQuery) use ($statusParam){
+                    $subQuery->where('status', $statusParam);
+                });
+                //supply order date filter
+                $query->when($startDate && $endDate, function ($subQuery) use ($startDate, $endDate){
+                    $subQuery->whereBetween('date_of_supply_order', [$startDate, $endDate]);
+                });
+                //sale tax invoice filter
+                $query->when($sti_status == 'downloaded', function ($subQuery){
+                    $subQuery->where('sti_downloaded', 1);
+                });
+                $query->when($sti_status == 'not_downloaded', function ($subQuery){
+                    $subQuery->where('sti_downloaded', 0);
+                });
+                //commercial invoice filter
+                $query->when($ci_status == 'downloaded', function ($subQuery){
+                    $subQuery->where('ci_downloaded', 1);
+                });
+                $query->when($ci_status == 'not_downloaded', function ($subQuery){
+                    $subQuery->where('ci_downloaded', 0);
+                });
+                //payment recieving filter
+                $query->when($pr_status == 'recieved', function ($subQuery){
+                    $subQuery->whereHas('paymentRecieving');
+                });
+                $query->when($pr_status == 'pending', function ($subQuery){
+                    $subQuery->whereDoesntHave('paymentRecieving');
+                });
+                //quotation filters
+                $query->whereHas('quotation', function ($query) use ($company, $departmentParam, $currency){
+                    // currency filter
+                    $query->when($currency && $currency == 'local', function ($query) {
+                        $query->where('currency', 'PKR');
+                    });
+                    $query->when($currency && $currency == 'foreign',  function ($query) {
+                        $query->where('currency', '!=', 'PKR');
+                    });
+                    //tender filters
+                    $query->whereHas('tender', function ($query) use ($company, $departmentParam){
+                        //company filter
+                        $query->when($company, function ($subQuery) use ($company){
+                            $subQuery->whereRelation('company', 'name', $company);
+                        });
+                        //department filter
+                        $query->when($departmentParam, function ($subQuery) use ($departmentParam) {
+                            $subQuery->whereRelation('client', 'name', $departmentParam);
+                        });
                     });
                 });
             })->orderBy('id', 'desc')->paginate($limit);
             return Inertia::render('Invoices/Index', [
                 'supplyOrder' => $supplyOrder,
-                'searchedKeyword' => request()->input('keyword'),
-                'selectedCompany' => request()->input('company') ?? 'AscentTemplate' 
+                'searchedKeyword' => request()->input('keyword') ?? '',
+                'selectedCompany' => $companyParam,
+                'selectedStatus' => $statusParam,
+                'selectedDepartment' => $departmentParam,
+                'selectedStartDate' => $startDate,
+                'selectedEndDate' => $endDate,
+                'selectedLimit' => $limit,
+                'selectedCurrency' => $currency,
+                'selectedStiStatus' => $sti_status, 
+                'selectedCiStatus' => $ci_status,
+                'selectedPrStatus' => $pr_status,
+                'totalSupplyOrders' => SupplyOrder::count(),
+                'supplyOrderIds' => $supplyOrder->pluck('id')->toArray(),
+                'allDepartments' => Client::select('name')->get(),
             ]);
         } catch (\Exception $e) {
             flash($e->getMessage(), 'danger');
             return \redirect()->back();
+        }
+    }
+
+    public function supplyOrderReports($reportParams) 
+    {
+        try {
+            $params = json_decode($reportParams, true);
+            $ids = $params['ids'];
+            $company = $params['company'];
+            $status = $params['status'];
+            $startDate = $params['start_date'];
+            $endDate = $params['end_date'];
+            $limit = $params['limit'];
+            $itemStatus = $params['item_status'];
+            $amountIncluded = $params['amount_included'];
+            $supplyOrders = SupplyOrder::whereIn('id', $ids)->with('quotation.tender.client', 'quotation.tender.company', 'items.quotationItem.tenderItem.item')->get();
+            $data = [
+                'supplyOrders' =>  $supplyOrders,
+                'status' => $status,
+                'startDate' => $startDate,
+                'endDate' => $endDate,
+                'limit' => $limit,
+                'totalAmount' => calculateSum($supplyOrders, 'supplyOrder'),
+                'report_type' => 'Supply Order',
+                'itemStatus' => $itemStatus,
+                'amountIncluded' => $amountIncluded,
+            ];
+            switch ($company) {
+                case 'OndreTicaretTemplate':
+                    $data['logo'] = "assets/images/logo/onder-logo.png";
+                    $data['company'] = "Onder Ticaret";
+                    $pdf = Pdf::loadView('Reports/OnderTicaret', $data); 
+                    break;
+                case 'MSaadAndCompanyTemplate':
+                    $data['logo'] = "assets/images/logo/saad&co.png";
+                    $data['company'] = "Muhammad Saad And Company";
+                    $pdf = Pdf::loadView('Reports/MSaadAndCompany', $data); 
+                    break;
+                case 'AscentTemplate':
+                    $data['logo'] = "assets/images/logo/ascent.png";
+                    $data['company'] = "Ascent Tech";
+                    $pdf = Pdf::loadView('Reports/AscentTech', $data); 
+                    break;
+                default:
+                    $data['logo'] = "assets/images/logo/ascent.png";
+                    $data['company'] = "None";
+                    $pdf = Pdf::loadView('Reports/Tender', $data); 
+                    break; 
+            }
+            return $pdf->download('Supply-Order-Report.pdf');
+        } catch (\Throwable $th) {
+            Log::error([
+                'message' => $th->getMessage(),
+                'line' => $th->getLine(),
+                'file' => $th->getFile(),
+            ]);
+        }
+    }
+
+    public function invoiceReports($reportParams) 
+    {
+        try {
+            $params = json_decode($reportParams, true);
+            $ids = $params['ids'];
+            $company = $params['company'];
+            $status = $params['status'];
+            $startDate = $params['start_date'];
+            $endDate = $params['end_date'];
+            $limit = $params['limit'];
+            $supplyOrders = SupplyOrder::whereIn('id', $ids)->with('quotation.tender.client', 'quotation.tender.company', 'paymentRecieving')->get();
+            $data = [
+                'supplyOrders' =>  $supplyOrders,
+                'status' => $status,
+                'startDate' => $startDate,
+                'endDate' => $endDate,
+                'limit' => $limit,
+                'totalAmount' => calculateSum($supplyOrders, 'supplyOrder'),
+                'report_type' => 'Invoice',
+            ];
+            switch ($company) {
+                case 'OndreTicaretTemplate':
+                    $data['logo'] = "assets/images/logo/onder-logo.png";
+                    $data['company'] = "Onder Ticaret";
+                    $pdf = Pdf::loadView('Reports/OnderTicaret', $data); 
+                    break;
+                case 'MSaadAndCompanyTemplate':
+                    $data['logo'] = "assets/images/logo/saad&co.png";
+                    $data['company'] = "Muhammad Saad And Company";
+                    $pdf = Pdf::loadView('Reports/MSaadAndCompany', $data); 
+                    break;
+                case 'AscentTemplate':
+                    $data['logo'] = "assets/images/logo/ascent.png";
+                    $data['company'] = "Ascent Tech";
+                    $pdf = Pdf::loadView('Reports/AscentTech', $data); 
+                    break;
+                default:
+                    $data['logo'] = "assets/images/logo/ascent.png";
+                    $data['company'] = "None";
+                    $pdf = Pdf::loadView('Reports/Tender', $data); 
+                    break; 
+            }
+            return $pdf->download('Invoice-Report.pdf');
+        } catch (\Throwable $th) {
+            Log::error([
+                'message' => $th->getMessage(),
+                'line' => $th->getLine(),
+                'file' => $th->getFile(),
+            ]);
         }
     }
 }

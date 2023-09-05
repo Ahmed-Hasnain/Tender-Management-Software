@@ -15,6 +15,11 @@ class SupplyOrder extends Model
         'date_of_supply_order',
         'delivery_date',
         'status',
+        'total_price',
+        'total_price_plus_tax',
+        'delivered',
+        'sti_downloaded',
+        'ci_downloaded',
     ];
 
     protected function dateOfSupplyOrder(): Attribute

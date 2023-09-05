@@ -95,16 +95,19 @@ Route::middleware(['auth', 'verified'])
         Route::group(['middleware' => ['can:view_currency']], function () {
             Route::resource('/currency', Admin\CurrencyController::class);
         });
-        //supply Order
+        //supply Order 
         Route::group(['middleware' => ['can:view_supply_order,view_invoices']], function () {
             Route::resource('/supply-order', Admin\SupplyOrderController::class);
             Route::get('/downloadSupplyOrder/{supplyOrderId}/{company}/{type}', [Admin\SupplyOrderController::class, 'downloadSupplyOrder'])->name('downloadSupplyOrder');
             Route::get('invoices', [Admin\SupplyOrderController::class, 'getInvoices'])->name('invoices');
+            Route::get('/get-supply-order-reports/{reportParams?}', [Admin\SupplyOrderController::class, 'supplyOrderReports'])->name('getSupplyOrderReports');
+            Route::get('/get-invoice-reports/{reportParams?}', [Admin\SupplyOrderController::class, 'invoiceReports'])->name('getInvoiceReports');
         });
         //Delivery Challan
         Route::group(['middleware' => ['can:view_delivery_challan']], function () {
             Route::resource('/delivery-challan', Admin\DeliveryChallanController::class);
             Route::get('/downloadDC/{deliveryChallanId}/{company}/{date?}', [Admin\DeliveryChallanController::class, 'downloadDeliveryChallan'])->name('downloadDeliveryChallan');
+            Route::get('/get-delivery-challan-reports/{reportParams?}', [Admin\DeliveryChallanController::class, 'deliveryChallanReports'])->name('getDeliveryChallanReports');
         }); 
         //Payment Recieving 
         Route::group(['middleware' => ['can:view_payment_recieving']], function () {

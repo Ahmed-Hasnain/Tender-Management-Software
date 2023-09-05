@@ -18,7 +18,7 @@
                             <div class="col-sm-12 col-md-6">
                                 <div id="DataTables_Table_0_filter" class="dataTables_filter" >
                                     <label>
-                                        <search :url="'dashboard.tender.index'" :searchedKeyword="keyword" :params="params"></search>
+                                        <search :url="url" :searchedKeyword="keyword" :params="params"></search>
                                     </label>
                                 </div>
                             </div>
@@ -32,11 +32,14 @@
                             :selectedLimit="limit" 
                             :totalItems="totalTenders" 
                             :selectedDepartment="department" 
-                            :allDepartments="allDepartments" 
+                            :allDepartments="allDepartments"
+                            :selectedReportType="reportType" 
                             :url="url"
                             :reportUrl="reportUrl" 
                             :ids="tenderIds"
                             :reportName="reportName"
+                            :type="'tender'"
+                            :selectedFilters="selectedFilters"
                         />
                         <div class="row">
                             <div class="col-sm-12">
@@ -105,7 +108,7 @@ export default {
         search,
         filters
     },
-    props: ['tenders', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalTenders', 'tenderIds', 'selectedDepartment', 'allDepartments'],
+    props: ['tenders', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalTenders', 'tenderIds', 'selectedDepartment', 'allDepartments', 'selectedReportType'],
     data() {
         return{
             allTenders: this.tenders,
@@ -115,6 +118,7 @@ export default {
             endDate: this.selectedEndDate,
             limit: this.selectedLimit,
             department: this.selectedDepartment,
+            reportType: this.selectedReportType,
             keyword: this.searchedKeyword,
             url: 'dashboard.tender.index',
             reportUrl: 'dashboard.getTenderReports',
@@ -126,7 +130,17 @@ export default {
                 endDate: this.selectedEndDate,
                 limit: this.selectedLimit,
                 department: this.selectedDepartment,
-            }
+                reportType: this.selectedReportType,
+            },
+            selectedFilters: [
+                'company',
+                'status',
+                'start_date',
+                'end_date',
+                'limit',
+                'department',
+                'report_type'
+            ],
         }
     },
     methods: {
@@ -204,6 +218,7 @@ export default {
                 this.params.endDate = args.params.endDate
                 this.params.limit = args.params.limit
                 this.params.department = args.params.department
+                this.params.reportType = args.params.reportType
             }
         })
     },

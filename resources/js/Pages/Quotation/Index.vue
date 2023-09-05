@@ -15,7 +15,7 @@
                             <div class="col-sm-12 col-md-6">
                                 <div id="DataTables_Table_0_filter" class="dataTables_filter">
                                     <label>Search:
-                                        <search :url="'dashboard.quotation.index'" :searchedKeyword="keyword" :params="params"></search>
+                                        <search :url="url" :searchedKeyword="keyword" :params="params"></search>
                                     </label>
                                 </div>
                             </div>
@@ -30,10 +30,13 @@
                             :totalItems="totalQuotations" 
                             :selectedDepartment="department" 
                             :allDepartments="allDepartments" 
+                            :selectedCurrency="selectedCurrency" 
                             :url="url"
                             :reportUrl="reportUrl" 
                             :ids="quotationIds"
                             :reportName="reportName"
+                            :type="'quotation'"
+                            :selectedFilters="selectedFilters"
                         />
                         <div class="row">
                             <div class="col-sm-12">
@@ -100,7 +103,7 @@ export default {
         search,
         filters
     },
-    props: ['quotations', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalQuotations', 'quotationIds', 'selectedDepartment', 'allDepartments'],
+    props: ['quotations', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalQuotations', 'quotationIds', 'selectedDepartment', 'allDepartments', 'selectedCurrency'],
     data() {
         return{
             allQuotations: this.quotations,
@@ -110,6 +113,7 @@ export default {
             endDate: this.selectedEndDate,
             limit: this.selectedLimit,
             department: this.selectedDepartment,
+            currency: this.selectedCurrency,
             keyword: this.searchedKeyword,
             url: 'dashboard.quotation.index',
             reportUrl: 'dashboard.getQuotationReports',
@@ -121,7 +125,17 @@ export default {
                 endDate: this.selectedEndDate,
                 limit: this.selectedLimit,
                 department: this.selectedDepartment,
-            }
+                currency: this.selectedCurrency,
+            },
+            selectedFilters: [
+                'company',
+                'status',
+                'start_date',
+                'end_date',
+                'limit',
+                'department',
+                'currency'
+            ],
         }
     },
     methods: {
@@ -193,6 +207,7 @@ export default {
                 this.params.endDate = args.params.endDate
                 this.params.limit = args.params.limit
                 this.params.department = args.params.department
+                this.params.currency = args.params.currency
             }
         })
     },
