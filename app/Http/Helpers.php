@@ -1,5 +1,6 @@
 <?php
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Set flash messages
@@ -85,4 +86,55 @@ function replaceUnderscoreWithDash($str)
 function upperCaseAndRemoveUnderscore($str)
 {
     return ucwords(str_replace('_', ' ', $str));
+}
+
+function calculateSum($data, $type) 
+{
+    $total_amount = 0;
+    switch ($type) {
+        case 'quotation':
+            $data->each(function ($item, $key) use (&$total_amount){
+                if ($item->tax) {
+                    $tax = ((float)$item->total_price / 100 ) * (float) $item->tax;
+                    $items_total = (float)$item->total_price + $tax;
+                    $total_amount += (float)$items_total;
+                } else {
+                    $total_amount += (float)$item->total_price;
+                }
+            });
+            break;
+        case 'supplyOrder':
+            $data->each(function ($item, $key) use (&$total_amount){
+                if ($item->quotation->tax) {
+                    $tax = ((float)$item->total_price / 100 ) * (float) $item->quotation->tax;
+                    $items_total = (float)$item->total_price + $tax;
+                    $total_amount += (float)$items_total;
+                } else {
+                    $total_amount += (float)$item->total_price;
+                }
+            });
+            break;
+        case 'deliveryChallan':
+            $data->each(function ($item, $key) use (&$total_amount){
+                if ($item->supplyOrder->quotation->tax) {
+                    $tax = ((float)$item->total / 100 ) * (float) $item->supplyOrder->quotation->tax;
+                    $items_total = (float)$item->total + $tax;
+                    $total_amount += (float)$items_total;
+                } else {
+                    $total_amount += (float)$item->total;
+                }
+            });
+            break;
+
+        default:
+            # code...
+            break;
+    }
+    return $total_amount;
+}
+
+function calculateTaxAndGetTotal($amount, $tax_percent)
+{
+    $tax = ((float)$amount / 100 ) * (float) $tax_percent;
+    return $amount + $tax;
 }

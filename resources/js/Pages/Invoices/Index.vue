@@ -15,18 +15,32 @@
                             <div class="col-sm-12 col-md-6">
                                 <div id="DataTables_Table_0_filter" class="dataTables_filter">
                                     <label>Search:
-                                        <search :url="'dashboard.invoices'" :searchedKeyword="searchedKeyword"></search>
-                                    </label>
-                                    <label class="px-2">
-                                        <select class="form-control form-control-sm" v-model="company" @change="getInvoices()">
-                                            <option value="OndreTicaretTemplate" class="text-capitalize">Ondre Ticaret</option>
-                                            <option value="MSaadAndCompanyTemplate" class="text-capitalize">M Saad and Company</option>
-                                            <option value="AscentTemplate" class="text-capitalize">Ascent Tech</option>
-                                        </select>
+                                        <search :url="url" :searchedKeyword="keyword" :params="params"></search>
                                     </label>
                                 </div>
                             </div>
                         </div>
+                        <filters 
+                            :searchedKeyword="keyword" 
+                            :selectedCompany="company" 
+                            :selectedStatus="status" 
+                            :selectedStartDate="startDate" 
+                            :selectedEndDate="endDate" 
+                            :selectedLimit="limit" 
+                            :totalItems="totalSupplyOrders" 
+                            :selectedDepartment="department" 
+                            :allDepartments="allDepartments" 
+                            :selectedCurrency="selectedCurrency" 
+                            :selectedStiStatus="sti_status"
+                            :selectedCiStatus="ci_status"
+                            :selectedPrStatus="pr_status"
+                            :url="url"
+                            :reportUrl="reportUrl" 
+                            :ids="supplyOrderIds"
+                            :reportName="reportName"
+                            :type="'invoices'"
+                            :selectedFilters="selectedFilters"
+                        />
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="table table-hover e-commerce-table dataTable no-footer"
@@ -67,7 +81,7 @@
                                 <div v-else class="pt-3 pl-3">No Data Found.</div>
                             </div>
                         </div>
-                        <pagination :meta="allSupplyOrder" :keyword="searchedKeyword"></pagination>
+                        <pagination :meta="allSupplyOrder" :keyword="keyword" :params="params"></pagination>
                     </div>
                 </div>
             </div>
@@ -81,6 +95,7 @@ import { Head } from '@inertiajs/inertia-vue3';
 import Helpers from '@/Mixins/Helpers';
 import pagination from '@/Components/Pagination.vue';
 import search from '@/Components/Search.vue';
+import filters from '@/Components/Filters.vue';
 
 export default {
     name:'Invoices',
@@ -88,13 +103,51 @@ export default {
         AuthenticatedLayout,
         Head,
         pagination,
-        search
+        search,
+        filters
     },
-    props: ['supplyOrder', 'searchedKeyword', 'selectedCompany'],
+    props: ['supplyOrder', 'searchedKeyword', 'selectedCompany', 'selectedStatus', 'selectedStartDate', 'selectedEndDate', 'selectedLimit', 'totalSupplyOrders', 'supplyOrderIds', 'selectedDepartment', 'allDepartments', 'selectedCurrency', 'selectedStiStatus', 'selectedCiStatus', 'selectedPrStatus'],
     data() {
         return{
             allSupplyOrder: this.supplyOrder,
             company: this.selectedCompany,
+            status: this.selectedStatus,
+            startDate: this.selectedStartDate,
+            endDate: this.selectedEndDate,
+            limit: this.selectedLimit,
+            department: this.selectedDepartment,
+            currency: this.selectedCurrency,
+            sti_status: this.selectedStiStatus,
+            ci_status: this.selectedCiStatus,
+            pr_status: this.selectedPrStatus,
+            keyword: this.searchedKeyword,
+            url: 'dashboard.invoices',
+            reportUrl: 'dashboard.getInvoiceReports',
+            reportName: 'Generate Invoice Reports',
+            params: {
+                company: this.selectedCompany,
+                status: this.selectedStatus,
+                startDate: this.selectedStartDate,
+                endDate: this.selectedEndDate,
+                limit: this.selectedLimit,
+                department: this.selectedDepartment,
+                currency: this.selectedCurrency,
+                sti_status: this.selectedStiStatus,
+                ci_status: this.selectedCiStatus,
+                pr_status: this.selectedPrStatus,
+            },
+            selectedFilters: [
+                'company',
+                'status',
+                'start_date',
+                'end_date',
+                'limit',
+                'department',
+                'currency',
+                'sti_status',
+                'ci_status',
+                'pr_status',
+            ],
         }
     },
     methods: {
@@ -118,32 +171,6 @@ export default {
                 onError: errors => {console.log(errors);}
             })
         },
-
-        selectCompany() {
-            this.swal.fire({
-                title: '<strong>Select Company</strong>',
-                icon: 'info',
-                // html: 'You can use <b>bold text</b>, <a href="//sweetalert2.github.io">links</a> and other HTML tags',
-                showCloseButton: true,
-                showCancelButton: true,
-                focusConfirm: false,
-                confirmButtonText: '<i class="fa fa-thumbs-up"></i> Great!',
-                confirmButtonAriaLabel: 'Thumbs up, great!',
-                cancelButtonText: '<i class="fa fa-thumbs-down"></i>',
-                cancelButtonAriaLabel: 'Thumbs down',
-                input: 'select',
-                inputOptions: {
-                    OndreTicaretTemplate: 'Ondre Ticaret',
-                    MSaadAndCompanyTemplate: 'M Saad And Company',
-                    AscentTemplate: 'Ascent Tech'
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const selectedOption = result.value;
-                    this.company = selectedOption
-                }
-            });
-        },
     },
     watch: {
         supplyOrder:{
@@ -152,9 +179,28 @@ export default {
             },
             deep: true,
         },
+        searchedKeyword:{
+            handler(val){
+                this.keyword = val;
+            },
+            deep: true
+        }
     },
     mounted(){
-        // console.log(this.supplyOrder);
+        this.emitter.on('get_filters', (args) => {
+            if (args.params) {
+                this.params.company = args.params.company
+                this.params.status = args.params.status
+                this.params.startDate = args.params.startDate
+                this.params.endDate = args.params.endDate
+                this.params.limit = args.params.limit
+                this.params.department = args.params.department
+                this.params.currency = args.params.currency
+                this.params.sti_status = args.params.sti_status
+                this.params.ci_status = args.params.ci_status
+                this.params.pr_status = args.params.pr_status
+            }
+        })
     },
     mixins: [Helpers]
 }
