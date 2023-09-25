@@ -108,7 +108,7 @@
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label class="font-weight-semibold" for="Account Title">Quantity</label>
-                                    <input type="number" class="form-control" placeholder="Quantity" v-model="tenderItem.qty">
+                                    <input type="number" class="form-control" placeholder="Quantity" step="0.1" v-model="tenderItem.qty">
                                     <error :message="form.errors[`items.${index}.qty`]"></error>
                                 </div>
                                 <div class="form-group col-md-2" style="align-self: center; padding-top: 49px;">

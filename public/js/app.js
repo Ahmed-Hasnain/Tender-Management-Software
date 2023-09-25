@@ -36984,6 +36984,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           type: "number",
           "class": "form-control",
           placeholder: "Quantity",
+          step: "0.1",
           "onUpdate:modelValue": function onUpdateModelValue($event) {
             return tenderItem.qty = $event;
           }
