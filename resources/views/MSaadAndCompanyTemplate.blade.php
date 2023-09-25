@@ -235,7 +235,7 @@
                         <strong>Customer Ref:</strong> {{$quotation->tender->reference_no}}<br>
                         <strong>File Name:</strong> {{$quotation->tender->file_name}}
                     </td>
-                    <td style="border: 0px !important; vertical-align: top; text-align: center;">
+                    <td style="border: 0px !important; vertical-align: top; text-align: center; text-transform: uppercase; font-size: 15px; font-weight: bold;">
                         Quotation<br>
                     </td>
                     <td style="text-align: right; border: 0px !important;">
