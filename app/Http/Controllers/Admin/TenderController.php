@@ -184,7 +184,7 @@ class TenderController extends Controller
         return Inertia::render('Tender/Edit', [
             'mode_of_payment' => ModeOfPayment::all(),
             'clients' => Client::all(),
-            'tender' => $tender->load('items'),
+            'tender' => $tender->load('items.unit', 'items.item'),
             'items' => Item::all(),
             'units' => Unit::all(),
             'companies' => Company::all(),
@@ -215,7 +215,6 @@ class TenderController extends Controller
                             'qty' =>  $tenderItem['qty'],
                             'item_id' =>  $tenderItem['item_id'],
                             'description' => $tenderItem['description'],
-
                         ]);
                     } else {
                         $tenderItem = $tender->items()->create([

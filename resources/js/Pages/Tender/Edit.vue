@@ -103,52 +103,51 @@
             </div>
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Add Item</h4>
-                </div>
-                <div class="card-body">
-                    <div>
-                        <div v-for="(tenderItem, index) in form.items" :key="index">
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label class="font-weight-semibold" for="Bank Name">Item</label>
-                                    <select id="language" class="form-control" v-model="tenderItem.item_id">
-                                        <option v-for="(item, index) in items" :key="index" :value="item.id"
-                                            class="text-capitalize">{{ item.name }}</option>
-                                    </select>
-                                    <error :message="form.errors[`items.${index}.item_id`]"></error>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="font-weight-semibold" for="Account Title">Unit</label>
-                                    <select id="language" class="form-control" v-model="tenderItem.unit_id">
-                                        <option v-for="(unit, index) in units" :key="index" :value="unit.id"
-                                            class="text-capitalize">{{ unit.full_name }}</option>
-                                    </select>
-                                    <error :message="form.errors[`items.${index}.unit_id`]"></error>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label class="font-weight-semibold" for="Account Title">Quantity</label>
-                                    <input type="number" class="form-control" placeholder="Quantity"
-                                        v-model="tenderItem.qty">
-                                    <error :message="form.errors[`items.${index}.qty`]"></error>
-                                </div>
-                                <div class="form-group col-md-2" style="align-self: center; padding-top: 49px;">
-                                    <i class="anticon anticon-plus-square" style="font-size: 50px;"
-                                        @click="addItem()"></i>
-                                    <i class="anticon anticon-minus-square" style="font-size: 50px;"
-                                        @click="removeItem(index)" v-if="form.items.length > 1 && index > 0"></i>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-10">
-                                    <label class="font-weight-semibold" for="description">Item Description:</label>
-                                    <textarea class="form-control" rows="1"
-                                        v-model="tenderItem.description"></textarea>
-                                    <error :message="form.errors[`items.${index}.description`]"></error>
-                                </div>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="card-title">Tender Items</h4>
+                        </div>
+                        <div class="col-md-6 text-right m-auto">
+                            <a class="btn btn-primary btn-sm text-light" @click="openModal()" v-if="checkUserPermissions('add_tender')">
+                                <i class="anticon anticon-file-protect"></i>
+                                <span>Add Tender</span>
+                            </a>
                         </div>
                     </div>
                 </div>
+                <div class="card-body">
+                        <h5>Items</h5>
+                        <div class="table-responsive" v-if="form.items.length > 0">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="width: 60px;">Id</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col" style="width: 200px;">Unit</th>
+                                        <th scope="col" style="width: 200px;">Quantity</th>
+                                        <th scope="col" style="width: 200px;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(tenderItem, index) in form.items" :key="index">
+                                        <th scope="row">{{ index+1 }}</th>
+                                        <td class="text-capitalize">{{ tenderItem.item?.name }}<br><small>{{ tenderItem.description }}</small></td>
+                                        <td class="text-capitalize">{{ tenderItem.unit?.full_name }}</td>
+                                        <td class="text-capitalize">{{tenderItem.qty}}</td>
+                                        <td class="text-capitalize">
+                                            <button @click="openModal()" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('edit_tender')">
+                                                <i class="anticon anticon-edit"></i>
+                                            </button>
+                                            <button @click="openModal()" class="btn btn-icon btn-hover btn-sm btn-rounded" v-if="checkUserPermissions('delete_tender')">
+                                                <i class="anticon anticon-delete"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div v-else>No record Found</div>
+                    </div>
             </div>
             <div class="card">
                 <div class="card-header">
@@ -182,6 +181,7 @@
                 </div>
             </div>
         </form>
+        <ItemModal></ItemModal>
     </AuthenticatedLayout>
 </template>
 
@@ -190,7 +190,9 @@ import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { Head, useForm } from '@inertiajs/inertia-vue3';
 import Error from '@/Components/InputError.vue';
 import Datepicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
+import '@vuepic/vue-datepicker/dist/main.css';
+import ItemModal from './ItemModal.vue';
+import Helpers from '@/Mixins/Helpers';
 
 export default {
     props: ['mode_of_payment', 'clients', 'items', 'units', 'companies', 'demands', 'tender'],
@@ -198,7 +200,8 @@ export default {
         AuthenticatedLayout,
         Head,
         Error,
-        Datepicker
+        Datepicker,
+        ItemModal
     },
     data() {
         return {
@@ -224,6 +227,9 @@ export default {
         },
         removeItem(index) {
             this.form.items.splice(index, 1)
+        },
+        openModal(){
+            this.emitter.emit('open_modal');
         }
     },
     mounted() {
@@ -245,6 +251,7 @@ export default {
             items: this.tender ? this.tender.items : null,
         })
     },
+    mixins: [Helpers]
 }
 </script>
 
