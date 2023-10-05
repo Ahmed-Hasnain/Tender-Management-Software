@@ -39,10 +39,6 @@ class TenderRequest extends FormRequest
                     'mode_of_payment_id' => 'required',
                     'company_id' => 'required',
                     'demand_id' => 'required',
-                    'items.*.item_id' => 'required',
-                    'items.*.unit_id' => 'required',
-                    'items.*.qty' => 'required',
-                    'items.*.description' => 'nullable',
                 ];
                 break;
             case 'PUT':
@@ -60,20 +56,8 @@ class TenderRequest extends FormRequest
                     'mode_of_payment_id' => 'required',
                     'company_id' => 'required',
                     'demand_id' => 'required',
-                    'items.*.item_id' => 'required',
-                    'items.*.unit_id' => 'required',
-                    'items.*.qty' => 'required',
-                    'items.*.description' => 'nullable',
                 ];
                 break;   
         }
-    }
-
-    public function messages() {
-        return [
-            'items.*.item_id.required' => 'Item field is required',
-            'items.*.unit_id.required' => 'Unit field is required',
-            'items.*.qty.required' => 'Quantity field is required',
-        ];
     }
 }

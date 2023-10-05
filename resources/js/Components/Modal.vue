@@ -34,6 +34,9 @@ export default {
         this.emitter.on('open_modal', () => {
             this.showModal()
         })
+        this.emitter.on('close_modal', () => {
+            this.hideModal()
+        })
     }
 }
 </script>

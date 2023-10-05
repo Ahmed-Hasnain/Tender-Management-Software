@@ -4,36 +4,36 @@
             <h5 class="modal-title" id="exampleModalLongTitle">Add Tender Item</h5>
         </template>
         <template #content>
-            <form @submit.prevent="submit">
+            <form v-if="form" @submit.prevent="submit">
                 <div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label class="font-weight-semibold" for="Bank Name">Item</label>
-                            <select id="language" class="form-control">
+                            <select id="language" class="form-control" v-model="form.item_id">
                                 <option v-for="(item, index) in sortedItems" :key="index" :value="item.id"
                                     class="text-capitalize">{{ item.name }}</option>
                             </select>
-                            <!-- <error :message="form.errors?.item_id"></error> -->
+                            <error :message="form.errors?.item_id"></error>
                         </div>
                         <div class="form-group col-md-4">
                             <label class="font-weight-semibold" for="Account Title">Unit</label>
-                            <select id="language" class="form-control">
+                            <select id="language" class="form-control" v-model="form.unit_id">
                                 <option v-for="(unit, index) in sortedUnits" :key="index" :value="unit.id"
                                     class="text-capitalize">{{ unit.full_name }}</option>
                             </select>
-                            <!-- <error :message="form.error?.unit_id"></error> -->
+                            <error :message="form.errors?.unit_id"></error>
                         </div>
                         <div class="form-group col-md-4">
                             <label class="font-weight-semibold" for="Account Title">Quantity</label>
-                            <input type="number" class="form-control" placeholder="Quantity">
-                            <!-- <error :message="form.errors?.qty"></error> -->
+                            <input type="number" class="form-control" placeholder="Quantity" v-model="form.qty">
+                            <error :message="form.errors?.qty"></error>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label class="font-weight-semibold" for="description">Item Description:</label>
-                            <textarea class="form-control" rows="3"></textarea>
-                            <!-- <error :message="form.errors?.description"></error> -->
+                            <textarea class="form-control" rows="3" v-model="form.description"></textarea>
+                            <error :message="form.errors?.description"></error>
                         </div>
                     </div>
                     <div class="form-row">
@@ -54,7 +54,6 @@ import Modal from '@/Components/Modal.vue';
 import { Head, useForm } from '@inertiajs/inertia-vue3';
 import Error from '@/Components/InputError.vue';
 export default {
-    props: ['tender_id', 'temder_item'],
     components: {
         Modal,
         Head,
@@ -62,18 +61,22 @@ export default {
     },
     methods: {
         submit() {
-            if(this.tenderItem) {
-                this.form.put(route('dashboard.tender.update', this.form.id), {
+            if(this.form.id) {
+                this.form.put(route('dashboard.tender-item.update', this.form.id), {
                     errorBag: 'tender',
                     preserveScroll: true,
-                    onSuccess: () => { },
+                    onSuccess: () => { 
+
+                    },
                     onError: errors => { console.log(errors); }
                 })
             } else {
-                this.form.post(route('dashboard.tender.store'), {
+                this.form.post(route('dashboard.tender-item.store'), {
                     errorBag: 'tender',
                     preserveScroll: true,
-                    onSuccess: () => { },
+                    onSuccess: () => {
+                        this.emitter.emit('close_modal')
+                    },
                     onError: errors => { console.log(errors); }
                 })
             }
@@ -82,15 +85,20 @@ export default {
     data() {
         return {
             form: null,
-            tenderItem: this.tender_item,
+            tenderItem: null,
         }
     },
     mounted() {
-        this.form = useForm({
-            id: this.tenderItem ? this.tenderItem.id : null,
-            unit_id: this.tenderItem ? this.tenderItem.unit_id : null,
-            qty: this.tenderItem ? this.tenderItem.qty : null,
-            description: this.tenderItem ? this.tenderItem.description : null,
+        this.emitter.on('open_modal', (args) => {
+            this.tenderItem = args.item ?? null
+            this.form = useForm({
+                id: this.tenderItem ? this.tenderItem.id : null,
+                unit_id: this.tenderItem ? this.tenderItem.unit_id : null,
+                item_id: this.tenderItem && this.tenderItem.item ? this.tenderItem.item.id : null,
+                qty: this.tenderItem ? this.tenderItem.qty : null,
+                description: this.tenderItem ? this.tenderItem.description : null,
+                tender_id: args.tender_id ?? null
+            })
         })
     },
     computed: {
