@@ -78,5 +78,10 @@ export default {
         addDays(dateString, days) {
             return moment(dateString).add(days, 'days').format("Do MMM YYYY").toDate();
         },
+
+        //scroll to top of page
+        scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        },
     }
 }

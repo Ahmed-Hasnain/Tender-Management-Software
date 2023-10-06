@@ -137,18 +137,7 @@ class TenderController extends Controller
     {
         try{
             DB::beginTransaction();
-            $tender = Tender::create($request->all());
-            $tenderItems = $request->input('items');
-            if (count($tenderItems) > 0) {
-                foreach ($tenderItems as $key => $tenderItem) {
-                    $tender->items()->create([
-                        'item_id' => $tenderItem['item_id'],
-                        'unit_id' => $tenderItem['unit_id'],
-                        'qty' => $tenderItem['qty'],
-                        'description' => $tenderItem['description'],
-                    ]);
-                }
-            }
+            Tender::create($request->all());
             DB::commit();
             flash('Tender Added Sucessfully!', 'success');
             return \redirect(route('dashboard.tender.index'));          
@@ -182,13 +171,7 @@ class TenderController extends Controller
     public function edit(Tender $tender)
     {
         return Inertia::render('Tender/Edit', [
-            'mode_of_payment' => ModeOfPayment::all(),
-            'clients' => Client::all(),
-            'tender' => $tender->load('items'),
-            'items' => Item::all(),
-            'units' => Unit::all(),
-            'companies' => Company::all(),
-            'demands' => Demand::all(),
+            'tender' => $tender->load('items.unit', 'items.item'),
         ]);
     }
 
@@ -204,31 +187,6 @@ class TenderController extends Controller
         try{
             DB::beginTransaction();
             $tender->update($request->all());
-            $tenderItems = $request->input('items');
-            $tenderItemIds = [];
-            if (count($tenderItems) > 0) {
-                foreach ($tenderItems as $key => $tenderItem) {
-                    if (array_key_exists('id', $tenderItem)) {
-                        $tenderItemIds [] = $tenderItem['id'];
-                        $tender->items()->whereId($tenderItem['id'])->update([
-                            'unit_id' => $tenderItem['unit_id'],
-                            'qty' =>  $tenderItem['qty'],
-                            'item_id' =>  $tenderItem['item_id'],
-                            'description' => $tenderItem['description'],
-
-                        ]);
-                    } else {
-                        $tenderItem = $tender->items()->create([
-                            'unit_id' => $tenderItem['unit_id'],
-                            'qty' =>  $tenderItem['qty'],
-                            'item_id' =>  $tenderItem['item_id'],
-                            'description' => $tenderItem['description'],
-                        ]);
-                        $tenderItemIds [] = $tenderItem->id;
-                    }
-                }
-                $tender->items()->whereNotIn('id', $tenderItemIds)->delete();
-            }
             DB::commit();
             flash('Tender Updated Sucessfully!', 'success');
             return \redirect(route('dashboard.tender.index'));          

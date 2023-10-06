@@ -28,7 +28,7 @@
                                 <label class="font-weight-semibold" for="Category">Company:</label>
                                 <select id="language" class="form-control" v-model="form.company_id"
                                     :class="{ 'is-invalid': form.errors?.company_id }">
-                                    <option v-for="(company, index) in companies" :key="index" :value="company.id"
+                                    <option v-for="(company, index) in $page.props.companies" :key="index" :value="company.id"
                                         class="text-capitalize">{{ company.name }}</option>
                                 </select>
                                 <error :message="form.errors?.company_id"></error>
@@ -37,7 +37,7 @@
                                 <label class="font-weight-semibold" for="Category">Type Of Demand:</label>
                                 <select id="language" class="form-control" v-model="form.demand_id"
                                     :class="{ 'is-invalid': form.errors?.demand_id }">
-                                    <option v-for="(demand, index) in demands" :key="index" :value="demand.id"
+                                    <option v-for="(demand, index) in $page.props.demands" :key="index" :value="demand.id"
                                         class="text-capitalize">{{ demand.name }}</option>
                                 </select>
                                 <error :message="form.errors?.demand_id"></error>
@@ -48,7 +48,7 @@
                                 <label class="font-weight-semibold" for="Category">Clients:</label>
                                 <select id="language" class="form-control" v-model="form.client_id"
                                     :class="{ 'is-invalid': form.errors?.client_id }">
-                                    <option v-for="(client, index) in clients" :key="index" :value="client.id"
+                                    <option v-for="(client, index) in $page.props.clients" :key="index" :value="client.id"
                                         class="text-capitalize">{{ client.name }}</option>
                                 </select>
                                 <error :message="form.errors?.client_id"></error>
@@ -57,7 +57,7 @@
                                 <label class="font-weight-semibold" for="Category">Mode Of Payment:</label>
                                 <select id="language" class="form-control" v-model="form.mode_of_payment_id"
                                     :class="{ 'is-invalid': form.errors?.mode_of_payment_id }">
-                                    <option v-for="(mop, index) in mode_of_payment" :key="index" :value="mop.id"
+                                    <option v-for="(mop, index) in $page.props.mode_of_payment" :key="index" :value="mop.id"
                                         class="text-capitalize">{{ mop.name }}</option>
                                 </select>
                                 <error :message="form.errors?.mode_of_payment_id"></error>
@@ -76,13 +76,6 @@
                                 </Datepicker>
                                 <error :message="form.errors?.last_date_of_submission"></error>
                             </div>
-                            <!-- <div class="form-group col-md-4">
-                                <label class="font-weight-semibold" for="validity_of_quotation">Validity of
-                                    Quotation:</label>
-                                <Datepicker v-model="form.validity_of_quotation" :enable-time-picker="false">
-                                </Datepicker>
-                                <error :message="form.errors?.validity_of_quotation"></error>
-                            </div> -->
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -91,64 +84,56 @@
                                     v-model="form.rate_basis" :class="{ 'is-invalid': form.errors?.rate_basis }">
                                 <error :message="form.errors?.rate_basis"></error>
                             </div>
-                            <!-- <div class="form-group col-md-6">
-                                <label class="font-weight-semibold" for="delivery_time">Delivery Time:</label>
-                                <input type="text" class="form-control" id="delivery_time" placeholder="Delivery Time"
-                                    v-model="form.delivery_time" :class="{ 'is-invalid': form.errors?.delivery_time }">
-                                <error :message="form.errors?.delivery_time"></error>
-                            </div> -->
                         </div>
                     </div>
                 </div>
             </div>
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Add Item</h4>
-                </div>
-                <div class="card-body">
-                    <div>
-                        <div v-for="(tenderItem, index) in form.items" :key="index">
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label class="font-weight-semibold" for="Bank Name">Item</label>
-                                    <select id="language" class="form-control" v-model="tenderItem.item_id">
-                                        <option v-for="(item, index) in items" :key="index" :value="item.id"
-                                            class="text-capitalize">{{ item.name }}</option>
-                                    </select>
-                                    <error :message="form.errors[`items.${index}.item_id`]"></error>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="font-weight-semibold" for="Account Title">Unit</label>
-                                    <select id="language" class="form-control" v-model="tenderItem.unit_id">
-                                        <option v-for="(unit, index) in units" :key="index" :value="unit.id"
-                                            class="text-capitalize">{{ unit.full_name }}</option>
-                                    </select>
-                                    <error :message="form.errors[`items.${index}.unit_id`]"></error>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label class="font-weight-semibold" for="Account Title">Quantity</label>
-                                    <input type="number" class="form-control" placeholder="Quantity"
-                                        v-model="tenderItem.qty">
-                                    <error :message="form.errors[`items.${index}.qty`]"></error>
-                                </div>
-                                <div class="form-group col-md-2" style="align-self: center; padding-top: 49px;">
-                                    <i class="anticon anticon-plus-square" style="font-size: 50px;"
-                                        @click="addItem()"></i>
-                                    <i class="anticon anticon-minus-square" style="font-size: 50px;"
-                                        @click="removeItem(index)" v-if="form.items.length > 1 && index > 0"></i>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-10">
-                                    <label class="font-weight-semibold" for="description">Item Description:</label>
-                                    <textarea class="form-control" rows="1"
-                                        v-model="tenderItem.description"></textarea>
-                                    <error :message="form.errors[`items.${index}.description`]"></error>
-                                </div>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="card-title">Tender Items</h4>
+                        </div>
+                        <div class="col-md-6 text-right m-auto">
+                            <a class="btn btn-primary btn-sm text-light" @click="openModal('add')" v-if="checkUserPermissions('add_tender')">
+                                <i class="anticon anticon-file-protect"></i>
+                                <span>Add Tender</span>
+                            </a>
                         </div>
                     </div>
                 </div>
+                <div class="card-body">
+                        <div class="table-responsive" v-if="form.items.length > 0">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="width: 60px;">Id</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col" style="width: 200px;">Unit</th>
+                                        <th scope="col" style="width: 200px;">Quantity</th>
+                                        <th scope="col" style="width: 200px;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(tenderItem, index) in form.items" :key="index">
+                                        <th scope="row">{{ index+1 }}</th>
+                                        <td class="text-capitalize">{{ tenderItem.item?.name }}<br><small>{{ tenderItem.description }}</small></td>
+                                        <td class="text-capitalize">{{ tenderItem.unit?.full_name }}</td>
+                                        <td class="text-capitalize">{{tenderItem.qty}}</td>
+                                        <td class="text-capitalize">
+                                            <a @click="openModal('edit', tenderItem.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('edit_tender')">
+                                                <i class="anticon anticon-edit"></i>
+                                            </a>
+                                            <a @click="onDelete(tenderItem.id)" class="btn btn-icon btn-hover btn-sm btn-rounded" v-if="checkUserPermissions('delete_tender')">
+                                                <i class="anticon anticon-delete"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div v-else>No record Found</div>
+                    </div>
             </div>
             <div class="card">
                 <div class="card-header">
@@ -182,6 +167,7 @@
                 </div>
             </div>
         </form>
+        <ItemModal></ItemModal>
     </AuthenticatedLayout>
 </template>
 
@@ -190,7 +176,9 @@ import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { Head, useForm } from '@inertiajs/inertia-vue3';
 import Error from '@/Components/InputError.vue';
 import Datepicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
+import '@vuepic/vue-datepicker/dist/main.css';
+import ItemModal from './ItemModal.vue';
+import Helpers from '@/Mixins/Helpers';
 
 export default {
     props: ['mode_of_payment', 'clients', 'items', 'units', 'companies', 'demands', 'tender'],
@@ -198,7 +186,8 @@ export default {
         AuthenticatedLayout,
         Head,
         Error,
-        Datepicker
+        Datepicker,
+        ItemModal
     },
     data() {
         return {
@@ -214,37 +203,62 @@ export default {
                 onError: errors => { console.log(errors); }
             })
         },
-        addItem() {
-            this.form.items.push({
-                item_id: null,
-                unit_id: null,
-                qty: null,
-                description: null
+        openModal(action , id = null){
+            var item = id ? this.form.items.filter((item) => item.id == id)[0] : null
+            this.emitter.emit('open_modal', {
+                tender_id: this.form.id,
+                item: item,
+                action: action,
+            });
+        },
+        createFormObject(){
+            this.form = useForm({
+                id: this.tender ? this.tender.id : null,
+                reference_no: this.tender ? this.tender.reference_no : null,
+                file_name: this.tender ? this.tender.file_name : null,
+                rate_basis: this.tender ? this.tender.rate_basis : null,
+                delivery_time: this.tender ? this.tender.delivery_time : null,
+                description: this.tender ? this.tender.description : null,
+                special_terms: this.tender ? this.tender.special_terms : null,
+                rfq_date: this.tender ? this.tender.rfq_date : null,
+                last_date_of_submission: this.tender ? this.tender.last_date_of_submission : null,
+                validity_of_quotation: this.tender ? this.tender.validity_of_quotation : null,
+                client_id: this.tender ? this.tender.client_id : null,
+                mode_of_payment_id: this.tender ? this.tender.mode_of_payment_id : null,
+                company_id: this.tender ? this.tender.company_id : null,
+                demand_id: this.tender ? this.tender.demand_id : null,
+                items: this.tender ? this.tender.items : null,
             })
         },
-        removeItem(index) {
-            this.form.items.splice(index, 1)
-        }
+        onDelete($id) {
+            this.swal.fire({
+                title: "",
+                html: "<h1 class='text-lg text-gray-800 mb-1'>Delete Record</h1><p class='text-base'>Are you sure want to delete this record?</p>",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: "Delete Record",
+                customClass: {
+                confirmButton: 'danger'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.$inertia.delete(route('dashboard.tender-item.destroy', $id), {
+                        preserveScroll: false,
+                        onSuccess: () => {},
+                        onError: errors => {console.log(errors);}
+                    })
+                }
+            })
+        },
     },
     mounted() {
-        this.form = useForm({
-            id: this.tender ? this.tender.id : null,
-            reference_no: this.tender ? this.tender.reference_no : null,
-            file_name: this.tender ? this.tender.file_name : null,
-            rate_basis: this.tender ? this.tender.rate_basis : null,
-            delivery_time: this.tender ? this.tender.delivery_time : null,
-            description: this.tender ? this.tender.description : null,
-            special_terms: this.tender ? this.tender.special_terms : null,
-            rfq_date: this.tender ? this.tender.rfq_date : null,
-            last_date_of_submission: this.tender ? this.tender.last_date_of_submission : null,
-            validity_of_quotation: this.tender ? this.tender.validity_of_quotation : null,
-            client_id: this.tender ? this.tender.client_id : null,
-            mode_of_payment_id: this.tender ? this.tender.mode_of_payment_id : null,
-            company_id: this.tender ? this.tender.company_id : null,
-            demand_id: this.tender ? this.tender.demand_id : null,
-            items: this.tender ? this.tender.items : null,
-        })
+        this.createFormObject()
     },
+    updated() {
+        this.createFormObject()
+        this.scrollToTop()
+    },
+    mixins: [Helpers]
 }
 </script>
 

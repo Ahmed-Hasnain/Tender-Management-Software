@@ -80,6 +80,7 @@ Route::middleware(['auth', 'verified'])
         Route::group(['middleware' => ['can:view_tender']], function () {
             Route::resource('/tender', Admin\TenderController::class);
             Route::get('/get-tender-reports/{reportParams?}', [Admin\TenderController::class, 'tenderReports'])->name('getTenderReports');
+            Route::resource('/tender-item', Admin\TenderItemController::class)->only('store', 'update', 'destroy');
         });
         //quotation
         Route::group(['middleware' => ['can:view_quotation']], function () {
