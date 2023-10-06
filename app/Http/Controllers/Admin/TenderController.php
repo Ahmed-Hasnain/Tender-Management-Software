@@ -137,18 +137,7 @@ class TenderController extends Controller
     {
         try{
             DB::beginTransaction();
-            $tender = Tender::create($request->all());
-            $tenderItems = $request->input('items');
-            if (count($tenderItems) > 0) {
-                foreach ($tenderItems as $key => $tenderItem) {
-                    $tender->items()->create([
-                        'item_id' => $tenderItem['item_id'],
-                        'unit_id' => $tenderItem['unit_id'],
-                        'qty' => $tenderItem['qty'],
-                        'description' => $tenderItem['description'],
-                    ]);
-                }
-            }
+            Tender::create($request->all());
             DB::commit();
             flash('Tender Added Sucessfully!', 'success');
             return \redirect(route('dashboard.tender.index'));          
@@ -182,13 +171,7 @@ class TenderController extends Controller
     public function edit(Tender $tender)
     {
         return Inertia::render('Tender/Edit', [
-            'mode_of_payment' => ModeOfPayment::all(),
-            'clients' => Client::all(),
             'tender' => $tender->load('items.unit', 'items.item'),
-            'items' => Item::all(),
-            'units' => Unit::all(),
-            'companies' => Company::all(),
-            'demands' => Demand::all(),
         ]);
     }
 

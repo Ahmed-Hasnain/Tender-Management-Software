@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Tender;
+use App\Models\TenderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TenderItemRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class TenderItemController extends Controller
 {
@@ -85,9 +87,19 @@ class TenderItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TenderItemRequest $request, TenderItem $tenderItem)
     {
-        dd($request->all(), $id, 'update');
+        try{
+            DB::beginTransaction();
+            $tenderItem->update($request->all());
+            DB::commit();
+            flash('Tender Item Updated Sucessfully!', 'success');
+            return \redirect()->back();     
+        }catch (\Exception $e) {
+            DB::rollBack();
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 
     /**
@@ -96,8 +108,18 @@ class TenderItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(TenderItem $tenderItem)
     {
-        //
+        try {           
+            $tenderItem->delete();
+            flash('Tender Item deleted succesfully', 'success');
+            return \redirect()->back();
+        } catch (ModelNotFoundException $e) {
+            flash('Unable to find this tender item', 'danger');
+            return \redirect()->back();
+        } catch (\Exception $e) {
+            flash($e->getMessage(), 'danger');
+            return \redirect()->back();
+        }
     }
 }

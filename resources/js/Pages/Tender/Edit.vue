@@ -124,7 +124,7 @@
                                             <a @click="openModal('edit', tenderItem.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" v-if="checkUserPermissions('edit_tender')">
                                                 <i class="anticon anticon-edit"></i>
                                             </a>
-                                            <a @click="openModal('delete', tenderItem.id)" class="btn btn-icon btn-hover btn-sm btn-rounded" v-if="checkUserPermissions('delete_tender')">
+                                            <a @click="onDelete(tenderItem.id)" class="btn btn-icon btn-hover btn-sm btn-rounded" v-if="checkUserPermissions('delete_tender')">
                                                 <i class="anticon anticon-delete"></i>
                                             </a>
                                         </td>
@@ -228,6 +228,26 @@ export default {
                 company_id: this.tender ? this.tender.company_id : null,
                 demand_id: this.tender ? this.tender.demand_id : null,
                 items: this.tender ? this.tender.items : null,
+            })
+        },
+        onDelete($id) {
+            this.swal.fire({
+                title: "",
+                html: "<h1 class='text-lg text-gray-800 mb-1'>Delete Record</h1><p class='text-base'>Are you sure want to delete this record?</p>",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: "Delete Record",
+                customClass: {
+                confirmButton: 'danger'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.$inertia.delete(route('dashboard.tender-item.destroy', $id), {
+                        preserveScroll: false,
+                        onSuccess: () => {},
+                        onError: errors => {console.log(errors);}
+                    })
+                }
             })
         },
     },

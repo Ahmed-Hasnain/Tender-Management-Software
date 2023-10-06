@@ -1,7 +1,7 @@
 <template>
     <modal>
         <template #header>
-            <h5 class="modal-title" id="exampleModalLongTitle">Add Tender Item</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">{{form?.id ?  'Edit Tender Item' : 'Add Tender Item'}}</h5>
         </template>
         <template #content>
             <form v-if="form" @submit.prevent="submit">
@@ -40,7 +40,7 @@
                         <div class="form-group col-md-6">
                         </div>
                         <div class="form-group col-md-6 text-right">
-                            <button class="btn btn-primary m-t-30 ">Submit</button>
+                            <button class="btn btn-primary m-t-30 " :disabled="form.processing" :classes="form.processing ? 'btn btn-primary is-loading m-r-5' : 'btn btn-primary m-t-30'">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -63,16 +63,16 @@ export default {
         submit() {
             if(this.form.id) {
                 this.form.put(route('dashboard.tender-item.update', this.form.id), {
-                    errorBag: 'tender',
+                    errorBag: 'tender_item',
                     preserveScroll: true,
                     onSuccess: () => { 
-
+                        this.emitter.emit('close_modal')
                     },
                     onError: errors => { console.log(errors); }
                 })
             } else {
                 this.form.post(route('dashboard.tender-item.store'), {
-                    errorBag: 'tender',
+                    errorBag: 'tender_item',
                     preserveScroll: true,
                     onSuccess: () => {
                         this.emitter.emit('close_modal')
