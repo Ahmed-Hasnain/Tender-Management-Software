@@ -97,7 +97,7 @@
                         <div class="col-md-6 text-right m-auto">
                             <a class="btn btn-primary btn-sm text-light" @click="openModal('add')" v-if="checkUserPermissions('add_tender')">
                                 <i class="anticon anticon-file-protect"></i>
-                                <span>Add Tender</span>
+                                <span>Add Tender Item</span>
                             </a>
                         </div>
                     </div>
