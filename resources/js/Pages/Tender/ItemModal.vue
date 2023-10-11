@@ -76,7 +76,7 @@ export default {
                     errorBag: 'tender_item',
                     preserveScroll: true,
                     onSuccess: () => { 
-                        // this.emitter.emit('close_modal')
+                        this.emitter.emit('close_modal')
                     },
                     onError: errors => { console.log(errors); }
                 })
@@ -85,6 +85,10 @@ export default {
                     errorBag: 'tender_item',
                     preserveScroll: true,
                     onSuccess: () => {
+                        this.form.unit_id = null
+                        this.form.item_id = null
+                        this.form.qty = null
+                        this.form.description = null
                         // this.emitter.emit('close_modal')
                     },
                     onError: errors => { console.log(errors); }

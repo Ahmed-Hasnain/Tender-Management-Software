@@ -256,7 +256,7 @@ export default {
     },
     updated() {
         this.createFormObject()
-        this.scrollToBottom()
+        // this.scrollToBottom()
     },
     mixins: [Helpers]
 }
