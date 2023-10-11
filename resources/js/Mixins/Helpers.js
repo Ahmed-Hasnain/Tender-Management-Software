@@ -83,5 +83,10 @@ export default {
         scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         },
+
+        //scroll to bottom of page
+        scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        },
     }
 }
