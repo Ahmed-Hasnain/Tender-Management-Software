@@ -29,7 +29,7 @@ class TenderItemRequest extends FormRequest
                     'item_id' => 'required',
                     'unit_id' => 'required',
                     'qty' => 'required',
-                    'description' => 'required',
+                    'description' => 'nullable',
                 ];
                 break;
             case 'PUT':
@@ -37,7 +37,7 @@ class TenderItemRequest extends FormRequest
                     'item_id' => 'required',
                     'unit_id' => 'required',
                     'qty' => 'required',
-                    'description' => 'required',
+                    'description' => 'nullable',
                 ];
                 break;   
         }
