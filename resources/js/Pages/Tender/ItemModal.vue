@@ -40,7 +40,17 @@
                         <div class="form-group col-md-6">
                         </div>
                         <div class="form-group col-md-6 text-right">
-                            <button class="btn btn-primary m-t-30 " :disabled="form.processing" :classes="form.processing ? 'btn btn-primary is-loading m-r-5' : 'btn btn-primary m-t-30'">Submit</button>
+                            <button class="btn btn-primary m-t-30 " :disabled="form.processing" :classes="form.processing ? 'btn btn-primary is-loading m-r-5' : 'btn btn-primary m-t-30'">
+                                <div v-if="form.processing">
+                                    <div class="spinner-border text-primary" role="status" >
+                                        <span class="visually-hidden"></span>
+                                    </div>
+                                    <span class="text-dark px-3">Loading...</span>
+                                </div>
+                                <div v-else>
+                                    Submit
+                                </div>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -66,7 +76,7 @@ export default {
                     errorBag: 'tender_item',
                     preserveScroll: true,
                     onSuccess: () => { 
-                        this.emitter.emit('close_modal')
+                        // this.emitter.emit('close_modal')
                     },
                     onError: errors => { console.log(errors); }
                 })
@@ -75,7 +85,7 @@ export default {
                     errorBag: 'tender_item',
                     preserveScroll: true,
                     onSuccess: () => {
-                        this.emitter.emit('close_modal')
+                        // this.emitter.emit('close_modal')
                     },
                     onError: errors => { console.log(errors); }
                 })
