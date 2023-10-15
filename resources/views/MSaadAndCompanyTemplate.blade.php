@@ -7,7 +7,7 @@
         /* Define your CSS styles here */
         body {
             font-family: "Courier New", Courier, monospace !important;
-            font-size: 12px;
+            font-size: 14px;
             padding-top: 60px !important;
         }
         table {
@@ -66,7 +66,7 @@
             left: 0px;
             right: 0px;
             text-align: left;
-            padding-bottom: 20px;
+            padding-bottom: 0px;
         }
         footer { 
             position: fixed;
@@ -75,6 +75,11 @@
             right: 0px;
             border-top: 2px solid #bd483b !important;
         }
+
+        .pagenum:before {
+            content: counter(page);
+        }
+
         .p-0 { padding: 0px; }
         .p-1 { padding: 1px; }
         .p-2 { padding: 2px; }
@@ -201,18 +206,19 @@
 </head>
 <body>
     <header>
+        Page # <span class="pagenum"></span> (<small>Ref # {{$quotation->reference_no}}</small>)
         <table>
             <tbody>
                 <tr>
-                    <td style="border: 0px !important; width: 72%;">
+                    <td style="border: 0px !important; width: 65%;">
                         <img src="{{public_path($logo)}}" alt="Logo" height="100" width="200">
                     </td>
-                    <td style="width: 28%; border: 0px !important">
+                    <td style="width: 35%; border: 0px !important">
                         <div>
                             <span style="color:#323653">Tel: +92 51 2745668</span><br>
                             <span style="color:#323653">Fax: +92 51 2745778</span><br>
-                            <span style="color:#323653">Email: msaadandcom@gmail.com</span><br>
-                            {{-- <span style="color:#323653">Office # 18, 3<sup>rd</sup> Floor,</span><br> 
+                            <span style="color:#323653; font-size: 12px;">Email: msaadandcom@gmail.com</span><br>
+                            {{-- <span style="color:#323653; ">Office # 18, 3<sup>rd</sup> Floor,</span><br> 
                             <span style="color:#323653">Gulberg Trade Center,</span><br> 
                             <span style="color:#323653">Business Park,</span><br> 
                             <span style="color:#323653">Gulberg Greens, Islamabad</span> --}}
@@ -226,19 +232,17 @@
         <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Head Quarter: Office # 18, 3<sup>rd</sup> Floor, Gulberg Trade Center, Business Park, Gulberg Greens, Islamabad.</p>
     </footer>
     <main>
-        <table style="padding-top: 20px;">
+        <div style="text-align: center; font-weight: bold; text-transform: uppercase; font-size: 15px;">Quotation</div>
+        <table style="padding-top: 0px;">
             <tbody>
                 <tr>
-                    <td style="border: 0px !important;">
+                    <td style="border: 0px !important; line-height: 25px;">
                         NTN: 7881680-2<br><br>
                         <strong>Our Reference:</strong> {{$quotation->reference_no}}<br>
                         <strong>Customer Ref:</strong> {{$quotation->tender->reference_no}}<br>
                         <strong>File Name:</strong> {{$quotation->tender->file_name}}
                     </td>
-                    <td style="border: 0px !important; vertical-align: top; text-align: center; text-transform: uppercase; font-size: 15px; font-weight: bold;">
-                        Quotation<br>
-                    </td>
-                    <td style="text-align: right; border: 0px !important;">
+                    <td style="text-align: right; border: 0px !important;line-height: 25px;">
                         STRN: 3277876141811<br><br>
                         <strong>Dated:</strong> {{dateFormate($date)}}<br>
                         <strong>Dated:</strong> {{dateFormate($quotation->tender->rfq_date)}}<br>
@@ -256,8 +260,8 @@
                     <th class="w-50 text-center">Description</th>
                     <th class="w-5 text-center">UOM</th>
                     <th class="w-5 text-center">Qty</th>
-                    <th class="text-center">Unit Price ({{$quotation->currency}})</th>
-                    <th class="text-center">Total Amount ({{$quotation->currency}})</th>
+                    <th class="text-center">Unit Price</th>
+                    <th class="text-center">Total Amount</th>
                 </tr>
             </thead>
             <tbody>
@@ -268,8 +272,8 @@
                             <td class="w-50 ">{{$item->tenderItem?->item?->name}}<br> <small> {{$item->tenderItem?->description}}</small></td>
                             <td class="w-5 text-center">{{$item->tenderItem?->unit?->short_name}}</td>
                             <td class="w-5 text-center">{{$item->tenderItem?->qty}}</td>
-                            <td class="text-right">{{numberFormate($item->unit_price)}}</td>
-                            <td class="text-right">{{numberFormate($item->total_price)}}</td>
+                            <td class="w-10 text-right">{{numberFormate($item->unit_price)}}</td>
+                            <td class="w-10 text-right">{{numberFormate($item->total_price)}}</td>
                         </tr>
                     @endforeach
                 @endif
@@ -284,7 +288,7 @@
                     <td class="text-right">{{numberFormate(calculateTax($quotation->tax, $quotation->total_price))}}</td>
                 </tr>
                 <tr>
-                    <td colspan="5" class="footer" style="border: 0px !important;">Grand Total:</td>
+                    <td colspan="5" class="footer" style="border: 0px !important;">Grand Total({{$quotation->currency}}):</td>
                     <td class="text-right">{{numberFormate($quotation->total_price + calculateTax($quotation->tax, $quotation->total_price))}}</td>
                 </tr>
             </tfoot>
@@ -317,7 +321,7 @@
         </div>
         <br>
         <div>
-            <p class="text-center pt-20"><strong>Yours Truly</strong></p> 
+            <p class="text-center" style="padding-top: 100px;"><strong>Yours Truly</strong></p> 
         </div>
     </main>
 </body>

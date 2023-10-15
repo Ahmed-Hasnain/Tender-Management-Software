@@ -7,7 +7,7 @@
         /* Define your CSS styles here */
         body {
             font-family: "Arial Narrow", Arial, sans-serif !important;
-            font-size: 12px;
+            font-size: 14px;
             margin: 0px 8px !important; 
             padding-top: 100px !important;
         }
@@ -63,7 +63,7 @@
         @page { margin: 85px 50px; }
         header { 
             position: fixed;
-            top: -60px;
+            top: -70px;
             left: 0px;
             right: 0px;
             text-align: left;
@@ -84,6 +84,10 @@
         }
         .text-center {
             text-align: center !important;
+        }
+
+        .pagenum:before {
+            content: counter(page);
         }
 
         .p-0 { padding: 0px; }
@@ -212,6 +216,7 @@
 </head>
 <body>
     <header>
+        Page # <span class="pagenum"></span> (<small>Ref # {{$quotation->reference_no}}</small>)
         <table>
             <tbody>
                 <tr style="border-bottom: 4px solid #894e3c !important;">
@@ -307,8 +312,8 @@
                     <th class="w-50 text-center">Description</th>
                     <th class="w-5 text-center">UOM</th>
                     <th class="w-5 text-center">Qty</th>
-                    <th class="text-center">Unit Price ({{$quotation->currency}})</th>
-                    <th class="text-center">Total Amount ({{$quotation->currency}})</th>
+                    <th class="w-10 text-center">Unit Price</th>
+                    <th class="w-10 text-center">Total Amount</th>
                 </tr>
             </thead>
             <tbody>
@@ -335,7 +340,7 @@
                     <td class="text-right">{{numberFormate(calculateTax($quotation->tax, $quotation->total_price))}}</td>
                 </tr>
                 <tr>
-                    <td colspan="5" class="footer" style="border: 0px !important;">Grand Total:</td>
+                    <td colspan="5" class="footer" style="border: 0px !important;">Grand Total({{$quotation->currency}}):</td>
                     <td class="text-right">{{numberFormate($quotation->total_price + calculateTax($quotation->tax, $quotation->total_price))}}</td>
                 </tr>
             </tfoot>
@@ -351,7 +356,7 @@
         </div>
         <br>
         <div>
-            <p class="text-center pt-20"><strong>Yours Truly</strong></p> 
+            <p class="text-center" style="padding-top: 100px;"><strong>Yours Truly</strong></p> 
         </div>
     </main>
 </body>

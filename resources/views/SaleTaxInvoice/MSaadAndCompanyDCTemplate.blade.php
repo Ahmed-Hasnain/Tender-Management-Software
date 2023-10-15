@@ -7,7 +7,7 @@
         /* Define your CSS styles here */
         body {
             font-family: "Courier New", Courier, monospace !important;
-            font-size: 12px;
+            font-size: 14px;
             padding-top: 60px !important;
         }
         table {
@@ -62,7 +62,7 @@
         @page { margin: 85px 50px; }
         header { 
             position: fixed;
-            top: -60px;
+            top: -80px;
             left: 0px;
             right: 0px;
             text-align: left;
@@ -75,6 +75,11 @@
             right: 0px;
             border-top: 2px solid #bd483b !important;
         }
+
+        .pagenum:before {
+            content: counter(page);
+        }
+
         .p-0 { padding: 0px; }
         .p-1 { padding: 1px; }
         .p-2 { padding: 2px; }
@@ -201,6 +206,7 @@
 </head>
 <body>
     <header>
+        Page # <span class="pagenum"></span>
         <table>
             <tbody>
                 <tr>

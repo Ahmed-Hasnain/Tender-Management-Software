@@ -7,7 +7,7 @@
         /* Define your CSS styles here */
         body {
             font-family: "Arial Narrow", Arial, sans-serif !important;
-            font-size: 12px;
+            font-size: 14px;
             margin: 0px 8px !important; 
             padding-top: 100px !important;
         }
@@ -71,7 +71,7 @@
         @page { margin: 85px 50px; }
         header { 
             position: fixed;
-            top: -60px;
+            top: -80px;
             left: 0px;
             right: 0px;
             text-align: left;
@@ -83,6 +83,10 @@
             left: 0px;
             right: 0px;
             border-top: 2px solid #894e3c !important;
+        }
+
+        .pagenum:before {
+            content: counter(page);
         }
 
         .p-0 { padding: 0px; }
@@ -211,6 +215,7 @@
 </head>
 <body>
     <header>
+        Page # <span class="pagenum"></span>
         <table>
             <tbody>
                 <tr style="border-bottom: 4px solid #894e3c !important;">

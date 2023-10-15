@@ -7,7 +7,7 @@
         /* Define your CSS styles here */
         body {
             font-family: Arial, sans-serif;
-            font-size: 12px;
+            font-size: 14px;
             padding: 20px !important;
             padding-top: 100px !important;
         }
@@ -75,7 +75,7 @@
         @page { margin: 85px 50px; }
         header { 
             position: fixed;
-            top: -60px;
+            top: -80px;
             left: 0px;
             right: 0px;
             text-align: left;
@@ -88,6 +88,10 @@
             right: 0px;
             border-top: 2px solid #894e3c !important;
         }
+        .pagenum:before {
+            content: counter(page);
+        }
+
         .p-0 { padding: 0px; }
         .p-1 { padding: 1px; }
         .p-2 { padding: 2px; }
@@ -216,6 +220,7 @@
 </head>
 <body>
     <header>
+        Page # <span class="pagenum"></span>
         <table>
             <tbody>
                 <tr style="border-bottom: 4px solid #894e3c !important;">
@@ -223,7 +228,7 @@
                         <img src="{{public_path($logo)}}" alt="Logo" height="100" width="150">
                         <p><strong style="text-align: left;">NTN # 5599160-8</strong></p>
                     </td>
-                    <td style="border: 0px !important; width: 30%; vertical-align: middle; text-align: left; font-size: 20px">
+                    <td style="border: 0px !important; width: 30%; vertical-align: middle; text-align: left; font-size: 16px; font-weight: bold; text-transform: uppercase;">
                         Delivery Challan
                     </td>
                     <td style="text-align: justify; width: 30%; margin-right: -80px !important; border: 0px !important">
@@ -276,7 +281,7 @@
             <span>Customer Name</span><br>
             <span><strong>{{$deliveryChallan->supplyOrder?->quotation?->tender?->client?->name}}</strong></span><br><br>
             <span>Customer Reference</span><br>
-            <span><strong>Ref. No.</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->reference_no}}, <strong>Dated: </strong>{{dateFormate($deliveryChallan->supplyOrder?->quotation?->tender?->rfq_date)}} </span><br>
+            <span><strong>Ref. No.</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->reference_no}}, <strong>Dated: </strong>{{dateFormate($deliveryChallan->supplyOrder?->date_of_supply_order)}} </span><br>
         </div>
         <br>
         <br>
