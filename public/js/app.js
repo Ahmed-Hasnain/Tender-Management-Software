@@ -20003,7 +20003,9 @@ __webpack_require__.r(__webpack_exports__);
       var ci_status = this.allParams ? '&params[ci_status]=' + this.allParams.ci_status : '';
       var pr_status = this.allParams ? '&params[pr_status]=' + this.allParams.pr_status : '';
       var report_type = this.allParams ? '&params[reportType]=' + this.allParams.reportType : '';
-      return url + searchedKeyword + company + status + department + startDate + endDate + limit + currency + sti_status + ci_status + pr_status + report_type;
+      var item_status = this.allParams ? '&params[item_status]=' + this.allParams.item_status : '';
+      var amount_included = this.allParams ? '&params[amount_included]=' + this.allParams.amount_included : '';
+      return url + searchedKeyword + company + status + department + startDate + endDate + limit + currency + sti_status + ci_status + pr_status + report_type + item_status + amount_included;
     }
   }
 });

@@ -269,7 +269,7 @@ class SupplyOrderController extends Controller
     public function downloadSupplyOrder($supplyOrderId, $company, $type)
     {
         try {
-            $supplyOrder = SupplyOrder::with('items.quotationItem.tenderItem.item', 'items.quotationItem.tenderItem.unit', 'quotation.tender.items.item', 'quotation.tender.items.unit', 'quotation.tender.client')->findOrFail($supplyOrderId);
+            $supplyOrder = SupplyOrder::with('items.quotationItem.tenderItem.item', 'items.quotationItem.tenderItem.unit', 'quotation.tender.items.item', 'quotation.tender.items.unit', 'quotation.tender.client', 'deliveryChallan')->findOrFail($supplyOrderId);
             $data = [
                 'supplyOrder' => $supplyOrder,
             ];
