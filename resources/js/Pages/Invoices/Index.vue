@@ -199,6 +199,7 @@ export default {
                 this.params.sti_status = args.params.sti_status
                 this.params.ci_status = args.params.ci_status
                 this.params.pr_status = args.params.pr_status
+                this.company = args.params.company
             }
         })
     },

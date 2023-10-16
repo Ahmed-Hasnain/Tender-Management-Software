@@ -22318,6 +22318,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.params.sti_status = args.params.sti_status;
         _this.params.ci_status = args.params.ci_status;
         _this.params.pr_status = args.params.pr_status;
+        _this.company = args.params.company;
       }
     });
   },
