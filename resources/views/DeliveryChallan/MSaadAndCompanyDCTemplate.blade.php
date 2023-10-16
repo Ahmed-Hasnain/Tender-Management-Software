@@ -269,7 +269,7 @@
                                 </tr>
                                 <tr style="padding: 0px !important;">
                                     <td class="w-30" style="border: 0px !important; color: gray !important;"><strong>Customer Ref:</strong></td>
-                                    <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">{{$deliveryChallan->supplyOrder?->quotation?->tender?->reference_no}} - Dated: {{dateFormate($deliveryChallan->supplyOrder?->quotation?->tender?->rfq_date)}}</td>
+                                    <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">{{$deliveryChallan->supplyOrder?->quotation?->tender?->reference_no}} - Dated: {{dateFormate($deliveryChallan->supplyOrder?->date_of_supply_order)}}</td>
                                 </tr>
                             </tbody>
                         </table>

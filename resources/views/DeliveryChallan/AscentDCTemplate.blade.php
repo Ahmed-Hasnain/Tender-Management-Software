@@ -220,7 +220,7 @@
 </head>
 <body>
     <header>
-        Page # <span class="pagenum"></span>
+    Page # <span class="pagenum"></span> (<small>Ref # {{$deliveryChallan->supplyOrder?->quotation?->reference_no}}</small>)
         <table>
             <tbody>
                 <tr style="border-bottom: 4px solid #894e3c !important;">

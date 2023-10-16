@@ -215,7 +215,7 @@
 </head>
 <body>
     <header>
-        Page # <span class="pagenum"></span>
+        Page # <span class="pagenum"></span> (<small>Ref # {{ $supplyOrder->quotation?->reference_no }}</small>)
         <table>
             <tbody>
                 <tr style="border-bottom: 4px solid #894e3c !important;">
@@ -223,7 +223,7 @@
                         <img src="{{public_path($logo)}}" alt="Logo" height="100" width="150">
                         <p><strong style="text-align: left;">NTN # 5599160-8</strong></p>
                     </td>
-                    <td style="border: 0px !important; width: 30%; vertical-align: middle; text-align: left; font-size: 20px">
+                    <td style="border: 0px !important; width: 30%; vertical-align: middle; text-align: left; font-size: 16px; font-weight: bold; text-transform: uppercase;">
                         Commercial Invoice
                     </td>
                     <td style="text-align: justify; width: 30%; margin-right: -80px !important; border: 0px !important">
@@ -231,6 +231,7 @@
                             <span style="color:#323653">Tel: +92 318 3788114</span><br>
                             <span style="color:#323653">Fax: +92 51 8772576</span><br>
                             <span style="color:#323653">E-mail: ascent.tts@gmail.com</span><br>
+                            <span style="color:#323653">Website: ascent-tts.com</span><br>
                         </div>
                     </td>
                 </tr>
@@ -242,11 +243,11 @@
         <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Regional Office: Plot No 117 Shaheed Millat Road, Defence View Phase II, Karachi. Mobile: 0333-2814609</p>
     </footer>
     <main>
-        <table style="padding-top: 20px;">
+        <table style="padding-top: 0px;">
             <tbody>
                 <tr style="vertical-align: top !important;">
                     <td style="border: 0px !important;" class="w-50">
-                        <table style="margin-top: 10px;"> 
+                        <table style="margin-top: 10px; line-height: 13px !important;"> 
                             <tbody>
                                 <tr>
                                     <td class=" text-center"><strong>Our Reference</strong></td>
@@ -264,7 +265,7 @@
                         </table>
                     </td>
                     <td style="text-align: justify; border: 0px !important;" class="w-50">  
-                        <table style="margin-top: 10px;"> 
+                        <table style="margin-top: 10px;line-height: 13px !important;"> 
                             <tbody>
                                 <tr>
                                     <td class="w-50 text-center"><strong>Invoice #</strong></td>
@@ -281,7 +282,6 @@
             </tbody>
         </table>
         <br>
-        <br>
         <table>
             <thead>
                 <tr>
@@ -289,8 +289,8 @@
                     <th class="w-50 text-center">Description</th>
                     <th class="w-5 text-center">Qty</th>
                     <th class="w-5 text-center">A/U</th>
-                    <th class="text-center">Unit Price ({{$supplyOrder->quotation?->currency}})</th>
-                    <th class="text-center">Total Amount ({{$supplyOrder->quotation?->currency}})</th>
+                    <th class="w-10 text-center">Unit Price</th>
+                    <th class="w-10 text-center">Total Amount</th>
                 </tr>
             </thead>
             <tbody>
@@ -317,11 +317,25 @@
                     <td class="text-right">{{numberFormate(calculateTax($supplyOrder?->quotation?->tax, $supplyOrder->total_price))}}</td>
                 </tr>
                 <tr>
-                    <td colspan="5" class="footer" style="border: 0px !important;">Grand Total:</td>
+                    <td colspan="5" class="footer" style="border: 0px !important;">Grand Total ({{$supplyOrder->quotation?->currency}}):</td>
                     <td class="text-right">{{numberFormate($supplyOrder->total_price + calculateTax($supplyOrder?->quotation?->tax, $supplyOrder->total_price))}}</td>
                 </tr>
             </tfoot>
         </table>
+        <br>
+        <br>
+        <strong>Store Delivered: </strong>
+        <br>
+        <ol>
+            @foreach ($supplyOrder->deliveryChallan as $key => $dc)
+                <li>
+                    <strong>Reference #: </strong> {{$dc->reference_no}} <strong>Dated:</strong> {{dateFormate($dc->created_at)}}
+                </li>
+                <br>
+            @endforeach
+        </ol>
+        <br>
+        <br>
         <br>
         <div>
             <p class="text-right pt-20"><strong>Yours Truly</strong></p> 
