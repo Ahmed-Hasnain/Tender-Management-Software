@@ -11,7 +11,7 @@
                             <label class="font-weight-semibold" for="Bank Name">Item</label>
                             <select id="language" class="form-control" v-model="form.item_id">
                                 <option v-for="(item, index) in sortedItems" :key="index" :value="item.id"
-                                    class="text-capitalize">{{ item.name }}</option>
+                                    class="">{{ item.name }}</option>
                             </select>
                             <error :message="form.errors?.item_id"></error>
                         </div>

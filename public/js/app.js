@@ -31327,7 +31327,7 @@ var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   }
 }, "Action")])], -1 /* HOISTED */);
 var _hoisted_17 = {
-  "class": "text-capitalize"
+  "class": ""
 };
 var _hoisted_18 = {
   "class": "text-capitalize"
@@ -33679,7 +33679,7 @@ var _hoisted_48 = {
   scope: "row"
 };
 var _hoisted_49 = {
-  "class": "text-capitalize"
+  "class": ""
 };
 var _hoisted_50 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
 var _hoisted_51 = {
@@ -34023,7 +34023,7 @@ var _hoisted_48 = {
   scope: "row"
 };
 var _hoisted_49 = {
-  "class": "text-capitalize"
+  "class": ""
 };
 var _hoisted_50 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
 var _hoisted_51 = {
@@ -37286,7 +37286,7 @@ var _hoisted_43 = {
   scope: "row"
 };
 var _hoisted_44 = {
-  "class": "text-capitalize"
+  "class": ""
 };
 var _hoisted_45 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
 var _hoisted_46 = {
@@ -37854,7 +37854,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
           key: index,
           value: item.id,
-          "class": "text-capitalize"
+          "class": ""
         }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.name), 9 /* TEXT, PROPS */, _hoisted_5);
       }), 128 /* KEYED_FRAGMENT */))], 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.item_id]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error, {
         message: (_$data$form$errors = $data.form.errors) === null || _$data$form$errors === void 0 ? void 0 : _$data$form$errors.item_id
@@ -38222,7 +38222,7 @@ var _hoisted_80 = {
   scope: "row"
 };
 var _hoisted_81 = {
-  "class": "text-capitalize"
+  "class": ""
 };
 var _hoisted_82 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
 var _hoisted_83 = {

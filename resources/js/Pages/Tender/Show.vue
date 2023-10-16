@@ -157,7 +157,7 @@
                                 <tbody>
                                     <tr v-for="(item,index) in tender.allItems" :key="index">
                                         <th scope="row">{{ index+1 }}</th>
-                                        <td class="text-capitalize">{{ item.item?.name }}<br><small>{{ item.description }}</small></td>
+                                        <td class="">{{ item.item?.name }}<br><small>{{ item.description }}</small></td>
                                         <td class="text-capitalize">{{ item.unit?.full_name }}</td>
                                         <td class="text-capitalize">{{item.qty}}</td>
                                     </tr>

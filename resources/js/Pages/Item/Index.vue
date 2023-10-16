@@ -40,7 +40,7 @@
                                     <tbody>
                                         <tr role="row" class="odd" v-for="(item,index) in allItems.data" :key="index">
                                             <td>{{ item.id }}</td>
-                                            <td class="text-capitalize">{{ item.name }}</td>
+                                            <td class="">{{ item.name }}</td>
                                             <td class="text-capitalize">{{ item.category ?  item.category.name : 'null'}}</td>
                                             <td class="text-capitalize">{{ item.sub_category ?  item.sub_category.name : 'null'}}</td>
                                             <td class="text-right">
