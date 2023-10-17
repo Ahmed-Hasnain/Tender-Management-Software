@@ -228,10 +228,10 @@
                     </td>
                     <td style="text-align: justify; width: 30%; margin-right: -80px !important; border: 0px !important">
                         <div style="border-left: 3px solid #323653 !important; padding-left: 8px !important">
-                            <span style="color:#323653">Tel: +92 318 3788114</span><br>
-                            <span style="color:#323653">Fax: +92 51 8772576</span><br>
-                            <span style="color:#323653">E-mail: ascent.tts@gmail.com</span><br>
-                            <span style="color:#323653">Website: ascent-tts.com</span><br>
+                            <img src="{{public_path('assets/images/svg/phone.svg')}}" alt="SVG Image" height="10" width="10" style="padding-right:5px;"/><span style="color:#323653">Tel: +92 318 3788114</span><br>
+                            <img src="{{public_path('assets/images/svg/printer.svg')}}" alt="SVG Image" height="10" width="10" style="padding-right:5px;"/><span style="color:#323653">Fax: +92 51 8772576</span><br>
+                            <img src="{{public_path('assets/images/svg/envelop.svg')}}" alt="SVG Image" height="10" width="10" style="padding-right:5px;"/><span style="color:#323653">E-mail: procurement@ascent-tts.com</span><br>
+                            <img src="{{public_path('assets/images/svg/globe.svg')}}" alt="SVG Image" height="10" width="10" style="padding-right:5px;"/><span style="color:#323653">Website: ascent-tts.com</span><br>
                         </div>
                     </td>
                 </tr>

@@ -72,7 +72,8 @@
                                                     <i class="anticon anticon-copyright"></i>
                                                 </a>
                                                 <button @click="supplyOrder.payment_recieving ? showPaymentRecieving(supplyOrder.payment_recieving.id) : addPaymentRecieving(supplyOrder.id)" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right mx-1" v-if="checkUserPermissions('add_payment_recieving')" :class="[supplyOrder.payment_recieving ? 'bg-success text-white' : '']">
-                                                    <i class="anticon anticon-edit"></i>
+                                                    <!-- <i class="anticon anticon-edit"></i> -->
+                                                    <i class="far fa-money-bill-alt"></i>
                                                 </button>
                                             </td>
                                         </tr>

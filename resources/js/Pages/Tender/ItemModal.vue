@@ -42,7 +42,7 @@
                         <div class="form-group col-md-6 text-right">
                             <button class="btn btn-primary m-t-30 " :disabled="form.processing" :classes="form.processing ? 'btn btn-primary is-loading m-r-5' : 'btn btn-primary m-t-30'">
                                 <div v-if="form.processing">
-                                    <div class="spinner-border text-primary" role="status" >
+                                    <div class="spinner-border text-primary" role="status">
                                         <span class="visually-hidden"></span>
                                     </div>
                                     <span class="text-dark px-3">Loading...</span>

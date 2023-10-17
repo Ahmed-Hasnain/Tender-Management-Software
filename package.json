@@ -25,6 +25,8 @@
         "vue-loader": "^17.0.0"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^40.0.0",
+        "@ckeditor/ckeditor5-vue": "^5.1.0",
         "@vuepic/vue-datepicker": "^3.6.5",
         "bootstrap": "^5.2.3",
         "bootstrap-vue": "^2.23.1",
