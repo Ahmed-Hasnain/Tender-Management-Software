@@ -75,7 +75,7 @@
         @page { margin: 85px 50px; }
         header { 
             position: fixed;
-            top: -80px;
+            top: -70px;
             left: 0px;
             right: 0px;
             text-align: left;
@@ -220,7 +220,6 @@
 </head>
 <body>
     <header>
-        Page # <span class="pagenum"></span> (<small>Ref # {{$deliveryChallan->supplyOrder?->quotation?->reference_no}}</small>)
         <table>
             <tbody>
                 <tr>
@@ -329,5 +328,17 @@
             <p class="text-center pt-70"><strong>Yours Truly</strong></p> 
         </div>
     </main>
+    <script type="text/php">
+        if (isset($pdf)) {
+            $text = "Page {PAGE_NUM} of {PAGE_COUNT} (Ref # {{$deliveryChallan->supplyOrder?->quotation?->reference_no}})";
+            $size = 8;
+            $font = $fontMetrics->getFont("Verdana");
+            $width = $fontMetrics->get_text_width($text, $font, $size) / 2;
+            $x = 37;
+            // Move the page number to the top of the page (adjust the Y-coordinate)
+            $y = 10; // Change this value to position the page number
+            $pdf->page_text($x, $y, $text, $font, $size);
+        }
+    </script>
 </body>
 </html>

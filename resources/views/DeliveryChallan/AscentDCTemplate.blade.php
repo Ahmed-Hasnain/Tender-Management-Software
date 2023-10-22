@@ -75,7 +75,7 @@
         @page { margin: 85px 50px; }
         header { 
             position: fixed;
-            top: -80px;
+            top: -70px;
             left: 0px;
             right: 0px;
             text-align: left;
@@ -220,7 +220,6 @@
 </head>
 <body>
     <header>
-    Page # <span class="pagenum"></span> (<small>Ref # {{$deliveryChallan->supplyOrder?->quotation?->reference_no}}</small>)
         <table>
             <tbody>
                 <tr style="border-bottom: 4px solid #894e3c !important;">
@@ -248,7 +247,7 @@
         <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Regional Office: Plot No 117 Shaheed Millat Road, Defence View Phase II, Karachi. Mobile: 0333-2814609</p>
     </footer>
     <main>
-        <table style="padding-top: 20px;">
+        <table style="padding-top: 0px;">
             <tbody>
                 <tr>
                     <td style="border: 0px !important; width: 60% !important;" class="w-70">
@@ -336,5 +335,17 @@
             <p class="text-right pt-70"><strong>Yours Truly</strong></p> 
         </div>
     </main>
+    <script type="text/php">
+        if (isset($pdf)) {
+            $text = "Page {PAGE_NUM} of {PAGE_COUNT} (Ref # {{$deliveryChallan->supplyOrder?->quotation?->reference_no}})";
+            $size = 8;
+            $font = $fontMetrics->getFont("Verdana");
+            $width = $fontMetrics->get_text_width($text, $font, $size) / 2;
+            $x = 37;
+            // Move the page number to the top of the page (adjust the Y-coordinate)
+            $y = 10; // Change this value to position the page number
+            $pdf->page_text($x, $y, $text, $font, $size);
+        }
+    </script>
 </body>
 </html>

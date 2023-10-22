@@ -273,34 +273,38 @@ class SupplyOrderController extends Controller
             $data = [
                 'supplyOrder' => $supplyOrder,
             ];
+            $pdf = \App::make('dompdf.wrapper');
+            /* Careful: use "enable_php" option only with local html & script tags you control.
+            used with remote html or scripts is a major security problem (remote php injection) */
+            $pdf->getDomPDF()->set_option("enable_php", true);
             if ($type === 'sale_tax_invoice') {
                 switch ($company) {
                     case 'OndreTicaretTemplate':
                         $data['logo'] = "assets/images/logo/onder-logo.png";
-                        $pdf = Pdf::loadView('SaleTaxInvoice/OndreTicaretDCTemplate', $data);
+                        $pdf->loadView('SaleTaxInvoice/OndreTicaretDCTemplate', $data);
                         break;
                     case 'MSaadAndCompanyTemplate':
                         $data['logo'] = "assets/images/logo/saad&co.png";
-                        $pdf = Pdf::loadView('SaleTaxInvoice/MSaadAndCompanyDCTemplate', $data);
+                        $pdf->loadView('SaleTaxInvoice/MSaadAndCompanyDCTemplate', $data);
                         break;
                     case 'AscentTemplate':
                         $data['logo'] = "assets/images/logo/ascent.png";
-                        $pdf = Pdf::loadView('SaleTaxInvoice/AscentDCTemplate', $data);
+                        $pdf->loadView('SaleTaxInvoice/AscentDCTemplate', $data);
                         break;
                 }
             } else {
                 switch ($company) {
                     case 'OndreTicaretTemplate':
                         $data['logo'] = "assets/images/logo/onder-logo.png";
-                        $pdf = Pdf::loadView('CommercialInvoice/OndreTicaretDCTemplate', $data);
+                        $pdf->loadView('CommercialInvoice/OndreTicaretDCTemplate', $data);
                         break;
                     case 'MSaadAndCompanyTemplate':
                         $data['logo'] = "assets/images/logo/saad&co.png";
-                        $pdf = Pdf::loadView('CommercialInvoice/MSaadAndCompanyDCTemplate', $data);
+                        $pdf->loadView('CommercialInvoice/MSaadAndCompanyDCTemplate', $data);
                         break;
                     case 'AscentTemplate':
                         $data['logo'] = "assets/images/logo/ascent.png";
-                        $pdf = Pdf::loadView('CommercialInvoice/AscentDCTemplate', $data);
+                        $pdf->loadView('CommercialInvoice/AscentDCTemplate', $data);
                         break;
                 }
             }
@@ -315,7 +319,7 @@ class SupplyOrderController extends Controller
             }
             $supplyOrder->saveQuietly();
             // return view($company, $data);
-            return $pdf->download( replaceUnderscoreWithDash($type) . '-' . $supplyOrder->quotation->reference_no . '.pdf');
+            return $pdf->stream( replaceUnderscoreWithDash($type) . '-' . $supplyOrder->quotation->reference_no . '.pdf');
         } catch (\Throwable $th) {
             Log::info($th->getMessage());
         }

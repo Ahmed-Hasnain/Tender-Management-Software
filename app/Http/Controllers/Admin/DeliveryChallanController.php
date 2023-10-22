@@ -241,22 +241,26 @@ class DeliveryChallanController extends Controller
                 'deliveryChallan' => $deliveryChallan,
                 'date' => $date
             ];
+            $pdf = \App::make('dompdf.wrapper');
+            /* Careful: use "enable_php" option only with local html & script tags you control.
+            used with remote html or scripts is a major security problem (remote php injection) */
+            $pdf->getDomPDF()->set_option("enable_php", true);
             switch ($company) {
                 case 'OndreTicaretTemplate':
                     $data['logo'] = "assets/images/logo/onder-logo.png";
-                    $pdf = Pdf::loadView('DeliveryChallan/OndreTicaretDCTemplate', $data);
+                    $pdf->loadView('DeliveryChallan/OndreTicaretDCTemplate', $data);
                     break;
                 case 'MSaadAndCompanyTemplate':
                     $data['logo'] = "assets/images/logo/saad&co.png";
-                    $pdf = Pdf::loadView('DeliveryChallan/MSaadAndCompanyDCTemplate', $data);
+                    $pdf->loadView('DeliveryChallan/MSaadAndCompanyDCTemplate', $data);
                     break;
                 case 'AscentTemplate':
                     $data['logo'] = "assets/images/logo/ascent.png";
-                    $pdf = Pdf::loadView('DeliveryChallan/AscentDCTemplate', $data);
+                    $pdf->loadView('DeliveryChallan/AscentDCTemplate', $data);
                     break;
             }
             // return view('DeliveryChallan/OndreTicaretDCTemplate', $data);
-            return $pdf->download('Delivery-Challan-' . $deliveryChallan->supplyOrder->quotation->reference_no . '.pdf');
+            return $pdf->stream('Delivery-Challan-' . $deliveryChallan->supplyOrder->quotation->reference_no . '.pdf');
         } catch (\Throwable $th) {
             Log::error([
                 'message' => $th->getMessage(),
