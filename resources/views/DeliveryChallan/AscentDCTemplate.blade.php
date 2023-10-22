@@ -7,7 +7,7 @@
         /* Define your CSS styles here */
         body {
             font-family: Arial, sans-serif;
-            font-size: 12px;
+            font-size: 14px;
             padding: 20px !important;
             padding-top: 100px !important;
         }
@@ -75,7 +75,7 @@
         @page { margin: 85px 50px; }
         header { 
             position: fixed;
-            top: -60px;
+            top: -70px;
             left: 0px;
             right: 0px;
             text-align: left;
@@ -88,6 +88,10 @@
             right: 0px;
             border-top: 2px solid #894e3c !important;
         }
+        .pagenum:before {
+            content: counter(page);
+        }
+
         .p-0 { padding: 0px; }
         .p-1 { padding: 1px; }
         .p-2 { padding: 2px; }
@@ -223,14 +227,15 @@
                         <img src="{{public_path($logo)}}" alt="Logo" height="100" width="150">
                         <p><strong style="text-align: left;">NTN # 5599160-8</strong></p>
                     </td>
-                    <td style="border: 0px !important; width: 30%; vertical-align: middle; text-align: left; font-size: 20px">
+                    <td style="border: 0px !important; width: 30%; vertical-align: middle; text-align: left; font-size: 16px; font-weight: bold; text-transform: uppercase;">
                         Delivery Challan
                     </td>
                     <td style="text-align: justify; width: 30%; margin-right: -80px !important; border: 0px !important">
                         <div style="border-left: 3px solid #323653 !important; padding-left: 8px !important">
-                            <span style="color:#323653">Tel: +92 318 3788114</span><br>
-                            <span style="color:#323653">Fax: +92 51 8772576</span><br>
-                            <span style="color:#323653">E-mail: ascent.tts@gmail.com</span><br>
+                            <img src="{{public_path('assets/images/svg/phone.svg')}}" alt="SVG Image" height="10" width="10" style="padding-right:5px;"/><span style="color:#323653">Tel: +92 318 3788114</span><br>
+                            <img src="{{public_path('assets/images/svg/printer.svg')}}" alt="SVG Image" height="10" width="10" style="padding-right:5px;"/><span style="color:#323653">Fax: +92 51 8772576</span><br>
+                            <img src="{{public_path('assets/images/svg/envelop.svg')}}" alt="SVG Image" height="10" width="10" style="padding-right:5px;"/><span style="color:#323653">E-mail: procurement@ascent-tts.com</span><br>
+                            <img src="{{public_path('assets/images/svg/globe.svg')}}" alt="SVG Image" height="10" width="10" style="padding-right:5px;"/><span style="color:#323653">Website: ascent-tts.com</span><br>
                         </div>
                     </td>
                 </tr>
@@ -242,7 +247,7 @@
         <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Regional Office: Plot No 117 Shaheed Millat Road, Defence View Phase II, Karachi. Mobile: 0333-2814609</p>
     </footer>
     <main>
-        <table style="padding-top: 20px;">
+        <table style="padding-top: 0px;">
             <tbody>
                 <tr>
                     <td style="border: 0px !important; width: 60% !important;" class="w-70">
@@ -276,7 +281,7 @@
             <span>Customer Name</span><br>
             <span><strong>{{$deliveryChallan->supplyOrder?->quotation?->tender?->client?->name}}</strong></span><br><br>
             <span>Customer Reference</span><br>
-            <span><strong>Ref. No.</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->reference_no}}, <strong>Dated: </strong>{{dateFormate($deliveryChallan->supplyOrder?->quotation?->tender?->rfq_date)}} </span><br>
+            <span><strong>Ref. No.</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->reference_no}}, <strong>Dated: </strong>{{dateFormate($deliveryChallan->supplyOrder?->date_of_supply_order)}} </span><br>
         </div>
         <br>
         <br>
@@ -330,5 +335,17 @@
             <p class="text-right pt-70"><strong>Yours Truly</strong></p> 
         </div>
     </main>
+    <script type="text/php">
+        if (isset($pdf)) {
+            $text = "Page {PAGE_NUM} of {PAGE_COUNT} (Ref # {{$deliveryChallan->supplyOrder?->quotation?->reference_no}})";
+            $size = 8;
+            $font = $fontMetrics->getFont("Verdana");
+            $width = $fontMetrics->get_text_width($text, $font, $size) / 2;
+            $x = 37;
+            // Move the page number to the top of the page (adjust the Y-coordinate)
+            $y = 10; // Change this value to position the page number
+            $pdf->page_text($x, $y, $text, $font, $size);
+        }
+    </script>
 </body>
 </html>

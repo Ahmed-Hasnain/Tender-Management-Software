@@ -7,7 +7,7 @@
         /* Define your CSS styles here */
         body {
             font-family: "Courier New", Courier, monospace !important;
-            font-size: 12px;
+            font-size: 14px;
             padding-top: 60px !important;
         }
         table {
@@ -62,7 +62,7 @@
         @page { margin: 85px 50px; }
         header { 
             position: fixed;
-            top: -60px;
+            top: -70px;
             left: 0px;
             right: 0px;
             text-align: left;
@@ -75,6 +75,10 @@
             right: 0px;
             border-top: 2px solid #bd483b !important;
         }
+        .pagenum:before {
+            content: counter(page);
+        }
+
         .p-0 { padding: 0px; }
         .p-1 { padding: 1px; }
         .p-2 { padding: 2px; }
@@ -205,14 +209,14 @@
             <tbody>
                 <tr>
                     <td style="border: 0px !important; width: 72%;">
-                        <img src="{{public_path($logo)}}" alt="Logo" height="100" width="200"><br><br>
+                        <img src="{{public_path($logo)}}" alt="Logo" height="100" width="200"><br>
                         NTN: 7881680-2<br>
                     </td>
                     <td style="width: 28%; border: 0px !important">
                         <div>
                             <span style="color:#323653">Tel: +92 51 2745668</span><br>
                             <span style="color:#323653">Fax: +92 51 2745778</span><br>
-                            <span style="color:#323653">Email: msaadandcom@gmail.com</span><br><br><br>
+                            <span style="color:#323653">Email: msaadandcom@gmail.com</span><br><br>
                             STRN: 3277876141811<br>
                         </div>
                     </td>
@@ -224,11 +228,11 @@
         <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Head Quarter: Office # 18, 3<sup>rd</sup> Floor, Gulberg Trade Center, Business Park, Gulberg Greens, Islamabad.</p>
     </footer>
     <main>
-        <h2 class="text-center">Commercial Invoice</h2>
-        <table style="padding-top: 20px;">
+    <p class="text-center" style="padding: 0px; font-weight:bold; text-transform: uppercase; font-size: 16px;">Sale Tax Invoice</p>
+        <table style="padding-top: 0px;line-height:10px;">
             <tbody>
                 <tr>
-                    <td style="border: 0px !important; width: 60% !important;" class="w-30 text-right">  
+                    <td style="border: 0px !important; width: 60% !important;" class=" text-right">  
                         <table style="margin-top: 10px;"> 
                             <tbody>
                                 <tr>
@@ -254,14 +258,9 @@
                             </tbody>
                         </table>
                     </td>
-                    <td style="border: 0px !important; width: 40% !important;" class="w-70">
-                        {{-- <strong>Customer Name:</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->client?->name}} <br><br>
-                        <strong>Customer Reference:</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->reference_no}} - {{dateFormate($deliveryChallan->supplyOrder?->quotation?->tender?->rfq_date)}}<br> --}}
-                    </td>
                 </tr>
             </tbody>
         </table>
-        <br>
         <br>
         <table>
             <thead>
@@ -270,8 +269,8 @@
                     <th class="w-50 text-center">Description</th>
                     <th class="w-5 text-center">Qty</th>
                     <th class="w-5 text-center">A/U</th>
-                    <th class="text-center">Unit Price ({{$supplyOrder->quotation?->currency}})</th>
-                    <th class="text-center">Total Amount ({{$supplyOrder->quotation?->currency}})</th>
+                    <th class="w-10 text-center">Unit Price</th>
+                    <th class="w-10 text-center">Total Amount</th>
                 </tr>
             </thead>
             <tbody>
@@ -298,16 +297,41 @@
                     <td class="text-right">{{numberFormate(calculateTax($supplyOrder?->quotation?->tax, $supplyOrder->total_price))}}</td>
                 </tr>
                 <tr>
-                    <td colspan="5" class="footer" style="border: 0px !important;">Grand Total:</td>
+                    <td colspan="5" class="footer" style="border: 0px !important;">Grand Total ({{$supplyOrder->quotation?->currency}}):</td>
                     <td class="text-right">{{numberFormate($supplyOrder->total_price + calculateTax($supplyOrder?->quotation?->tax, $supplyOrder->total_price))}}</td>
                 </tr>
             </tfoot>
         </table>
         <br>
+        <br>
+        <strong>Store Delivered: </strong>
+        <br>
+        <ol>
+            @foreach ($supplyOrder->deliveryChallan as $key => $dc)
+                <li>
+                    <strong>Reference #: </strong> {{$dc->reference_no}} <strong>Dated:</strong> {{dateFormate($dc->created_at)}}
+                </li>
+                <br>
+            @endforeach
+        </ol>
+        <br>
+        <br>
+        <br>
         <div>
-            {{-- <p class="text-center">Remarks: <strong>{{$deliveryChallan->description}}</strong></p> --}}
-            <p class="text-center pt-20"><strong>Yours Truly</strong></p> 
+            <p class="text-right pt-20"><strong>Yours Truly</strong></p> 
         </div>
     </main>
+    <script type="text/php">
+        if (isset($pdf)) {
+            $text = "Page {PAGE_NUM} of {PAGE_COUNT} (Ref # {{$supplyOrder->quotation?->reference_no}})";
+            $size = 8;
+            $font = $fontMetrics->getFont("Verdana");
+            $width = $fontMetrics->get_text_width($text, $font, $size) / 2;
+            $x = 37;
+            // Move the page number to the top of the page (adjust the Y-coordinate)
+            $y = 10; // Change this value to position the page number
+            $pdf->page_text($x, $y, $text, $font, $size);
+        }
+    </script>
 </body>
 </html>

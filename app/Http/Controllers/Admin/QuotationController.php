@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App;
 use Inertia\Inertia;
 use App\Models\Client;
 use App\Models\Tender;
@@ -264,24 +265,28 @@ class QuotationController extends Controller
                 'quotation' => $quotation,
                 'date' => $date
             ];
+            $pdf = \App::make('dompdf.wrapper');
+            /* Careful: use "enable_php" option only with local html & script tags you control.
+            used with remote html or scripts is a major security problem (remote php injection) */
+            $pdf->getDomPDF()->set_option("enable_php", true);
             switch ($company) {
                 case 'OndreTicaretTemplate':
                     $data['logo'] = "assets/images/logo/onder-logo.png";
-                    $pdf = Pdf::loadView('OndreTicaretTemplate', $data);
+                    $pdf->loadView('OndreTicaretTemplate', $data);
                     break;
                 case 'MSaadAndCompanyTemplate':
                     $data['logo'] = "assets/images/logo/saad&co.png";
-                    $pdf = Pdf::loadView('MSaadAndCompanyTemplate', $data);
+                    $pdf->loadView('MSaadAndCompanyTemplate', $data);
                     break;
                 case 'AscentTemplate':
                     $data['logo'] = "assets/images/logo/ascent.png";
-                    $pdf = Pdf::loadView('AscentTemplate', $data);
+                    $pdf->loadView('AscentTemplate', $data);
                     break;
             }
             // return view($company, $data);
-            return $pdf->download('Quotation-' . $quotation->reference_no . '.pdf');
+            return $pdf->stream('Quotation-' . $quotation->reference_no . '.pdf');
         } catch (\Throwable $th) {
-            Log::info($th->getMessage());
+            Log::info($th->getMessage()); 
         }
     }
 

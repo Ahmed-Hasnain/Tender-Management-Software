@@ -7,7 +7,7 @@
         /* Define your CSS styles here */
         body {
             font-family: Arial, sans-serif;
-            font-size: 12px;
+            font-size: 14px;
             padding: 20px !important;
             padding-top: 80px !important;
         }
@@ -75,11 +75,11 @@
         @page { margin: 85px 50px; }
         header { 
             position: fixed;
-            top: -60px;
+            top: -70px;
             left: 0px;
             right: 0px;
             text-align: left;
-            padding-bottom: 20px;
+            padding-bottom: 0px;
         }
         footer { 
             position: fixed;
@@ -87,6 +87,9 @@
             left: 0px;
             right: 0px;
             border-top: 2px solid #bd483b !important;
+        }
+        .pagenum:before {
+            content: counter(page);
         }
         .p-0 { padding: 0px; }
         .p-1 { padding: 1px; }
@@ -212,6 +215,7 @@
         .bg-info { background-color: #17a2b8; }
         .bg-light { background-color: #f8f9fa; }
         .bg-dark { background-color: #343a40; }
+        .header-table td{ font-size: 13px; line-height: 10px;}
     </style>
 </head>
 <body>
@@ -220,15 +224,15 @@
             <tbody>
                 <tr>
                     <td style="border: 0px !important; width: 72%;">
-                        <img src="{{public_path($logo)}}" alt="Logo" height="100" width="200"><br><br>
-                        NTN: 7881680-2<br>
+                        <img src="{{public_path($logo)}}" alt="Logo" height="100" width="200"><br>
+                        NTN: 7881680-2
                     </td>
                     <td style="width: 28%; border: 0px !important">
                         <div>
                             <span style="color:#323653">Tel: +92 51 2745668</span><br>
                             <span style="color:#323653">Fax: +92 51 2745778</span><br>
-                            <span style="color:#323653">Email: msaadandcom@gmail.com</span><br><br><br>
-                            STRN: 3277876141811<br>
+                            <span style="color:#323653">Email: msaadandcom@gmail.com</span><br><br>
+                            STRN: 3277876141811
                         </div>
                     </td>
                 </tr>
@@ -239,49 +243,39 @@
         <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Head Quarter: Office # 18, 3<sup>rd</sup> Floor, Gulberg Trade Center, Business Park, Gulberg Greens, Islamabad.</p>
     </footer>
     <main>
-        <h2 class="text-center">DELIVERY CHALLAN</h2>
-        <table style="padding-top: 20px;">
+        <p class="text-center" style="padding: 0px; font-weight:bold;">DELIVERY CHALLAN</p>
+        <table style="padding-top: 0px;" class="header-table">
             <tbody>
                 <tr>
-                    <td style="border: 0px !important; width: 60% !important;" class="w-30 text-right">  
-                        <table style="margin-top: 10px;"> 
-                            <tbody>
-                                <tr>
+                    <td style="border: 0px !important; width: 60% !important;" class=" text-right">  
+                        <table style="margin-top: 0px;"> 
+                            <tbody >
+                                <tr style="padding: 0px !important;">
                                     <td class="w-30" style="border: 0px !important; color: gray !important;"><strong>Date:</strong></td>
                                     <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">{{dateFormate($date)}}</td>
                                 </tr>
-                                <tr>
+                                <tr style="padding: 0px !important;">
                                     <td class="w-30" style="border: 0px !important; color: gray !important;"><strong>No#</strong></td>
                                     <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">{{$deliveryChallan->reference_no}}</td>
                                 </tr>
-                                <tr>
+                                <tr style="padding: 0px !important;">
                                     <td class="w-30" style="border: 0px !important; color: gray !important;"><strong>Reference:</strong></td>
                                     <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">{{$deliveryChallan->supplyOrder?->quotation?->reference_no}} - Dated: {{dateFormate($date)}}</td>
                                 </tr>
-                                <tr>
+                                <tr style="padding: 0px !important;">
                                     <td class="w-30" style="border: 0px !important; color: gray !important;"><strong>Cust.Name:</strong></td>
                                     <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">{{$deliveryChallan->supplyOrder?->quotation?->tender?->client?->name}}</td>
                                 </tr>
-                                <tr>
+                                <tr style="padding: 0px !important;">
                                     <td class="w-30" style="border: 0px !important; color: gray !important;"><strong>Customer Ref:</strong></td>
-                                    <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">{{$deliveryChallan->supplyOrder?->quotation?->tender?->reference_no}} - Dated: {{dateFormate($deliveryChallan->supplyOrder?->quotation?->tender?->rfq_date)}}</td>
+                                    <td class="w-70" style="border: 0px !important; border-left: 1px solid gray !important;">{{$deliveryChallan->supplyOrder?->quotation?->tender?->reference_no}} - Dated: {{dateFormate($deliveryChallan->supplyOrder?->date_of_supply_order)}}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </td>
-                    <td style="border: 0px !important; width: 40% !important;" class="w-70">
-                        {{-- <strong>Customer Name:</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->client?->name}} <br><br>
-                        <strong>Customer Reference:</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->reference_no}} - {{dateFormate($deliveryChallan->supplyOrder?->quotation?->tender?->rfq_date)}}<br> --}}
-                    </td>
                 </tr>
             </tbody>
         </table>
-        {{-- <div>
-            <span>Customer Name</span><br>
-            <span><strong>{{$deliveryChallan->supplyOrder?->quotation?->tender?->client?->name}}</strong></span><br><br>
-            <span>Customer Reference</span><br>
-            <span><strong>Ref. No.</strong> {{$deliveryChallan->supplyOrder?->quotation?->tender?->reference_no}}, <strong>Dated: </strong>{{dateFormate($deliveryChallan->supplyOrder?->quotation?->tender?->rfq_date)}} </span><br>
-        </div> --}}
         <br>
         <br>
         <table>
@@ -330,9 +324,21 @@
         </table>
         <br>
         <div>
-            <p class="text-center">Remarks: <strong>{{$deliveryChallan->description}}</strong></p>
+            <p class="">Remarks: <strong>{{$deliveryChallan->description ?? 'Nil'}}</strong></p>
             <p class="text-center pt-70"><strong>Yours Truly</strong></p> 
         </div>
     </main>
+    <script type="text/php">
+        if (isset($pdf)) {
+            $text = "Page {PAGE_NUM} of {PAGE_COUNT} (Ref # {{$deliveryChallan->supplyOrder?->quotation?->reference_no}})";
+            $size = 8;
+            $font = $fontMetrics->getFont("Verdana");
+            $width = $fontMetrics->get_text_width($text, $font, $size) / 2;
+            $x = 37;
+            // Move the page number to the top of the page (adjust the Y-coordinate)
+            $y = 10; // Change this value to position the page number
+            $pdf->page_text($x, $y, $text, $font, $size);
+        }
+    </script>
 </body>
 </html>

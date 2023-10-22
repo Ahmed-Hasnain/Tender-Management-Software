@@ -7,7 +7,7 @@
         /* Define your CSS styles here */
         body {
             font-family: "Arial Narrow", Arial, sans-serif !important;
-            font-size: 12px;
+            font-size: 14px;
             margin: 0px 8px !important; 
             padding-top: 100px !important;
         }
@@ -63,7 +63,7 @@
         @page { margin: 85px 50px; }
         header { 
             position: fixed;
-            top: -60px;
+            top: -70px;
             left: 0px;
             right: 0px;
             text-align: left;
@@ -84,6 +84,10 @@
         }
         .text-center {
             text-align: center !important;
+        }
+
+        .pagenum:before {
+            content: counter(page);
         }
 
         .p-0 { padding: 0px; }
@@ -212,6 +216,7 @@
 </head>
 <body>
     <header>
+        <!-- Page # <span class="pagenum"></span> (<small>Ref # {{$quotation->reference_no}}</small>) -->
         <table>
             <tbody>
                 <tr style="border-bottom: 4px solid #894e3c !important;">
@@ -224,9 +229,10 @@
                     </td>
                     <td style="text-align: justify; width: 30%; margin-right: -80px !important; border: 0px !important">
                         <div style="border-left: 3px solid #323653 !important; padding-left: 8px !important">
-                            <span style="color:#323653">Tel: +92 318 3788114</span><br>
-                            <span style="color:#323653">Fax: +92 51 8772576</span><br>
-                            <span style="color:#323653">E-mail: ascent.tts@gmail.com</span><br>
+                            <img src="{{public_path('assets/images/svg/phone.svg')}}" alt="SVG Image" height="10" width="10" style="padding-right:5px;"/><span style="color:#323653">Tel: +92 318 3788114</span><br>
+                            <img src="{{public_path('assets/images/svg/printer.svg')}}" alt="SVG Image" height="10" width="10" style="padding-right:5px;"/><span style="color:#323653">Fax: +92 51 8772576</span><br>
+                            <img src="{{public_path('assets/images/svg/envelop.svg')}}" alt="SVG Image" height="10" width="10" style="padding-right:5px;"/><span style="color:#323653">E-mail: procurement@ascent-tts.com</span><br>
+                            <img src="{{public_path('assets/images/svg/globe.svg')}}" alt="SVG Image" height="10" width="10" style="padding-right:5px;"/><span style="color:#323653">Website: ascent-tts.com</span><br>
                         </div>
                     </td>
                 </tr>
@@ -307,8 +313,8 @@
                     <th class="w-50 text-center">Description</th>
                     <th class="w-5 text-center">UOM</th>
                     <th class="w-5 text-center">Qty</th>
-                    <th class="text-center">Unit Price ({{$quotation->currency}})</th>
-                    <th class="text-center">Total Amount ({{$quotation->currency}})</th>
+                    <th class="w-10 text-center">Unit Price</th>
+                    <th class="w-10 text-center">Total Amount</th>
                 </tr>
             </thead>
             <tbody>
@@ -335,7 +341,7 @@
                     <td class="text-right">{{numberFormate(calculateTax($quotation->tax, $quotation->total_price))}}</td>
                 </tr>
                 <tr>
-                    <td colspan="5" class="footer" style="border: 0px !important;">Grand Total:</td>
+                    <td colspan="5" class="footer" style="border: 0px !important;">Grand Total({{$quotation->currency}}):</td>
                     <td class="text-right">{{numberFormate($quotation->total_price + calculateTax($quotation->tax, $quotation->total_price))}}</td>
                 </tr>
             </tfoot>
@@ -351,8 +357,20 @@
         </div>
         <br>
         <div>
-            <p class="text-center pt-20"><strong>Yours Truly</strong></p> 
+            <p class="text-center" style="padding-top: 100px;"><strong>Yours Truly</strong></p> 
         </div>
     </main>
+    <script type="text/php">
+        if (isset($pdf)) {
+            $text = "Page {PAGE_NUM} of {PAGE_COUNT} (Ref # {{$quotation->reference_no}})";
+            $size = 8;
+            $font = $fontMetrics->getFont("Verdana");
+            $width = $fontMetrics->get_text_width($text, $font, $size) / 2;
+            $x = 37;
+            // Move the page number to the top of the page (adjust the Y-coordinate)
+            $y = 10; // Change this value to position the page number
+            $pdf->page_text($x, $y, $text, $font, $size);
+        }
+    </script>
 </body>
 </html>

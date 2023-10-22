@@ -46,8 +46,10 @@ export default {
             let ci_status = this.allParams ? '&params[ci_status]=' + this.allParams.ci_status : ''
             let pr_status = this.allParams ? '&params[pr_status]=' + this.allParams.pr_status : ''
             let report_type = this.allParams ? '&params[reportType]=' + this.allParams.reportType : ''
+            let item_status = this.allParams ? '&params[item_status]=' + this.allParams.item_status : ''
+            let amount_included = this.allParams ? '&params[amount_included]=' + this.allParams.amount_included : ''
             
-            return url + searchedKeyword + company + status + department + startDate + endDate + limit  + currency + sti_status + ci_status + pr_status + report_type
+            return url + searchedKeyword + company + status + department + startDate + endDate + limit  + currency + sti_status + ci_status + pr_status + report_type + item_status + amount_included
         }
     },
 }

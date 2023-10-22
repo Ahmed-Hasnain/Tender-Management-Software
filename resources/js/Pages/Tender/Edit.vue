@@ -117,7 +117,7 @@
                                 <tbody>
                                     <tr v-for="(tenderItem, index) in form.items" :key="index">
                                         <th scope="row">{{ index+1 }}</th>
-                                        <td class="text-capitalize">{{ tenderItem.item?.name }}<br><small>{{ tenderItem.description }}</small></td>
+                                        <td class="">{{ tenderItem.item?.name }}<br><small>{{ tenderItem.description }}</small></td>
                                         <td class="text-capitalize">{{ tenderItem.unit?.full_name }}</td>
                                         <td class="text-capitalize">{{tenderItem.qty}}</td>
                                         <td class="text-capitalize">
