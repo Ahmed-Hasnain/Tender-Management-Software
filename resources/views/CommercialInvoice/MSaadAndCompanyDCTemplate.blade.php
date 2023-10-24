@@ -228,7 +228,7 @@
         <p style="padding: 0px !important; margin: 0px !important; text-align: justified !important;">Head Quarter: Office # 18, 3<sup>rd</sup> Floor, Gulberg Trade Center, Business Park, Gulberg Greens, Islamabad.</p>
     </footer>
     <main>
-    <p class="text-center" style="padding: 0px; font-weight:bold; text-transform: uppercase; font-size: 16px;">Sale Tax Invoice</p>
+    <p class="text-center" style="padding: 0px; font-weight:bold; text-transform: uppercase; font-size: 16px;">Commercial Invoice</p>
         <table style="padding-top: 0px;line-height:10px;">
             <tbody>
                 <tr>
