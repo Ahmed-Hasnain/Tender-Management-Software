@@ -25,7 +25,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label class="font-weight-semibold" for="Account Title">Quantity</label>
-                            <input type="number" class="form-control" placeholder="Quantity" v-model="form.qty">
+                            <input type="number" class="form-control" placeholder="Quantity" v-model="form.qty" step="0.01" min="1">
                             <error :message="form.errors?.qty"></error>
                         </div>
                     </div>
