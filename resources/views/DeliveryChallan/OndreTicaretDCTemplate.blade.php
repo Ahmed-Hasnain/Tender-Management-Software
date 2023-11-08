@@ -285,7 +285,7 @@
                             <td class="w-5 text-center">{{$item->qty}}</td>
                             <td class="w-5 text-center">{{$item->supplyOrderItem?->quotationItem?->tenderItem?->unit?->short_name}}</td>
                             <td class="text-right">{{numberFormate($item->unit_price)}}</td>
-                            <td class="text-right bg-secondary">{{numberFormate($item->unit_price)}}</td>
+                            <td class="text-right bg-secondary">{{numberFormate($item->unit_price * $item->qty)}}</td>
                         </tr>
                     @endforeach
                 @endif
