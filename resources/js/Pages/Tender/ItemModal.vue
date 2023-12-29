@@ -25,7 +25,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label class="font-weight-semibold" for="Account Title">Quantity</label>
-                            <input type="number" class="form-control" placeholder="Quantity" v-model="form.qty" step="0.01" min="1">
+                            <input type="number" class="form-control" placeholder="Quantity" v-model="form.qty" step="0.01" min="0">
                             <error :message="form.errors?.qty"></error>
                         </div>
                     </div>
@@ -78,7 +78,9 @@ export default {
                     onSuccess: () => { 
                         this.emitter.emit('close_modal')
                     },
-                    onError: errors => { console.log(errors); }
+                    onError: errors => { 
+                        console.log(errors); 
+                    }
                 })
             } else {
                 this.form.post(route('dashboard.tender-item.store'), {
