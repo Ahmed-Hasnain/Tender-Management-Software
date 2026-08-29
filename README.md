@@ -1,64 +1,198 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<div align="center">
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Tender Management System
 
-## About Laravel
+**Procurement workflow platform for tenders, suppliers, customers, and orders.**
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<img src="https://img.shields.io/badge/Laravel-FF2D20?style=flat-square&logo=laravel&logoColor=white"/>
+<img src="https://img.shields.io/badge/Vue.js-4FC08D?style=flat-square&logo=vuedotjs&logoColor=white"/>
+<img src="https://img.shields.io/badge/PHP-777BB4?style=flat-square&logo=php&logoColor=white"/>
+<img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white"/>
+<img src="https://img.shields.io/badge/Bootstrap-7952B3?style=flat-square&logo=bootstrap&logoColor=white"/>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+</div>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Overview
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Procurement is a paperwork problem before it's a software problem. A single tender moves through supplier invitations, bids, evaluation, award, purchase orders, delivery, and invoicing — and in most organisations that journey lives across spreadsheets, email threads, and a filing cabinet. When a supplier asks "where is our payment," someone spends twenty minutes finding out.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+This system consolidates the full procurement lifecycle into one dashboard, with the document generation that procurement actually runs on — delivery challans and invoices produced as downloadable PDFs rather than retyped into Word.
 
-## Laravel Sponsors
+## Features
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+**Tender management**
+Create and track tenders through their lifecycle, with associated suppliers, documents, and status.
 
-### Premium Partners
+**Supplier directory**
+Central supplier records linked to tenders and orders, so procurement history for any vendor is one click away.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+**Customer management**
+Customer records tied to orders and invoicing.
 
-## Contributing
+**Order processing**
+Orders connected to their originating tender and supplier, tracked through fulfilment.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**Document generation**
+Delivery challans and invoices generated as downloadable PDFs, formatted for actual use rather than screen-only display.
 
-## Code of Conduct
+**Unified dashboard**
+A responsive Vue.js interface with consistent UI patterns across every module — the same table behaviour, filters, and form conventions everywhere, so learning one screen teaches you the rest.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Tech stack
 
-## Security Vulnerabilities
+| Layer | Technology |
+|---|---|
+| Backend | Laravel (PHP) |
+| Frontend | Vue.js, Blade templates |
+| Database | MySQL |
+| Styling | Bootstrap |
+| PDF generation | Server-side rendering to PDF |
+| Deployment | Git pipeline on Linux / cPanel |
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Architecture notes
+
+**Relational model.** Tenders, suppliers, customers, and orders are interlinked rather than siloed — an order traces back to its tender and supplier, which is what makes procurement history queryable instead of merely stored.
+
+**Consistent module UI.** Every module shares the same interface conventions. This was a deliberate constraint: procurement staff use the system occasionally rather than daily, so predictability matters more than density.
+
+**Deployment pipeline.** Configured Git-based deployment onto Linux/cPanel hosting, replacing manual FTP uploads with a repeatable process.
+
+---
+
+## Getting started
+
+### Prerequisites
+
+| Requirement | Version |
+|---|---|
+| PHP | 8.1+ |
+| Composer | 2.x |
+| Node.js | 16+ |
+| MySQL | 5.7+ or 8.0 |
+
+### Installation
+
+**1. Clone and install dependencies**
+
+```bash
+git clone https://github.com/Ahmed-Hasnain/tender-management-system.git
+cd tender-management-system
+
+composer install
+npm install
+```
+
+**2. Configure environment**
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+Open `.env` and set your database credentials:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=tender_management
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+**3. Create the database**
+
+```bash
+mysql -u root -p -e "CREATE DATABASE tender_management;"
+```
+
+**4. Run migrations**
+
+```bash
+php artisan migrate --seed
+```
+
+The seeder creates a default admin account and sample reference data.
+
+**5. Build frontend assets**
+
+```bash
+npm run dev      # development, with hot reload
+# npm run build  # production
+```
+
+**6. Start the server**
+
+```bash
+php artisan serve
+```
+
+Open **http://localhost:8000**.
+
+### Troubleshooting
+
+<details>
+<summary><strong>500 error on first load</strong></summary>
+
+Usually a missing app key or unwritable storage:
+
+```bash
+php artisan key:generate
+chmod -R 775 storage bootstrap/cache
+```
+</details>
+
+<details>
+<summary><strong>PDFs generate blank or fail</strong></summary>
+
+PDF rendering needs a writable temp directory and the GD or Imagick PHP extension:
+
+```bash
+php -m | grep -E 'gd|imagick'
+```
+
+If neither appears, install one via your package manager and restart PHP.
+</details>
+
+<details>
+<summary><strong>Vue components don't render</strong></summary>
+
+Assets haven't been compiled. Run `npm run dev` and leave it running, or `npm run build` for a one-off production build.
+</details>
+
+---
+
+## Project structure
+
+```
+tender-management-system/
+├── app/
+│   ├── Http/Controllers/    Request handling per module
+│   ├── Models/              Eloquent models
+│   └── Services/            Business logic
+├── database/
+│   ├── migrations/          Schema definitions
+│   └── seeders/             Sample and reference data
+├── resources/
+│   ├── js/components/       Vue components
+│   └── views/               Blade templates and PDF layouts
+├── routes/
+│   └── web.php
+└── public/
+```
+
+---
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+MIT — see [LICENSE](LICENSE).
+
+---
+
+<div align="center">
+
+Built by **[Ahmed Hasnain](https://github.com/Ahmed-Hasnain)** · [ahmedhasnain.com](https://ahmedhasnain.com) · [LinkedIn](https://www.linkedin.com/in/ahmedhasnain/)
+
+</div>
